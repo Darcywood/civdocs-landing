@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function Home() {
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/">
-                <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-16" />
+                <Image src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
               </Link>
             </div>
             
@@ -420,7 +421,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-10 mb-6 brightness-0 invert" />
+              <Image src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
               <p className="text-gray-400 leading-relaxed">
                 Simplifying civil construction management for teams everywhere.
               </p>

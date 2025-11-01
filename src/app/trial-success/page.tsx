@@ -1,27 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function TrialSuccessPage() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
-  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
     // Auto-redirect disabled for local development
     // In production, uncomment this to redirect to app.civdocs.com
-    // if (countdown === 0) {
-    //   window.location.href = 'https://app.civdocs.com/auth/login';
-    //   return;
-    // }
-
-    // const timer = setTimeout(() => {
-    //   setCountdown(countdown - 1);
-    // }, 1000);
-
-    // return () => clearTimeout(timer);
-  }, [countdown]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6">
@@ -56,7 +46,7 @@ export default function TrialSuccessPage() {
 
         {email && (
           <p className="text-lg text-gray-600 mb-8">
-            We've sent setup instructions to <span className="font-semibold text-[#1E1E1E]">{email}</span>
+            We&apos;ve sent setup instructions to <span className="font-semibold text-[#1E1E1E]">{email}</span>
           </p>
         )}
 
@@ -70,7 +60,7 @@ export default function TrialSuccessPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-[#1E1E1E] mb-1">Check Your Email</h3>
-                <p className="text-gray-600">You'll receive login credentials and a setup guide within the next few minutes.</p>
+                <p className="text-gray-600">You&apos;ll receive login credentials and a setup guide within the next few minutes.</p>
               </div>
             </div>
 
@@ -100,24 +90,24 @@ export default function TrialSuccessPage() {
         <div className="bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10 rounded-xl p-6 mb-6">
           <h3 className="font-semibold text-[#1E1E1E] mb-2">No Credit Card Required</h3>
           <p className="text-gray-700">
-            Your trial is completely free for 14 days. We'll never charge you without your permission.
+            Your trial is completely free for 14 days. We&apos;ll never charge you without your permission.
           </p>
         </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+          <Link
             href="/"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             ← Back to Home
-          </a>
-          <a
+          </Link>
+          <Link
             href="/pricing"
             className="inline-flex items-center px-8 py-4 bg-white border-2 border-gray-200 text-[#1E1E1E] font-semibold text-lg rounded-full hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all duration-300"
           >
             View Pricing
-          </a>
+          </Link>
         </div>
 
         {/* Help Link */}

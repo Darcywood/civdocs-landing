@@ -9,7 +9,7 @@ export default function TestTrialPage() {
     company: '',
     plan_type: 'bronze'
   });
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{ status?: number; data?: unknown; error?: string } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,8 +26,8 @@ export default function TestTrialPage() {
 
       const data = await response.json();
       setResult({ status: response.status, data });
-    } catch (error: any) {
-      setResult({ error: error.message });
+    } catch (error) {
+      setResult({ error: error instanceof Error ? error.message : 'An error occurred' });
     } finally {
       setLoading(false);
     }

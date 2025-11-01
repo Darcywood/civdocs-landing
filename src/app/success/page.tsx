@@ -54,7 +54,7 @@ export default function SuccessPage() {
         </p>
 
         <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 mb-8">
-          <h2 className="text-2xl font-semibold text-[#1E1E1E] mb-4">What's Next?</h2>
+          <h2 className="text-2xl font-semibold text-[#1E1E1E] mb-4">What&apos;s Next?</h2>
           
           <div className="space-y-4 text-left">
             <div className="flex items-start gap-4">
