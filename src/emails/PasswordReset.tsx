@@ -13,13 +13,11 @@ import {
 interface PasswordResetProps {
   name: string;
   resetUrl: string;
-  baseUrl: string;
 }
 
 export default function PasswordReset({
   name = 'User',
   resetUrl = 'https://civdocs.com.au/reset-password',
-  baseUrl = 'https://civdocs.com.au',
 }: PasswordResetProps) {
   return (
     <Html>
@@ -48,7 +46,7 @@ export default function PasswordReset({
             </Text>
 
             <Text style={styles.paragraph}>
-              We received a request to reset your CivDocs password. If you didn't make this request, you can safely ignore this email.
+              We received a request to reset your CivDocs password. If you didn&apos;t make this request, you can safely ignore this email.
             </Text>
 
             <Text style={styles.paragraph}>
@@ -67,7 +65,7 @@ export default function PasswordReset({
             </Text>
 
             <Text style={styles.paragraph}>
-              If you have any questions or need assistance, don't hesitate to reach out. We're here to help!
+              If you have any questions or need assistance, don&apos;t hesitate to reach out. We&apos;re here to help!
             </Text>
           </Section>
 

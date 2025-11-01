@@ -12,16 +12,12 @@ import {
 
 interface TrialWelcomeProps {
   name: string;
-  toEmail: string;
   loginUrl: string;
-  baseUrl: string;
 }
 
 export default function TrialWelcome({
   name = 'User',
-  toEmail = 'user@example.com',
   loginUrl = 'https://app.civdocs.com.au/login',
-  baseUrl = 'https://civdocs.com.au',
 }: TrialWelcomeProps) {
   return (
     <Html>
@@ -46,7 +42,7 @@ export default function TrialWelcome({
             </Heading>
             
             <Text style={styles.paragraph}>
-              We're excited to have you on board! Your free trial has been activated and you're ready to start managing your civil documents more efficiently.
+              We&apos;re excited to have you on board! Your free trial has been activated and you&apos;re ready to start managing your civil documents more efficiently.
             </Text>
 
             <Text style={styles.paragraph}>
@@ -61,7 +57,7 @@ export default function TrialWelcome({
             </Section>
 
             <Text style={styles.paragraph}>
-              If you have any questions or need assistance getting started, don't hesitate to reach out. We're here to help!
+              If you have any questions or need assistance getting started, don&apos;t hesitate to reach out. We&apos;re here to help!
             </Text>
           </Section>
 

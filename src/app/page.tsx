@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,9 +41,9 @@ export default function Home() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/">
+              <Link href="/">
                 <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-16" />
-              </a>
+              </Link>
             </div>
             
             {/* Desktop Navigation */}
