@@ -4,7 +4,15 @@ import { render } from "@react-email/render";
 import PasswordReset from "@/emails/PasswordReset";
 import { createClient } from "@supabase/supabase-js";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialize Resend to avoid build-time errors
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+  return new Resend(apiKey);
+}
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -45,6 +53,7 @@ export async function POST(req: Request) {
       />
     );
 
+    const resend = getResend();
     const result = await resend.emails.send({
       from: process.env.FROM_EMAIL!,
       to: email,

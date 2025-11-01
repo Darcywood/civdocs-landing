@@ -407,7 +407,10 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
   
   try {
     // Initialize Resend
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+    if (!resend) {
+      throw new Error("RESEND_API_KEY is not set");
+    }
     
     // Get customer email
     let customerEmail = invoice.customer_email;

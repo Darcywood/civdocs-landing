@@ -3,7 +3,14 @@ import { render } from "@react-email/render";
 import crypto from "crypto";
 import TrialWelcome from "@/emails/TrialWelcome";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialize Resend to avoid build-time errors
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+  return new Resend(apiKey);
+}
 
 export function generateTempPassword(length = 14) {
   return crypto.randomBytes(length)
@@ -33,6 +40,7 @@ export async function sendTrialWelcomeEmail({
   console.log("[Email] HTML rendered, length:", html.length);
   console.log("[Email] HTML type:", typeof html);
 
+  const resend = getResend();
   return resend.emails.send({
     from: process.env.FROM_EMAIL!,
     to,
