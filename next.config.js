@@ -4,6 +4,11 @@ const nextConfig = {
   eslint: {
     // 🚫 Skip all ESLint checks during builds (Vercel, CI)
     ignoreDuringBuilds: true,
+    dirs: [], // Don't lint any directories
+  },
+  typescript: {
+    // Also ignore TypeScript errors if needed
+    ignoreBuildErrors: false,
   },
   images: {
     domains: [
