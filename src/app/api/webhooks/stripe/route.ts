@@ -305,7 +305,8 @@ export async function POST(req: NextRequest) {
         console.log('🔥 INVOICE PAYMENT PAID - Calling handler');
         // For invoice_payment.paid, we need to fetch the full invoice
         const invoicePayment = event.data.object as Stripe.InvoicePayment;
-        const fullInvoice = await stripe.invoices.retrieve(invoicePayment.invoice as string);
+        const stripeForInvoice = getStripe();
+        const fullInvoice = await stripeForInvoice.invoices.retrieve(invoicePayment.invoice as string);
         await handlePaymentSucceeded(fullInvoice);
         break;
       
@@ -415,7 +416,8 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     if (!customerEmail && invoice.customer) {
       console.log('No email on invoice, fetching from customer:', invoice.customer);
       try {
-        const customer = await stripe.customers.retrieve(invoice.customer as string);
+        const stripeForCustomer = getStripe();
+        const customer = await stripeForCustomer.customers.retrieve(invoice.customer as string);
         if (customer && !customer.deleted) {
           customerEmail = (customer as Stripe.Customer).email;
           console.log('Retrieved customer email:', customerEmail);
