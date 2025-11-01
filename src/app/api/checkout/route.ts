@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-09-30.clover",
-});
+// Lazy initialize Stripe to avoid build-time errors
+function getStripe() {
+  const apiKey = process.env.STRIPE_SECRET_KEY;
+  if (!apiKey) {
+    throw new Error("STRIPE_SECRET_KEY is not set");
+  }
+  return new Stripe(apiKey, {
+    apiVersion: "2025-09-30.clover",
+  });
+}
 
 // Helper function to get plan tier from price ID
 function getPlanTierFromPriceId(priceId: string): string {
@@ -33,6 +40,9 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+
+    // Initialize Stripe
+    const stripe = getStripe();
 
     // Find or create Stripe customer based on email
     let customer;

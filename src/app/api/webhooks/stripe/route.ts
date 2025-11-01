@@ -4,9 +4,16 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import puppeteer from 'puppeteer';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-09-30.clover',
-});
+// Lazy initialize Stripe to avoid build-time errors
+function getStripe() {
+  const apiKey = process.env.STRIPE_SECRET_KEY;
+  if (!apiKey) {
+    throw new Error("STRIPE_SECRET_KEY is not set");
+  }
+  return new Stripe(apiKey, {
+    apiVersion: '2025-09-30.clover',
+  });
+}
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -259,6 +266,7 @@ export async function POST(req: NextRequest) {
     let event: Stripe.Event;
 
     try {
+      const stripe = getStripe();
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
