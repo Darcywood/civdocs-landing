@@ -5,13 +5,15 @@ import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email";
 // Force Node.js runtime for Resend SDK
 export const runtime = "nodejs";
 
-// Initialize Supabase client with service role key (bypasses RLS)
-console.log("[Trial Signup] Initializing Supabase client...");
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-console.log("[Trial Signup] Supabase client initialized successfully");
+// Lazy initialize Supabase to avoid build-time errors
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error("Supabase environment variables are not set");
+  }
+  return createClient(url, key);
+}
 
 // Valid plan types
 const VALID_PLANS = ["bronze", "silver", "gold"] as const;
@@ -151,7 +153,7 @@ export async function POST(req: Request) {
     // STEP 1: CREATE AUTH USER
     // ============================================================
     console.log(`[Trial Signup] Step 1: Creating auth user for: ${email}`);
-
+    const supabase = getSupabase();
     const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
       email,
       password: password,
@@ -383,6 +385,7 @@ async function rollbackOnError(
   orgUserCreated: boolean
 ) {
   console.log("[Rollback] Starting rollback...");
+  const supabase = getSupabase();
 
   // Delete in reverse order of creation
   if (orgUserCreated && userId && orgId) {

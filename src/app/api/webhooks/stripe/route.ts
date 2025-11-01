@@ -15,10 +15,15 @@ function getStripe() {
   });
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY! // Use service role key for webhooks
-);
+// Lazy initialize Supabase to avoid build-time errors
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error("Supabase environment variables are not set");
+  }
+  return createClient(url, key);
+}
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -326,6 +331,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   
   // Update organization with subscription details
   if (session.metadata?.orgId) {
+    const supabase = getSupabase();
     const { error } = await supabase
       .from('organizations')
       .update({
@@ -346,6 +352,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   console.log('Subscription created:', subscription.id);
   
   // Update organization subscription status
+  const supabase = getSupabase();
   const { error } = await supabase
     .from('organizations')
     .update({
@@ -365,6 +372,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   console.log('Subscription updated:', subscription.id);
   
+  const supabase = getSupabase();
   const { error } = await supabase
     .from('organizations')
     .update({
@@ -383,6 +391,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   console.log('Subscription deleted:', subscription.id);
   
+  const supabase = getSupabase();
   const { error } = await supabase
     .from('organizations')
     .update({

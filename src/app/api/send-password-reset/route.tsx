@@ -13,10 +13,15 @@ function getResend() {
   return new Resend(apiKey);
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// Lazy initialize Supabase to avoid build-time errors
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error("Supabase environment variables are not set");
+  }
+  return createClient(url, key);
+}
 
 export const runtime = "nodejs";
 
@@ -32,6 +37,7 @@ export async function POST(req: Request) {
     }
 
     // Generate the actual Supabase reset URL
+    const supabase = getSupabase();
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: 'https://civdocs.com.au/reset-password',
     });
