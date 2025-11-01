@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 
-export default function StartTrialPage() {
+function StartTrialContent() {
   const searchParams = useSearchParams();
   const planParam = searchParams.get('plan');
   
@@ -53,7 +55,7 @@ export default function StartTrialPage() {
         alert('⚠️ ' + (data.error || 'An error occurred'));
         setLoading(false);
       }
-    } catch (error: any) {
+    } catch {
       alert('⚠️ An error occurred. Please try again.');
       setLoading(false);
     }
@@ -72,7 +74,7 @@ export default function StartTrialPage() {
       <div className="max-w-md w-full">
         {/* Back to home link */}
         <div className="mb-6">
-          <a 
+          <Link 
             href="/" 
             className="inline-flex items-center text-gray-600 hover:text-[#FF8C32] transition-colors font-medium"
           >
@@ -80,7 +82,7 @@ export default function StartTrialPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Back to home
-          </a>
+          </Link>
         </div>
 
         <div className="text-center mb-8">
@@ -103,7 +105,7 @@ export default function StartTrialPage() {
             <p className="text-sm text-gray-600 mb-1">Selected Plan</p>
             <div className="flex items-center justify-center gap-2">
               {currentPlan.image ? (
-                <img src={currentPlan.image} alt={currentPlan.name} className="w-8 h-8" />
+                <Image src={currentPlan.image} alt={currentPlan.name} width={32} height={32} className="w-8 h-8" />
               ) : (
                 <span className="text-2xl">{currentPlan.emoji}</span>
               )}
@@ -228,12 +230,25 @@ export default function StartTrialPage() {
         </div>
 
         <div className="text-center">
-          <a href="/pricing" className="text-sm text-gray-600 hover:text-[#FF8C32] transition-colors">
+          <Link href="/pricing" className="text-sm text-gray-600 hover:text-[#FF8C32] transition-colors">
             ← Back to pricing
-          </a>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
 
+export default function StartTrialPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
+        <div className="max-w-md w-full text-center">
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <StartTrialContent />
+    </Suspense>
+  );
+}

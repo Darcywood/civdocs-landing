@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,7 +23,7 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -32,7 +33,7 @@ export default function LoginPage() {
       } else {
         router.push('/dashboard');
       }
-    } catch (error: any) {
+    } catch {
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -44,7 +45,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full">
         {/* Back to home link */}
         <div className="mb-6">
-          <a 
+          <Link 
             href="/" 
             className="inline-flex items-center text-gray-600 hover:text-[#FF8C32] transition-colors font-medium"
           >
@@ -52,7 +53,7 @@ export default function LoginPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Back to home
-          </a>
+          </Link>
         </div>
 
         <div className="text-center mb-8">
@@ -125,7 +126,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-xs text-gray-500 text-center mt-4">
-            Don't have an account? <a href="/start-trial" className="text-[#FF8C32] hover:underline">Start your free trial</a>
+            Don&apos;t have an account? <Link href="/start-trial" className="text-[#FF8C32] hover:underline">Start your free trial</Link>
           </p>
         </div>
       </div>

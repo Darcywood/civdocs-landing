@@ -342,7 +342,9 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     .update({
       stripe_subscription_id: subscription.id,
       subscription_status: subscription.status,
-      current_period_end: (subscription as any).current_period_end ? new Date((subscription as any).current_period_end * 1000).toISOString() : null
+      current_period_end: 'current_period_end' in subscription && typeof (subscription as { current_period_end?: number }).current_period_end === 'number' 
+        ? new Date((subscription as { current_period_end: number }).current_period_end * 1000).toISOString() 
+        : null
     })
     .eq('stripe_customer_id', subscription.customer as string);
   
@@ -358,7 +360,9 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     .from('organizations')
     .update({
       subscription_status: subscription.status,
-      current_period_end: (subscription as any).current_period_end ? new Date((subscription as any).current_period_end * 1000).toISOString() : null
+      current_period_end: 'current_period_end' in subscription && typeof (subscription as { current_period_end?: number }).current_period_end === 'number' 
+        ? new Date((subscription as { current_period_end: number }).current_period_end * 1000).toISOString() 
+        : null
     })
     .eq('stripe_subscription_id', subscription.id);
   

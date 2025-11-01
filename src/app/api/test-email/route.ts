@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email.tsx";
+import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email";
 
 export async function GET() {
   try {
@@ -22,11 +22,11 @@ export async function GET() {
       result,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("[Test Email] Error:", error);
     return NextResponse.json({
-      error: error.message || "Unknown error",
-      stack: error.stack,
+      error: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
     }, { status: 500 });
   }
 }

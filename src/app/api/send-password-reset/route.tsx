@@ -36,13 +36,12 @@ export async function POST(req: Request) {
     }
 
     // Use the actual reset URL from Supabase
-    const resetUrl = `https://civdocs.com.au/reset-password?access_token=${data?.access_token}&type=recovery`;
+    const resetUrl = `https://civdocs.com.au/reset-password?access_token=${(data as { access_token?: string })?.access_token || ''}&type=recovery`;
 
     const html = await render(
       <PasswordReset
         name={name || "User"}
         resetUrl={resetUrl}
-        baseUrl={process.env.NEXT_PUBLIC_APP_BASE_URL || "https://civdocs.com.au"}
       />
     );
 
@@ -54,7 +53,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, data: result });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error sending password reset email:", error);
     return NextResponse.json(
       { error: "Failed to send email" },

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ReportingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,9 +36,11 @@ export default function ReportingPage() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <img 
+              <Image 
                 src="/CivDocs no lift.svg" 
-                alt="CivDocs" 
+                alt="CivDocs"
+                width={200}
+                height={64}
                 className="h-16 w-auto"
               />
             </div>
@@ -44,10 +48,10 @@ export default function ReportingPage() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-12">
               <nav className="flex items-center space-x-12">
-                <a href="/" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-lg relative group">
+                <Link href="/" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-lg relative group">
                   Home
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                </Link>
                 <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-lg relative group">
                   Pricing
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
@@ -142,7 +146,7 @@ export default function ReportingPage() {
               <div className="px-8 py-8 space-y-2">
                 {/* Home */}
                 <div>
-                  <a 
+                  <Link 
                     href="/" 
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
@@ -151,7 +155,7 @@ export default function ReportingPage() {
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Pricing */}
@@ -373,7 +377,7 @@ export default function ReportingPage() {
             Ready to transform your construction reporting?
           </h2>
           <p className="text-xl text-gray-600 font-medium mb-12">
-            Join hundreds of civil contractors who've already streamlined their reporting and analytics with CivDocs.
+            Join hundreds of civil contractors who&apos;ve already streamlined their reporting and analytics with CivDocs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -402,9 +406,11 @@ export default function ReportingPage() {
             {/* Left Side - Logo and Company Info */}
             <div>
               <div className="mb-6">
-                <img 
+                <Image 
                   src="/CivDocs no lift.svg" 
-                  alt="CivDocs" 
+                  alt="CivDocs"
+                  width={200}
+                  height={48}
                   className="h-12 w-auto brightness-0 invert"
                 />
               </div>

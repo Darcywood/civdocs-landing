@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useStripe, useElements, CardNumberElement } from '@stripe/react-stripe-js';
@@ -19,8 +21,8 @@ const supabase = createClient(
 );
 
 
-// Checkout Form Component
-function CheckoutForm() {
+// Checkout Form Component (internal)
+function CheckoutFormInternal() {
   const stripe = useStripe();
   const elements = useElements();
   const searchParams = useSearchParams();
@@ -242,7 +244,7 @@ function CheckoutForm() {
               Your current plan is {currentPlan ? currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1) : "Loading..."}
             </h3>
             <p className="text-sm text-gray-600 mb-3">
-              Select a different plan if you'd like to upgrade or downgrade.
+              Select a different plan if you&apos;d like to upgrade or downgrade.
             </p>
           </div>
 
@@ -436,9 +438,9 @@ export default function BillingPage() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/">
-                <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-16" />
-              </a>
+              <Link href="/">
+                <Image src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
+              </Link>
             </div>
             
             {/* Desktop Navigation */}
@@ -681,9 +683,11 @@ export default function BillingPage() {
       {/* Checkout Form */}
       <section className="min-h-screen bg-gradient-to-b from-white to-[#FFF5ED] flex items-center justify-center py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
-          <Elements stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>
+              <Elements stripe={stripePromise}>
+                <Suspense fallback={<div className="text-center py-8 text-gray-600">Loading...</div>}>
+                  <CheckoutFormInternal />
+                </Suspense>
+              </Elements>
         </div>
       </section>
 
@@ -695,7 +699,7 @@ export default function BillingPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-gray-600">
-              Have questions? We've got answers.
+              Have questions? We&apos;ve got answers.
             </p>
           </div>
 
@@ -705,7 +709,7 @@ export default function BillingPage() {
                 When will I be charged?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Your subscription will be activated immediately after adding your payment method. You'll be charged monthly starting today.
+                Your subscription will be activated immediately after adding your payment method. You&apos;ll be charged monthly starting today.
               </p>
             </div>
 
@@ -723,7 +727,7 @@ export default function BillingPage() {
                 Can I change plans later?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we'll prorate any differences.
+                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we&apos;ll prorate any differences.
               </p>
             </div>
 
@@ -770,7 +774,7 @@ export default function BillingPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-10 mb-6 brightness-0 invert" />
+              <Image src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
               <p className="text-gray-400 leading-relaxed">
                 Simplifying civil construction management for teams everywhere.
               </p>

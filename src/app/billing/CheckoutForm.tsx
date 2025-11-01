@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { CardElement as StripeCardElement } from '@stripe/stripe-js';
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -127,7 +126,7 @@ export default function CheckoutForm() {
         </div>
         <h3 className="text-2xl font-semibold text-gray-900 mb-4">Welcome to {selectedPlan.name}!</h3>
         <p className="text-gray-600 mb-6">
-          Your 14-day free trial has started. You won't be charged until {new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString()}.
+          Your 14-day free trial has started. You won&apos;t be charged until {new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toLocaleDateString()}.
         </p>
         <a 
           href="https://app.civdocs.com" 
@@ -239,7 +238,7 @@ export default function CheckoutForm() {
 
         {/* Trial Info */}
         <p className="text-center text-sm text-gray-500">
-          Your trial is free for 14 days. You won't be charged until it ends.
+          Your trial is free for 14 days. You won&apos;t be charged until it ends.
         </p>
       </form>
     </div>

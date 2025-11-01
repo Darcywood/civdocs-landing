@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function TrialSuccessPage() {
+function TrialSuccessContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
 
@@ -119,6 +119,20 @@ export default function TrialSuccessPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function TrialSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
+        <div className="max-w-md w-full text-center">
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <TrialSuccessContent />
+    </Suspense>
   );
 }
 

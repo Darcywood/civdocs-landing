@@ -16,21 +16,17 @@ export async function sendTrialWelcomeEmail({
   to,
   name,
   loginUrl = "https://app.civdocs.com.au/login",
-  baseUrl = process.env.NEXT_PUBLIC_APP_BASE_URL || "https://civdocs.com.au",
 }: {
   to: string;
   name: string;
   loginUrl?: string;
-  baseUrl?: string;
 }) {
   console.log("[Email] Rendering email component...");
   
   const html = await render(
     <TrialWelcome
       name={name}
-      toEmail={to}
       loginUrl={loginUrl}
-      baseUrl={baseUrl}
     />
   );
 

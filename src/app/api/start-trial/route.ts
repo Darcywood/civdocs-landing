@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email.tsx";
+import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email";
 
 // Force Node.js runtime for Resend SDK
 export const runtime = "nodejs";
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     };
 
     const missingVars = Object.entries(requiredEnvVars)
-      .filter(([key, value]) => !value)
+      .filter(([, value]) => !value)
       .map(([key]) => key);
 
     if (missingVars.length > 0) {
@@ -234,7 +234,7 @@ export async function POST(req: Request) {
     // ============================================================
     console.log(`[Trial Signup] Step 3: Creating profile for user: ${userId}`);
 
-    const { data: profile, error: profileError } = await supabase
+    const { error: profileError } = await supabase
       .from("profiles")
       .insert({
         id: userId,
@@ -334,10 +334,10 @@ export async function POST(req: Request) {
       }
     );
 
-  } catch (err: any) {
+  } catch (err) {
     // Catch any unexpected errors
     console.error("[Trial Signup] Unexpected error:", err);
-    console.error("[Trial Signup] Error stack:", err.stack);
+    console.error("[Trial Signup] Error stack:", err instanceof Error ? err.stack : undefined);
     console.error("[Trial Signup] Error type:", typeof err);
     console.error("[Trial Signup] Error keys:", Object.keys(err || {}));
     
@@ -346,7 +346,7 @@ export async function POST(req: Request) {
     
     // Better error message handling
     let errorMessage = "An unexpected error occurred";
-    if (err?.message) {
+    if (err instanceof Error) {
       errorMessage = err.message;
     } else if (typeof err === 'string') {
       errorMessage = err;
@@ -360,8 +360,8 @@ export async function POST(req: Request) {
         error: errorMessage,
         details: process.env.NODE_ENV === 'development' ? {
           type: typeof err,
-          message: err?.message,
-          stack: err?.stack,
+          message: err instanceof Error ? err.message : undefined,
+          stack: err instanceof Error ? err.stack : undefined,
           keys: Object.keys(err || {})
         } : undefined
       },

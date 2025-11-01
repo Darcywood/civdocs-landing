@@ -34,13 +34,14 @@ export async function GET() {
       },
       sample: data,
     });
-  } catch (err: any) {
-    console.error("Supabase test error:", err.message);
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    console.error("Supabase test error:", errorMessage);
     return NextResponse.json({
       success: false,
       message: "❌ Supabase connection failed",
-      error: err.message,
-      hint: err.message.includes("relation") 
+      error: errorMessage,
+      hint: (err instanceof Error && err.message.includes("relation")) 
         ? "The 'organizations' table may not exist. Run the SQL from TRIAL_SETUP.md to create it."
         : "Check your NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local",
     }, { status: 500 });

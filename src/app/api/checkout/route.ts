@@ -78,7 +78,7 @@ export async function POST(req: Request) {
       client_secret: setupIntent.client_secret,
       subscription_id: subscription.id 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Stripe checkout error:", error);
     return NextResponse.json(
       { error: "Failed to create checkout session" },

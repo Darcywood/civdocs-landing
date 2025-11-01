@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PricingPage() {
   const router = useRouter();
@@ -111,9 +113,9 @@ export default function PricingPage() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/">
-                <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-16" />
-              </a>
+              <Link href="/">
+                <Image src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
+              </Link>
             </div>
             
             {/* Desktop Navigation */}
@@ -371,7 +373,7 @@ export default function PricingPage() {
       <section className="py-16 bg-gradient-to-b from-[#FFF5ED] to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {plans.map((plan, index) => (
+            {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={`relative bg-white rounded-3xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
@@ -463,7 +465,7 @@ export default function PricingPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-gray-600">
-              Have questions? We've got answers.
+              Have questions? We&apos;ve got answers.
             </p>
           </div>
 
@@ -473,7 +475,7 @@ export default function PricingPage() {
                 Do I need a credit card for the free trial?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                No! You can start your 14 day free trial without entering any payment information. We'll only ask for payment details if you decide to continue after the trial.
+                No! You can start your 14 day free trial without entering any payment information. We&apos;ll only ask for payment details if you decide to continue after the trial.
               </p>
             </div>
 
@@ -482,7 +484,7 @@ export default function PricingPage() {
                 Can I switch plans later?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we'll prorate any differences.
+                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we&apos;ll prorate any differences.
               </p>
             </div>
 
@@ -491,7 +493,7 @@ export default function PricingPage() {
                 What happens if I go over my user limit?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                If you exceed your plan's user limit, we'll notify you and help you upgrade to a plan that better fits your needs. You won't be charged extra without your approval.
+                If you exceed your plan&apos;s user limit, we&apos;ll notify you and help you upgrade to a plan that better fits your needs. You won&apos;t be charged extra without your approval.
               </p>
             </div>
 
@@ -542,7 +544,7 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <img src="/CivDocs no lift.svg" alt="CivDocs" className="h-10 mb-6 brightness-0 invert" />
+              <Image src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
               <p className="text-gray-400 leading-relaxed">
                 Simplifying civil construction management for teams everywhere.
               </p>

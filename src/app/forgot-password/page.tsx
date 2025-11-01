@@ -1,12 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -30,12 +24,12 @@ export default function ForgotPasswordPage() {
       });
 
       if (emailResponse.ok) {
-        setMessage('If an account exists with that email, you\'ll receive reset instructions shortly.');
+        setMessage('If an account exists with that email, you&apos;ll receive reset instructions shortly.');
       } else {
         const errorData = await emailResponse.json();
         setMessage('Error: ' + (errorData.error || 'Failed to send reset email'));
       }
-    } catch (error: any) {
+    } catch {
       setMessage('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -68,7 +62,7 @@ export default function ForgotPasswordPage() {
             Forgot Password?
           </h1>
           <p className="text-gray-600">
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
 

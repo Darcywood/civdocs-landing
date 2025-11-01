@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sendTrialWelcomeEmail } from "@/lib/email.tsx";
+import { sendTrialWelcomeEmail } from "@/lib/email";
 
 export async function POST() {
   try {
@@ -8,9 +8,7 @@ export async function POST() {
     const result = await sendTrialWelcomeEmail({
       to: "darcy.wood.marketing@gmail.com",
       name: "Test User",
-      tempPassword: "test123",
       loginUrl: "https://app.civdocs.com.au/login",
-      baseUrl: "https://civdocs.com.au",
     });
     
     console.log("[Test Email Send] Email result:", result);
@@ -20,15 +18,15 @@ export async function POST() {
       result,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("[Test Email Send] Error:", error);
     return NextResponse.json({
-      error: error.message || "Unknown error",
-      stack: error.stack,
+      error: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
       details: {
-        name: error.name,
-        code: error.code,
-        status: error.status,
+        name: error instanceof Error ? error.name : undefined,
+        code: (error as { code?: string }).code,
+        status: (error as { status?: number }).status,
       }
     }, { status: 500 });
   }
