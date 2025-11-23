@@ -113,7 +113,7 @@ function TrialSuccessContent() {
         {/* Help Link */}
         <p className="text-sm text-gray-500 mt-8">
           Need help getting started?{' '}
-          <a href="#support" className="text-[#FF8C32] hover:underline font-medium">
+          <a href="/support" className="text-[#FF8C32] hover:underline font-medium">
             Contact our support team
           </a>
         </p>

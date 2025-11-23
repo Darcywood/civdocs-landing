@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function PricingPage() {
-  const router = useRouter();
+export default function GuidesPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
@@ -40,77 +38,6 @@ export default function PricingPage() {
     setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
   };
 
-  const handleStartTrial = (plan: string) => {
-    router.push(`/start-trial?plan=${plan}`);
-  };
-
-  const plans = [
-    {
-      name: 'Bronze',
-      planId: 'bronze',
-      emoji: '🥉',
-      description: 'Perfect for small teams getting started',
-      monthlyPrice: 97,
-      features: [
-        'Up to 10 users',
-        'Up to 20 machines',
-        '1 supervisor',
-        'Full access to Prestarts, Timesheets & Safety Reports',
-        'Email support',
-      ],
-      cta: 'Start Free Trial',
-      popular: false,
-    },
-    {
-      name: 'Silver',
-      planId: 'silver',
-      emoji: '🥈',
-      description: 'For growing teams that need more',
-      monthlyPrice: 197,
-      features: [
-        'Up to 15 users',
-        'Up to 30 machines',
-        '2 supervisors',
-        'All Bronze features + priority support',
-        'Custom company branding (logo & colors)',
-      ],
-      cta: 'Start Free Trial',
-      popular: false,
-    },
-    {
-      name: 'Gold',
-      planId: 'gold',
-      emoji: '🥇',
-      description: 'Advanced features for larger teams',
-      monthlyPrice: 297,
-      features: [
-        'Up to 75 users',
-        'Up to 200 machines',
-        'Unlimited supervisors',
-        'All Silver features + early access to new features',
-        'Dedicated account manager',
-      ],
-      cta: 'Start Free Trial',
-      popular: true,
-    },
-    {
-      name: 'Enterprise',
-      planId: null,
-      emoji: '🏢',
-      description: 'For large companies with multiple divisions',
-      monthlyPrice: null,
-      features: [
-        'Unlimited users & machines',
-        'Unlimited supervisors',
-        'All Gold features',
-        'Onboarding + dedicated support',
-        'Tailored integrations',
-      ],
-      cta: 'Contact Sales',
-      popular: false,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Sticky Header */}
@@ -127,27 +54,17 @@ export default function PricingPage() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               <nav className="flex items-center space-x-8">
-                <div className="relative group">
-                  <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
-                  Product
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </button>
-                </div>
-                <a href="/pricing" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Pricing
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Reporting
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/guides" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Support
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
                 </a>
               </nav>
               
@@ -192,49 +109,27 @@ export default function PricingPage() {
         </div>
       </header>
 
-      {/* Mobile Menu - Humlytics Style with Framer Motion */}
+      {/* Mobile Menu */}
       <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop - below header */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ 
-                duration: 0.15,
-                ease: [0.4, 0, 0.2, 1]
-              }}
+              transition={{ duration: 0.15 }}
               className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
               onClick={closeMobileMenu}
             />
-        
-            {/* Menu Card - drops down from header */}
+            
             <motion.div
               key="mobile-menu"
-              initial={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0
-              }}
-              exit={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              transition={{ 
-                duration: 0.18,
-                ease: [0.4, 0, 0.2, 1]
-              }}
+              initial={{ opacity: 0, scale: 0.96, y: -8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -8 }}
+              transition={{ duration: 0.18 }}
               className="fixed top-[88px] left-4 right-4 z-[75] bg-gray-50 rounded-3xl shadow-2xl overflow-hidden lg:hidden max-h-[calc(100vh-7rem)] overflow-y-auto"
             >
-
-              {/* Menu content */}
               <div className="px-8 py-8 space-y-2">
                 {/* Product Dropdown */}
                 <div>
@@ -301,7 +196,7 @@ export default function PricingPage() {
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
                   >
-                    <span className="text-[16px] font-medium text-[#FF8C32]">Pricing</span>
+                    <span className="text-[16px] font-medium text-gray-600">Pricing</span>
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -314,7 +209,7 @@ export default function PricingPage() {
                     onClick={toggleResourcesDropdown}
                     className="w-full flex items-center justify-between py-5 text-left"
                   >
-                    <span className="text-[16px] font-medium text-gray-600">Resources</span>
+                    <span className="text-[16px] font-medium text-[#FF8C32]">Resources</span>
                     <svg 
                       className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
                         isResourcesDropdownOpen ? 'rotate-180' : ''
@@ -380,7 +275,6 @@ export default function PricingPage() {
                   </a>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <button 
                     onClick={closeMobileMenu}
@@ -397,7 +291,7 @@ export default function PricingPage() {
                     Start Free Trial →
                   </a>
                   
-                  <p className="text-center text-sm text-gray-500 pt-2">No credit card required</p>
+                  <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2">No credit card required</p>
                 </div>
               </div>
             </motion.div>
@@ -406,162 +300,116 @@ export default function PricingPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-20 sm:pt-40 sm:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-6">
-              Simple, Transparent Pricing
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
+              Step-by-Step Guides
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
-              Choose the plan that fits your team. All plans include a 14 day free trial — no credit card required.
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
+              Learn how to get the most out of CivDocs with our comprehensive guides and documentation.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-16 bg-gradient-to-b from-[#FFF5ED] to-white">
+      {/* Guides Section */}
+      <section className="py-20 sm:py-32 lg:py-40 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`relative bg-white rounded-3xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  plan.popular ? 'border-[#FF8C32] lg:scale-105' : 'border-gray-100'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="inline-flex items-center px-4 py-1 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white text-sm font-semibold rounded-full shadow-lg">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-
-                <div className="p-8">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-3xl">{plan.emoji}</span>
-                    <h3 className="text-2xl font-semibold text-[#1E1E1E]">
-                      {plan.name}
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 mb-6">{plan.description}</p>
-
-                  <div className="mb-8">
-                    {plan.monthlyPrice === null ? (
-                      <div className="text-4xl font-bold text-[#1E1E1E]">Custom</div>
-                    ) : (
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-5xl font-bold text-[#1E1E1E]">
-                          ${plan.monthlyPrice}
-                        </span>
-                        <span className="text-gray-600 text-lg font-medium">/month</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {plan.planId ? (
-                    <button
-                      onClick={() => handleStartTrial(plan.planId!)}
-                      className={`block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 ${
-                        plan.popular
-                          ? 'bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white hover:shadow-xl hover:scale-[1.02]'
-                          : 'bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]'
-                      }`}
-                    >
-                      {plan.cta}
-                    </button>
-                  ) : (
-                    <a
-                      href="#contact"
-                      className="block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]"
-                    >
-                      {plan.cta}
-                    </a>
-                  )}
-
-                  <div className="space-y-4">
-                    {plan.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-3">
-                        <svg
-                          className="w-6 h-6 text-[#FF8C32] flex-shrink-0 mt-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        <span className="text-gray-700 leading-relaxed">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] mb-4">
-              Frequently Asked Questions
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight">
+              Getting Started Guides
             </h2>
-            <p className="text-lg text-gray-600">
-              Have questions? We&apos;ve got answers.
-            </p>
           </div>
 
-          <div className="space-y-6">
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Do I need a credit card for the free trial?
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Guide 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Getting Started
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                No! You can start your 14 day free trial without entering any payment information. We&apos;ll only ask for payment details if you decide to continue after the trial.
+                Learn the basics of setting up your account, creating your first project, and inviting team members.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Can I switch plans later?
+            {/* Guide 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Pre-Starts Guide
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we&apos;ll prorate any differences.
+                Master the pre-start checklist feature to ensure safety compliance and proper equipment checks.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                What happens if I go over my user limit?
+            {/* Guide 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Timesheets Guide
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                If you exceed your plan&apos;s user limit, we&apos;ll notify you and help you upgrade to a plan that better fits your needs. You won&apos;t be charged extra without your approval.
+                Learn how to efficiently log crew hours, manage timesheets, and export time data for payroll.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Is there a long-term contract?
+            {/* Guide 4 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Reporting Guide
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                No contracts required! You can cancel your subscription at any time. Monthly plans can be cancelled before the next billing cycle, and annual plans can be cancelled for a prorated refund.
+                Discover how to generate comprehensive reports, set up automated reporting, and analyze your data.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Do you offer discounts for non-profits or educational institutions?
+            {/* Guide 5 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Settings & Configuration
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Yes! We offer special pricing for non-profit organizations and educational institutions. Please contact our sales team to learn more about our discount programs.
+                Configure your organization settings, manage users, and customize CivDocs to fit your workflow.
+              </p>
+            </div>
+
+            {/* Guide 6 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Best Practices
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Learn industry best practices and tips from experienced users to maximize your productivity.
               </p>
             </div>
           </div>
@@ -569,13 +417,13 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-white to-[#FFF5ED]">
+      <section className="py-20 sm:py-32 lg:py-40 bg-gradient-to-b from-[#FFF5ED] to-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
             Ready to Get Started?
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-            Start your free 14 day trial today. No credit card required.
+            Start your free trial and explore all the features with our step-by-step guides.
           </p>
           <a 
             href="https://app.civdocs.com/auth/signup" 
@@ -583,8 +431,9 @@ export default function PricingPage() {
           >
             Start Free Trial →
           </a>
-          <p className="text-sm text-gray-500 mt-4">
-            Try all features free for 14 days • Cancel anytime • 24/7 support
+          <p className="text-sm mt-4">
+            <span className="font-bold text-[#FF8C32] animate-pulse-glow">No credit card required</span>
+            <span className="text-gray-500"> • Get started in minutes</span>
           </p>
         </div>
       </section>

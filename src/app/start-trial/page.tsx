@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,6 +14,7 @@ function StartTrialContent() {
     email: '',
     company: '',
     plan_type: planParam || 'bronze',
+    company_type: '',
     password: '',
     confirmPassword: ''
   });
@@ -29,6 +30,12 @@ function StartTrialContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate company type is selected
+    if (!formData.company_type) {
+      alert('⚠️ Please select a company type');
+      return;
+    }
     
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
@@ -67,7 +74,9 @@ function StartTrialContent() {
     gold: { name: 'Gold', emoji: '🥇', image: '/CivDocs 500x500 GOLD.svg', price: 297 },
   };
 
-  const currentPlan = planDetails[formData.plan_type as keyof typeof planDetails] || planDetails.bronze;
+  const currentPlan = useMemo(() => {
+    return planDetails[formData.plan_type as keyof typeof planDetails] || planDetails.bronze;
+  }, [formData.plan_type]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
@@ -130,6 +139,88 @@ function StartTrialContent() {
                 <option value="silver">🥈 Silver - $197/month</option>
                 <option value="gold">🥇 Gold - $297/month</option>
               </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Which setup best suits your company? *
+              </label>
+              <div className="space-y-3">
+                <div
+                  className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all group ${
+                    formData.company_type === 'civil'
+                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
+                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
+                  }`}
+                  onClick={() => !loading && setFormData({ ...formData, company_type: 'civil' })}
+                >
+                  <input
+                    type="radio"
+                    name="company_type"
+                    value="civil"
+                    checked={formData.company_type === 'civil'}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setFormData({ ...formData, company_type: e.target.value });
+                    }}
+                    className="w-5 h-5 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-3 cursor-pointer accent-[#FF8C32]"
+                    required
+                    disabled={loading}
+                  />
+                  <div className="flex items-center flex-1">
+                    <span className="text-2xl mr-3">🏗️</span>
+                    <div>
+                      <div className={`font-medium transition-colors ${
+                        formData.company_type === 'civil'
+                          ? 'text-[#FF8C32]'
+                          : 'text-gray-900 group-hover:text-[#FF8C32]'
+                      }`}>
+                        Civil Contractor
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        Project management and construction
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all group ${
+                    formData.company_type === 'plant_hire'
+                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
+                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
+                  }`}
+                  onClick={() => !loading && setFormData({ ...formData, company_type: 'plant_hire' })}
+                >
+                  <input
+                    type="radio"
+                    name="company_type"
+                    value="plant_hire"
+                    checked={formData.company_type === 'plant_hire'}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setFormData({ ...formData, company_type: e.target.value });
+                    }}
+                    className="w-5 h-5 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-3 cursor-pointer accent-[#FF8C32]"
+                    required
+                    disabled={loading}
+                  />
+                  <div className="flex items-center flex-1">
+                    <span className="text-2xl mr-3">🚜</span>
+                    <div>
+                      <div className={`font-medium transition-colors ${
+                        formData.company_type === 'plant_hire'
+                          ? 'text-[#FF8C32]'
+                          : 'text-gray-900 group-hover:text-[#FF8C32]'
+                      }`}>
+                        Plant Hire Company
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        Wet hire and fleet management
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div>

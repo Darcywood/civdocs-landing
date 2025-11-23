@@ -8,6 +8,7 @@ import Image from 'next/image';
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -20,6 +21,7 @@ export default function Home() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
     setIsProductDropdownOpen(false);
+    setIsResourcesDropdownOpen(false);
     // Re-enable body scroll
     document.body.classList.remove('overflow-hidden');
   };
@@ -32,6 +34,10 @@ export default function Home() {
 
   const toggleProductDropdown = () => {
     setIsProductDropdownOpen(!isProductDropdownOpen);
+  };
+
+  const toggleResourcesDropdown = () => {
+    setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
   };
 
   return (
@@ -68,7 +74,7 @@ export default function Home() {
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Support
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -84,7 +90,7 @@ export default function Home() {
               
               {/* CTA Button */}
               <a 
-                href="https://app.civdocs.com/auth/signup" 
+                href="/pricing" 
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
               >
                 Start Free Trial →
@@ -231,30 +237,74 @@ export default function Home() {
                     </a>
                   </div>
                   
-                {/* Resources */}
-                    <div>
-                  <a 
-                    href="#resources" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
+                {/* Resources Dropdown */}
+                <div>
+                  <button 
+                    onClick={toggleResourcesDropdown}
+                    className="w-full flex items-center justify-between py-5 text-left"
                   >
                     <span className="text-[16px] font-medium text-gray-600">Resources</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                  </a>
-                  </div>
+                    <svg 
+                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
+                        isResourcesDropdownOpen ? 'rotate-180' : ''
+                      }`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Resources Dropdown */}
+                  <AnimatePresence>
+                    {isResourcesDropdownOpen && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="pb-4 pt-2 space-y-3 overflow-hidden"
+                      >
+                        <a 
+                          href="/guides" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Guides</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Step-by-step guides to help you get started</p>
+                        </a>
+                        <a
+                          href="/video-tutorials" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Video Tutorials</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
+                        </a>
+                        <a
+                          href="/free-tools" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Free Tools</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Free tools and calculators for your projects</p>
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                   
                 {/* Support */}
                     <div>
                   <a 
-                    href="#support" 
+                    href="/support" 
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
                   >
                     <span className="text-[16px] font-medium text-gray-600">Support</span>
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                           </a>
                         </div>
@@ -269,7 +319,7 @@ export default function Home() {
                   </button>
                   
                   <a
-                    href="https://app.civdocs.com/auth/signup"
+                    href="/pricing"
                     onClick={closeMobileMenu}
                     className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
                   >
@@ -296,7 +346,7 @@ export default function Home() {
               </p>
             <div className="flex flex-col items-center">
                 <a 
-                href="https://app.civdocs.com/auth/signup" 
+                href="/pricing" 
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 >
                 Start Free Trial →
@@ -404,7 +454,7 @@ export default function Home() {
             Join civil teams saving hours every week with CivDocs.
           </p>
           <a 
-            href="https://app.civdocs.com/auth/signup" 
+            href="/pricing" 
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             Start Free Trial →
@@ -434,7 +484,7 @@ export default function Home() {
                 <a href="#terms" className="block text-gray-400 hover:text-white transition-colors">
                   Terms of Service
                 </a>
-                <a href="#support" className="block text-gray-400 hover:text-white transition-colors">
+                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
                   Support
                 </a>
               </div>

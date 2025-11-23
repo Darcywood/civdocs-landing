@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function PricingPage() {
-  const router = useRouter();
+export default function SupportPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
@@ -40,77 +38,6 @@ export default function PricingPage() {
     setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
   };
 
-  const handleStartTrial = (plan: string) => {
-    router.push(`/start-trial?plan=${plan}`);
-  };
-
-  const plans = [
-    {
-      name: 'Bronze',
-      planId: 'bronze',
-      emoji: '🥉',
-      description: 'Perfect for small teams getting started',
-      monthlyPrice: 97,
-      features: [
-        'Up to 10 users',
-        'Up to 20 machines',
-        '1 supervisor',
-        'Full access to Prestarts, Timesheets & Safety Reports',
-        'Email support',
-      ],
-      cta: 'Start Free Trial',
-      popular: false,
-    },
-    {
-      name: 'Silver',
-      planId: 'silver',
-      emoji: '🥈',
-      description: 'For growing teams that need more',
-      monthlyPrice: 197,
-      features: [
-        'Up to 15 users',
-        'Up to 30 machines',
-        '2 supervisors',
-        'All Bronze features + priority support',
-        'Custom company branding (logo & colors)',
-      ],
-      cta: 'Start Free Trial',
-      popular: false,
-    },
-    {
-      name: 'Gold',
-      planId: 'gold',
-      emoji: '🥇',
-      description: 'Advanced features for larger teams',
-      monthlyPrice: 297,
-      features: [
-        'Up to 75 users',
-        'Up to 200 machines',
-        'Unlimited supervisors',
-        'All Silver features + early access to new features',
-        'Dedicated account manager',
-      ],
-      cta: 'Start Free Trial',
-      popular: true,
-    },
-    {
-      name: 'Enterprise',
-      planId: null,
-      emoji: '🏢',
-      description: 'For large companies with multiple divisions',
-      monthlyPrice: null,
-      features: [
-        'Unlimited users & machines',
-        'Unlimited supervisors',
-        'All Gold features',
-        'Onboarding + dedicated support',
-        'Tailored integrations',
-      ],
-      cta: 'Contact Sales',
-      popular: false,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Sticky Header */}
@@ -127,27 +54,21 @@ export default function PricingPage() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               <nav className="flex items-center space-x-8">
-                <div className="relative group">
-                  <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
-                  Product
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </button>
-                </div>
-                <a href="/pricing" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Pricing
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
                 <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Reporting
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/guides" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/support" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Support
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
                 </a>
               </nav>
               
@@ -192,49 +113,27 @@ export default function PricingPage() {
         </div>
       </header>
 
-      {/* Mobile Menu - Humlytics Style with Framer Motion */}
+      {/* Mobile Menu */}
       <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop - below header */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ 
-                duration: 0.15,
-                ease: [0.4, 0, 0.2, 1]
-              }}
+              transition={{ duration: 0.15 }}
               className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
               onClick={closeMobileMenu}
             />
-        
-            {/* Menu Card - drops down from header */}
+            
             <motion.div
               key="mobile-menu"
-              initial={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0
-              }}
-              exit={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              transition={{ 
-                duration: 0.18,
-                ease: [0.4, 0, 0.2, 1]
-              }}
+              initial={{ opacity: 0, scale: 0.96, y: -8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -8 }}
+              transition={{ duration: 0.18 }}
               className="fixed top-[88px] left-4 right-4 z-[75] bg-gray-50 rounded-3xl shadow-2xl overflow-hidden lg:hidden max-h-[calc(100vh-7rem)] overflow-y-auto"
             >
-
-              {/* Menu content */}
               <div className="px-8 py-8 space-y-2">
                 {/* Product Dropdown */}
                 <div>
@@ -301,7 +200,7 @@ export default function PricingPage() {
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
                   >
-                    <span className="text-[16px] font-medium text-[#FF8C32]">Pricing</span>
+                    <span className="text-[16px] font-medium text-gray-600">Pricing</span>
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -373,14 +272,13 @@ export default function PricingPage() {
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
                   >
-                    <span className="text-[16px] font-medium text-gray-600">Support</span>
+                    <span className="text-[16px] font-medium text-[#FF8C32]">Support</span>
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <button 
                     onClick={closeMobileMenu}
@@ -397,7 +295,7 @@ export default function PricingPage() {
                     Start Free Trial →
                   </a>
                   
-                  <p className="text-center text-sm text-gray-500 pt-2">No credit card required</p>
+                  <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2">No credit card required</p>
                 </div>
               </div>
             </motion.div>
@@ -406,162 +304,201 @@ export default function PricingPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-20 sm:pt-40 sm:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-6">
-              Simple, Transparent Pricing
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
+              Support & Help Center
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
-              Choose the plan that fits your team. All plans include a 14 day free trial — no credit card required.
+            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
+              Get the help you need to make the most of CivDocs. We&apos;re here to support you every step of the way.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="py-16 bg-gradient-to-b from-[#FFF5ED] to-white">
+      {/* Support Options Section */}
+      <section className="py-20 sm:py-32 lg:py-40 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`relative bg-white rounded-3xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  plan.popular ? 'border-[#FF8C32] lg:scale-105' : 'border-gray-100'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="inline-flex items-center px-4 py-1 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white text-sm font-semibold rounded-full shadow-lg">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
+          <div className="text-center mb-16 sm:mb-20">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight">
+              How Can We Help?
+            </h2>
+          </div>
 
-                <div className="p-8">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-3xl">{plan.emoji}</span>
-                    <h3 className="text-2xl font-semibold text-[#1E1E1E]">
-                      {plan.name}
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 mb-6">{plan.description}</p>
-
-                  <div className="mb-8">
-                    {plan.monthlyPrice === null ? (
-                      <div className="text-4xl font-bold text-[#1E1E1E]">Custom</div>
-                    ) : (
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-5xl font-bold text-[#1E1E1E]">
-                          ${plan.monthlyPrice}
-                        </span>
-                        <span className="text-gray-600 text-lg font-medium">/month</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {plan.planId ? (
-                    <button
-                      onClick={() => handleStartTrial(plan.planId!)}
-                      className={`block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 ${
-                        plan.popular
-                          ? 'bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white hover:shadow-xl hover:scale-[1.02]'
-                          : 'bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]'
-                      }`}
-                    >
-                      {plan.cta}
-                    </button>
-                  ) : (
-                    <a
-                      href="#contact"
-                      className="block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]"
-                    >
-                      {plan.cta}
-                    </a>
-                  )}
-
-                  <div className="space-y-4">
-                    {plan.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-3">
-                        <svg
-                          className="w-6 h-6 text-[#FF8C32] flex-shrink-0 mt-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        <span className="text-gray-700 leading-relaxed">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Support Option 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-            ))}
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Help Center
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Browse our comprehensive knowledge base with articles, guides, and FAQs covering all aspects of CivDocs.
+              </p>
+              <a href="/guides" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Visit Help Center →
+              </a>
+            </div>
+
+            {/* Support Option 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Contact Support
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Get in touch with our support team via email. We typically respond within 24 hours.
+              </p>
+              <a href="mailto:support@civdocs.com.au" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Email Support →
+              </a>
+            </div>
+
+            {/* Support Option 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Video Tutorials
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Watch step-by-step video tutorials to learn how to use CivDocs features effectively.
+              </p>
+              <a href="/video-tutorials" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Watch Tutorials →
+              </a>
+            </div>
+
+            {/* Support Option 4 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Documentation
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Access detailed documentation and guides to help you set up and customize CivDocs for your team.
+              </p>
+              <a href="/guides" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Read Docs →
+              </a>
+            </div>
+
+            {/* Support Option 5 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Community Forum
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Connect with other CivDocs users, share tips, and get answers from the community.
+              </p>
+              <a href="#community" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Join Forum →
+              </a>
+            </div>
+
+            {/* Support Option 6 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
+                Report an Issue
+              </h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Found a bug or have a feature request? Let us know and we&apos;ll work on it.
+              </p>
+              <a href="mailto:support@civdocs.com.au?subject=Issue Report" className="text-[#FF8C32] font-medium hover:underline inline-flex items-center">
+                Report Issue →
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-[#FFF5ED] to-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight mb-4">
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-gray-600">
-              Have questions? We&apos;ve got answers.
+              Quick answers to common questions
             </p>
           </div>
 
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Do I need a credit card for the free trial?
+            {/* FAQ 1 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1E1E1E] mb-2">
+                How do I get started with CivDocs?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                No! You can start your 14 day free trial without entering any payment information. We&apos;ll only ask for payment details if you decide to continue after the trial.
+                Getting started is easy! Sign up for a free trial, create your organization, and invite your team members. Check out our <a href="/guides" className="text-[#FF8C32] hover:underline">Getting Started Guide</a> for step-by-step instructions.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Can I switch plans later?
+            {/* FAQ 2 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1E1E1E] mb-2">
+                What&apos;s included in the free trial?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Absolutely! You can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle, and we&apos;ll prorate any differences.
+                Your 14-day free trial includes full access to all features: Pre-Starts, Timesheets, Reporting, and more. No credit card required to start.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                What happens if I go over my user limit?
+            {/* FAQ 3 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1E1E1E] mb-2">
+                How do I contact support?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                If you exceed your plan&apos;s user limit, we&apos;ll notify you and help you upgrade to a plan that better fits your needs. You won&apos;t be charged extra without your approval.
+                You can reach our support team by emailing <a href="mailto:support@civdocs.com.au" className="text-[#FF8C32] hover:underline">support@civdocs.com.au</a>. We typically respond within 24 hours during business days.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Is there a long-term contract?
+            {/* FAQ 4 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1E1E1E] mb-2">
+                Can I export my data?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                No contracts required! You can cancel your subscription at any time. Monthly plans can be cancelled before the next billing cycle, and annual plans can be cancelled for a prorated refund.
+                Yes! You can export your data in various formats including CSV, Excel, and PDF. All export options are available in the Reporting section.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Do you offer discounts for non-profits or educational institutions?
+            {/* FAQ 5 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-[#1E1E1E] mb-2">
+                Is my data secure?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Yes! We offer special pricing for non-profit organizations and educational institutions. Please contact our sales team to learn more about our discount programs.
+                Absolutely. We use industry-standard encryption and security practices to protect your data. All data is stored securely and backed up regularly.
               </p>
             </div>
           </div>
@@ -569,23 +506,28 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-white to-[#FFF5ED]">
+      <section className="py-20 sm:py-32 lg:py-40 bg-gradient-to-b from-white to-[#FFF5ED]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
-            Ready to Get Started?
+            Still Need Help?
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-            Start your free 14 day trial today. No credit card required.
+            Our support team is here to help. Reach out and we&apos;ll get back to you as soon as possible.
           </p>
-          <a 
-            href="https://app.civdocs.com/auth/signup" 
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            Start Free Trial →
-          </a>
-          <p className="text-sm text-gray-500 mt-4">
-            Try all features free for 14 days • Cancel anytime • 24/7 support
-          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="mailto:support@civdocs.com.au" 
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            >
+              Contact Support →
+            </a>
+            <a 
+              href="https://app.civdocs.com/auth/signup" 
+              className="inline-flex items-center px-8 py-4 bg-white border-2 border-[#FF8C32] text-[#FF8C32] font-semibold text-lg rounded-full hover:bg-[#FFF5ED] transition-all duration-300"
+            >
+              Start Free Trial →
+            </a>
+          </div>
         </div>
       </section>
 
@@ -623,4 +565,9 @@ export default function PricingPage() {
     </div>
   );
 }
+
+
+
+
+
 

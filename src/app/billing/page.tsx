@@ -14,11 +14,15 @@ import CardFields from './CardFields';
 // Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-// Initialize Supabase
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Lazy initialize Supabase to avoid build-time errors
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) {
+    throw new Error("Supabase environment variables are not set");
+  }
+  return createClient(url, key);
+}
 
 
 // Checkout Form Component (internal)
@@ -52,6 +56,7 @@ function CheckoutFormInternal() {
 
     const fetchPlan = async () => {
       try {
+        const supabase = getSupabase();
         const { data, error } = await supabase
           .from("organizations")
           .select("plan_tier")
@@ -178,6 +183,7 @@ function CheckoutFormInternal() {
         // Update Supabase organization plan if orgId exists
         if (orgId && selectedPlan) {
           try {
+            const supabase = getSupabase();
             const { error: updateError } = await supabase
               .from("organizations")
               .update({ plan_tier: selectedPlan })
@@ -405,6 +411,7 @@ function CheckoutFormInternal() {
 export default function BillingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -417,6 +424,7 @@ export default function BillingPage() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
     setIsProductDropdownOpen(false);
+    setIsResourcesDropdownOpen(false);
     document.body.classList.remove('overflow-hidden');
   };
 
@@ -427,6 +435,10 @@ export default function BillingPage() {
 
   const toggleProductDropdown = () => {
     setIsProductDropdownOpen(!isProductDropdownOpen);
+  };
+
+  const toggleResourcesDropdown = () => {
+    setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
   };
 
 
@@ -464,7 +476,7 @@ export default function BillingPage() {
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Support
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -627,30 +639,74 @@ export default function BillingPage() {
                   </a>
                 </div>
                   
-                {/* Resources */}
+                {/* Resources Dropdown */}
                 <div>
-                  <a 
-                    href="#resources" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
+                  <button 
+                    onClick={toggleResourcesDropdown}
+                    className="w-full flex items-center justify-between py-5 text-left"
                   >
                     <span className="text-[16px] font-medium text-gray-600">Resources</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg 
+                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
+                        isResourcesDropdownOpen ? 'rotate-180' : ''
+                      }`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
-                  </a>
+                  </button>
+                  
+                  {/* Resources Dropdown */}
+                  <AnimatePresence>
+                    {isResourcesDropdownOpen && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="pb-4 pt-2 space-y-3 overflow-hidden"
+                      >
+                        <a 
+                          href="/guides" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Guides</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Step-by-step guides to help you get started</p>
+                        </a>
+                        <a
+                          href="/video-tutorials" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Video Tutorials</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
+                        </a>
+                        <a
+                          href="/free-tools" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Free Tools</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Free tools and calculators for your projects</p>
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
                   
                 {/* Support */}
                 <div>
                   <a 
-                    href="#support" 
+                    href="/support" 
                     onClick={closeMobileMenu}
                     className="w-full flex items-center justify-between py-5"
                   >
                     <span className="text-[16px] font-medium text-gray-600">Support</span>
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
                 </div>
@@ -787,7 +843,7 @@ export default function BillingPage() {
                 <a href="#terms" className="block text-gray-400 hover:text-white transition-colors">
                   Terms of Service
                 </a>
-                <a href="#support" className="block text-gray-400 hover:text-white transition-colors">
+                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
                   Support
                 </a>
               </div>
