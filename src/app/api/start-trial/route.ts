@@ -173,6 +173,28 @@ export async function POST(req: Request) {
     // ============================================================
     console.log(`[Trial Signup] Step 1: Creating auth user for: ${email}`);
     const supabase = getSupabase();
+    
+    // Check if user already exists by checking profiles table
+    const { data: existingUser } = await supabase
+      .from("profiles")
+      .select("id, email")
+      .eq("email", email)
+      .single();
+
+    if (existingUser) {
+      console.log(`[Trial Signup] User with email ${email} already exists`);
+      return NextResponse.json(
+        {
+          success: false,
+          error: "An account with this email address already exists. Please use a different email or try logging in.",
+        },
+        { 
+          status: 409, // Conflict
+          headers: getCorsHeaders(),
+        }
+      );
+    }
+
     const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
       email,
       password: password,
@@ -183,7 +205,7 @@ export async function POST(req: Request) {
       console.error("[Trial Signup] Auth user creation error:", authError);
       
       // Handle specific error cases
-      if (authError?.code === 'email_exists') {
+      if (authError?.code === 'email_exists' || authError?.message?.includes('already registered')) {
         return NextResponse.json(
           {
             success: false,
@@ -256,35 +278,72 @@ export async function POST(req: Request) {
     // ============================================================
     console.log(`[Trial Signup] Step 3: Creating profile for user: ${userId}`);
 
-    const { error: profileError } = await supabase
+    // Check if profile already exists (in case of partial signup)
+    const { data: existingProfile } = await supabase
       .from("profiles")
-      .insert({
-        id: userId,
-        email: email,
-        full_name: full_name,
-        active_organization_id: orgId,
-        role: "admin",
-      })
-      .select()
+      .select("id")
+      .eq("id", userId)
       .single();
 
-    if (profileError) {
-      console.error("[Trial Signup] Profile creation error:", profileError);
-      await rollbackOnError(userId, orgId, false, false);
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Failed to create user profile: ${profileError?.message || "Unknown error"}`,
-        },
-        { 
-          status: 500,
-          headers: getCorsHeaders(),
-        }
-      );
+    if (existingProfile) {
+      console.log(`[Trial Signup] Profile already exists for user: ${userId}, updating instead`);
+      // Profile exists, update it instead
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update({
+          email: email,
+          full_name: full_name,
+          active_organization_id: orgId,
+          role: "admin",
+        })
+        .eq("id", userId);
+
+      if (profileError) {
+        console.error("[Trial Signup] Profile update error:", profileError);
+        await rollbackOnError(userId, orgId, false, false);
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Failed to update user profile: ${profileError?.message || "Unknown error"}`,
+          },
+          { 
+            status: 500,
+            headers: getCorsHeaders(),
+          }
+        );
+      }
+    } else {
+      // Profile doesn't exist, create it
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert({
+          id: userId,
+          email: email,
+          full_name: full_name,
+          active_organization_id: orgId,
+          role: "admin",
+        })
+        .select()
+        .single();
+
+      if (profileError) {
+        console.error("[Trial Signup] Profile creation error:", profileError);
+        await rollbackOnError(userId, orgId, false, false);
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Failed to create user profile: ${profileError?.message || "Unknown error"}`,
+          },
+          { 
+            status: 500,
+            headers: getCorsHeaders(),
+          }
+        );
+      }
     }
 
     profileCreated = true;
-    console.log(`[Trial Signup] ✓ Profile created: ${userId}`);
+    console.log(`[Trial Signup] ✓ Profile created/updated: ${userId}`);
 
     // ============================================================
     // STEP 4: CREATE ORGANIZATION USER LINK
