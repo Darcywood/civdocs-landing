@@ -168,7 +168,13 @@ function StartTrialContent() {
                     disabled={loading}
                   />
                   <div className="flex items-center flex-1">
-                    <span className="text-2xl mr-3">🏗️</span>
+                    <Image 
+                      src="/Icons/civil_contractor.png" 
+                      alt="Civil Contractor" 
+                      width={80} 
+                      height={80} 
+                      className="w-20 h-20 mr-3 object-contain"
+                    />
                     <div>
                       <div className={`font-medium transition-colors ${
                         formData.company_type === 'civil'
@@ -205,7 +211,13 @@ function StartTrialContent() {
                     disabled={loading}
                   />
                   <div className="flex items-center flex-1">
-                    <span className="text-2xl mr-3">🚜</span>
+                    <Image 
+                      src="/Icons/plant_hire.png" 
+                      alt="Plant Hire Company" 
+                      width={80} 
+                      height={80} 
+                      className="w-20 h-20 mr-3 object-contain"
+                    />
                     <div>
                       <div className={`font-medium transition-colors ${
                         formData.company_type === 'plant_hire'
