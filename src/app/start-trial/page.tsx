@@ -1,32 +1,20 @@
 'use client';
 
-import { useState, useEffect, Suspense, useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 function StartTrialContent() {
-  const searchParams = useSearchParams();
-  const planParam = searchParams.get('plan');
-  
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
     company: '',
-    plan_type: planParam || 'bronze',
     company_type: '',
     password: '',
     confirmPassword: ''
   });
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-
-  // Update plan if URL param changes
-  useEffect(() => {
-    if (planParam) {
-      setFormData(prev => ({ ...prev, plan_type: planParam }));
-    }
-  }, [planParam]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,15 +56,6 @@ function StartTrialContent() {
     }
   };
 
-  const planDetails = {
-    bronze: { name: 'Bronze', emoji: '🥉', image: null, price: 97 },
-    silver: { name: 'Silver', emoji: '🥈', image: null, price: 197 },
-    gold: { name: 'Gold', emoji: '🥇', image: '/CivDocs 500x500 GOLD.svg', price: 297 },
-  };
-
-  const currentPlan = useMemo(() => {
-    return planDetails[formData.plan_type as keyof typeof planDetails] || planDetails.bronze;
-  }, [formData.plan_type]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
@@ -104,43 +83,12 @@ function StartTrialContent() {
             Start Your Free Trial
           </h1>
           <p className="text-gray-600">
-            No credit card required. 14 days of full access.
+            No credit card required. 14 days of unlimited access to all features.
           </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
-          {/* Selected Plan Display */}
-          <div className="bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10 rounded-xl p-4 mb-6 text-center">
-            <p className="text-sm text-gray-600 mb-1">Selected Plan</p>
-            <div className="flex items-center justify-center gap-2">
-              {currentPlan.image ? (
-                <Image src={currentPlan.image} alt={currentPlan.name} width={32} height={32} className="w-8 h-8" />
-              ) : (
-                <span className="text-2xl">{currentPlan.emoji}</span>
-              )}
-              <span className="text-xl font-semibold text-[#1E1E1E]">{currentPlan.name}</span>
-              <span className="text-gray-600">— ${currentPlan.price}/month</span>
-            </div>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Plan
-              </label>
-              <select
-                value={formData.plan_type}
-                onChange={(e) => setFormData({ ...formData, plan_type: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                disabled={loading}
-                suppressHydrationWarning
-              >
-                <option value="bronze">🥉 Bronze - $97/month</option>
-                <option value="silver">🥈 Silver - $197/month</option>
-                <option value="gold">🥇 Gold - $297/month</option>
-              </select>
-            </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Which setup best suits your company? *
@@ -328,7 +276,7 @@ function StartTrialContent() {
           </form>
 
           <p className="text-xs text-gray-500 text-center mt-4">
-            ✓ No credit card required • ✓ 14 days free • ✓ Cancel anytime
+            ✓ No credit card required • ✓ 14 days free • ✓ Full access to all features • ✓ Select a plan after trial
           </p>
         </div>
 

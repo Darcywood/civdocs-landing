@@ -28,7 +28,6 @@ interface StartTrialRequest {
   full_name: string;
   email: string;
   company: string;
-  plan_type: string;
   company_type: string;
   password: string;
   confirmPassword: string;
@@ -90,7 +89,7 @@ export async function POST(req: Request) {
     console.log("[Trial Signup] Parsing request body...");
     const body: StartTrialRequest = await req.json();
     console.log("[Trial Signup] Request body:", body);
-    const { full_name, email, company, plan_type, company_type, password, confirmPassword } = body;
+    const { full_name, email, company, company_type, password, confirmPassword } = body;
 
     // ============================================================
     // VALIDATION
@@ -98,11 +97,11 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Starting trial signup for: ${email}`);
 
     // Validate required fields
-    if (!full_name || !email || !company || !plan_type || !company_type || !password || !confirmPassword) {
+    if (!full_name || !email || !company || !company_type || !password || !confirmPassword) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required fields: full_name, email, company, plan_type, company_type, password, and confirmPassword are required",
+          error: "Missing required fields: full_name, email, company, company_type, password, and confirmPassword are required",
         },
         { 
           status: 400,
@@ -132,20 +131,6 @@ export async function POST(req: Request) {
         {
           success: false,
           error: "Invalid email format",
-        },
-        { 
-          status: 400,
-          headers: getCorsHeaders(),
-        }
-      );
-    }
-
-    // Validate plan_type
-    if (!VALID_PLANS.includes(plan_type as PlanType)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Invalid plan_type. Must be one of: ${VALID_PLANS.join(", ")}`,
         },
         { 
           status: 400,
@@ -247,7 +232,7 @@ export async function POST(req: Request) {
       .insert({
         name: company,
         email: email,
-        plan_type: plan_type as PlanType,
+        plan_type: null, // No plan selected during trial - user selects after trial expires
         default_view_mode: company_type as CompanyType,
         trial_expires_at: trialExpiresAt.toISOString(),
         created_by: userId, // Set creator immediately
