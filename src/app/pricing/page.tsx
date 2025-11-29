@@ -11,6 +11,7 @@ export default function PricingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -49,14 +50,14 @@ export default function PricingPage() {
       name: 'Bronze',
       planId: 'bronze',
       emoji: '🥉',
-      description: 'Perfect for small teams getting started',
-      monthlyPrice: 97,
+      description: 'Perfect for owner-operators and small civil crews.',
+      monthlyPrice: 197,
       features: [
-        'Up to 10 users',
-        'Up to 20 machines',
-        '1 supervisor',
-        'Full access to Prestarts, Timesheets & Safety Reports',
-        'Email support',
+        '5 users included',
+        '10 machines',
+        '1 admin + 1 supervisor',
+        'Prestarts, Timesheets & Safety Reports',
+        'Standard email support',
       ],
       cta: 'Start Free Trial',
       popular: false,
@@ -65,14 +66,15 @@ export default function PricingPage() {
       name: 'Silver',
       planId: 'silver',
       emoji: '🥈',
-      description: 'For growing teams that need more',
-      monthlyPrice: 197,
+      description: 'Great for civil crews growing into medium projects.',
+      monthlyPrice: 297,
       features: [
-        'Up to 15 users',
-        'Up to 30 machines',
-        '2 supervisors',
-        'All Bronze features + priority support',
-        'Custom company branding (logo & colors)',
+        '10 users included',
+        '15 machines',
+        '1 admin + 2 supervisors',
+        'Everything in Bronze',
+        'Priority support',
+        'Crank.ai assistant',
       ],
       cta: 'Start Free Trial',
       popular: false,
@@ -81,14 +83,17 @@ export default function PricingPage() {
       name: 'Gold',
       planId: 'gold',
       emoji: '🥇',
-      description: 'Advanced features for larger teams',
-      monthlyPrice: 297,
+      description: 'Built for expanding civil companies needing tier-one professionalism.',
+      monthlyPrice: 397,
       features: [
         'Up to 75 users',
-        'Up to 200 machines',
+        'Up to 125 machines',
+        'Unlimited admins',
         'Unlimited supervisors',
-        'All Silver features + early access to new features',
+        'All Silver features',
+        'Early access to new features',
         'Dedicated account manager',
+        'Crank.ai assistant',
       ],
       cta: 'Start Free Trial',
       popular: true,
@@ -422,12 +427,56 @@ export default function PricingPage() {
       {/* Pricing Cards */}
       <section className="py-16 bg-gradient-to-b from-[#FFF5ED] to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Billing Period Toggle */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-gray-100 rounded-full p-2 shadow-inner">
+              <button
+                onClick={() => setBillingPeriod('monthly')}
+                className={`px-10 py-3.5 rounded-full font-semibold text-base transition-all duration-200 ${
+                  billingPeriod === 'monthly'
+                    ? 'bg-white text-gray-900 shadow-md'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingPeriod('yearly')}
+                className={`px-10 py-3.5 rounded-full font-semibold text-base transition-all duration-200 ${
+                  billingPeriod === 'yearly'
+                    ? 'bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white shadow-md'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Yearly (Save 50%)
+              </button>
+            </div>
+          </div>
+
+          {/* Best Value Banner */}
+          {billingPeriod === 'yearly' && (
+            <div className="max-w-4xl mx-auto mb-8">
+              <div className="bg-white border-2 border-orange-200 rounded-2xl p-6 shadow-lg flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-7 h-7 text-[#FF8C32]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-gray-900 font-medium leading-relaxed text-base">
+                    <span className="font-semibold">Best Value:</span> Get <span className="font-bold">6 months free</span> with annual billing. Lock in your rate and save hundreds per year.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={`relative bg-white rounded-3xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  plan.popular ? 'border-[#FF8C32] lg:scale-105' : 'border-gray-100'
+                  plan.popular ? 'border-[#FF8C32] lg:scale-110 lg:-mt-4 lg:mb-4' : 'border-gray-100'
                 }`}
               >
                 {plan.popular && (
@@ -438,24 +487,51 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                <div className="p-8">
+                {/* 6 months free banner for yearly */}
+                {billingPeriod === 'yearly' && plan.monthlyPrice !== null && (
+                  <div className="bg-orange-100 border-b-2 border-orange-300 rounded-t-3xl px-6 py-3 shadow-sm">
+                    <p className="text-sm font-semibold text-[#FF8C32] text-center">6 months free with annual billing</p>
+                  </div>
+                )}
+
+                <div className={plan.popular ? 'p-10' : 'p-8'}>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-3xl">{plan.emoji}</span>
-                    <h3 className="text-2xl font-semibold text-[#1E1E1E]">
+                    <span className={plan.popular ? 'text-4xl' : 'text-3xl'}>{plan.emoji}</span>
+                    <h3 className={plan.popular ? 'text-3xl font-semibold text-[#1E1E1E]' : 'text-2xl font-semibold text-[#1E1E1E]'}>
                       {plan.name}
                     </h3>
                   </div>
-                  <p className="text-gray-600 mb-6">{plan.description}</p>
+                  <p className={`text-gray-600 ${plan.popular ? 'mb-8 text-lg' : 'mb-6'}`}>{plan.description}</p>
 
-                  <div className="mb-8">
+                  <div className={plan.popular ? 'mb-10' : 'mb-8'}>
                     {plan.monthlyPrice === null ? (
                       <div className="text-4xl font-bold text-[#1E1E1E]">Custom</div>
+                    ) : billingPeriod === 'yearly' ? (
+                      <div className="space-y-2">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-lg text-gray-400 line-through">
+                            ${(plan.monthlyPrice * 12).toLocaleString()}/year
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className={plan.popular ? 'text-6xl font-bold text-[#1E1E1E]' : 'text-5xl font-bold text-[#1E1E1E]'}>
+                            ${(plan.monthlyPrice * 6).toLocaleString()}
+                          </span>
+                          <span className={`text-gray-600 font-medium ${plan.popular ? 'text-xl' : 'text-lg'}`}>/year</span>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          Equivalent to ${((plan.monthlyPrice * 6) / 12).toFixed(2)}/month (billed annually)
+                        </p>
+                        <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                          Save ${(plan.monthlyPrice * 6).toLocaleString()}/year
+                        </div>
+                      </div>
                     ) : (
                       <div className="flex items-baseline gap-1">
-                        <span className="text-5xl font-bold text-[#1E1E1E]">
+                        <span className={plan.popular ? 'text-6xl font-bold text-[#1E1E1E]' : 'text-5xl font-bold text-[#1E1E1E]'}>
                           ${plan.monthlyPrice}
                         </span>
-                        <span className="text-gray-600 text-lg font-medium">/month</span>
+                        <span className={`text-gray-600 font-medium ${plan.popular ? 'text-xl' : 'text-lg'}`}>/month</span>
                       </div>
                     )}
                   </div>
@@ -463,13 +539,13 @@ export default function PricingPage() {
                   {plan.planId ? (
                     <button
                       onClick={() => handleStartTrial(plan.planId!)}
-                      className={`block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 ${
+                      className={`block w-full text-center rounded-full font-semibold transition-all duration-200 mb-8 ${
                         plan.popular
-                          ? 'bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white hover:shadow-xl hover:scale-[1.02]'
-                          : 'bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]'
+                          ? 'bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white hover:shadow-xl hover:scale-[1.02] py-4 px-6 text-lg'
+                          : 'bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32] py-3 px-6'
                       }`}
                     >
-                      {plan.cta}
+                      {billingPeriod === 'yearly' ? `${plan.cta} Yearly` : plan.cta}
                     </button>
                   ) : (
                     <a
