@@ -91,100 +91,6 @@ function StartTrialContent() {
           <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Which setup best suits your company? *
-              </label>
-              <div className="space-y-3">
-                <div
-                  className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all group ${
-                    formData.company_type === 'civil'
-                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
-                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
-                  }`}
-                  onClick={() => !loading && setFormData({ ...formData, company_type: 'civil' })}
-                >
-                  <input
-                    type="radio"
-                    name="company_type"
-                    value="civil"
-                    checked={formData.company_type === 'civil'}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      setFormData({ ...formData, company_type: e.target.value });
-                    }}
-                    className="w-5 h-5 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-3 cursor-pointer accent-[#FF8C32]"
-                    required
-                    disabled={loading}
-                  />
-                  <div className="flex items-center flex-1">
-                    <Image 
-                      src="/Icons/civil_contractor.png" 
-                      alt="Civil Contractor" 
-                      width={80} 
-                      height={80} 
-                      className="w-20 h-20 mr-3 object-contain"
-                    />
-                    <div>
-                      <div className={`font-medium transition-colors ${
-                        formData.company_type === 'civil'
-                          ? 'text-[#FF8C32]'
-                          : 'text-gray-900 group-hover:text-[#FF8C32]'
-                      }`}>
-                        Civil Contractor
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        Project management and construction
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all group ${
-                    formData.company_type === 'plant_hire'
-                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
-                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
-                  }`}
-                  onClick={() => !loading && setFormData({ ...formData, company_type: 'plant_hire' })}
-                >
-                  <input
-                    type="radio"
-                    name="company_type"
-                    value="plant_hire"
-                    checked={formData.company_type === 'plant_hire'}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      setFormData({ ...formData, company_type: e.target.value });
-                    }}
-                    className="w-5 h-5 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-3 cursor-pointer accent-[#FF8C32]"
-                    required
-                    disabled={loading}
-                  />
-                  <div className="flex items-center flex-1">
-                    <Image 
-                      src="/Icons/plant_hire.png" 
-                      alt="Plant Hire Company" 
-                      width={80} 
-                      height={80} 
-                      className="w-20 h-20 mr-3 object-contain"
-                    />
-                    <div>
-                      <div className={`font-medium transition-colors ${
-                        formData.company_type === 'plant_hire'
-                          ? 'text-[#FF8C32]'
-                          : 'text-gray-900 group-hover:text-[#FF8C32]'
-                      }`}>
-                        Plant Hire Company
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        Wet hire and fleet management
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name *
               </label>
               <input
@@ -264,6 +170,103 @@ function StartTrialContent() {
               {passwordError && (
                 <p className="text-red-500 text-sm mt-1">{passwordError}</p>
               )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Which setup best suits your company? *
+              </label>
+              <p className="text-xs text-gray-500 mb-3">
+                Don't worry, you can change this anytime later
+              </p>
+              <div className="space-y-2">
+                <div
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all group ${
+                    formData.company_type === 'civil'
+                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
+                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
+                  }`}
+                  onClick={() => !loading && setFormData({ ...formData, company_type: 'civil' })}
+                >
+                  <input
+                    type="radio"
+                    name="company_type"
+                    value="civil"
+                    checked={formData.company_type === 'civil'}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setFormData({ ...formData, company_type: e.target.value });
+                    }}
+                    className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
+                    required
+                    disabled={loading}
+                  />
+                  <div className="flex items-center flex-1 justify-between">
+                    <div>
+                      <div className={`text-sm font-medium transition-colors ${
+                        formData.company_type === 'civil'
+                          ? 'text-[#FF8C32]'
+                          : 'text-gray-900 group-hover:text-[#FF8C32]'
+                      }`}>
+                        Civil Contractor
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Project management and construction
+                      </div>
+                    </div>
+                    <Image 
+                      src="/icons-pricing/Civil-Contractor.png" 
+                      alt="Civil Contractor" 
+                      width={64} 
+                      height={64} 
+                      className="w-16 h-16 ml-1 object-contain"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all group ${
+                    formData.company_type === 'plant_hire'
+                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
+                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
+                  }`}
+                  onClick={() => !loading && setFormData({ ...formData, company_type: 'plant_hire' })}
+                >
+                  <input
+                    type="radio"
+                    name="company_type"
+                    value="plant_hire"
+                    checked={formData.company_type === 'plant_hire'}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setFormData({ ...formData, company_type: e.target.value });
+                    }}
+                    className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
+                    required
+                    disabled={loading}
+                  />
+                  <div className="flex items-center flex-1 justify-between">
+                    <div>
+                      <div className={`text-sm font-medium transition-colors ${
+                        formData.company_type === 'plant_hire'
+                          ? 'text-[#FF8C32]'
+                          : 'text-gray-900 group-hover:text-[#FF8C32]'
+                      }`}>
+                        Plant Hire Company
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Wet hire and fleet management
+                      </div>
+                    </div>
+                    <Image 
+                      src="/icons-pricing/Plant-hire.png" 
+                      alt="Plant Hire Company" 
+                      width={64} 
+                      height={64} 
+                      className="w-16 h-16 ml-1 object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
             <button
