@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function GuidesPage() {
+export default function TimesheetsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
@@ -39,54 +39,38 @@ export default function GuidesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-[80] bg-white/95 backdrop-blur-sm border-b border-gray-200">
+    <div className="min-h-screen bg-[#FFFBF8]">
+      {/* Header */}
+      <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/">
-                <Image src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
-              </Link>
-            </div>
+            <Link href="/" className="flex-shrink-0">
+              <Image 
+                src="/CivDocs no lift.svg" 
+                alt="CivDocs"
+                width={200}
+                height={64}
+                className="h-16 w-auto"
+              />
+            </Link>
             
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <nav className="flex items-center space-x-8">
-                <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Pricing
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Reporting
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/guides" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Resources
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
-                </a>
-              </nav>
-              
-              {/* Login Button */}
-              <a 
-                href="#login" 
-                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
-              >
-                Login
-              </a>
-              
-              {/* CTA Button */}
+              <Link href="/" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors font-medium">
+                Home
+              </Link>
+              <Link href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors font-medium">
+                Pricing
+              </Link>
               <a 
                 href="https://app.civdocs.com/auth/signup" 
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-xl transition-all"
               >
                 Start Free Trial →
               </a>
             </div>
-            
+
             {/* Mobile menu button */}
-            <div className="lg:hidden">
+            <div className="lg:hidden flex items-center justify-center">
               <button 
                 onClick={toggleMobileMenu}
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
@@ -113,23 +97,44 @@ export default function GuidesPage() {
       <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
           <>
+            {/* Backdrop - below header */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ 
+                duration: 0.15,
+                ease: [0.4, 0, 0.2, 1]
+              }}
               className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
               onClick={closeMobileMenu}
             />
-            
+        
+            {/* Menu Card - drops down from header */}
             <motion.div
               key="mobile-menu"
-              initial={{ opacity: 0, scale: 0.96, y: -8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ 
+                opacity: 0,
+                scale: 0.96,
+                y: -8
+              }}
+              animate={{ 
+                opacity: 1,
+                scale: 1,
+                y: 0
+              }}
+              exit={{ 
+                opacity: 0,
+                scale: 0.96,
+                y: -8
+              }}
+              transition={{ 
+                duration: 0.18,
+                ease: [0.4, 0, 0.2, 1]
+              }}
               className="fixed top-[88px] left-4 right-4 z-[75] bg-gray-50 rounded-3xl shadow-2xl overflow-hidden lg:hidden max-h-[calc(100vh-7rem)] overflow-y-auto"
             >
+              {/* Menu content */}
               <div className="px-8 py-8 space-y-2">
                 {/* Product Dropdown */}
                 <div>
@@ -177,7 +182,7 @@ export default function GuidesPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
                         </a>
                         <a
-                          href="/reporting" 
+                          href="/cost-tracking" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -217,7 +222,7 @@ export default function GuidesPage() {
                     onClick={toggleResourcesDropdown}
                     className="w-full flex items-center justify-between py-5 text-left"
                   >
-                    <span className="text-[16px] font-medium text-[#FF8C32]">Resources</span>
+                    <span className="text-[16px] font-medium text-gray-600">Resources</span>
                     <svg 
                       className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
                         isResourcesDropdownOpen ? 'rotate-180' : ''
@@ -283,6 +288,7 @@ export default function GuidesPage() {
                   </a>
                 </div>
 
+                {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <button 
                     onClick={closeMobileMenu}
@@ -292,14 +298,14 @@ export default function GuidesPage() {
                   </button>
                   
                   <a
-                    href="https://app.civdocs.com/auth/signup"
+                    href="/start-trial"
                     onClick={closeMobileMenu}
                     className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
                   >
                     Start Free Trial →
                   </a>
                   
-                  <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2">No credit card required</p>
+                  <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2 animate-pulse-glow">No credit card required</p>
                 </div>
               </div>
             </motion.div>
@@ -308,141 +314,272 @@ export default function GuidesPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
+      <section className="py-20 bg-[#FFFBF8]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Step-by-Step Guides
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              Learn how to get the most out of CivDocs with our comprehensive guides and documentation.
-            </p>
+          <div className="flex flex-col gap-12">
+            {/* Text Content */}
+            <div className="text-center max-w-3xl mx-auto">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
+                Digital timesheets your crew will actually use.
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Log hours by project, submit once a week, and keep payroll and approvals in one clean workflow.
+              </p>
+              
+              {/* CTA Button */}
+              <div className="flex justify-center mb-8">
+                <Link
+                  href="/start-trial"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
+                >
+                  Start Free Trial
+                </Link>
+              </div>
+            </div>
+
+            {/* Video Placeholder */}
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-2xl aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [TIMESHEETS HERO VIDEO PLACEHOLDER]
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Guides Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-white">
+      {/* How Timesheets Work Section */}
+      <section className="py-24 bg-[#FFFBF8]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight">
-              Getting Started Guides
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-4">
+              How Timesheets Work
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Guide 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
+                <p className="text-gray-400 font-medium text-sm text-center px-4">
+                  [STEP 1 IMAGE]
+                </p>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Getting Started
+                Select project & scope
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Learn the basics of setting up your account, creating your first project, and inviting team members.
+                Pick the project and scope you worked on so every hour is linked back to the right job.
               </p>
             </div>
 
-            {/* Guide 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            {/* Step 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
+                <p className="text-gray-400 font-medium text-sm text-center px-4">
+                  [STEP 2 IMAGE]
+                </p>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Pre-Starts Guide
+                Add start, finish & breaks
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Master the pre-start checklist feature to ensure safety compliance and proper equipment checks.
+                Enter your start time, finish time and break — CivDocs calculates the hours for you.
               </p>
             </div>
 
-            {/* Guide 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            {/* Step 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
+                <p className="text-gray-400 font-medium text-sm text-center px-4">
+                  [STEP 3 IMAGE]
+                </p>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Timesheets Guide
+                Submit your week for approval
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Learn how to efficiently log crew hours, manage timesheets, and export time data for payroll.
-              </p>
-            </div>
-
-            {/* Guide 4 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Reporting Guide
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Discover how to generate comprehensive reports, set up automated reporting, and analyze your data.
-              </p>
-            </div>
-
-            {/* Guide 5 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Settings & Configuration
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Configure your organization settings, manage users, and customize CivDocs to fit your workflow.
-              </p>
-            </div>
-
-            {/* Guide 6 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Best Practices
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Learn industry best practices and tips from experienced users to maximize your productivity.
+                At the end of the week, submit your timesheet to a supervisor instead of chasing signatures on paper.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-gradient-to-b from-[#FFF5ED] to-white">
+      {/* Weekly PDF Preview Section */}
+      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col gap-12">
+            {/* Text Content */}
+            <div className="max-w-3xl">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Weekly PDFs built for payroll
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Every submitted timesheet generates a clean PDF for that employee's week — ready to send straight to payroll or keep on file.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">One PDF per employee, per week</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Hours broken down by project and scope</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Notes, approvals and leave all captured in one place</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* PDF Placeholder */}
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [WEEKLY TIMESHEET PDF PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Leave Requests Section */}
+      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="order-2 lg:order-1">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Leave requests in the same flow as timesheets
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Employees can request annual leave, sick leave or RDOs from the same place they submit their hours, so supervisors see the full picture for the week.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Select leave type — annual, personal, sick, RDO, LSL or custom</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Choose the date range and add any notes</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Send to a supervisor for approval with one click</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Approved leave is stored with the employee's timesheet history</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Right Column - Form Placeholder */}
+            <div className="order-1 lg:order-2 flex items-center justify-center">
+              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [LEAVE REQUEST FORM PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Supervisor Approvals Section */}
+      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Video Placeholder */}
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [SUPERVISOR APPROVALS SCREEN PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column - Text Content */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Supervisor sign-off without chasing paper
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Supervisors get a central queue of submitted timesheets and leave requests, so approvals are quick, consistent and auditable.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">See all pending timesheets by employee and week</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Open a submission, review hours, notes and leave in seconds</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Approve, reject or request changes — with a full history of who signed off and when</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Keep a clean audit trail for payroll, compliance and disputes</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="bg-[#FFFBF8] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
-            Ready to Get Started?
+            Make timesheets and leave take minutes, not hours.
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-            Start your free trial and explore all the features with our step-by-step guides.
+          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            Give your crews a simple way to log their week, and your supervisors a clean way to sign it off — all inside CivDocs.
           </p>
-          <a 
-            href="https://app.civdocs.com/auth/signup" 
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            Start Free Trial →
-          </a>
-          <p className="text-sm mt-4">
-            <span className="font-bold text-[#FF8C32] animate-pulse-glow">No credit card required</span>
-            <span className="text-gray-500"> • Get started in minutes</span>
-          </p>
+          <div className="flex justify-center">
+            <Link
+              href="/start-trial"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
+            >
+              Start Free Trial
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -480,4 +617,3 @@ export default function GuidesPage() {
     </div>
   );
 }
-
