@@ -456,17 +456,30 @@ export default function PreStartsPage() {
               </ul>
             </div>
 
+            {/* PDF Preview Image - Responsive */}
+            <div className="w-full max-w-[900px] mx-auto px-4">
+              <OptimizedImage
+                src="/images/prestart-preview.png"
+                alt="Prestart PDF Preview"
+                className="w-full h-auto rounded-xl shadow-lg"
+                width={900}
+                height={1200}
+              />
+            </div>
+
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
-            <div className="w-full md:hidden p-4">
-              <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
-                <div className="pdf-container">
-                  <iframe
-                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
-                    className="w-full aspect-[3/4] md:aspect-[4/3] rounded-xl"
-                    title="Pre-Start PDF Report"
-                    scrolling="no"
-                  />
+            <div className="w-full md:hidden -mx-6 lg:-mx-8">
+              <div className="w-full p-4">
+                <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
+                  <div className="pdf-container">
+                    <iframe
+                      src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
+                      className="w-full h-[600px] rounded-xl"
+                      title="Pre-Start PDF Report"
+                      scrolling="no"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -476,7 +489,7 @@ export default function PreStartsPage() {
                 <div className="pdf-container">
                   <iframe
                     src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
-                    className="w-full aspect-[4/3] rounded-xl"
+                    className="w-full h-[700px] rounded-xl"
                     title="Pre-Start PDF Report"
                   />
                 </div>

@@ -179,14 +179,16 @@ img[src*="CivDocs"] {
 .pdf-container {
   width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pdf-container canvas,
 .pdf-container iframe,
 .pdf-container embed {
   width: 100% !important;
-  height: auto !important;
   max-width: 100% !important;
+  display: block;
+  border: none;
 }
 
 /* Swiper Smooth Transitions */

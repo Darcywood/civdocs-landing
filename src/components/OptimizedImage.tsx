@@ -6,6 +6,7 @@ export default function OptimizedImage(props: ImageProps) {
   return (
     <Image
       {...props}
+      className={props.className}
       loading={props.priority ? "eager" : "lazy"}
       sizes={props.sizes || "(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"}
     />
