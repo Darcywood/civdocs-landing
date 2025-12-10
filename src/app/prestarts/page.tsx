@@ -476,8 +476,8 @@ export default function PreStartsPage() {
           </div>
           
           {/* Scrollable Pre-Start Preview Images */}
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-2xl mx-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm overflow-y-auto max-h-[800px]">
+          <div className="w-full flex justify-center px-4">
+            <div className="w-full max-w-2xl mx-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm scrollable-image-container max-h-[800px]">
               <div className="flex flex-col gap-4">
                 <img
                   src="/prestart-page/1.png"

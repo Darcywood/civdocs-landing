@@ -184,8 +184,16 @@ img[src*="CivDocs"] {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Mobile PDF Viewer Styles */
-.react-pdf__Page canvas {
+/* Scrollable Image Gallery Styles */
+.scrollable-image-container {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scrollable-image-container img {
+  max-width: 100% !important;
   width: 100% !important;
   height: auto !important;
+  display: block;
 }
