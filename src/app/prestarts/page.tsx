@@ -458,26 +458,28 @@ export default function PreStartsPage() {
 
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
-            <div className="w-full md:hidden flex justify-center">
-              <div className="w-full max-w-md mx-4 bg-gray-100 overflow-hidden pdf-container rounded-lg shadow-sm">
-                <div className="w-full h-[550px] sm:h-[650px] overflow-hidden">
+            <div className="w-full md:hidden p-4">
+              <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="pdf-container">
                   <iframe
                     src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
-                    className="w-full h-full border-0 pdf-iframe"
+                    className="w-full aspect-[3/4] md:aspect-[4/3] rounded-xl"
                     title="Pre-Start PDF Report"
                     scrolling="no"
                   />
                 </div>
               </div>
             </div>
-            {/* Desktop - Original fixed height */}
-            <div className="hidden md:flex items-center justify-center">
-              <div className="w-full max-w-lg h-[700px] bg-gray-100 rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden">
-                <iframe
-                  src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
-                  className="w-full h-full"
-                  title="Pre-Start PDF Report"
-                />
+            {/* Desktop - Responsive */}
+            <div className="hidden md:flex items-center justify-center p-8">
+              <div className="w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="pdf-container">
+                  <iframe
+                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
+                    className="w-full aspect-[4/3] rounded-xl"
+                    title="Pre-Start PDF Report"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -590,7 +592,7 @@ export default function PreStartsPage() {
                 "Pre-start paperwork used to take ages every morning. CivDocs makes it quick and supervisors get reports instantly."
               </blockquote>
               <p className="text-lg text-gray-600 font-medium">
-                — [CONTRACTOR NAME], Supervisor
+                — John Lynch, JAL Civil Earthworks
               </p>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 
@@ -30,6 +30,14 @@ export default function PrestartSteps() {
       description: "Add your signature, choose recipients and automatically email the PDF."
     }
   ];
+
+  // Preload all carousel images immediately when component mounts
+  useEffect(() => {
+    steps.forEach((step) => {
+      const img = new window.Image();
+      img.src = step.image;
+    });
+  }, []);
 
   return (
     <section className="w-full py-24">
@@ -99,6 +107,7 @@ export default function PrestartSteps() {
                         width={320}
                         height={640}
                         sizes="(max-width: 768px) 90vw, 380px"
+                        priority
                         className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                       />
                     </div>

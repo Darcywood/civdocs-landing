@@ -178,33 +178,15 @@ img[src*="CivDocs"] {
 /* PDF Viewer Mobile Responsive */
 .pdf-container {
   width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  position: relative;
+  overflow-x: auto;
 }
 
-.pdf-container > div {
-  overflow: hidden;
-}
-
+.pdf-container canvas,
 .pdf-container iframe,
-.pdf-iframe {
-  max-width: 100%;
-  width: 100%;
-  border: none;
-  display: block;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Hide scrollbars on PDF container */
-.pdf-container::-webkit-scrollbar {
-  display: none;
-}
-
-.pdf-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.pdf-container embed {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
 }
 
 /* Swiper Smooth Transitions */
