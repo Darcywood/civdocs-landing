@@ -183,3 +183,38 @@ img[src*="CivDocs"] {
 .swiper-slide {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+/* Mobile PDF Viewer Styles */
+.react-pdf__Page {
+  margin: 0 auto;
+  display: block;
+}
+
+.react-pdf__Page canvas {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+.react-pdf__Page__textContent {
+  max-width: 100% !important;
+}
+
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Ensure PDF scales on mobile */
+@media (max-width: 768px) {
+  .react-pdf__Page {
+    width: 100% !important;
+    max-width: 100vw;
+  }
+  
+  .react-pdf__Page canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

@@ -5,6 +5,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import PrestartSteps from '@/components/marketing/PrestartSteps';
+import dynamic from 'next/dynamic';
+
+const MobilePdfViewer = dynamic(() => import('@/components/MobilePdfViewer'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full flex justify-center">
+      <div className="w-full max-w-2xl mx-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-gray-500">Loading PDF...</p>
+        </div>
+      </div>
+    </div>
+  ),
+});
 
 export default function PreStartsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -475,18 +489,8 @@ export default function PreStartsPage() {
             </p>
           </div>
           
-          {/* Scrollable PDF Preview */}
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-2xl mx-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm overflow-hidden">
-              <div className="w-full h-[800px] overflow-y-auto">
-                <iframe
-                  src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
-                  className="w-full h-full border-0 rounded-lg"
-                  title="Daily Plant Pre-Start Report Example"
-                />
-              </div>
-            </div>
-          </div>
+          {/* Mobile-Optimized PDF Preview */}
+          <MobilePdfViewer file="/prestart-page/prestart-EXC-012-2025-12-02.pdf" />
         </div>
       </section>
 
