@@ -97,10 +97,10 @@ body {
   z-index: 1;
 }
 
-/* Fade from white to peach (#FFFBF8) */
+/* Fade from white to cream (#FFFEFB - lighter, whiter) */
 .section-fade-white-to-peach {
   position: relative;
-  margin-top: -2px;
+  margin-top: -4px;
 }
 
 .section-fade-white-to-peach::before {
@@ -109,16 +109,20 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 24px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 251, 248, 1) 100%);
+  height: 80px;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(255, 255, 255, 0.95) 25%,
+    rgba(255, 254, 251, 0.85) 75%,
+    rgba(255, 254, 251, 1) 100%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Fade from peach (#FFFBF8) to white */
+/* Fade from cream (#FFFEFB - lighter, whiter) to white */
 .section-fade-peach-to-white {
   position: relative;
-  margin-top: -2px;
+  margin-top: -4px;
 }
 
 .section-fade-peach-to-white::before {
@@ -127,8 +131,34 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 24px;
-  background: linear-gradient(to bottom, rgba(255, 251, 248, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  height: 80px;
+  background: linear-gradient(to bottom, 
+    rgba(255, 254, 251, 1) 0%,
+    rgba(255, 254, 251, 0.85) 25%,
+    rgba(255, 255, 255, 0.95) 75%,
+    rgba(255, 255, 255, 1) 100%);
   pointer-events: none;
   z-index: 1;
+}
+
+/* Swiper Pagination Dots Customization */
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 2rem;
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  width: 10px !important;
+  height: 10px !important;
+  background: #d1d5db !important;
+  opacity: 1 !important;
+  margin: 0 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #FF8C32 !important;
+  width: 24px !important;
+  border-radius: 5px !important;
 }

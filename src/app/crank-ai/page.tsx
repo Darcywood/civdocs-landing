@@ -39,7 +39,7 @@ export default function CrankAIPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF8]">
+    <div className="min-h-screen bg-[#FFFEFB]">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -71,8 +71,8 @@ export default function CrankAIPage() {
 
             {/* Mobile menu button */}
             <div className="lg:hidden flex items-center justify-center">
-              <button 
-                onClick={toggleMobileMenu}
+            <button 
+              onClick={toggleMobileMenu}
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
                 aria-label="Toggle mobile menu"
               >
@@ -86,8 +86,8 @@ export default function CrankAIPage() {
                   <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
                     isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
                   }`}></span>
-                </div>
-              </button>
+              </div>
+            </button>
             </div>
           </div>
         </div>
@@ -188,6 +188,14 @@ export default function CrankAIPage() {
                         >
                           <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Cost tracking</h3>
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
+                        </a>
+                        <a
+                          href="/logbook" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Logbook</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Digital logbook for hours, prestarts, machines, and compliance</p>
                         </a>
                         <a
                           href="/crank-ai" 
@@ -314,7 +322,7 @@ export default function CrankAIPage() {
       </AnimatePresence>
 
       {/* 1. Hero Section */}
-      <section className="py-20 bg-[#FFFBF8]">
+      <section className="py-20 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col gap-12">
             {/* Text Content */}
@@ -322,18 +330,18 @@ export default function CrankAIPage() {
               <p className="text-sm font-semibold text-[#FF8C32] mb-4 uppercase tracking-wide">
                 AI for civil construction
               </p>
-              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mx-auto mb-8">
-                <Image 
-                  src="/Crank.ai/crank.ai.png" 
-                  alt="Crank.ai" 
-                  width={48} 
-                  height={48} 
-                  className="w-12 h-12 object-contain"
-                />
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
+          <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mx-auto mb-8">
+            <Image 
+              src="/Crank.ai/crank.ai.png" 
+              alt="Crank.ai" 
+              width={48} 
+              height={48} 
+              className="w-12 h-12 object-contain"
+            />
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
                 Crank.ai — instant answers from your CivDocs data
-              </h1>
+          </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Ask plain-English questions about costs, productivity, timesheets and plant. Crank.ai reads your CivDocs data and gives clear answers in seconds — no spreadsheets, no SQL, no BI dashboards to maintain.
               </p>
@@ -440,7 +448,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 3. Cost & financial intelligence */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8] section-fade-white-to-peach relative">
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -568,7 +576,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 5. Productivity & performance */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8] section-fade-white-to-peach relative">
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -714,7 +722,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 7. Machines & plant intelligence */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8] section-fade-white-to-peach relative">
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -866,7 +874,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 9. Employee management */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8] section-fade-white-to-peach relative">
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -918,22 +926,22 @@ export default function CrankAIPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               {/* Left Column */}
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
                   <span className="text-gray-700 text-lg">Tool-based architecture — Crank.ai calls safe, pre-built tools instead of writing raw SQL</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
                   <span className="text-gray-700 text-lg">Organization-scoped security — all queries respect CivDocs RLS and org boundaries</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
                   <span className="text-gray-700 text-lg">Smart tool chaining — automatically combines multiple tools to answer complex questions</span>
                 </div>
               </div>
@@ -969,7 +977,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 11. Example questions Crank.ai can answer */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8] section-fade-white-to-peach relative">
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-8 text-center">
             Ask questions like…
@@ -994,7 +1002,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* 12. Final CTA Section */}
-      <section className="bg-[#FFFBF8] py-20 sm:py-32">
+      <section className="bg-[#FFFEFB] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
             Start using Crank.ai with your CivDocs free trial

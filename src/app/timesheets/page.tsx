@@ -39,7 +39,7 @@ export default function TimesheetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF8]">
+    <div className="min-h-screen bg-[#FFFEFB]">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -190,6 +190,14 @@ export default function TimesheetsPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
                         </a>
                         <a
+                          href="/logbook" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Logbook</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Digital logbook for hours, prestarts, machines, and compliance</p>
+                        </a>
+                        <a
                           href="/crank-ai" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
@@ -314,7 +322,7 @@ export default function TimesheetsPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="py-20 bg-[#FFFBF8]">
+      <section className="py-20 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col gap-12">
             {/* Text Content */}
@@ -350,7 +358,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* How Timesheets Work Section */}
-      <section className="py-24 bg-[#FFFBF8]">
+      <section className="py-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-4">
@@ -408,7 +416,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* Weekly PDF Preview Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col gap-12">
             {/* Text Content */}
@@ -456,7 +464,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* Leave Requests Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -510,7 +518,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* Supervisor Approvals Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Video Placeholder */}
@@ -564,7 +572,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="bg-[#FFFBF8] py-20 sm:py-32">
+      <section className="bg-[#FFFEFB] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
             Make timesheets and leave take minutes, not hours.

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function CostTrackingPage() {
+export default function LogbookPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
@@ -71,8 +71,8 @@ export default function CostTrackingPage() {
 
             {/* Mobile menu button */}
             <div className="lg:hidden flex items-center justify-center">
-            <button 
-              onClick={toggleMobileMenu}
+              <button 
+                onClick={toggleMobileMenu}
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
                 aria-label="Toggle mobile menu"
               >
@@ -86,8 +86,8 @@ export default function CostTrackingPage() {
                   <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
                     isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
                   }`}></span>
-              </div>
-            </button>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -327,14 +327,19 @@ export default function CostTrackingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
+              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mx-auto lg:mx-0 mb-8">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
-                Cost Tracking
+                Logbook
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Track project costs with clarity and confidence.
+                A complete digital logbook for plant hire, operators, and supervisors.
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                CivDocs automatically captures labour, plant, materials and progress data and keeps your budgets updated in real-time.
+                Replace paper logbooks with a digital system for hours, prestarts, machines, and compliance.
               </p>
               
               {/* CTA Buttons */}
@@ -353,11 +358,11 @@ export default function CostTrackingPage() {
               </div>
             </div>
 
-            {/* Right Column - Video Placeholder */}
+            {/* Right Column - Hero Placeholder */}
             <div className="flex items-center justify-center">
               <div className="w-full max-w-md aspect-[9/16] bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
                 <p className="text-gray-400 font-medium text-center px-4">
-                  [COST TRACKING HERO VIDEO PLACEHOLDER]
+                  [LOGBOOK HERO ANIMATION PLACEHOLDER]
                 </p>
               </div>
             </div>
@@ -365,43 +370,17 @@ export default function CostTrackingPage() {
         </div>
       </section>
 
-      {/* 2. How Cost Tracking Works Section */}
-      <section className="py-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
+      {/* 2. Replace Paper Logbooks */}
+      <section className="pt-20 pb-24 bg-white section-fade-peach-to-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                How Cost Tracking Works
+                Replace Paper Logbooks
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                CivDocs brings all your project costs together in one place. Labour comes from timesheets, plant costs from pre-starts, materials from supervisors, and progress from daily updates.
-              </p>
-            </div>
-
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST TRACKING OVERVIEW VIDEO PLACEHOLDER]
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Labour Costing Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Labour Costing
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Labour cost is calculated from timesheets. Each employee has an hourly rate, and when they select a project and scope in their timesheet, those hours automatically roll up into the project's labour cost code (XXXX-L).
+                Make daily logging fast, accurate, and entirely digital.
               </p>
               
               {/* Bullets */}
@@ -410,28 +389,51 @@ export default function CostTrackingPage() {
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Employee hourly rates stored in the system</span>
+                  <span className="text-gray-700 text-lg">Digital week view for operators</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Project and scope selection in timesheets</span>
+                  <span className="text-gray-700 text-lg">Daily start/end/break logging</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Automatic roll-ups into project budgets</span>
+                  <span className="text-gray-700 text-lg">Auto-calculated total hours</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Job + client assignment</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Mobile-first design for field use</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Works offline (placeholder note)</span>
                 </li>
               </ul>
             </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+            {/* Right Column - Placeholders */}
+            <div className="flex flex-col gap-6">
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
                 <p className="text-gray-400 font-medium text-center px-4">
-                  [LABOUR COSTING IMAGE PLACEHOLDER]
+                  [OPERATOR WEEK VIEW SCREENSHOT PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [MOBILE DAILY LOG ENTRY SCREENSHOT PLACEHOLDER]
                 </p>
               </div>
             </div>
@@ -439,17 +441,39 @@ export default function CostTrackingPage() {
         </div>
       </section>
 
-      {/* 4. Plant & Equipment Costing Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
+      {/* 3. Digital Pre-starts Included */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Placeholders */}
+            <div className="order-2 lg:order-1 flex flex-col gap-6">
+              <div className="w-full min-h-[250px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [PRESTART CHECKLIST PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[250px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [PHOTO UPLOADS PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[250px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [GENERATED PDF PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column - Text Content */}
+            <div className="order-1 lg:order-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Plant & Equipment Costs
+                Digital Pre-starts Included
               </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Pre-starts push machinery day rates into project scopes. When operators complete a pre-start and choose the project and scope they're working on, those plant costs automatically roll into the plant cost code (XXXX-P).
+              <p className="text-xl text-gray-600 mb-4 leading-relaxed">
+                A built-in 23-point inspection replaces all paper prestart books.
+              </p>
+              <p className="text-lg text-gray-700 mb-8 leading-relaxed font-semibold">
+                Logbook includes the full CivDocs Prestart System.
               </p>
               
               {/* Bullets */}
@@ -458,28 +482,114 @@ export default function CostTrackingPage() {
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Machine day rates configured per asset</span>
+                  <span className="text-gray-700 text-lg">Machine & asset selection</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Operators select project and scope in pre-starts</span>
+                  <span className="text-gray-700 text-lg">23 safety + condition checks</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Costs automatically allocated to plant cost codes</span>
+                  <span className="text-gray-700 text-lg">Photo uploads (damage, issues, notes)</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">GPS location capture</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Machine hours tracking</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Automatic PDF generated for every report</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Email to supervisors or clients</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Supervisor Sign-off & Compliance */}
+      <section className="pt-20 pb-24 bg-white section-fade-peach-to-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Supervisor Sign-off & Compliance
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Digital approvals ensure accuracy, traceability, and compliance.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Daily or weekly sign-off</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Digital signature capture</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Status: Pending → Approved → Locked</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Reapproval required after edits</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">View historical signatures</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Complete audit trail</span>
                 </li>
               </ul>
             </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+            {/* Right Column - Placeholders */}
+            <div className="flex flex-col gap-6">
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
                 <p className="text-gray-400 font-medium text-center px-4">
-                  [PLANT COSTING IMAGE PLACEHOLDER]
+                  [SUPERVISOR APPROVAL UI PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [SIGNATURE MODAL PLACEHOLDER]
                 </p>
               </div>
             </div>
@@ -487,17 +597,26 @@ export default function CostTrackingPage() {
         </div>
       </section>
 
-      {/* 5. Materials Costing Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
+      {/* 5. Machine Hours & Job Linking */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Placeholder */}
+            <div className="order-2 lg:order-1 flex items-center justify-center">
+              <div className="w-full min-h-[400px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [MACHINE HOURS TIMELINE DIAGRAM PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column - Text Content */}
+            <div className="order-1 lg:order-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Materials Costing
+                Track Machine Hours Automatically
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Supervisors and leading hands add materials used on site. The materials library stores the rate, unit type, and other details. When materials are added to a project scope, costs instantly update the project's actuals.
+                Hours logged + prestarts provide accurate machine usage data.
               </p>
               
               {/* Bullets */}
@@ -506,28 +625,91 @@ export default function CostTrackingPage() {
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Supervisors add materials to project scopes</span>
+                  <span className="text-gray-700 text-lg">Machine hours entry</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Materials library stores rates and unit types</span>
+                  <span className="text-gray-700 text-lg">Job assignment per day</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Costs instantly update project actuals</span>
+                  <span className="text-gray-700 text-lg">Plant cost tracking (linked to Cost Tracking module)</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Integrates with machine database</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Automatic cost allocation into projects/scopes</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Logbook Dashboard */}
+      <section className="pt-20 pb-24 bg-white section-fade-peach-to-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Logbook Dashboard
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Full visibility over operators, machines, jobs, and prestarts.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">View every operator's week instantly</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Filter by operator, job, machine</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">View prestarts across the entire business</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Status indicators for approvals</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Export weekly reports</span>
                 </li>
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Right Column - Placeholder */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+              <div className="w-full min-h-[400px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
                 <p className="text-gray-400 font-medium text-center px-4">
-                  [MATERIALS COSTING IMAGE PLACEHOLDER]
+                  [LOGBOOK DASHBOARD SCREENSHOT PLACEHOLDER]
                 </p>
               </div>
             </div>
@@ -535,17 +717,31 @@ export default function CostTrackingPage() {
         </div>
       </section>
 
-      {/* 6. Project Scopes Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
+      {/* 7. PDF Generation & Document Storage */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Placeholders */}
+            <div className="order-2 lg:order-1 flex flex-col gap-6">
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [TIMESHEET PDF PREVIEW PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [PRESTART PDF PREVIEW PLACEHOLDER]
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column - Text Content */}
+            <div className="order-1 lg:order-2">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Project Scopes
+                Instant PDFs for Timesheets & Prestarts
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Each scope has a quantity (200m, 4000t, etc.) and cost codes for Labour (L), Plant (P), and Materials (M). Budgets vs actuals update in real time as timesheets, pre-starts, and materials are added.
+                Every entry generates a clean, compliance-ready document.
               </p>
               
               {/* Bullets */}
@@ -554,76 +750,129 @@ export default function CostTrackingPage() {
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Each scope has a planned quantity</span>
+                  <span className="text-gray-700 text-lg">Stored forever in cloud storage</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Cost codes for Labour, Plant, and Materials</span>
+                  <span className="text-gray-700 text-lg">View PDFs inside the app</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Real-time budget vs actual tracking</span>
+                  <span className="text-gray-700 text-lg">Email PDFs to clients</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Supervisor signature appears automatically</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Consistent layout across all documents</span>
                 </li>
               </ul>
             </div>
-
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [PROJECT SCOPES IMAGE PLACEHOLDER]
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 7. Daily Progress Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
+      {/* 8. Quote Generator */}
+      <section className="pt-20 pb-24 bg-white section-fade-peach-to-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Daily Progress Updates
+                AI-Powered Quote Generator
               </h2>
+              <p className="text-lg font-semibold text-[#FF8C32] mb-4">
+                Built into Logbook + Crank.ai
+              </p>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Supervisors enter daily progress updates for each scope. For example: Scope: 4000t planned. Supervisor enters 1500t completed today. CivDocs updates % complete, cost-per-unit, and forecasts remaining work.
+                Use real historical costs to simulate accurate quotes instantly.
               </p>
               
               {/* Bullets */}
-              <ul className="space-y-4">
+              <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Supervisors enter daily progress quantities</span>
+                  <span className="text-gray-700 text-lg">Calculates internal cost per metre / m² / tonne</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Automatic percentage complete calculation</span>
+                  <span className="text-gray-700 text-lg">Uses real completed job data</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-                  <span className="text-gray-700 text-lg">Cost-per-unit and forecast updates</span>
+                  </svg>
+                  <span className="text-gray-700 text-lg">Supports labour, plant, materials separately</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Cost code benchmarking</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Profit margin simulation</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Job type comparison</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Min/avg/max cost per unit calculations</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Project-level and org-wide data sampling</span>
                 </li>
               </ul>
+
+              {/* Explanation Block */}
+              <div className="border border-gray-200 rounded-xl p-6 bg-white">
+                <p className="text-gray-700 leading-relaxed">
+                  Logbook captures real cost data from hours, prestarts, machine usage, and materials — Crank.ai uses this data to generate accurate, defensible quotes.
+                </p>
+              </div>
             </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
+            {/* Right Column - Placeholders */}
+            <div className="flex flex-col gap-6">
+              <div className="w-full min-h-[300px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
                 <p className="text-gray-400 font-medium text-center px-4">
-                  [DAILY PROGRESS IMAGE PLACEHOLDER]
+                  [QUOTE SIMULATION UI PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[250px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [COST-PER-UNIT GRAPH PLACEHOLDER]
+                </p>
+              </div>
+              <div className="w-full min-h-[200px] rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg">
+                <p className="text-gray-400 font-medium text-center px-4">
+                  [MARGIN SLIDER UI PLACEHOLDER]
                 </p>
               </div>
             </div>
@@ -631,278 +880,178 @@ export default function CostTrackingPage() {
         </div>
       </section>
 
-      {/* 8. Cost Codes Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Cost Codes
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Your organisation has a library of cost codes (e.g., 3100-L Labour, 3100-P Plant, 3100-M Material). You can add, edit, and delete codes. Scopes use these codes to track costs across projects.
-              </p>
-              
-              {/* Bullets */}
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Organisation-wide cost code library</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Add, edit, and delete codes as needed</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Scopes use codes to track costs</span>
-                </li>
-              </ul>
-            </div>
+      {/* 9. Role-Based Access */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB] section-fade-white-to-peach relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6 text-center">
+              Role-Based Access
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed text-center">
+              Operators, supervisors, admins — each sees exactly what they need.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Operators */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Operators</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700 text-sm">Log hours + prestarts</span>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST CODES IMAGE PLACEHOLDER]
-                </p>
+              {/* Supervisors */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Supervisors</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700 text-sm">View all logbooks + approve</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Admins */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Admins</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700 text-sm">Full business-wide visibility</span>
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* 9. How All Costs Roll Up Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                How All Costs Roll Up
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                All costs feed into a single view: Labour from Timesheets, Plant from Pre-starts, Materials from Supervisors, and Progress from Daily updates. This gives you actual cost, over/under, remaining budget, and performance summary — all in real-time.
-              </p>
-              
-              {/* Bullets */}
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Labour → from Timesheets</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Plant → from Pre-starts</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Materials → from Supervisors</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Progress → from Daily updates</span>
-                </li>
-                <li className="flex items-start gap-3">
+            <div className="mt-8 space-y-4">
+              <div className="flex items-start gap-3">
                 <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                  <span className="text-gray-700 text-lg">All feed into: Actual cost, Over/under, Remaining budget, Performance summary</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST ROLLUP IMAGE PLACEHOLDER]
-                </p>
+                <span className="text-gray-700 text-lg">Secure authentication + RLS</span>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. Materials Library Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Materials Library
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Store material name, unit type, and unit rate in your materials library. Supervisors pull these materials into progress entries, ensuring consistent pricing and accurate cost tracking.
-              </p>
-              
-              {/* Bullets */}
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Store material name, unit type, and unit rate</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Supervisors pull materials into progress entries</span>
-                </li>
-                <li className="flex items-start gap-3">
+              <div className="flex items-start gap-3">
                 <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                  <span className="text-gray-700 text-lg">Consistent pricing across all projects</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [MATERIALS LIBRARY IMAGE PLACEHOLDER]
-                </p>
+                <span className="text-gray-700 text-lg">Audit trails on every action</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 11. Cost Reports Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Cost Reports
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Generate comprehensive cost reports showing budget vs actual, remaining budget, over/under analysis, and cost breakdown by category. All reports update in real-time as costs are added.
-              </p>
-              
-              {/* Bullets */}
+      {/* 10. Why Businesses Use Logbook */}
+      <section className="pt-20 pb-24 bg-white section-fade-peach-to-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-4">
+              Why Businesses Use Logbook
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Benefits for Employees */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Benefits for Employees</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Budget vs actual comparison</span>
+                  <span className="text-gray-700">Fast logging</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Remaining budget tracking</span>
+                  <span className="text-gray-700">Mobile-friendly</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Over/under analysis</span>
-                </li>
-                <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                  <span className="text-gray-700 text-lg">Cost breakdown by category</span>
+                  <span className="text-gray-700">Clear weekly summaries</span>
                 </li>
               </ul>
             </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST REPORTS IMAGE PLACEHOLDER]
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 12. Supervisor Tools Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col gap-12">
-            {/* Text Content */}
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-                Supervisor Tools
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Supervisors have everything they need in one place: add daily progress, add materials, approve timesheets, and review scope performance — all from their dashboard.
-              </p>
-              
-              {/* Bullets */}
+            {/* Benefits for Supervisors */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Benefits for Supervisors</h3>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Add daily progress updates</span>
+                  <span className="text-gray-700">Approvals in seconds</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Add materials to project scopes</span>
+                  <span className="text-gray-700">Visibility over crews</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700 text-lg">Approve timesheets and leave requests</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700 text-lg">Review scope performance and budgets</span>
+                  <span className="text-gray-700">Prestarts stored and searchable</span>
                 </li>
               </ul>
             </div>
 
-            {/* Placeholder Block */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [SUPERVISOR TOOLS IMAGE PLACEHOLDER]
-                </p>
-              </div>
+            {/* Benefits for Owners */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Benefits for Owners</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Accurate cost data</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Compliance + documentation</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Better quoting accuracy</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Time saved on admin</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 13. Final CTA Section */}
+      {/* 11. Final CTA Section */}
       <section className="bg-[#FFFEFB] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
-            Take control of your project costs — without spreadsheets.
+            Start using Logbook with your free trial
           </h2>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            See where every dollar goes with real-time cost tracking that updates automatically from timesheets, pre-starts, and materials.
+            Replace paper logbooks with a digital system that saves time and improves accuracy.
           </p>
           <div className="flex justify-center">
             <Link
@@ -912,6 +1061,10 @@ export default function CostTrackingPage() {
               Start Free Trial →
             </Link>
           </div>
+          <p className="text-sm mt-4 text-gray-600">
+            <span className="font-bold text-[#FF8C32]">No credit card required.</span>
+            <span className="text-gray-500"> Get started in minutes.</span>
+          </p>
         </div>
       </section>
 
@@ -949,3 +1102,6 @@ export default function CostTrackingPage() {
     </div>
   );
 }
+
+
+

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import PrestartSteps from '@/components/marketing/PrestartSteps';
 
 export default function PreStartsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function PreStartsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF8]">
+    <div className="min-h-screen bg-[#FFFEFB]">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -191,6 +192,14 @@ export default function PreStartsPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
                         </a>
                         <a
+                          href="/logbook" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Logbook</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Digital logbook for hours, prestarts, machines, and compliance</p>
+                        </a>
+                        <a
                           href="/crank-ai" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
@@ -315,7 +324,7 @@ export default function PreStartsPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="py-20 bg-[#FFFBF8]">
+      <section className="py-20 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
@@ -356,65 +365,10 @@ export default function PreStartsPage() {
       </section>
 
       {/* How Pre-Starts Work Section */}
-      <section className="py-24 bg-[#FFFBF8]">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-4">
-              How our Pre-Starts Work
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 1 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Enter project & machine details
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Operators select the project, asset number and operator information.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 2 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Complete your digital checklist
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Tick items, add faults, attach photos and record plant hours.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 3 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Sign & assign to a supervisor
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Capture a digital signature and select who receives the report.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PrestartSteps />
 
         {/* Early Fault Detection Section */}
-        <section className="pt-20 pb-24 bg-[#FFFBF8]">
+        <section className="pt-20 pb-24 bg-[#FFFEFB]">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col gap-12">
             {/* Text Content */}
@@ -462,7 +416,7 @@ export default function PreStartsPage() {
       </section>
 
       {/* Automatic PDF Reports Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col gap-12">
             {/* Text Content - Above PDF */}
@@ -512,7 +466,7 @@ export default function PreStartsPage() {
       </section>
 
       {/* Content Section */}
-      <section className="pt-12 pb-24 bg-[#FFFBF8]">
+      <section className="pt-12 pb-24 bg-[#FFFEFB]">
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-semibold text-gray-900 mb-6">Keep Your Crew Safe & Compliant</h2>
@@ -554,7 +508,7 @@ export default function PreStartsPage() {
       </section>
 
       {/* User Experience Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Video Placeholder */}
@@ -602,7 +556,7 @@ export default function PreStartsPage() {
       </section>
 
       {/* Testimonial Section */}
-      <section className="pt-20 pb-24 bg-[#FFFBF8]">
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="bg-gradient-to-br from-[#FFF5ED] to-orange-50 rounded-3xl p-12 border border-orange-100 shadow-lg">
             <div className="text-center">
@@ -621,7 +575,7 @@ export default function PreStartsPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="bg-[#FFFBF8] py-20 sm:py-32">
+      <section className="bg-[#FFFEFB] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
             Digitise your pre-starts today.

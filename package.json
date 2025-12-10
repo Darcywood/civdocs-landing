@@ -20,7 +20,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "resend": "^6.1.2",
-    "stripe": "^19.1.0"
+    "stripe": "^19.1.0",
+    "swiper": "^12.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
