@@ -17,9 +17,11 @@
     "@supabase/supabase-js": "^2.75.0",
     "framer-motion": "^12.23.24",
     "next": "^15.5.7",
+    "pdfjs-dist": "^5.4.449",
     "puppeteer": "^24.25.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-pdf": "^10.2.0",
     "resend": "^6.1.2",
     "stripe": "^19.1.0",
     "swiper": "^12.0.3"
