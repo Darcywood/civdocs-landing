@@ -456,17 +456,6 @@ export default function PreStartsPage() {
               </ul>
             </div>
 
-            {/* PDF Preview Image - Responsive */}
-            <div className="w-full max-w-[900px] mx-auto px-4">
-              <OptimizedImage
-                src="/images/prestart-preview.png"
-                alt="Prestart PDF Preview"
-                className="w-full h-auto rounded-xl shadow-lg"
-                width={900}
-                height={1200}
-              />
-            </div>
-
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
             <div className="w-full md:hidden -mx-6 lg:-mx-8">
