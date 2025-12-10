@@ -2,11 +2,14 @@
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { useState, useRef } from 'react';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 export default function PrestartSteps() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef<SwiperType | null>(null);
+  
   const steps = [
     {
       image: "/John Smith/PS1.png",
@@ -35,30 +38,64 @@ export default function PrestartSteps() {
 
         {/* Mobile Carousel - swipable */}
         <div className="md:hidden">
+          {/* Number Pagination - Above the carousel */}
+          <div className="flex justify-center gap-3 mb-6">
+            {steps.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (swiperRef.current) {
+                    swiperRef.current.slideTo(index);
+                  }
+                }}
+                className={`w-10 h-10 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer ${
+                  activeIndex === index
+                    ? 'bg-[#FF8C32] text-white scale-110'
+                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          {/* Swipe hint label */}
+          {activeIndex < steps.length - 1 && (
+            <div className="flex justify-center mb-4">
+              <p className="text-[#6B7280] text-sm font-medium animate-pulse-glow">
+                Swipe to view steps →
+              </p>
+            </div>
+          )}
+
           <Swiper
-            modules={[Pagination]}
-            spaceBetween={32}
-            slidesPerView={1}
-            centeredSlides={true}
-            pagination={{
-              clickable: true,
+            spaceBetween={16}
+            slidesPerView={1.1}
+            centeredSlides={false}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
             }}
-            className="!pb-12"
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            className="!pb-8"
           >
             {steps.map((step, index) => (
               <SwiperSlide key={index}>
-                <div className="bg-[#fafafa] rounded-2xl shadow-sm p-8 flex flex-col items-center">
-                  <Image
-                    src={step.image}
-                    alt={step.alt}
-                    width={380}
-                    height={760}
-                    className="rounded-xl mb-6 w-full max-w-[380px] h-auto object-contain"
-                  />
-                  <h3 className="text-xl font-semibold mb-2 text-[#111827]">{step.title}</h3>
-                  <p className="text-[#6B7280] text-sm max-w-[90%]">
-                    {step.description}
-                  </p>
+                <div className="max-w-xl mx-auto">
+                  <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center">
+                    <div className="max-w-[460px] mx-auto">
+                      <Image
+                        src={step.image}
+                        alt={step.alt}
+                        width={320}
+                        height={640}
+                        className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">{step.title}</h3>
+                    <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
@@ -66,18 +103,20 @@ export default function PrestartSteps() {
         </div>
 
         {/* Desktop Grid - side by side */}
-        <div className="hidden md:grid grid-cols-3 gap-10">
+        <div className="hidden md:grid grid-cols-3 gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="bg-[#fafafa] rounded-2xl shadow-sm p-8 flex flex-col items-center">
-              <Image
-                src={step.image}
-                alt={step.alt}
-                width={380}
-                height={760}
-                className="rounded-xl mb-6 w-full max-w-[380px] h-auto object-contain"
-              />
-              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="text-gray-600 text-sm max-w-[90%]">
+            <div key={index} className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center">
+              <div className="max-w-[460px] mx-auto">
+                <Image
+                  src={step.image}
+                  alt={step.alt}
+                  width={320}
+                  height={640}
+                  className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">{step.title}</h3>
+              <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
                 {step.description}
               </p>
             </div>
@@ -87,4 +126,3 @@ export default function PrestartSteps() {
     </section>
   );
 }
-
