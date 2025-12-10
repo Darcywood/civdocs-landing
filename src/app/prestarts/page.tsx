@@ -40,7 +40,7 @@ export default function PreStartsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFEFB] overflow-x-hidden">
+    <div className="min-h-screen bg-[#FFFEFB]">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -458,9 +458,9 @@ export default function PreStartsPage() {
 
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
-            <div className="w-full md:hidden -mx-6 lg:-mx-8">
+            <div className="w-full md:hidden">
               <div className="w-full p-4">
-                <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white">
                   <div className="pdf-container">
                     <iframe
                       src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
