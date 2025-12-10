@@ -11,6 +11,9 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    unoptimized: false,
+    minimumCacheTTL: 60,
     domains: [
       'localhost',
       'civdocs.com.au',

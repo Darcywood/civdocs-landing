@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import OptimizedImage from '@/components/OptimizedImage';
 
 function StartTrialContent() {
   const [formData, setFormData] = useState({
@@ -214,7 +214,7 @@ function StartTrialContent() {
                         Project management and construction
                       </div>
                     </div>
-                    <Image 
+                    <OptimizedImage 
                       src="/icons-pricing/Civil-Contractor.png" 
                       alt="Civil Contractor" 
                       width={64} 
@@ -257,7 +257,7 @@ function StartTrialContent() {
                         Wet hire and fleet management
                       </div>
                     </div>
-                    <Image 
+                    <OptimizedImage 
                       src="/icons-pricing/Plant-hire.png" 
                       alt="Plant Hire Company" 
                       width={64} 

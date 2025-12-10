@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
+import OptimizedImage from '@/components/OptimizedImage';
 
 export default function ReportingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,7 +42,7 @@ export default function ReportingPage() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Image 
+              <OptimizedImage 
                 src="/CivDocs no lift.svg" 
                 alt="CivDocs"
                 width={200}
@@ -456,7 +456,7 @@ export default function ReportingPage() {
             {/* Left Side - Logo and Company Info */}
             <div>
               <div className="mb-6">
-                <Image 
+                <OptimizedImage 
                   src="/CivDocs no lift.svg" 
                   alt="CivDocs"
                   width={200}

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
+import OptimizedImage from '@/components/OptimizedImage';
 import PrestartSteps from '@/components/marketing/PrestartSteps';
 
 export default function PreStartsPage() {
@@ -40,18 +40,19 @@ export default function PreStartsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFEFB]">
+    <div className="min-h-screen bg-[#FFFEFB] overflow-x-hidden">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex-shrink-0">
-              <Image 
+              <OptimizedImage 
                 src="/CivDocs no lift.svg" 
                 alt="CivDocs"
                 width={200}
                 height={64}
                 className="h-16 w-auto"
+                priority
               />
             </Link>
             
@@ -406,7 +407,7 @@ export default function PreStartsPage() {
             {/* Bucket Image - Below Bullets */}
             <div className="flex items-center justify-center">
               <div className="w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <Image
+                <OptimizedImage
                   src="/John Smith/bucker1.jpg"
                   alt="Fault reporting - Bucket"
                   width={800}
@@ -457,8 +458,8 @@ export default function PreStartsPage() {
 
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
-            <div className="w-full md:hidden flex justify-center px-4">
-              <div className="w-full max-w-md bg-gray-100 overflow-hidden pdf-container rounded-lg shadow-sm">
+            <div className="w-full md:hidden flex justify-center">
+              <div className="w-full max-w-md mx-4 bg-gray-100 overflow-hidden pdf-container rounded-lg shadow-sm">
                 <div className="w-full h-[550px] sm:h-[650px] overflow-hidden">
                   <iframe
                     src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
@@ -532,12 +533,12 @@ export default function PreStartsPage() {
             {/* User Experience Image - Above Text */}
             <div className="flex items-center justify-center mb-16">
               <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-lg">
-                <Image
+                <OptimizedImage
                   src="/John Smith/prestart.jpg"
                   alt="User experience - Pre-Start interface"
                   width={600}
                   height={450}
-                  className="w-full h-auto object-cover rounded-2xl scale-110"
+                  className="w-full h-auto object-cover rounded-2xl"
                 />
               </div>
             </div>
@@ -618,7 +619,7 @@ export default function PreStartsPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <Image src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
+              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
               <p className="text-gray-400 leading-relaxed">
                 Simplifying civil construction management for teams everywhere.
               </p>

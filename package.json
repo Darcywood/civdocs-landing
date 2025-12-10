@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compress-images": "squoosh-cli --mozjpeg '{}' -d public/images public/images/*"
   },
   "dependencies": {
     "@react-email/components": "^0.5.6",

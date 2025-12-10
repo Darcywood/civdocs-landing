@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useRef } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -93,11 +93,12 @@ export default function PrestartSteps() {
                 <div className="max-w-xl mx-auto h-full">
                   <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center h-full">
                     <div className="max-w-[460px] mx-auto">
-                      <Image
+                      <OptimizedImage
                         src={step.image}
                         alt={step.alt}
                         width={320}
                         height={640}
+                        sizes="(max-width: 768px) 90vw, 380px"
                         className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                       />
                     </div>
