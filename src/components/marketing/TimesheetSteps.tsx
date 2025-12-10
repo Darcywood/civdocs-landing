@@ -6,35 +6,35 @@ import { useState, useRef } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 
-export default function PrestartSteps() {
+export default function TimesheetSteps() {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
   
   const steps = [
     {
-      image: "/John Smith/PS1.png",
-      alt: "Step 1 - Enter details",
-      title: "Enter project & machine details",
-      description: "Select your project, asset number, operator and start your pre-start."
+      image: "/John Smith/TS1.png",
+      alt: "Step 1 - Select project & scope",
+      title: "Select project & scope",
+      description: "Pick the project and scope you worked on so every hour is linked back to the right job."
     },
     {
-      image: "/John Smith/PS2.png",
-      alt: "Step 2 - Checklist",
-      title: "Complete your digital checklist",
-      description: "Tick items, add faults, attach photos and record plant hours."
+      image: "/John Smith/TS2.png",
+      alt: "Step 2 - Add start, finish & breaks",
+      title: "Add start, finish & breaks",
+      description: "Enter your start time, finish time and break — CivDocs calculates the hours for you."
     },
     {
-      image: "/John Smith/PS3.png",
-      alt: "Step 3 - Sign & submit",
-      title: "Sign & send your report now",
-      description: "Add your signature, choose recipients and automatically email the PDF."
+      image: "/John Smith/TS3.png",
+      alt: "Step 3 - Submit your week",
+      title: "Submit your week for approval",
+      description: "At the end of the week, submit your timesheet to a supervisor instead of chasing signatures on paper."
     }
   ];
 
   return (
     <section className="w-full py-24">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-semibold mb-16 text-[#1E1E1E]">How our Pre-Starts Work</h2>
+        <h2 className="text-4xl font-semibold mb-16 text-[#1E1E1E]">How Timesheets Work</h2>
 
         {/* Mobile Carousel - swipable */}
         <div className="md:hidden">
@@ -90,7 +90,7 @@ export default function PrestartSteps() {
           >
             {steps.map((step, index) => (
               <SwiperSlide key={index} style={{ height: 'auto' }}>
-                <div className="max-w-xl mx-auto h-full">
+                <div className="max-w-xl mx-auto">
                   <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center h-full">
                     <div className="max-w-[460px] mx-auto">
                       <Image
@@ -136,3 +136,4 @@ export default function PrestartSteps() {
     </section>
   );
 }
+

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import TimesheetSteps from '@/components/marketing/TimesheetSteps';
 
 export default function TimesheetsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -358,62 +359,7 @@ export default function TimesheetsPage() {
       </section>
 
       {/* How Timesheets Work Section */}
-      <section className="py-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-4">
-              How Timesheets Work
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 1 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Select project & scope
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Pick the project and scope you worked on so every hour is linked back to the right job.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 2 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Add start, finish & breaks
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Enter your start time, finish time and break — CivDocs calculates the hours for you.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-              <div className="min-h-[220px] bg-gray-100 rounded-xl mb-6 flex items-center justify-center border border-gray-200">
-                <p className="text-gray-400 font-medium text-sm text-center px-4">
-                  [STEP 3 IMAGE]
-                </p>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Submit your week for approval
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                At the end of the week, submit your timesheet to a supervisor instead of chasing signatures on paper.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TimesheetSteps />
 
       {/* Weekly PDF Preview Section */}
       <section className="pt-20 pb-24 bg-[#FFFEFB]">

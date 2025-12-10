@@ -377,7 +377,7 @@ export default function PreStartsPage() {
                 Fix issues before they become downtime.
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Operators can report issues like hydraulic leaks, flat tyres or GPS / UTS issues directly in CivDocs. Supervisors are alerted instantly so problems are handled before they cause costly delays.
+                Operators can report issues like hydraulic leaks, broken teeth or GPS / UTS issues directly in CivDocs. Supervisors are alerted instantly so problems are handled before they cause costly delays.
               </p>
               
               {/* Bullets */}
@@ -403,12 +403,16 @@ export default function PreStartsPage() {
               </ul>
             </div>
 
-            {/* Video Placeholder - Below Bullets */}
+            {/* Bucket Image - Below Bullets */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [FAULT REPORTING VIDEO PLACEHOLDER]
-                </p>
+              <div className="w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/John Smith/bucker1.jpg"
+                  alt="Fault reporting - Bucket"
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover brightness-75"
+                />
               </div>
             </div>
           </div>
@@ -452,7 +456,20 @@ export default function PreStartsPage() {
             </div>
 
             {/* PDF Display - Below Text */}
-            <div className="flex items-center justify-center">
+            {/* Mobile - Responsive */}
+            <div className="flex items-center justify-center w-full px-4 md:hidden">
+              <div className="w-full max-w-lg bg-gray-100 rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden pdf-container">
+                <div className="w-full h-[400px] sm:h-[500px]">
+                  <iframe
+                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&zoom=page-fit"
+                    className="w-full h-full border-0"
+                    title="Pre-Start PDF Report"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Desktop - Original fixed height */}
+            <div className="hidden md:flex items-center justify-center">
               <div className="w-full max-w-lg h-[700px] bg-gray-100 rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden">
                 <iframe
                   src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
@@ -469,7 +486,7 @@ export default function PreStartsPage() {
       <section className="pt-12 pb-24 bg-[#FFFEFB]">
           <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-6">Keep Your Crew Safe & Compliant</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">Keep Your Crew Safe & Compliant</h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Streamline your safety protocols with digital pre-start checklists. Ensure every crew member is properly equipped and briefed before starting work.
             </p>
@@ -479,23 +496,23 @@ export default function PreStartsPage() {
                 <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700">Complete safety checks in 3 simple steps</span>
+                <span className="text-gray-700 text-lg">Complete safety checks in 3 simple steps</span>
               </div>
               <div className="flex items-start gap-3">
                 <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700">Digital checklists accessible from any device</span>
+                <span className="text-gray-700 text-lg">Digital checklists accessible from any device</span>
               </div>
               <div className="flex items-start gap-3">
                 <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-gray-700">Ensure compliance and safety standards</span>
+                <span className="text-gray-700 text-lg">Ensure compliance and safety standards</span>
               </div>
             </div>
 
-            <div className="mt-20 text-center">
+            <div className="mt-12 text-center">
               <Link
                 href="/start-trial"
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
@@ -510,18 +527,22 @@ export default function PreStartsPage() {
       {/* User Experience Section */}
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Video Placeholder */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [USER EXPERIENCE VIDEO PLACEHOLDER]
-                </p>
+          <div className="flex flex-col items-center">
+            {/* User Experience Image - Above Text */}
+            <div className="flex items-center justify-center mb-16">
+              <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/John Smith/prestart.jpg"
+                  alt="User experience - Pre-Start interface"
+                  width={600}
+                  height={450}
+                  className="w-full h-auto object-cover rounded-2xl scale-110"
+                />
               </div>
             </div>
 
-            {/* Right Column - Text Content */}
-            <div>
+            {/* Text Content - Below Image */}
+            <div className="text-center max-w-3xl">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
                 Built for real crews — simple, fast and familiar.
               </h2>
@@ -531,19 +552,19 @@ export default function PreStartsPage() {
               
               {/* Bullets */}
               <ul className="space-y-4">
-                <li className="flex items-start gap-3">
+                <li className="flex items-start gap-3 justify-center">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span className="text-gray-700 text-lg">Works on phones, tablets and desktops</span>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-start gap-3 justify-center">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span className="text-gray-700 text-lg">Zero learning curve</span>
                 </li>
-                <li className="flex items-start gap-3">
+                <li className="flex items-start gap-3 justify-center">
                   <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>

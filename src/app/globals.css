@@ -162,3 +162,26 @@ body {
   width: 24px !important;
   border-radius: 5px !important;
 }
+
+/* PDF Viewer Mobile Responsive */
+.pdf-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.pdf-container iframe {
+  max-width: 100%;
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+/* Swiper Smooth Transitions */
+.swiper-wrapper {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.swiper-slide {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
