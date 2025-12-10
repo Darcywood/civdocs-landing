@@ -26,7 +26,7 @@ export default function PrestartSteps() {
     {
       image: "/John Smith/PS3.png",
       alt: "Step 3 - Sign & submit",
-      title: "Sign & send your report now",
+      title: "Sign your report and automatically send the PDF",
       description: "Add your signature, choose recipients and automatically email the PDF."
     }
   ];

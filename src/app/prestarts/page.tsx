@@ -457,13 +457,14 @@ export default function PreStartsPage() {
 
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
-            <div className="flex items-center justify-center w-full px-4 md:hidden">
-              <div className="w-full max-w-lg bg-gray-100 rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden pdf-container">
-                <div className="w-full h-[400px] sm:h-[500px]">
+            <div className="w-full md:hidden flex justify-center px-4">
+              <div className="w-full max-w-md bg-gray-100 overflow-hidden pdf-container rounded-lg shadow-sm">
+                <div className="w-full h-[550px] sm:h-[650px] overflow-hidden">
                   <iframe
-                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&zoom=page-fit"
-                    className="w-full h-full border-0"
+                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
+                    className="w-full h-full border-0 pdf-iframe"
                     title="Pre-Start PDF Report"
+                    scrolling="no"
                   />
                 </div>
               </div>
