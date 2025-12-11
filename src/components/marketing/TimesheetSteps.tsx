@@ -36,6 +36,10 @@ export default function TimesheetSteps() {
     steps.forEach((step) => {
       const img = new window.Image();
       img.src = step.image;
+      // Force load by setting onload
+      img.onload = () => {
+        // Image loaded
+      };
     });
   }, []);
 
@@ -71,14 +75,14 @@ export default function TimesheetSteps() {
             ))}
           </div>
 
-          {/* Swipe hint label */}
-          {activeIndex < steps.length - 1 && (
-            <div className="flex justify-center mb-4">
+          {/* Swipe hint label - Fixed height to prevent layout shift */}
+          <div className="flex justify-center mb-4 h-6">
+            {activeIndex < steps.length - 1 && (
               <p className="text-[#6B7280] text-sm font-medium animate-pulse-glow">
                 Swipe to view steps →
               </p>
-            </div>
-          )}
+            )}
+          </div>
 
           <Swiper
             spaceBetween={16}
@@ -107,6 +111,7 @@ export default function TimesheetSteps() {
                         width={320}
                         height={640}
                         sizes="(max-width: 768px) 90vw, 380px"
+                        priority
                         className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                       />
                     </div>

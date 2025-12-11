@@ -330,7 +330,7 @@ export default function TimesheetsPage() {
             {/* Text Content */}
             <div className="text-center max-w-3xl mx-auto">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
-                Digital timesheets your crew will actually use.
+                Digital timesheets your crew will actually enjoy using.
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                 Log hours by project, submit once a week, and keep payroll and approvals in one clean workflow.
@@ -608,16 +608,16 @@ export default function TimesheetsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black z-[100] flex items-center justify-center md:p-4"
               onClick={() => setIsVideoModalOpen(false)}
             >
-              {/* Modal Content */}
+              {/* Modal Content - Full screen on mobile, phone-sized on desktop */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="relative w-full max-w-[320px] sm:max-w-[375px] md:max-w-[400px] bg-black rounded-2xl overflow-hidden"
+                className="relative w-full h-full md:w-[400px] md:h-auto md:max-h-[90vh] bg-black md:rounded-2xl overflow-hidden flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Close Button */}
@@ -631,12 +631,13 @@ export default function TimesheetsPage() {
                   </svg>
                 </button>
 
-                {/* Video Player */}
+                {/* Video Player - Full screen on mobile */}
                 <video
-                  className="w-full h-auto"
+                  className="w-full h-full object-contain md:h-auto"
                   controls
                   autoPlay
                   playsInline
+                  preload="auto"
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
                   <source src="/John Smith/timesheetvideos.mp4" type="video/mp4" />
