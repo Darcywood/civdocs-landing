@@ -40,7 +40,7 @@ export default function PreStartsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFEFB]">
+    <div className="min-h-screen bg-[#FFFEFB] overflow-x-hidden">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -420,6 +420,71 @@ export default function PreStartsPage() {
         </div>
       </section>
 
+      {/* Automatic PDF Reports Section */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col gap-12">
+            {/* Text Content - Above PDF */}
+            <div className="text-center lg:text-left max-w-3xl mx-auto lg:mx-0">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+                Every Pre-Start becomes a clean, compliant PDF.
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Created instantly, emailed automatically, and stored under the project for easy audit and safety compliance.
+              </p>
+              
+              {/* Bullets */}
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Timestamped and signed</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Includes photos and fault notes</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Organised by project and operator</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* PDF Display - Below Text */}
+            {/* Mobile - Responsive */}
+            <div className="w-full md:hidden p-4">
+              <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="pdf-container">
+                  <iframe
+                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
+                    className="w-full aspect-[3/4] md:aspect-[4/3] rounded-xl"
+                    title="Pre-Start PDF Report"
+                    scrolling="no"
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Desktop - Responsive */}
+            <div className="hidden md:flex items-center justify-center p-8">
+              <div className="w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-white">
+                <div className="pdf-container">
+                  <iframe
+                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
+                    className="w-full aspect-[4/3] rounded-xl"
+                    title="Pre-Start PDF Report"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Content Section */}
       <section className="pt-12 pb-24 bg-[#FFFEFB]">
@@ -458,40 +523,6 @@ export default function PreStartsPage() {
               >
                 Start Free Trial →
               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Automatic PDF Reports Section */}
-      <section className="pt-20 pb-24 bg-[#FFFEFB]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
-              Every Pre-Start becomes a clean, compliant PDF.
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Created instantly, emailed automatically, and stored under the project for easy audit and safety compliance.
-            </p>
-          </div>
-          
-          {/* Scrollable Pre-Start Preview Images */}
-          <div className="w-full flex justify-center px-4">
-            <div className="w-full max-w-2xl mx-auto rounded-xl border border-gray-200 bg-white p-4 shadow-sm scrollable-image-container max-h-[800px]">
-              <div className="flex flex-col gap-4">
-                <img
-                  src="/prestart-page/1.png"
-                  alt="Pre-Start Report Example 1"
-                  className="w-full h-auto rounded-lg"
-                  loading="lazy"
-                />
-                <img
-                  src="/prestart-page/2.png"
-                  alt="Pre-Start Report Example 2"
-                  className="w-full h-auto rounded-lg"
-                  loading="lazy"
-                />
-              </div>
             </div>
           </div>
         </div>

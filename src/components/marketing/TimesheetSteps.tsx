@@ -2,7 +2,7 @@
 
 import OptimizedImage from "@/components/OptimizedImage";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 
@@ -30,6 +30,14 @@ export default function TimesheetSteps() {
       description: "At the end of the week, submit your timesheet to a supervisor instead of chasing signatures on paper."
     }
   ];
+
+  // Preload all carousel images immediately when component mounts
+  useEffect(() => {
+    steps.forEach((step) => {
+      const img = new window.Image();
+      img.src = step.image;
+    });
+  }, []);
 
   return (
     <section className="w-full py-24">
@@ -90,7 +98,7 @@ export default function TimesheetSteps() {
           >
             {steps.map((step, index) => (
               <SwiperSlide key={index} style={{ height: 'auto' }}>
-                <div className="max-w-xl mx-auto">
+                <div className="max-w-xl mx-auto h-full">
                   <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center h-full">
                     <div className="max-w-[460px] mx-auto">
                       <OptimizedImage

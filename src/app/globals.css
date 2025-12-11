@@ -175,6 +175,20 @@ img[src*="CivDocs"] {
   -webkit-filter: none !important;
 }
 
+/* PDF Viewer Mobile Responsive */
+.pdf-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.pdf-container canvas,
+.pdf-container iframe,
+.pdf-container embed {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+}
+
 /* Swiper Smooth Transitions */
 .swiper-wrapper {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -182,18 +196,4 @@ img[src*="CivDocs"] {
 
 .swiper-slide {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* Scrollable Image Gallery Styles */
-.scrollable-image-container {
-  -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.scrollable-image-container img {
-  max-width: 100% !important;
-  width: 100% !important;
-  height: auto !important;
-  display: block;
 }

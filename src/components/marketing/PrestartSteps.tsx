@@ -97,10 +97,10 @@ export default function PrestartSteps() {
             }}
           >
             {steps.map((step, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} style={{ height: 'auto' }}>
                 <div className="max-w-xl mx-auto h-full">
-                  <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center min-h-[600px]">
-                    <div className="max-w-[460px] mx-auto flex-shrink-0">
+                  <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center h-full">
+                    <div className="max-w-[460px] mx-auto">
                       <OptimizedImage
                         src={step.image}
                         alt={step.alt}
@@ -111,12 +111,10 @@ export default function PrestartSteps() {
                         className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                       />
                     </div>
-                    <div className="flex flex-col items-center mt-4 flex-grow justify-center min-h-[80px]">
-                      <h3 className="text-xl font-semibold text-center text-[#111827]">{step.title}</h3>
-                      <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                        {step.description}
-                      </p>
-                    </div>
+                    <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">{step.title}</h3>
+                    <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               </SwiperSlide>
