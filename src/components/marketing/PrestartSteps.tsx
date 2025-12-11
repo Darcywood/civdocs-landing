@@ -71,14 +71,14 @@ export default function PrestartSteps() {
             ))}
           </div>
 
-          {/* Swipe hint label */}
-          {activeIndex < steps.length - 1 && (
-            <div className="flex justify-center mb-4">
+          {/* Swipe hint label - Fixed height to prevent layout shift */}
+          <div className="flex justify-center mb-4 h-6">
+            {activeIndex < steps.length - 1 && (
               <p className="text-[#6B7280] text-sm font-medium animate-pulse-glow">
                 Swipe to view steps →
               </p>
-            </div>
-          )}
+            )}
+          </div>
 
           <Swiper
             spaceBetween={16}
