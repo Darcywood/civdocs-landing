@@ -10,6 +10,7 @@ export default function PreStartsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -353,13 +354,29 @@ export default function PreStartsPage() {
               </div>
             </div>
 
-            {/* Right Column - Video Placeholder */}
+            {/* Right Column - Phone Placeholder with Video */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-md aspect-[9/16] bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [PRESTART HERO VIDEO PLACEHOLDER]
-                </p>
-              </div>
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="relative w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] cursor-pointer hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
+                aria-label="Play prestart video"
+              >
+                <OptimizedImage 
+                  src="/John Smith/prestart-placeholder.png" 
+                  alt="Prestart Video Preview"
+                  width={400}
+                  height={800}
+                  className="w-full h-auto"
+                />
+                {/* Play button overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                    <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -647,6 +664,57 @@ export default function PreStartsPage() {
           </div>
         </div>
       </footer>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black z-[100] flex items-center justify-center md:p-4"
+              onClick={() => setIsVideoModalOpen(false)}
+            >
+              {/* Modal Content - Full screen on mobile, phone-sized on desktop */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative w-full h-full md:w-[400px] md:h-auto md:max-h-[90vh] bg-black md:rounded-2xl overflow-hidden flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsVideoModalOpen(false)}
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-12 h-12 sm:w-14 sm:h-14 bg-black/80 hover:bg-black rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/20"
+                  aria-label="Close video"
+                >
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Video Player - Full screen on mobile */}
+                <video
+                  className="w-full h-full object-contain md:h-auto"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  onEnded={() => setIsVideoModalOpen(false)}
+                >
+                  <source src="/John Smith/prestart-video.mov" type="video/quicktime" />
+                  Your browser does not support the video tag.
+                </video>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
