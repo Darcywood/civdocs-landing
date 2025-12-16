@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 
-export default function GuidesPage() {
+export default function GuidesSelectionPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
@@ -308,141 +308,93 @@ export default function GuidesPage() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
+      <section className="relative overflow-hidden bg-white pt-20 pb-6 sm:pt-24 sm:pb-8 lg:pt-28 lg:pb-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Step-by-Step Guides
+              Step-by-Step Instructions
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              Learn how to get the most out of CivDocs with our comprehensive guides and documentation.
+              Choose your business type to view tailored guides and instructions.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Guides Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-white">
+      {/* Selection Section */}
+      <section className="pt-4 pb-[250px] sm:pt-6 sm:pb-[250px] lg:pt-8 lg:pb-[250px] bg-gradient-to-b from-white via-[#FFF5ED] to-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight">
-              Getting Started Guides
-            </h2>
+          <div className="max-w-4xl mx-auto flex flex-col gap-[50px]">
+            {/* Civil Contractor Card */}
+            <Link href="/guides/civil-contractor" className="block">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+                <div className="p-8 flex items-center justify-between">
+                  <div className="flex items-center gap-6 flex-1">
+                    <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
+                      <OptimizedImage 
+                        src="/icons-pricing/Civil-Contractor.png" 
+                        alt="Civil Contractor" 
+                        width={56} 
+                        height={56} 
+                        className="w-9 h-9 object-contain"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
+                        Civil Contractor
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Guides for project management, crew timesheets, cost tracking, and construction workflows.
+                      </p>
+                    </div>
+                  </div>
+                  <svg
+                    className="w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+
+            {/* Plant Hire Card */}
+            <Link href="/guides/plant-hire" className="block">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer">
+                <div className="p-8 flex items-center justify-between">
+                  <div className="flex items-center gap-6 flex-1">
+                    <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
+                      <OptimizedImage 
+                        src="/icons-pricing/Plant-hire.png" 
+                        alt="Plant Hire" 
+                        width={56} 
+                        height={56} 
+                        className="w-9 h-9 object-contain"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
+                        Plant Hire
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Guides for equipment management, rental tracking, machine maintenance, and fleet operations.
+                      </p>
+                    </div>
+                  </div>
+                  <svg
+                    className="w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Guide 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Getting Started
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Learn the basics of setting up your account, creating your first project, and inviting team members.
-              </p>
-            </div>
-
-            {/* Guide 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Pre-Starts Guide
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Master the pre-start checklist feature to ensure safety compliance and proper equipment checks.
-              </p>
-            </div>
-
-            {/* Guide 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Timesheets Guide
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Learn how to efficiently log crew hours, manage timesheets, and export time data for payroll.
-              </p>
-            </div>
-
-            {/* Guide 4 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Reporting Guide
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Discover how to generate comprehensive reports, set up automated reporting, and analyze your data.
-              </p>
-            </div>
-
-            {/* Guide 5 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Settings & Configuration
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Configure your organization settings, manage users, and customize CivDocs to fit your workflow.
-              </p>
-            </div>
-
-            {/* Guide 6 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight">
-                Best Practices
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Learn industry best practices and tips from experienced users to maximize your productivity.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-gradient-to-b from-[#FFF5ED] to-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
-            Ready to Get Started?
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-            Start your free trial and explore all the features with our step-by-step guides.
-          </p>
-          <a 
-            href="https://app.civdocs.com/auth/signup" 
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            Start Free Trial →
-          </a>
-          <p className="text-sm mt-4">
-            <span className="font-bold text-[#FF8C32] animate-pulse-glow">No credit card required</span>
-            <span className="text-gray-500"> • Get started in minutes</span>
-          </p>
         </div>
       </section>
 
@@ -480,4 +432,3 @@ export default function GuidesPage() {
     </div>
   );
 }
-

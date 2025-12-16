@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -9,6 +9,36 @@ export default function CostTrackingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [preloadedVideoUrl, setPreloadedVideoUrl] = useState<string | null>(null);
+
+  // Preload the hero video so clicking the phone preview can start instantly.
+  // Note: browsers may still buffer briefly depending on device/network, but this removes
+  // the "download starts only after click" problem.
+  useEffect(() => {
+    let objectUrl: string | null = null;
+    const controller = new AbortController();
+
+    const preload = async () => {
+      try {
+        const res = await fetch('/John Smith/costtrackingvideo.mov', { signal: controller.signal });
+        if (!res.ok) return;
+        const blob = await res.blob();
+        objectUrl = URL.createObjectURL(blob);
+        setPreloadedVideoUrl(objectUrl);
+      } catch {
+        // Ignore (offline / aborted / network errors)
+      }
+    };
+
+    // Start as soon as the page mounts
+    preload();
+
+    return () => {
+      controller.abort();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -353,13 +383,29 @@ export default function CostTrackingPage() {
               </div>
             </div>
 
-            {/* Right Column - Video Placeholder */}
+            {/* Right Column - Phone Placeholder with Video */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-md aspect-[9/16] bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST TRACKING HERO VIDEO PLACEHOLDER]
-                </p>
-              </div>
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="relative w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] cursor-pointer hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
+                aria-label="Play cost tracking video"
+              >
+                <OptimizedImage 
+                  src="/John Smith/costtrackingphone.png" 
+                  alt="Cost Tracking Video Preview"
+                  width={400}
+                  height={800}
+                  className="w-full h-auto"
+                />
+                {/* Play button overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                    <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -375,15 +421,52 @@ export default function CostTrackingPage() {
                 How Cost Tracking Works
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                CivDocs brings all your project costs together in one place. Labour comes from timesheets, plant costs from pre-starts, materials from supervisors, and progress from daily updates.
+                Cost tracking in CivDocs is built around <span className="font-semibold">project scopes</span> — measurable work items like <span className="font-semibold">300m of AGI</span> or <span className="font-semibold">2500t of rock install</span>. When you create a scope, you attach the specific <span className="font-semibold">cost codes</span> to it and set the <span className="font-semibold">budget inside those cost codes</span>. From there, CivDocs automatically posts real costs to the right code based on what your team logs each day.
               </p>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg"><span className="font-semibold">Timesheets</span> post to the scope’s <span className="font-semibold">Labour</span> cost code</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg"><span className="font-semibold">Pre-starts</span> post machine <span className="font-semibold">day rates</span> to the scope’s <span className="font-semibold">Plant</span> cost code</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg"><span className="font-semibold">Materials</span> added by supervisors post to the scope’s <span className="font-semibold">Material</span> cost code</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg"><span className="font-semibold">Daily progress</span> updates the scope quantity so you can see <span className="font-semibold">overall cost per unit</span></span>
+                </li>
+              </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Cost Reporting Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST TRACKING OVERVIEW VIDEO PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/costreporting.png"
+                    alt="Cost Reporting Overview"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">View budget vs actual costs</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Compare budgets set in cost codes against actual costs posted from timesheets, pre-starts, and materials.
                 </p>
               </div>
             </div>
@@ -401,7 +484,7 @@ export default function CostTrackingPage() {
                 Labour Costing
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Labour cost is calculated from timesheets. Each employee has an hourly rate, and when they select a project and scope in their timesheet, those hours automatically roll up into the project's labour cost code (XXXX-L).
+                Labour cost is calculated from timesheets. Each employee has an hourly rate, and when they select a <span className="font-semibold">project + scope</span>, CivDocs automatically posts that cost into the scope’s <span className="font-semibold">Labour cost code</span>. Timesheets can’t be split across multiple scopes — each entry goes to one scope.
               </p>
               
               {/* Bullets */}
@@ -427,11 +510,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Labour Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [LABOUR COSTING IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/labourreports.png"
+                    alt="Labour Costing Reports"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track labour costs by scope</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  See how employee timesheets automatically post to labour cost codes and roll up into your project budgets.
                 </p>
               </div>
             </div>
@@ -449,7 +543,7 @@ export default function CostTrackingPage() {
                 Plant & Equipment Costs
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Pre-starts push machinery day rates into project scopes. When operators complete a pre-start and choose the project and scope they're working on, those plant costs automatically roll into the plant cost code (XXXX-P).
+                Pre-starts post machinery <span className="font-semibold">day rates</span> into project scopes. When an operator completes a pre-start and selects the <span className="font-semibold">project + scope</span>, CivDocs posts that day rate into the scope’s <span className="font-semibold">Plant cost code</span>. If multiple machines work the same scope, you’ll see multiple pre-starts — and multiple plant cost entries.
               </p>
               
               {/* Bullets */}
@@ -475,11 +569,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Plant Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [PLANT COSTING IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/Plantreports.png"
+                    alt="Plant Costing Reports"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track plant costs from pre-starts</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  See how machine day rates from pre-starts automatically post to plant cost codes in your project scopes.
                 </p>
               </div>
             </div>
@@ -497,7 +602,7 @@ export default function CostTrackingPage() {
                 Materials Costing
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Supervisors and leading hands add materials used on site. The materials library stores the rate, unit type, and other details. When materials are added to a project scope, costs instantly update the project's actuals.
+                Supervisors add materials used on site through the dashboard. Your materials library stores the unit and rate (and you can create materials on the fly). When materials are added to a <span className="font-semibold">scope</span>, CivDocs posts the cost into that scope’s <span className="font-semibold">Material cost code</span> and updates actuals instantly.
               </p>
               
               {/* Bullets */}
@@ -523,11 +628,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Materials Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [MATERIALS COSTING IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/materialsreports.png"
+                    alt="Materials Costing Reports"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track materials costs by scope</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  See how materials added by supervisors automatically post to material cost codes and update project budgets.
                 </p>
               </div>
             </div>
@@ -545,7 +661,7 @@ export default function CostTrackingPage() {
                 Project Scopes
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Each scope has a quantity (200m, 4000t, etc.) and cost codes for Labour (L), Plant (P), and Materials (M). Budgets vs actuals update in real time as timesheets, pre-starts, and materials are added.
+                Each scope has a planned quantity (200m, 4000t, etc.) and the <span className="font-semibold">specific cost codes</span> you assign to it for Labour, Plant and Materials. You also set your <span className="font-semibold">budgets inside those scope cost codes</span>, so budget vs actual is always comparing apples with apples.
               </p>
               
               {/* Bullets */}
@@ -571,11 +687,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Project Scopes Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [PROJECT SCOPES IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/scopes.png"
+                    alt="Project Scopes"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Create scopes with cost codes</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Set up project scopes with planned quantities and assign cost codes for labour, plant, and materials.
                 </p>
               </div>
             </div>
@@ -619,11 +746,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Daily Progress Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [DAILY PROGRESS IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/dailyprogress.png"
+                    alt="Daily Progress Updates"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Update progress daily</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Supervisors enter daily progress quantities to track completion percentage and calculate cost per unit.
                 </p>
               </div>
             </div>
@@ -641,7 +779,7 @@ export default function CostTrackingPage() {
                 Cost Codes
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Your organisation has a library of cost codes (e.g., 3100-L Labour, 3100-P Plant, 3100-M Material). You can add, edit, and delete codes. Scopes use these codes to track costs across projects.
+                Your organisation has a library of cost codes. CivDocs comes with common defaults (for example: <span className="font-semibold">3100-L</span> Labour, <span className="font-semibold">3100-P</span> Plant, <span className="font-semibold">3100-M</span> Material), and you’re encouraged to create your own to match how your business wants to track costs. When you build a scope, you choose which codes that scope will use — then CivDocs posts costs automatically into them.
               </p>
               
               {/* Bullets */}
@@ -667,11 +805,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Cost Codes Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST CODES IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/costcodes.png"
+                    alt="Cost Codes"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Manage your cost code library</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Use default cost codes or create custom ones to match how your business tracks costs across projects.
                 </p>
               </div>
             </div>
@@ -689,7 +838,7 @@ export default function CostTrackingPage() {
                 How All Costs Roll Up
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                All costs feed into a single view: Labour from Timesheets, Plant from Pre-starts, Materials from Supervisors, and Progress from Daily updates. This gives you actual cost, over/under, remaining budget, and performance summary — all in real-time.
+                Every transaction lands on a <span className="font-semibold">project + scope + cost code</span>. Labour comes from timesheets, plant comes from pre-starts, and materials come from supervisors — and daily progress updates the completed quantity. That gives you a single real-time view of <span className="font-semibold">actual cost</span>, <span className="font-semibold">budget vs actual</span>, and <span className="font-semibold">overall cost per unit</span> at the scope level.
               </p>
               
               {/* Bullets */}
@@ -727,11 +876,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Cost Rollup Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST ROLLUP IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/scopes1.png"
+                    alt="How All Costs Roll Up"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">See all costs in one place</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  View actual costs, budget vs actual, and cost per unit all rolled up at the scope level in real-time.
                 </p>
               </div>
             </div>
@@ -775,11 +935,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Materials Library Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [MATERIALS LIBRARY IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/materials.png"
+                    alt="Materials Library"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Store materials with rates</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Build your materials library with unit types and rates for consistent pricing across all projects.
                 </p>
               </div>
             </div>
@@ -829,11 +1000,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Cost Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [COST REPORTS IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/scopes.png"
+                    alt="Cost Reports"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Generate comprehensive cost reports</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  View budget vs actual, remaining budget, over/under analysis, and cost breakdowns by category.
                 </p>
               </div>
             </div>
@@ -883,11 +1065,22 @@ export default function CostTrackingPage() {
               </ul>
             </div>
 
-            {/* Placeholder Block */}
+            {/* Supervisor Tools Card */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg aspect-video bg-gray-100 rounded-2xl border-2 border-gray-200 flex items-center justify-center shadow-lg">
-                <p className="text-gray-400 font-medium text-center px-4">
-                  [SUPERVISOR TOOLS IMAGE PLACEHOLDER]
+              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
+                <div className="max-w-[460px] mx-auto">
+                  <OptimizedImage
+                    src="/John Smith/cost tracking/supervisor.png"
+                    alt="Supervisor Tools"
+                    width={320}
+                    height={640}
+                    sizes="(max-width: 768px) 90vw, 380px"
+                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Everything supervisors need</h3>
+                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
+                  Add daily progress, add materials, approve timesheets, and review scope performance all from one dashboard.
                 </p>
               </div>
             </div>
@@ -946,6 +1139,57 @@ export default function CostTrackingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black z-[100] flex items-center justify-center md:p-4"
+              onClick={() => setIsVideoModalOpen(false)}
+            >
+              {/* Modal Content - Full screen on mobile, phone-sized on desktop */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative w-full h-full md:w-[400px] md:h-auto md:max-h-[90vh] bg-black md:rounded-2xl overflow-hidden flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsVideoModalOpen(false)}
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-12 h-12 sm:w-14 sm:h-14 bg-black/80 hover:bg-black rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/20"
+                  aria-label="Close video"
+                >
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Video Player - Full screen on mobile */}
+                <video
+                  className="w-full h-full object-contain md:h-auto"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  onEnded={() => setIsVideoModalOpen(false)}
+                >
+                  <source src={preloadedVideoUrl ?? "/John Smith/costtrackingvideo.mov"} type="video/quicktime" />
+                  Your browser does not support the video tag.
+                </video>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
