@@ -425,11 +425,11 @@ export default function PreStartsPage() {
             <div className="flex items-center justify-center">
               <div className="w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                 <OptimizedImage
-                  src="/John Smith/bucker1.jpg"
+                  src="/John Smith/cost tracking/brokentooth.png"
                   alt="Fault reporting - Bucket"
                   width={800}
                   height={600}
-                  className="w-full h-full object-cover brightness-75"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
@@ -476,25 +476,42 @@ export default function PreStartsPage() {
             {/* PDF Display - Below Text */}
             {/* Mobile - Responsive */}
             <div className="w-full md:hidden p-4">
-              <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
-                <div className="pdf-container">
-                  <iframe
-                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0&view=FitH"
-                    className="w-full aspect-[3/4] md:aspect-[4/3] rounded-xl"
-                    title="Pre-Start PDF Report"
-                    scrolling="no"
+              <div className="w-full rounded-xl border border-gray-200 bg-white overflow-hidden">
+                <div className="max-h-[900px] overflow-y-auto">
+                  <OptimizedImage
+                    src="/prestart-page/prestartpdf1.png"
+                    alt="Pre-Start PDF Report Page 1"
+                    width={800}
+                    height={1000}
+                    className="w-full h-auto"
+                  />
+                  <OptimizedImage
+                    src="/prestart-page/prestartpdf2.png"
+                    alt="Pre-Start PDF Report Page 2"
+                    width={800}
+                    height={1000}
+                    className="w-full h-auto"
                   />
                 </div>
               </div>
             </div>
             {/* Desktop - Responsive */}
             <div className="hidden md:flex items-center justify-center p-8">
-              <div className="w-full max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-white">
-                <div className="pdf-container">
-                  <iframe
-                    src="/prestart-page/prestart-EXC-012-2025-12-02.pdf#toolbar=0&navpanes=0"
-                    className="w-full aspect-[4/3] rounded-xl"
-                    title="Pre-Start PDF Report"
+              <div className="w-full max-w-lg rounded-xl border border-gray-200 bg-white overflow-hidden">
+                <div className="max-h-[900px] overflow-y-auto">
+                  <OptimizedImage
+                    src="/prestart-page/prestartpdf1.png"
+                    alt="Pre-Start PDF Report Page 1"
+                    width={800}
+                    height={1000}
+                    className="w-full h-auto"
+                  />
+                  <OptimizedImage
+                    src="/prestart-page/prestartpdf2.png"
+                    alt="Pre-Start PDF Report Page 2"
+                    width={800}
+                    height={1000}
+                    className="w-full h-auto"
                   />
                 </div>
               </div>

@@ -692,7 +692,7 @@ export default function CostTrackingPage() {
               <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
                 <div className="max-w-[460px] mx-auto">
                   <OptimizedImage
-                    src="/John Smith/cost tracking/scopes.png"
+                    src="/John Smith/cost tracking/scopesproper (1).png"
                     alt="Project Scopes"
                     width={320}
                     height={640}
