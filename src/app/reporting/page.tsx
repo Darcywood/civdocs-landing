@@ -475,10 +475,10 @@ export default function ReportingPage() {
             {/* Right Side - Links */}
             <div className="md:text-right">
               <div className="space-y-4">
-                <a href="#privacy" className="block text-gray-300 hover:text-[#FF8C32] transition-colors duration-200">
+                <a href="/privacy" className="block text-gray-300 hover:text-[#FF8C32] transition-colors duration-200">
                   Privacy Policy
                 </a>
-                <a href="#terms" className="block text-gray-300 hover:text-[#FF8C32] transition-colors duration-200">
+                <a href="/terms" className="block text-gray-300 hover:text-[#FF8C32] transition-colors duration-200">
                   Terms of Service
                 </a>
                 <a href="/support" className="block text-gray-300 hover:text-[#FF8C32] transition-colors duration-200">

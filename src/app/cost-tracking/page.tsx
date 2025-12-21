@@ -1120,10 +1120,10 @@ export default function CostTrackingPage() {
             </div>
             <div className="md:text-right">
               <div className="space-y-3">
-                <a href="#privacy" className="block text-gray-400 hover:text-white transition-colors">
+                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
                   Privacy Policy
                 </a>
-                <a href="#terms" className="block text-gray-400 hover:text-white transition-colors">
+                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
                   Terms of Service
                 </a>
                 <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
@@ -1180,6 +1180,7 @@ export default function CostTrackingPage() {
                   autoPlay
                   playsInline
                   preload="auto"
+                  muted
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
                   <source src={preloadedVideoUrl ?? "/John Smith/costtrackingvideo.mov"} type="video/quicktime" />
