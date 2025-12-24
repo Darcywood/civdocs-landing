@@ -10,6 +10,7 @@ export default function CrankAIPage() {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isSimulateScopeVideoModalOpen, setIsSimulateScopeVideoModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -276,13 +277,6 @@ export default function CrankAIPage() {
                 </div>
 
                 <div className="pt-8 space-y-4">
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Login
-                  </button>
-                  
                   <a
                     href="https://app.civdocs.com/auth/signup"
                     onClick={closeMobileMenu}
@@ -343,6 +337,58 @@ export default function CrankAIPage() {
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
                   <source src="/Crank.ai/Video 24-12-2025, 2 07 38 PM.mov" type="video/quicktime" />
+                  Your browser does not support the video tag.
+                </video>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Simulate Scope Video Modal */}
+      <AnimatePresence>
+        {isSimulateScopeVideoModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black z-[100] flex items-center justify-center md:p-4"
+              onClick={() => setIsSimulateScopeVideoModalOpen(false)}
+            >
+              {/* Modal Content - Full screen on mobile, phone-sized on desktop */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative w-full h-full md:w-[400px] md:h-auto md:max-h-[90vh] bg-black md:rounded-2xl overflow-hidden flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsSimulateScopeVideoModalOpen(false)}
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-12 h-12 sm:w-14 sm:h-14 bg-black/80 hover:bg-black rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/20"
+                  aria-label="Close video"
+                >
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Video Player - Full screen on mobile */}
+                <video
+                  className="w-full h-full object-contain md:h-auto"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  muted
+                  onEnded={() => setIsSimulateScopeVideoModalOpen(false)}
+                >
+                  <source src="/Crank.ai/simulatescopevid.mov" type="video/quicktime" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
@@ -495,10 +541,14 @@ export default function CrankAIPage() {
       <section className="py-12 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-center">
-            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[300px]">
-              <p className="text-gray-400 font-medium text-center px-4">
-                [IMAGE PLACEHOLDER — Visual showing disconnected data / problem illustration]
-              </p>
+            <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-lg">
+              <OptimizedImage
+                src="/Crank.ai/crankmaterialsplaceholder.png"
+                alt="Crank.ai materials query example"
+                width={280}
+                height={210}
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
@@ -620,13 +670,29 @@ export default function CrankAIPage() {
             </div>
           </div>
 
-          {/* Example Screenshot Placeholder */}
+          {/* Example Screenshot with Video */}
           <div className="flex items-center justify-center mt-12">
-            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[400px]">
-              <p className="text-gray-400 font-medium text-center px-4">
-                [Crank.ai Interface Screenshot — Question / Answer Example]
-              </p>
-            </div>
+            <button
+              onClick={() => setIsSimulateScopeVideoModalOpen(true)}
+              className="relative w-full max-w-sm cursor-pointer hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
+              aria-label="Play simulate scope video"
+            >
+              <OptimizedImage 
+                src="/Crank.ai/sumulatescope.png" 
+                alt="Crank.ai Simulate Scope Example"
+                width={280}
+                height={210}
+                className="w-full h-auto rounded-2xl"
+              />
+              {/* Play button overlay */}
+              <div className="absolute inset-0 flex items-center justify-center rounded-2xl">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
       </section>

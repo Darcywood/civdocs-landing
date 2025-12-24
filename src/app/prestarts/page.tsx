@@ -302,13 +302,6 @@ export default function PreStartsPage() {
 
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Login
-                  </button>
-                  
                   <a
                     href="/start-trial"
                     onClick={closeMobileMenu}

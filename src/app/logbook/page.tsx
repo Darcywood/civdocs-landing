@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -11,6 +11,44 @@ export default function LogbookPage() {
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isUnlocksVideoModalOpen, setIsUnlocksVideoModalOpen] = useState(false);
+  
+  // Refs for hidden video elements to preload videos
+  const heroVideoPreloadRef = useRef<HTMLVideoElement>(null);
+  const unlocksVideoPreloadRef = useRef<HTMLVideoElement>(null);
+  const heroVideoModalRef = useRef<HTMLVideoElement>(null);
+  const unlocksVideoModalRef = useRef<HTMLVideoElement>(null);
+
+  // Preload videos on component mount
+  useEffect(() => {
+    // Preload hero video
+    if (heroVideoPreloadRef.current) {
+      heroVideoPreloadRef.current.load();
+    }
+    
+    // Preload unlocks video
+    if (unlocksVideoPreloadRef.current) {
+      unlocksVideoPreloadRef.current.load();
+    }
+  }, []);
+
+  // When modal opens, ensure video is ready to play instantly
+  useEffect(() => {
+    if (isVideoModalOpen && heroVideoModalRef.current) {
+      heroVideoModalRef.current.load();
+      heroVideoModalRef.current.play().catch(() => {
+        // Autoplay may fail, but video is preloaded
+      });
+    }
+  }, [isVideoModalOpen]);
+
+  useEffect(() => {
+    if (isUnlocksVideoModalOpen && unlocksVideoModalRef.current) {
+      unlocksVideoModalRef.current.load();
+      unlocksVideoModalRef.current.play().catch(() => {
+        // Autoplay may fail, but video is preloaded
+      });
+    }
+  }, [isUnlocksVideoModalOpen]);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -41,6 +79,27 @@ export default function LogbookPage() {
   };
 
   return (
+    <>
+      {/* Hidden video elements for preloading - these load videos in background */}
+      <div style={{ position: 'absolute', visibility: 'hidden', width: 0, height: 0, pointerEvents: 'none' }}>
+        <video
+          ref={heroVideoPreloadRef}
+          preload="auto"
+          muted
+          playsInline
+        >
+          <source src="/logbook/Video 19-12-2025, 8 55 13 AM.mov" type="video/quicktime" />
+        </video>
+        <video
+          ref={unlocksVideoPreloadRef}
+          preload="auto"
+          muted
+          playsInline
+        >
+          <source src="/logbook/Video 19-12-2025, 10 03 55 AM.mov" type="video/quicktime" />
+        </video>
+      </div>
+
     <div className="min-h-screen bg-[#FFFEFB] overflow-x-hidden">
       {/* Header */}
       <header className="sticky top-0 z-[80] bg-white border-b border-gray-200">
@@ -301,13 +360,6 @@ export default function LogbookPage() {
 
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Login
-                  </button>
-                  
                   <a
                     href="/start-trial"
                     onClick={closeMobileMenu}
@@ -366,6 +418,7 @@ export default function LogbookPage() {
                   width={400}
                   height={800}
                   className="w-full h-auto"
+                  priority
                 />
                 {/* Play button overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -614,6 +667,7 @@ export default function LogbookPage() {
                 width={600}
                 height={1200}
                 className="w-full h-auto rounded-2xl shadow-lg"
+                priority
               />
               {/* Play button overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -845,6 +899,7 @@ export default function LogbookPage() {
 
                 {/* Video Player - Full screen on mobile */}
                 <video
+                  ref={heroVideoModalRef}
                   className="w-full h-full object-contain md:h-auto"
                   controls
                   autoPlay
@@ -897,6 +952,7 @@ export default function LogbookPage() {
 
                 {/* Video Player - Full screen on mobile */}
                 <video
+                  ref={unlocksVideoModalRef}
                   className="w-full h-full object-contain md:h-auto"
                   controls
                   autoPlay
@@ -914,5 +970,6 @@ export default function LogbookPage() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }

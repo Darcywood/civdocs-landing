@@ -68,14 +68,6 @@ export default function GuidesSelectionPage() {
                 </a>
               </nav>
               
-              {/* Login Button */}
-              <a 
-                href="#login" 
-                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
-              >
-                Login
-              </a>
-              
               {/* CTA Button */}
               <a 
                 href="https://app.civdocs.com/auth/signup" 
@@ -284,13 +276,6 @@ export default function GuidesSelectionPage() {
                 </div>
 
                 <div className="pt-8 space-y-4">
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Login
-                  </button>
-                  
                   <a
                     href="https://app.civdocs.com/auth/signup"
                     onClick={closeMobileMenu}

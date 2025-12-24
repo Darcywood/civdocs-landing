@@ -72,14 +72,6 @@ export default function TermsPage() {
                 </a>
               </nav>
               
-              {/* Login Button */}
-              <a 
-                href="#login" 
-                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
-              >
-                Login
-              </a>
-              
               {/* CTA Button */}
               <a 
                 href="https://app.civdocs.com/auth/signup" 
@@ -754,4 +746,6 @@ export default function TermsPage() {
     </div>
   );
 }
+
+
 
