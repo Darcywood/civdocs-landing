@@ -67,10 +67,6 @@ export default function Home() {
                   Pricing
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Reporting
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
                 <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
@@ -204,7 +200,7 @@ export default function Home() {
                         <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
                       </a>
                       <a
-                        href="/reporting" 
+                        href="/cost-tracking" 
                         onClick={closeMobileMenu}
                         className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                       >
@@ -341,7 +337,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Simplify Civil Construction Pre-Starts, Timesheets & Cost Reporting
+              Simplify Civil Construction Pre-Starts, Timesheets & Cost Tracking
               </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
               Save hours every week with automated reports, checklists, and timesheets — built for busy civil crews.

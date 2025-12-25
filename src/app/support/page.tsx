@@ -58,10 +58,6 @@ export default function SupportPage() {
                   Pricing
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Reporting
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
                 <a href="/guides" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
@@ -173,7 +169,7 @@ export default function SupportPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
                         </a>
                         <a
-                          href="/reporting" 
+                          href="/cost-tracking" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -468,7 +464,7 @@ export default function SupportPage() {
                 What&apos;s included in the free trial?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Your 14-day free trial includes full access to all features: Pre-Starts, Timesheets, Reporting, and more. No credit card required to start.
+                Your 14-day free trial includes full access to all features: Pre-Starts, Timesheets, Cost Tracking, Logbook, and more. No credit card required to start.
               </p>
             </div>
 
@@ -488,7 +484,7 @@ export default function SupportPage() {
                 Can I export my data?
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Yes! You can export your data in various formats including CSV, Excel, and PDF. All export options are available in the Reporting section.
+                Yes! You can export your data in various formats including CSV, Excel, and PDF. Export options are available throughout the platform in Cost Tracking and other sections.
               </p>
             </div>
 
