@@ -1,0 +1,24 @@
+{
+  "name": "CivDocs - Civil Construction Management",
+  "short_name": "CivDocs",
+  "description": "Simplify civil construction management with CivDocs",
+  "icons": [
+    {
+      "src": "/favicon-for-app/icon1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-for-app/apple-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#FF8C32",
+  "background_color": "#FFFEFB",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait-primary"
+}
