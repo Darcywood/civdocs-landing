@@ -18,7 +18,7 @@ export default function Home() {
 
   // Preload logbook carousel images
   useEffect(() => {
-    const images = ['/homepage/logbookhome.png', '/homepage/invoicehome.png'];
+    const images = ['/homepage/logbook-home.png', '/homepage/invoicehome.png'];
     images.forEach((src) => {
       const img = new window.Image();
       img.src = src;
@@ -810,13 +810,14 @@ export default function Home() {
                     <div className="max-w-xl mx-auto h-full">
                       <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
                         <OptimizedImage
-                          src="/homepage/logbookhome.png"
+                          src="/homepage/logbook-home.png"
                           alt="CivDocs daily logbook mobile screen showing machine hours and supervisor sign-off"
-                          width={400}
-                          height={800}
-                          className="w-full max-w-[280px] mx-auto rounded-xl"
-                          sizes="(max-width: 768px) 90vw, 280px"
+                          width={600}
+                          height={1200}
+                          className="w-full max-w-[400px] mx-auto rounded-xl"
+                          sizes="(max-width: 768px) 90vw, 400px"
                           priority
+                          quality={95}
                         />
                       </div>
                     </div>
@@ -829,11 +830,12 @@ export default function Home() {
                         <OptimizedImage
                           src="/homepage/invoicehome.png"
                           alt="CivDocs generated invoice mobile screen showing automated invoice from approved logbook entries"
-                          width={400}
-                          height={800}
-                          className="w-full max-w-[280px] mx-auto rounded-xl"
-                          sizes="(max-width: 768px) 90vw, 280px"
+                          width={600}
+                          height={1200}
+                          className="w-full max-w-[400px] mx-auto rounded-xl"
+                          sizes="(max-width: 768px) 90vw, 400px"
                           priority
+                          quality={95}
                         />
                       </div>
                     </div>
@@ -847,12 +849,13 @@ export default function Home() {
                 <div className="flex-shrink-0">
                   <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
                     <OptimizedImage
-                      src="/homepage/logbookhome.png"
+                      src="/homepage/logbook-home.png"
                       alt="CivDocs daily logbook mobile screen showing machine hours and supervisor sign-off"
-                      width={400}
-                      height={800}
-                      className="w-full max-w-[280px] mx-auto rounded-xl"
-                      sizes="280px"
+                      width={600}
+                      height={1200}
+                      className="w-full max-w-[400px] mx-auto rounded-xl"
+                      sizes="400px"
+                      quality={95}
                     />
                   </div>
                 </div>
@@ -870,10 +873,11 @@ export default function Home() {
                     <OptimizedImage
                       src="/homepage/invoicehome.png"
                       alt="CivDocs generated invoice mobile screen showing automated invoice from approved logbook entries"
-                      width={400}
-                      height={800}
-                      className="w-full max-w-[280px] mx-auto rounded-xl"
-                      sizes="280px"
+                      width={600}
+                      height={1200}
+                      className="w-full max-w-[400px] mx-auto rounded-xl"
+                      sizes="400px"
+                      quality={95}
                     />
                   </div>
                 </div>
