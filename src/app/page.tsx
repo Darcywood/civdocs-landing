@@ -41,7 +41,74 @@ export default function Home() {
     setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
   };
 
+  // Organization and Brand schemas (homepage only - entity definition)
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.civdocs.com.au/#organization",
+    "name": "CivDocs",
+    "url": "https://www.civdocs.com.au",
+    "description": "CivDocs is an Australian construction management software company serving civil construction contractors.",
+    "industry": "Construction",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.civdocs.com.au/CivDocs-logo-1000x400.svg",
+      "width": 1000,
+      "height": 400,
+    },
+    "sameAs": [],
+  };
+
+  const brandSchema = {
+    "@context": "https://schema.org",
+    "@type": "Brand",
+    "@id": "https://www.civdocs.com.au/#brand",
+    "name": "CivDocs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.civdocs.com.au/CivDocs-logo-1000x400.svg",
+      "width": 1000,
+      "height": 400,
+    },
+    "url": "https://www.civdocs.com.au",
+  };
+
+  // SoftwareApplication schema with @id references
+  const homepageSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CivDocs - Civil Construction Management Software",
+    "description": "All-in-one civil construction software: digital pre-starts, timesheets, plant hire logbooks, cost tracking, and AI-powered insights. Start free trial.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": ["Web", "iOS", "Android"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.civdocs.com.au/pricing",
+    },
+    "publisher": {
+      "@id": "https://www.civdocs.com.au/#organization",
+    },
+    "brand": {
+      "@id": "https://www.civdocs.com.au/#brand",
+    },
+    "url": "https://www.civdocs.com.au",
+    "inLanguage": "en-AU",
+    "industry": "Construction",
+    "applicationSubCategory": "Construction Management Software",
+  };
+
+  // Combine all schemas into a single array for efficient rendering
+  const allSchemas = [organizationSchema, brandSchema, homepageSchema];
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(allSchemas) }}
+      />
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Sticky Header */}
       <header className="sticky top-0 z-[80] bg-white/95 backdrop-blur-sm border-b border-gray-200">
@@ -802,5 +869,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
