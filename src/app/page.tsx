@@ -555,7 +555,7 @@ export default function Home() {
           <div className="text-left">
             {/* Headline */}
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Then trust your numbers.
+              Imagine being able to trust your numbers
             </h2>
 
             {/* Body paragraphs */}
@@ -620,7 +620,7 @@ export default function Home() {
                 CivDocs turns daily site activity into live project costs — automatically.
               </p>
               
-              <ul className="space-y-3">
+              <ul className="space-y-5">
                 <li className="flex items-start gap-2">
                   <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
                   <span>Pre-starts capture the machines used on site and apply the correct daily plant rate to the plant cost code.</span>
@@ -636,8 +636,7 @@ export default function Home() {
               </ul>
               
               <p>
-                Every entry is approved, timestamped, and locked to the job it was used on.
-                Those costs roll up into the project scope in real time — so budget vs actuals are always current.
+                Every entry is approved and locked to the job. Costs roll up into your project scope in real time — so budget vs actuals are always current.
               </p>
               
               <p>
