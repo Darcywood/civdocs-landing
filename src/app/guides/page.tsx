@@ -58,11 +58,23 @@ export default function GuidesSelectionPage() {
                   Pricing
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
+                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                  Reporting
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 <a href="/guides" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
                 </a>
               </nav>
+              
+              {/* Login Button */}
+              <a 
+                href="#login" 
+                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
+              >
+                Login
+              </a>
               
               {/* CTA Button */}
               <a 
@@ -165,7 +177,7 @@ export default function GuidesSelectionPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
                         </a>
                         <a
-                          href="/cost-tracking" 
+                          href="/reporting" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -272,6 +284,13 @@ export default function GuidesSelectionPage() {
                 </div>
 
                 <div className="pt-8 space-y-4">
+                  <button 
+                    onClick={closeMobileMenu}
+                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Login
+                  </button>
+                  
                   <a
                     href="https://app.civdocs.com/auth/signup"
                     onClick={closeMobileMenu}
@@ -319,15 +338,15 @@ export default function GuidesSelectionPage() {
                         height={56} 
                         className="w-9 h-9 object-contain"
                       />
-                    </div>
+          </div>
                     <div className="text-left">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
                         Civil Contractor
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                         Guides for project management, crew timesheets, cost tracking, and construction workflows.
-                      </p>
-                    </div>
+              </p>
+            </div>
                   </div>
                   <svg
                     className="w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0"
@@ -336,8 +355,8 @@ export default function GuidesSelectionPage() {
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                </svg>
+              </div>
               </div>
             </Link>
 
@@ -354,15 +373,15 @@ export default function GuidesSelectionPage() {
                         height={56} 
                         className="w-9 h-9 object-contain"
                       />
-                    </div>
+              </div>
                     <div className="text-left">
                       <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
                         Plant Hire
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
                         Guides for equipment management, rental tracking, machine maintenance, and fleet operations.
-                      </p>
-                    </div>
+              </p>
+            </div>
                   </div>
                   <svg
                     className="w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0"
@@ -371,8 +390,8 @@ export default function GuidesSelectionPage() {
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                </svg>
+              </div>
               </div>
             </Link>
           </div>

@@ -328,6 +328,13 @@ export default function CostTrackingPage() {
 
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
+                  <button 
+                    onClick={closeMobileMenu}
+                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Login
+                  </button>
+                  
                   <a
                     href="/start-trial"
                     onClick={closeMobileMenu}
@@ -396,7 +403,7 @@ export default function CostTrackingPage() {
                     <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
-                  </div>
+              </div>
                 </div>
               </button>
             </div>

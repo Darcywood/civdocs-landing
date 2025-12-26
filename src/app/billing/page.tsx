@@ -468,6 +468,10 @@ export default function BillingPage() {
                   Pricing
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
+                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
+                  Reporting
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                   Resources
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
@@ -477,6 +481,14 @@ export default function BillingPage() {
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                 </a>
               </nav>
+              
+              {/* Login Button */}
+              <a 
+                href="#login" 
+                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
+              >
+                Login
+              </a>
               
               {/* CTA Button */}
               <a 
@@ -601,7 +613,7 @@ export default function BillingPage() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
                         </a>
                         <a
-                          href="/cost-tracking" 
+                          href="/reporting" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -709,6 +721,13 @@ export default function BillingPage() {
 
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
+                  <button 
+                    onClick={closeMobileMenu}
+                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Login
+                  </button>
+                  
                   <a
                     href="https://app.civdocs.com/auth/signup"
                     onClick={closeMobileMenu}

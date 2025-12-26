@@ -10,7 +10,6 @@ export default function CrankAIPage() {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [isSimulateScopeVideoModalOpen, setIsSimulateScopeVideoModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -74,8 +73,8 @@ export default function CrankAIPage() {
 
             {/* Mobile menu button */}
             <div className="lg:hidden flex items-center justify-center">
-              <button 
-                onClick={toggleMobileMenu}
+            <button 
+              onClick={toggleMobileMenu}
                 className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
                 aria-label="Toggle mobile menu"
               >
@@ -89,8 +88,8 @@ export default function CrankAIPage() {
                   <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
                     isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
                   }`}></span>
-                </div>
-              </button>
+              </div>
+            </button>
             </div>
           </div>
         </div>
@@ -108,7 +107,7 @@ export default function CrankAIPage() {
               className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
               onClick={closeMobileMenu}
             />
-            
+        
             <motion.div
               key="mobile-menu"
               initial={{ opacity: 0, scale: 0.96, y: -8 }}
@@ -277,6 +276,13 @@ export default function CrankAIPage() {
                 </div>
 
                 <div className="pt-8 space-y-4">
+                  <button 
+                    onClick={closeMobileMenu}
+                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Login
+                  </button>
+                  
                   <a
                     href="https://app.civdocs.com/auth/signup"
                     onClick={closeMobileMenu}
@@ -345,67 +351,15 @@ export default function CrankAIPage() {
         )}
       </AnimatePresence>
 
-      {/* Simulate Scope Video Modal */}
-      <AnimatePresence>
-        {isSimulateScopeVideoModalOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black z-[100] flex items-center justify-center md:p-4"
-              onClick={() => setIsSimulateScopeVideoModalOpen(false)}
-            >
-              {/* Modal Content - Full screen on mobile, phone-sized on desktop */}
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="relative w-full h-full md:w-[400px] md:h-auto md:max-h-[90vh] bg-black md:rounded-2xl overflow-hidden flex flex-col"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Close Button */}
-                <button
-                  onClick={() => setIsSimulateScopeVideoModalOpen(false)}
-                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-12 h-12 sm:w-14 sm:h-14 bg-black/80 hover:bg-black rounded-full flex items-center justify-center transition-colors shadow-lg border-2 border-white/20"
-                  aria-label="Close video"
-                >
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-
-                {/* Video Player - Full screen on mobile */}
-                <video
-                  className="w-full h-full object-contain md:h-auto"
-                  controls
-                  autoPlay
-                  playsInline
-                  preload="auto"
-                  muted
-                  onEnded={() => setIsSimulateScopeVideoModalOpen(false)}
-                >
-                  <source src="/Crank.ai/simulatescopevid.mov" type="video/quicktime" />
-                  Your browser does not support the video tag.
-                </video>
-              </motion.div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
       {/* 1. Hero Section */}
       <section className="py-20 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] mb-6">
                 Stop guessing. Know your numbers.
-              </h1>
+          </h1>
               <p className="text-xl text-gray-600 mb-4 leading-relaxed">
                 Your data already exists in CivDocs.
               </p>
@@ -450,7 +404,7 @@ export default function CrankAIPage() {
                     <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
-                  </div>
+              </div>
                 </div>
               </button>
             </div>
@@ -464,11 +418,11 @@ export default function CrankAIPage() {
           <div className="max-w-3xl">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-8">
               Not knowing your numbers costs you money.
-            </h2>
+              </h2>
 
             <p className="text-lg text-gray-700 mb-12">
               Most owners don't lose money because they lack experience or effort.
-            </p>
+              </p>
             <p className="text-lg text-gray-700 mb-12">
               They lose money because the answers they need arrive too late — after the job is finished, the invoice is sent, and the margin is already gone.
             </p>
@@ -510,8 +464,8 @@ export default function CrankAIPage() {
               </p>
               <p className="text-lg text-gray-700">
                 So getting a clear answer means jumping between screens, exporting data, or waiting for someone else to pull numbers together.
-              </p>
-            </div>
+                </p>
+              </div>
 
             {/* Sub-section 3 */}
             <div>
@@ -532,23 +486,19 @@ export default function CrankAIPage() {
               <p className="text-lg text-gray-700">
                 Just to understand how your business is performing.
               </p>
+              </div>
             </div>
-          </div>
         </div>
       </section>
 
       {/* Image Placeholder Section */}
       <section className="py-12 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-center">
-            <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-lg">
-              <OptimizedImage
-                src="/Crank.ai/crankmaterialsplaceholder.png"
-                alt="Crank.ai materials query example"
-                width={280}
-                height={210}
-                className="w-full h-auto"
-              />
+            <div className="flex items-center justify-center">
+            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[300px]">
+                <p className="text-gray-400 font-medium text-center px-4">
+                [IMAGE PLACEHOLDER — Visual showing disconnected data / problem illustration]
+                </p>
             </div>
           </div>
         </div>
@@ -558,29 +508,29 @@ export default function CrankAIPage() {
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               One place. Real answers.
-            </h2>
+              </h2>
             <p className="text-xl text-gray-600 mb-6 leading-relaxed">
               Crank.ai sits on top of CivDocs and turns day-to-day data into clear answers.
             </p>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Instead of clicking through screens or exporting data, you ask a question — and get a straight answer backed by your real numbers.
-            </p>
+              </p>
             <ul className="space-y-3 mb-6">
-              <li className="flex items-start gap-3">
+                <li className="flex items-start gap-3">
                 <span className="text-[#FF8C32] mt-1">•</span>
                 <span className="text-lg text-gray-700">No setup work.</span>
-              </li>
-              <li className="flex items-start gap-3">
+                </li>
+                <li className="flex items-start gap-3">
                 <span className="text-[#FF8C32] mt-1">•</span>
                 <span className="text-lg text-gray-700">No report building.</span>
-              </li>
-              <li className="flex items-start gap-3">
+                </li>
+                <li className="flex items-start gap-3">
                 <span className="text-[#FF8C32] mt-1">•</span>
                 <span className="text-lg text-gray-700">No number-crunching.</span>
-              </li>
-            </ul>
+                </li>
+              </ul>
             <p className="text-lg text-gray-700">
               Crank.ai connects timesheets, logbooks, costs, and invoices — and gives you the answer you actually need.
             </p>
@@ -592,46 +542,46 @@ export default function CrankAIPage() {
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               What owners actually ask
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Crank.ai answers the questions owners think about during the week:
             </p>
           </div>
 
-          {/* Example Questions */}
+              {/* Example Questions */}
           <div className="space-y-4 max-w-4xl">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <p className="text-lg text-gray-700">What does AGI actually cost us per metre on current jobs?</p>
-            </div>
+              </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <p className="text-lg text-gray-700">Compare Pakenham to Clyde North — which project is performing better, and why?</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <p className="text-lg text-gray-700">Simulate a quote to install 4,000 tonnes of Class 3 with a 20% margin.</p>
-            </div>
+              </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <p className="text-lg text-gray-700">What are our current project costs across labour, plant, and materials?</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <p className="text-lg text-gray-700">How many hours have employees worked this week — and how much of that was overtime?</p>
-            </div>
           </div>
+        </div>
 
           <p className="text-lg text-gray-600 mt-8 leading-relaxed max-w-3xl">
             Every answer is pulled directly from your approved CivDocs data — not estimates, not assumptions.
-          </p>
-        </div>
+                </p>
+              </div>
       </section>
 
       {/* 5. How Crank.ai Works Section */}
       <section className="py-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               How Crank.ai works
-            </h2>
+              </h2>
           </div>
 
           {/* Step Cards */}
@@ -670,29 +620,13 @@ export default function CrankAIPage() {
             </div>
           </div>
 
-          {/* Example Screenshot with Video */}
+          {/* Example Screenshot Placeholder */}
           <div className="flex items-center justify-center mt-12">
-            <button
-              onClick={() => setIsSimulateScopeVideoModalOpen(true)}
-              className="relative w-full max-w-sm cursor-pointer hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
-              aria-label="Play simulate scope video"
-            >
-              <OptimizedImage 
-                src="/Crank.ai/sumulatescope.png" 
-                alt="Crank.ai Simulate Scope Example"
-                width={280}
-                height={210}
-                className="w-full h-auto rounded-2xl"
-              />
-              {/* Play button overlay */}
-              <div className="absolute inset-0 flex items-center justify-center rounded-2xl">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-              </div>
-            </button>
+            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[400px]">
+              <p className="text-gray-400 font-medium text-center px-4">
+                [Crank.ai Interface Screenshot — Question / Answer Example]
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -701,41 +635,41 @@ export default function CrankAIPage() {
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               Problems get caught before the job is finished.
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Crank.ai surfaces issues while there's still time to do something about them.
-            </p>
+              </p>
           </div>
-
+              
           {/* Benefits List */}
           <div className="space-y-4 max-w-3xl mb-8">
             <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
               <span className="text-gray-700 text-lg">Labour overruns become visible early</span>
             </div>
             <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
               <span className="text-gray-700 text-lg">Plant hours exceeding quote don't go unnoticed</span>
             </div>
             <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
               <span className="text-gray-700 text-lg">Overtime creep is exposed before it kills margin</span>
             </div>
             <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
               <span className="text-gray-700 text-lg">Cost vs invoice mismatches are caught before billing</span>
+              </div>
             </div>
-          </div>
 
           <p className="text-lg text-gray-700 font-semibold max-w-3xl">
             You don't find out after the invoice. You find out while the job is still running.
@@ -747,41 +681,41 @@ export default function CrankAIPage() {
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               Quote with confidence — not gut feel.
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Underquoting is one of the biggest silent killers in civil construction.
-            </p>
+              </p>
             <p className="text-lg text-gray-700 mb-6">
               Crank.ai shows you:
             </p>
             <ul className="space-y-3 mb-8">
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 <span className="text-gray-700 text-lg">real cost per metre</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 <span className="text-gray-700 text-lg">real labour cost per day</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 <span className="text-gray-700 text-lg">actual production vs planned</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                </li>
+                <li className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
                 <span className="text-gray-700 text-lg">historical performance across similar jobs</span>
-              </li>
-            </ul>
+                </li>
+              </ul>
             <p className="text-lg text-gray-700">
               Future pricing is based on what actually happened — not what you hope will happen next time.
             </p>
@@ -793,13 +727,13 @@ export default function CrankAIPage() {
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
               Why Crank.ai is different
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               Crank.ai removes the translation layer between data and decisions.
             </p>
-          </div>
+            </div>
 
           {/* Comparison Cards */}
           <div className="space-y-8 max-w-5xl">
@@ -808,8 +742,8 @@ export default function CrankAIPage() {
               <h3 className="text-2xl font-semibold text-[#1E1E1E] mb-4">Compared to building reports</h3>
               <p className="text-lg text-gray-700">
                 Reports require setup, filters, and interpretation. Crank.ai gives direct answers.
-              </p>
-            </div>
+                </p>
+              </div>
 
             {/* vs Excel/Power BI */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -817,7 +751,7 @@ export default function CrankAIPage() {
               <p className="text-lg text-gray-700">
                 Spreadsheets are always behind and easy to break. Crank.ai works off live data inside CivDocs.
               </p>
-            </div>
+              </div>
 
             {/* vs Data Analyst */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -832,9 +766,9 @@ export default function CrankAIPage() {
               <h3 className="text-2xl font-semibold text-[#1E1E1E] mb-4">Compared to other AI tools</h3>
               <p className="text-lg text-gray-700">
                 Generic AI guesses. Crank.ai only answers what your data can prove.
-              </p>
-            </div>
+            </p>
           </div>
+        </div>
 
           <p className="text-lg text-gray-700 mt-8 max-w-3xl">
             Every answer is grounded in approved timesheets, logbooks, and costs.

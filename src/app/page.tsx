@@ -418,10 +418,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Simplify Civil Construction Pre-Starts, Timesheets & Cost Tracking
+              Construction Management Software for Civil Contractors
               </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              Save hours every week with automated reports, checklists, and timesheets — built for busy civil crews.
+              Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.
               </p>
             <div className="flex flex-col items-center">
                 <a 
@@ -434,16 +434,15 @@ export default function Home() {
             </div>
             
             {/* Dashboard Preview */}
-            <div className="mt-16">
-              <div className="shadow-2xl rounded-3xl bg-white p-6 h-[320px] w-full max-w-4xl mx-auto border border-gray-100">
-                <div className="h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl flex items-center justify-center">
-                  <div className="text-gray-400 text-center">
-                    <svg className="w-20 h-20 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                    </svg>
-                    <p className="text-sm font-medium">Dashboard Preview</p>
-                  </div>
-                </div>
+            <div className="mt-16 flex items-center justify-center">
+              <div className="w-full max-w-[230px] sm:max-w-[270px] md:max-w-[310px]">
+                <OptimizedImage 
+                  src="/homepage/dashboard1.png" 
+                  alt="CivDocs Dashboard Preview" 
+                  width={400}
+                  height={800}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
               </div>
             </div>
           </div>
@@ -535,22 +534,15 @@ export default function Home() {
             </div>
 
             {/* Dashboard Preview */}
-            <div className="mt-12">
-              <div className="shadow-2xl rounded-3xl bg-white p-6 h-[400px] w-full max-w-5xl mx-auto border border-gray-100">
-                <div className="h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl flex flex-col items-center justify-center relative">
-                  <div className="text-gray-400 text-center">
-                    <svg className="w-20 h-20 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                    </svg>
-                    <p className="text-sm font-medium mb-2">Desktop cost tracking dashboard</p>
-                    <p className="text-xs text-gray-500">(Labour / Plant / Materials breakdown)</p>
-                  </div>
-                  <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-                    <p className="text-sm font-medium text-gray-600 italic">
-                      "Approved site data → trusted project numbers"
-                    </p>
-                  </div>
-                </div>
+            <div className="mt-12 flex items-center justify-center">
+              <div className="w-full max-w-[230px] sm:max-w-[270px] md:max-w-[310px]">
+                <OptimizedImage 
+                  src="/homepage/dashboardcostreport.png" 
+                  alt="Desktop cost tracking dashboard" 
+                  width={400}
+                  height={800}
+                  className="w-full h-auto drop-shadow-2xl"
+                />
               </div>
             </div>
           </div>
