@@ -261,8 +261,8 @@ export default function FreeToolsPage() {
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Free Tools</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Free tools and calculators for your projects</p>
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai Cheat Sheet</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Quick reference guide for Crank.ai commands and queries</p>
                         </a>
                       </motion.div>
                     )}
@@ -312,16 +312,16 @@ export default function FreeToolsPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Free Tools & Calculators
+              Crank.ai Cheat Sheet
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              Access free tools and calculators to help with your construction projects and planning.
+              Quick reference guide for Crank.ai commands and queries to get instant answers about your projects.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Free Tools Section */}
+      {/* Crank.ai Cheat Sheet Section */}
       <section className="py-20 sm:py-32 lg:py-40 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16 sm:mb-20">

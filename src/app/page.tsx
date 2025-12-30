@@ -125,9 +125,10 @@ export default function Home() {
       />
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-[80] bg-white/95 backdrop-blur-sm border-b border-gray-200">
+      <header className="fixed top-0 left-0 right-0 z-[80] py-5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-2xl px-6 lg:px-8">
+            <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/">
@@ -187,6 +188,7 @@ export default function Home() {
                 </div>
               </button>
             </div>
+          </div>
           </div>
         </div>
       </header>
@@ -373,8 +375,8 @@ export default function Home() {
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Free Tools</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Free tools and calculators for your projects</p>
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai Cheat Sheet</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Quick reference guide for Crank.ai commands and queries</p>
                         </a>
                       </motion.div>
                     )}
@@ -414,7 +416,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#FFFEFB] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
+      <section className="relative overflow-hidden bg-[#FFFEFB] pt-40 pb-32 sm:pt-48 sm:pb-40 lg:pt-56 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
@@ -441,7 +443,12 @@ export default function Home() {
                   alt="CivDocs Dashboard Preview" 
                   width={400}
                   height={800}
-                  className="w-full h-auto drop-shadow-2xl"
+                  className="w-full h-auto drop-shadow-lg md:drop-shadow-2xl"
+                  style={{ 
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    willChange: 'transform'
+                  }}
                 />
               </div>
             </div>
@@ -541,7 +548,12 @@ export default function Home() {
                   alt="Desktop cost tracking dashboard" 
                   width={400}
                   height={800}
-                  className="w-full h-auto drop-shadow-2xl"
+                  className="w-full h-auto drop-shadow-lg md:drop-shadow-2xl"
+                  style={{ 
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    willChange: 'transform'
+                  }}
                 />
               </div>
             </div>
@@ -588,13 +600,15 @@ export default function Home() {
             <div className="flex flex-col items-start">
               <a 
                 href="/pricing" 
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
               >
-                Start 14-Day Free Trial →
+                Start 14-Day Trial - No Credit Card Required
+                <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
               </a>
-              <p className="text-base font-normal text-neutral-700 mt-4">
-                No credit card required. Get visibility across your jobs in minutes.
-              </p>
             </div>
           </div>
         </div>
@@ -605,7 +619,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="text-left">
             {/* Eyebrow heading */}
-            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4">
+            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
               How CivDocs Works
             </p>
 
@@ -620,7 +637,7 @@ export default function Home() {
                 CivDocs turns daily site activity into live project costs — automatically.
               </p>
               
-              <ul className="space-y-5">
+              <ul className="space-y-8">
                 <li className="flex items-start gap-2">
                   <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
                   <span>Pre-starts capture the machines used on site and apply the correct daily plant rate to the plant cost code.</span>
@@ -671,7 +688,10 @@ export default function Home() {
             {/* Left Column - Text Content */}
             <div className="text-left">
               {/* Eyebrow heading */}
-              <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4">
+              <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
                 Plant Hire Logbooks
               </p>
 
@@ -775,7 +795,12 @@ export default function Home() {
                 <div className="flex justify-center mb-4 h-6">
                   {logbookCarouselIndex === 0 && (
                     <p className="text-[#6B7280] text-sm font-medium animate-pulse-glow">
-                      Swipe to view invoice →
+                      From daily logbooks
+                    </p>
+                  )}
+                  {logbookCarouselIndex === 1 && (
+                    <p className="text-[#6B7280] text-sm font-medium animate-pulse-glow">
+                      to ready-to-send invoices — at the push of a button
                     </p>
                   )}
                 </div>
@@ -799,14 +824,21 @@ export default function Home() {
                   {/* Logbook Slide */}
                   <SwiperSlide style={{ height: 'auto' }}>
                     <div className="max-w-xl mx-auto h-full">
-                      <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
+                      <div 
+                        className="shadow-lg md:shadow-xl rounded-2xl overflow-hidden bg-white p-2"
+                        style={{ 
+                          transform: 'translateZ(0)',
+                          backfaceVisibility: 'hidden',
+                          willChange: 'transform'
+                        }}
+                      >
                         <OptimizedImage
                           src="/homepage/logbook-home.png"
                           alt="CivDocs daily logbook mobile screen showing machine hours and supervisor sign-off"
                           width={600}
                           height={1200}
-                          className="w-full max-w-[400px] mx-auto rounded-xl"
-                          sizes="(max-width: 768px) 90vw, 400px"
+                          className="w-full max-w-[480px] mx-auto rounded-xl"
+                          sizes="(max-width: 768px) 90vw, 480px"
                           priority
                           quality={95}
                         />
@@ -817,14 +849,21 @@ export default function Home() {
                   {/* Invoice Slide */}
                   <SwiperSlide style={{ height: 'auto' }}>
                     <div className="max-w-xl mx-auto h-full">
-                      <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
+                      <div 
+                        className="shadow-lg md:shadow-xl rounded-2xl overflow-hidden bg-white p-2"
+                        style={{ 
+                          transform: 'translateZ(0)',
+                          backfaceVisibility: 'hidden',
+                          willChange: 'transform'
+                        }}
+                      >
                         <OptimizedImage
                           src="/homepage/invoicehome.png"
                           alt="CivDocs generated invoice mobile screen showing automated invoice from approved logbook entries"
                           width={600}
                           height={1200}
-                          className="w-full max-w-[400px] mx-auto rounded-xl"
-                          sizes="(max-width: 768px) 90vw, 400px"
+                          className="w-full max-w-[480px] mx-auto rounded-xl"
+                          sizes="(max-width: 768px) 90vw, 480px"
                           priority
                           quality={95}
                         />
@@ -838,14 +877,21 @@ export default function Home() {
               <div className="hidden lg:flex gap-6 items-center justify-center">
                 {/* Logbook Image */}
                 <div className="flex-shrink-0">
-                  <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
+                  <div 
+                    className="shadow-xl rounded-2xl overflow-hidden bg-white p-2"
+                    style={{ 
+                      transform: 'translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                      willChange: 'transform'
+                    }}
+                  >
                     <OptimizedImage
                       src="/homepage/logbook-home.png"
                       alt="CivDocs daily logbook mobile screen showing machine hours and supervisor sign-off"
                       width={600}
                       height={1200}
-                      className="w-full max-w-[400px] mx-auto rounded-xl"
-                      sizes="400px"
+                      className="w-full max-w-[480px] mx-auto rounded-xl"
+                      sizes="480px"
                       quality={95}
                     />
                   </div>
@@ -860,18 +906,135 @@ export default function Home() {
 
                 {/* Invoice Image */}
                 <div className="flex-shrink-0">
-                  <div className="shadow-xl rounded-2xl overflow-hidden bg-white p-2">
+                  <div 
+                    className="shadow-xl rounded-2xl overflow-hidden bg-white p-2"
+                    style={{ 
+                      transform: 'translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                      willChange: 'transform'
+                    }}
+                  >
                     <OptimizedImage
                       src="/homepage/invoicehome.png"
                       alt="CivDocs generated invoice mobile screen showing automated invoice from approved logbook entries"
                       width={600}
                       height={1200}
-                      className="w-full max-w-[400px] mx-auto rounded-xl"
-                      sizes="400px"
+                      className="w-full max-w-[480px] mx-auto rounded-xl"
+                      sizes="480px"
                       quality={95}
                     />
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Crank.ai Section */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50/30 pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Text Content */}
+            <div className="text-left">
+              {/* Eyebrow heading */}
+              <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+                CRANK.AI
+              </p>
+
+              {/* Main headline */}
+              <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-12">
+                Stop guessing how your jobs are performing.
+                <br />
+                Get clear answers in seconds.
+              </h2>
+
+              {/* Body text */}
+              <div className="space-y-8 text-lg font-normal text-neutral-700 leading-relaxed mb-12">
+                <p>
+                  CivDocs already captures what's happening on site — pre-starts, timesheets, plant hours, attachments, and invoices.
+                </p>
+                <p>
+                  Crank.ai connects it all and turns that day-to-day data into answers owners and directors actually need — while the job is still running.
+                </p>
+                <p>
+                  Instead of digging through screens, waiting on reports, or exporting data to spreadsheets, you ask a question and get a straight answer backed by your real numbers.
+                </p>
+              </div>
+
+              {/* Supporting bullets */}
+              <ul className="space-y-6 mb-12 text-lg font-normal text-neutral-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
+                  <span>See labour, plant, and material costs as they build</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
+                  <span>Catch overruns and inefficiencies before margin disappears</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
+                  <span>Understand job performance without spreadsheets or reports</span>
+                </li>
+              </ul>
+
+              {/* Transition line */}
+              <p className="text-lg font-normal text-neutral-700 leading-relaxed">
+                It's the difference between finding problems after the invoice — and seeing them while there's still time to act.
+              </p>
+            </div>
+
+            {/* Right Column - Visual Container */}
+            <div className="w-full flex flex-col items-center justify-center">
+              {/* Optional label */}
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">
+                Crank.ai Preview
+              </p>
+              
+              {/* Premium SaaS-style card */}
+              <div className="w-full flex justify-center">
+                <div className="bg-white rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] overflow-hidden p-8 sm:p-12 lg:p-16">
+                  <div className="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+                    <video 
+                      src="/homepage/gifcrank.mov" 
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="rounded-xl w-full h-auto max-w-full"
+                      style={{
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
+                        display: 'block'
+                      }}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              
+              {/* CTA below video */}
+              <div className="mt-8 flex flex-col items-center gap-4">
+                <a 
+                  href="/pricing" 
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                >
+                  Start 14-Day Trial - No Credit Card Required
+                  <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </a>
+                <Link
+                  href="/crank-ai"
+                  className="inline-flex items-center text-base font-normal text-neutral-700 hover:text-[#FF8C32] transition-colors duration-300"
+                >
+                  See how Crank.ai works →
+                </Link>
               </div>
             </div>
           </div>
