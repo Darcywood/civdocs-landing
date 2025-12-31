@@ -12,7 +12,6 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
-  const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
   const [logbookCarouselIndex, setLogbookCarouselIndex] = useState(0);
   const logbookSwiperRef = useRef<SwiperType | null>(null);
 
@@ -125,9 +124,11 @@ export default function Home() {
       />
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Sticky Header */}
-      <header className="fixed top-0 left-0 right-0 z-[80] py-5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 rounded-2xl px-6 lg:px-8">
+      <header className="fixed top-0 left-0 right-0 z-[80]">
+        <div className={`transition-all duration-200 ${
+          isMobileMenuOpen ? 'shadow-none' : 'shadow-sm'
+        }`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)' }}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -189,8 +190,8 @@ export default function Home() {
               </button>
             </div>
           </div>
-          </div>
         </div>
+      </div>
       </header>
 
       {/* Mobile Menu - Humlytics Style with Framer Motion */}
@@ -206,7 +207,7 @@ export default function Home() {
                 duration: 0.15,
                 ease: [0.4, 0, 0.2, 1]
               }}
-              className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
+              className="fixed inset-0 top-[80px] bg-black/20 z-[70] lg:hidden"
           onClick={closeMobileMenu}
         />
         
@@ -232,7 +233,8 @@ export default function Home() {
                 duration: 0.18,
                 ease: [0.4, 0, 0.2, 1]
               }}
-              className="fixed top-[88px] left-4 right-4 z-[75] bg-gray-50 rounded-3xl shadow-2xl overflow-hidden lg:hidden max-h-[calc(100vh-7rem)] overflow-y-auto"
+              className="fixed top-[80px] left-0 right-0 z-[75] rounded-b-2xl shadow-lg overflow-hidden lg:hidden max-h-[calc(100vh-5rem)] overflow-y-auto"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)' }}
             >
 
               {/* Menu content */}
@@ -416,15 +418,15 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#FFFEFB] pt-40 pb-32 sm:pt-48 sm:pb-40 lg:pt-56 lg:pb-48">
+      <section className="relative overflow-hidden bg-[#FFFEFB] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Construction Management Software for Civil Contractors
+              Your jobs look busy — but the numbers don't add up.
               </h1>
-            <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.
-              </p>
+            <h2 className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
+              CivDocs turns daily site activity into trusted project numbers — while work is still underway.
+              </h2>
             <div className="flex flex-col items-center">
                 <a 
                 href="/pricing" 
@@ -1041,404 +1043,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-white">
+      {/* Built for Civil Section */}
+      <section className="py-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 sm:mb-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight tracking-tight">
-              Everything Your Team Needs
+          <div className="max-w-4xl">
+            {/* Eyebrow label */}
+            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-6">
+              BUILT FOR CIVIL
+            </p>
+
+            {/* H2 */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
+              Software that matches how civil work actually happens.
             </h2>
-          </div>
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            {/* Feature 1 - Pre-Starts */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300">
-              <button
-                onClick={() => setExpandedFeature(expandedFeature === 'prestarts' ? null : 'prestarts')}
-                className="w-full p-8 flex items-center justify-between hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-center gap-6 flex-1">
-                  <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
-                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                      Pre-Starts
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Complete safety checks in 3 simple steps — ensure your crew is ready.
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className={`w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0 ${expandedFeature === 'prestarts' ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {expandedFeature === 'prestarts' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-8 pb-8 pt-0 border-t border-gray-100">
-                      <div className="pt-6 space-y-4">
-                        <p className="text-gray-700 leading-relaxed font-bold">
-                          Pre-Starts done properly — fast, simple, built for the real world.
-                        </p>
-                        <ol className="space-y-2 text-gray-700 list-decimal list-inside ml-4">
-                          <li className="font-semibold">Pick the project & machine</li>
-                          <li className="font-semibold">Tick through your checklist</li>
-                          <li className="font-semibold">Sign it off and send it</li>
-                        </ol>
-                        <p className="text-gray-700 leading-relaxed">
-                          If something's wrong — like a hose starting to leak — the supervisor gets an instant alert so it's fixed before it turns into downtime.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed font-semibold">
-                          Each Pre-Start automatically:
-                        </p>
-                        <ul className="space-y-2 text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Creates a PDF</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Sends it straight to the supervisor</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Logs to the project for compliance</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Stores photos, faults & signatures</span>
-                          </li>
-                        </ul>
-                        <div className="pt-4">
-                          <Link
-                            href="/prestarts"
-                            className="inline-flex items-center text-[#FF8C32] font-semibold hover:text-[#F5B041] transition-colors"
-                          >
-                            See more
-                            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            {/* Body paragraphs */}
+            <div className="space-y-6 text-lg font-normal text-neutral-700 leading-relaxed mb-12">
+              <p>
+                Civil projects don't run off neat spreadsheets — they run off machines, crews, hours, and site decisions made every day.
+              </p>
+              <p>
+                CivDocs is built to match that reality.
+                <br />
+                It captures what happens on site and turns it into clean, approved data you can actually rely on.
+              </p>
             </div>
 
-            {/* Feature 2 - Timesheets */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300">
-              <button
-                onClick={() => setExpandedFeature(expandedFeature === 'timesheets' ? null : 'timesheets')}
-                className="w-full p-8 flex items-center justify-between hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-center gap-6 flex-1">
-                  <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
-                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                      Timesheets
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Log crew hours quickly and accurately with automated calculations.
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className={`w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0 ${expandedFeature === 'timesheets' ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {expandedFeature === 'timesheets' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-8 pb-8 pt-0 border-t border-gray-100">
-                      <div className="pt-6 space-y-4">
-                        <p className="text-gray-700 leading-relaxed font-bold">
-                          Timesheets made easy — accurate hours without the headaches.
-                        </p>
-                        <ol className="space-y-2 text-gray-700 list-decimal list-inside ml-4">
-                          <li className="font-semibold">Select your project</li>
-                          <li className="font-semibold">Enter start, finish & break times</li>
-                          <li className="font-semibold">Add notes if needed and submit your week</li>
-                        </ol>
-                        <p className="text-gray-700 leading-relaxed">
-                          Supervisors review and approve all entries at the end of the week, keeping hours honest and payroll simple.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed font-semibold">
-                          Each Timesheet automatically:
-                        </p>
-                        <ul className="space-y-2 text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Captures accurate employee hours for cost tracking</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Generates a weekly PDF stored under the employee</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Stays simple and mobile-friendly for non-techy crews</span>
-                          </li>
-                        </ul>
-                        <div className="pt-4">
-                          <Link
-                            href="/timesheets"
-                            className="inline-flex items-center text-[#FF8C32] font-semibold hover:text-[#F5B041] transition-colors"
-                          >
-                            See more
-                            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            {/* Bullet list */}
+            <ul className="space-y-5 mb-16 text-lg font-normal text-neutral-700">
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
+                <span>Site-first workflows that don't slow crews down</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
+                <span>Plant, labour, and materials tied to real jobs</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
+                <span>Supervisor sign-offs that lock data in place</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
+                <span>Clear numbers without chasing people or paperwork</span>
+              </li>
+            </ul>
 
-            {/* Feature 3 - Cost tracking */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300">
-              <button
-                onClick={() => setExpandedFeature(expandedFeature === 'cost-tracking' ? null : 'cost-tracking')}
-                className="w-full p-8 flex items-center justify-between hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-center gap-6 flex-1">
-                  <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
-                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            {/* CTA Section */}
+            <div className="pt-12 border-t border-gray-200">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
+                Better data. Better decisions. Better margins.
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
+                CivDocs connects site activity to real project costs so you can act early — not after it's too late.
+              </p>
+              <div className="flex flex-col items-start gap-4">
+                <a 
+                  href="/pricing" 
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                >
+                  Start 14-Day Trial - No Credit Card Required
+                  <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                      Cost tracking
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Track project expenses and costs in real-time with detailed breakdowns.
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className={`w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0 ${expandedFeature === 'cost-tracking' ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {expandedFeature === 'cost-tracking' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-8 pb-8 pt-0 border-t border-gray-100">
-                      <div className="pt-6 space-y-4">
-                        <p className="text-gray-700 leading-relaxed font-bold">
-                          Real-time cost tracking — know where every dollar goes.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          CivDocs automatically pulls data from your crew's Timesheets and machine usage so you can see the true cost of every project in real time.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          Track labour, plant and scope progress without digging through spreadsheets or chasing paperwork.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed font-semibold">
-                          Cost Tracking gives you:
-                        </p>
-                        <ul className="space-y-2 text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Accurate <span className="font-semibold">labour & plant costs</span> for every project</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Real-time visibility on <span className="font-semibold">budget vs actual</span></span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Early warnings when scopes start drifting</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Clear breakdowns for supervisors & management</span>
-                          </li>
-                        </ul>
-                        <div className="pt-4">
-                          <Link
-                            href="/cost-tracking"
-                            className="inline-flex items-center text-[#FF8C32] font-semibold hover:text-[#F5B041] transition-colors"
-                          >
-                            See more
-                            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Feature 4 - Crank.ai */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300">
-              <button
-                onClick={() => setExpandedFeature(expandedFeature === 'crank-ai' ? null : 'crank-ai')}
-                className="w-full p-8 flex items-center justify-between hover:bg-gray-50 transition-colors"
-              >
-                <div className="flex items-center gap-6 flex-1">
-                  <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl flex-shrink-0">
-                    <OptimizedImage 
-                      src="/Crank.ai/crank.ai.png" 
-                      alt="Crank.ai" 
-                      width={36} 
-                      height={36} 
-                      className="w-9 h-9 object-contain"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 tracking-tight">
-                      Crank.ai
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      AI-powered assistant to help streamline your workflow and answer questions.
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className={`w-6 h-6 text-gray-400 transition-transform duration-300 flex-shrink-0 ${expandedFeature === 'crank-ai' ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <AnimatePresence>
-                {expandedFeature === 'crank-ai' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-8 pb-8 pt-0 border-t border-gray-100">
-                      <div className="pt-6 space-y-4">
-                        <p className="text-gray-700 leading-relaxed font-bold">
-                          Forecast future jobs with confidence — using your own real project data.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          Crank.ai analyzes completed projects to show exactly what similar upcoming work will cost — based on true crew productivity, machine usage, and your historical cost-per-metre.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          No more quoting blind.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          No more losing money from underpricing.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed">
-                          No more missing tenders from overpricing.
-                        </p>
-                        <p className="text-gray-700 leading-relaxed font-semibold">
-                          Crank.ai helps you:
-                        </p>
-                        <ul className="space-y-2 text-gray-700">
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Predict the <span className="font-semibold">total cost</span> of similar upcoming jobs</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>See your exact <span className="font-semibold">cost per metre</span> from real completed projects</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Measure <span className="font-semibold">crew productivity</span> to plan labour and plant accurately</span>
-                          </li>
-                          <li className="flex items-start gap-2">
-                            <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                            <span>Compare past jobs to new tenders to quote with confidence</span>
-                          </li>
-                        </ul>
-                        <div className="pt-4">
-                          <Link
-                            href="/crank-ai"
-                            className="inline-flex items-center text-[#FF8C32] font-semibold hover:text-[#F5B041] transition-colors"
-                          >
-                            See more
-                            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </span>
+                </a>
+                <p className="text-sm text-gray-500">
+                  Get started in minutes
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 sm:py-32 lg:py-40 bg-gradient-to-b from-[#FFF5ED] to-white">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
-            Ready to Simplify Your Workflow?
-            </h2>
-          <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
-            Join civil teams saving hours every week with CivDocs.
-          </p>
-          <a 
-            href="/pricing" 
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            Start Free Trial →
-          </a>
-          <p className="text-sm mt-4">
-            <span className="font-bold text-[#FF8C32] animate-pulse-glow">No credit card required</span>
-            <span className="text-gray-500"> • Get started in minutes</span>
-          </p>
         </div>
       </section>
 
