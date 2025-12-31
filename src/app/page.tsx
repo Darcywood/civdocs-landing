@@ -133,7 +133,7 @@ export default function Home() {
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/">
-                <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
+                <OptimizedImage src="/homepage/pngcivdocs1000x400.png" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
               </Link>
             </div>
             
