@@ -396,18 +396,13 @@ export default function AccountDeletionPage() {
           {/* Footer Card */}
           <div className="bg-gray-50 rounded-2xl p-8 sm:p-12 lg:p-16 border border-gray-200">
             {/* Footer Links - Two Column Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Left Column */}
               <div className="grid grid-cols-2 gap-8">
                 {/* Product */}
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Product</h3>
                   <ul className="space-y-3">
-                    <li>
-                      <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                        Pricing
-                      </a>
-                    </li>
                     <li>
                       <a href="/prestarts" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
                         Pre-Starts
@@ -488,6 +483,18 @@ export default function AccountDeletionPage() {
                       </a>
                     </li>
                   </ul>
+                  
+                  {/* Pricing - Bottom Right */}
+                  <div className="mt-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pricing</h3>
+                    <ul className="space-y-3">
+                      <li>
+                        <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                          Pricing
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

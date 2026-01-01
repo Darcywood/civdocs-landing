@@ -602,11 +602,11 @@ export default function Home() {
             <div className="flex flex-col items-start">
               <a 
                 href="/pricing" 
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
               >
-                Start 14-Day Trial - No Credit Card Required
-                <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="text-center sm:text-left">Start 14-Day Trial - No Credit Card Required</span>
+                <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
@@ -1022,11 +1022,11 @@ export default function Home() {
               <div className="mt-8 flex flex-col items-center gap-4">
                 <a 
                   href="/pricing" 
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
-                  Start 14-Day Trial - No Credit Card Required
-                  <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>
+                  <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </span>
@@ -1100,11 +1100,11 @@ export default function Home() {
               <div className="flex flex-col items-start gap-4">
                 <a 
                   href="/pricing" 
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                  className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
                 >
-                  Start 14-Day Trial - No Credit Card Required
-                  <span className="w-8 h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-center sm:text-left">Start 14-Day Trial - No Credit Card Required</span>
+                  <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </span>
@@ -1124,18 +1124,13 @@ export default function Home() {
           {/* Footer Card */}
           <div className="bg-gray-50 rounded-2xl p-8 sm:p-12 lg:p-16 border border-gray-200">
             {/* Footer Links - Two Column Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Left Column */}
               <div className="grid grid-cols-2 gap-8">
                 {/* Product */}
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Product</h3>
                   <ul className="space-y-3">
-                    <li>
-                      <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                        Pricing
-                      </a>
-                    </li>
                     <li>
                       <a href="/prestarts" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
                         Pre-Starts
@@ -1216,6 +1211,18 @@ export default function Home() {
                       </a>
                     </li>
                   </ul>
+                  
+                  {/* Pricing - Bottom Right */}
+                  <div className="mt-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pricing</h3>
+                    <ul className="space-y-3">
+                      <li>
+                        <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                          Pricing
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
