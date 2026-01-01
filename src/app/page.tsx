@@ -5,14 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 
 export default function Home() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
-  const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
   const [logbookCarouselIndex, setLogbookCarouselIndex] = useState(0);
   const logbookSwiperRef = useRef<SwiperType | null>(null);
 
@@ -24,36 +22,6 @@ export default function Home() {
       img.src = src;
     });
   }, []);
-
-  const toggleMobileMenu = () => {
-    if (isMobileMenuOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-    setIsProductDropdownOpen(false);
-    setIsResourcesDropdownOpen(false);
-    // Re-enable body scroll
-    document.body.classList.remove('overflow-hidden');
-  };
-
-  const openMobileMenu = () => {
-    setIsMobileMenuOpen(true);
-    // Disable body scroll
-    document.body.classList.add('overflow-hidden');
-  };
-
-  const toggleProductDropdown = () => {
-    setIsProductDropdownOpen(!isProductDropdownOpen);
-  };
-
-  const toggleResourcesDropdown = () => {
-    setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
-  };
 
   // Organization and Brand schemas (homepage only - entity definition)
   const organizationSchema = {
@@ -124,300 +92,8 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(allSchemas) }}
       />
     <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Sticky Header */}
-      <header className="fixed top-0 left-0 right-0 z-[80]">
-        <div className={`transition-all duration-200 ${
-          isMobileMenuOpen ? 'shadow-none' : 'shadow-sm'
-        }`} style={{ backgroundColor: 'rgb(255, 255, 255)' }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/">
-                <OptimizedImage src="/homepage/pngcivdocs1000x400.png" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
-              </Link>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              <nav className="flex items-center space-x-8">
-                <div className="relative group">
-                  <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
-                  Product
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </button>
-                </div>
-                <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Pricing
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Resources
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Support
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-              </nav>
-              
-              {/* CTA Button */}
-              <a 
-                href="/pricing" 
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
-              >
-                Start Free Trial →
-              </a>
-            </div>
-            
-            {/* Mobile menu button */}
-            <div className="lg:hidden">
-              <button 
-                onClick={toggleMobileMenu}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
-                aria-label="Toggle mobile menu"
-              >
-                <div className="w-5 h-5 relative flex items-center justify-center">
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'
-                  }`}></span>
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
-                  }`}></span>
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
-                  }`}></span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </header>
-
-      {/* Mobile Menu - Humlytics Style with Framer Motion */}
-      <AnimatePresence mode="wait">
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop - below header */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ 
-                duration: 0.15,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="fixed inset-0 top-[80px] bg-black/20 z-[70] lg:hidden"
-          onClick={closeMobileMenu}
-        />
-        
-            {/* Menu Card - drops down from header */}
-            <motion.div
-              key="mobile-menu"
-              initial={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0
-              }}
-              exit={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              transition={{ 
-                duration: 0.18,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="fixed top-[80px] left-0 right-0 z-[75] rounded-b-2xl shadow-lg overflow-hidden lg:hidden max-h-[calc(100vh-5rem)] overflow-y-auto"
-              style={{ backgroundColor: 'rgb(255, 255, 255)' }}
-            >
-
-              {/* Menu content */}
-              <div className="px-8 py-8 space-y-2">
-                {/* Product Dropdown */}
-                <div>
-                    <button 
-                      onClick={toggleProductDropdown}
-                    className="w-full flex items-center justify-between py-5 text-left"
-                    >
-                    <span className="text-[16px] font-medium text-gray-600">Product</span>
-                      <svg 
-                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
-                          isProductDropdownOpen ? 'rotate-180' : ''
-                        }`} 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    
-                    {/* Product Dropdown */}
-                  <AnimatePresence>
-                    {isProductDropdownOpen && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="pb-4 pt-2 space-y-3 overflow-hidden"
-                    >
-                      <a 
-                        href="/prestarts" 
-                        onClick={closeMobileMenu}
-                        className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                      >
-                        <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Pre-Starts</h3>
-                        <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Complete safety checks in 3 simple steps</p>
-                      </a>
-                      <a
-                        href="/timesheets" 
-                        onClick={closeMobileMenu}
-                        className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                      >
-                        <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Timesheets</h3>
-                        <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
-                      </a>
-                      <a
-                        href="/cost-tracking" 
-                        onClick={closeMobileMenu}
-                        className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                      >
-                        <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Cost tracking</h3>
-                        <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
-                      </a>
-                      <a
-                        href="/logbook" 
-                        onClick={closeMobileMenu}
-                        className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                      >
-                        <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Logbook</h3>
-                        <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Digital logbook for hours, prestarts, machines, and compliance</p>
-                      </a>
-                      <a
-                        href="/crank-ai" 
-                        onClick={closeMobileMenu}
-                        className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                      >
-                        <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai</h3>
-                        <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">AI-powered assistant to streamline your workflow</p>
-                      </a>
-                    </motion.div>
-                  )}
-                  </AnimatePresence>
-                  </div>
-                  
-                {/* Pricing */}
-                <div>
-                    <a 
-                      href="/pricing" 
-                      onClick={closeMobileMenu}
-                      className="w-full flex items-center justify-between py-5"
-                    >
-                      <span className="text-[16px] font-medium text-gray-600">Pricing</span>
-                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                  
-                {/* Resources Dropdown */}
-                <div>
-                  <button 
-                    onClick={toggleResourcesDropdown}
-                    className="w-full flex items-center justify-between py-5 text-left"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Resources</span>
-                    <svg 
-                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
-                        isResourcesDropdownOpen ? 'rotate-180' : ''
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {/* Resources Dropdown */}
-                  <AnimatePresence>
-                    {isResourcesDropdownOpen && (
-                      <motion.div 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="pb-4 pt-2 space-y-3 overflow-hidden"
-                      >
-                        <a 
-                          href="/guides" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Guides</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Step-by-step guides to help you get started</p>
-                        </a>
-                        <a
-                          href="/video-tutorials" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Video Tutorials</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
-                        </a>
-                        <a
-                          href="/free-tools" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai Cheat Sheet</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Quick reference guide for Crank.ai commands and queries</p>
-                        </a>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-                  
-                {/* Support */}
-                    <div>
-                  <a 
-                    href="/support" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Support</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                          </a>
-                        </div>
-
-                {/* Action Buttons */}
-                <div className="pt-8 space-y-4">
-                  <a
-                    href="/pricing"
-                    onClick={closeMobileMenu}
-                    className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
-                  >
-                    Start Free Trial →
-                  </a>
-                  
-                  <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2 animate-pulse-glow">No credit card required</p>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
+      <Header />
+      <div className="pt-20">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#FFFEFB] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1122,6 +798,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      </div>
     </div>
     </>
   );

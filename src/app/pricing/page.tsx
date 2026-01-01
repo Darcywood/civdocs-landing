@@ -6,41 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 export default function PricingPage() {
   const router = useRouter();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
-  const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
-  const toggleMobileMenu = () => {
-    if (isMobileMenuOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-    setIsProductDropdownOpen(false);
-    setIsResourcesDropdownOpen(false);
-    document.body.classList.remove('overflow-hidden');
-  };
-
-  const openMobileMenu = () => {
-    setIsMobileMenuOpen(true);
-    document.body.classList.add('overflow-hidden');
-  };
-
-  const toggleProductDropdown = () => {
-    setIsProductDropdownOpen(!isProductDropdownOpen);
-  };
-
-  const toggleResourcesDropdown = () => {
-    setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
-  };
 
   const handleStartTrial = (plan: string) => {
     router.push(`/start-trial?plan=${plan}`);
@@ -119,306 +90,8 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-[80] bg-white/95 backdrop-blur-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/">
-                <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={200} height={64} className="h-16 w-auto" />
-              </Link>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              <nav className="flex items-center space-x-8">
-                <div className="relative group">
-                  <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
-                  Product
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </button>
-                </div>
-                <a href="/pricing" className="text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Pricing
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF8C32]"></span>
-                </a>
-                <a href="/reporting" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Reporting
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Resources
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                  Support
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                </a>
-              </nav>
-              
-              {/* Login Button */}
-              <a 
-                href="#login" 
-                className="text-[#1E1E1E] hover:text-[#FF8C32] transition-colors duration-300 font-medium text-base px-4 py-2 rounded-full"
-              >
-                Login
-              </a>
-              
-              {/* CTA Button */}
-              <a 
-                href="https://app.civdocs.com/auth/signup" 
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
-              >
-                Start Free Trial →
-              </a>
-            </div>
-            
-            {/* Mobile menu button */}
-            <div className="lg:hidden">
-              <button 
-                onClick={toggleMobileMenu}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm"
-                aria-label="Toggle mobile menu"
-              >
-                <div className="w-5 h-5 relative flex items-center justify-center">
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'
-                  }`}></span>
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
-                  }`}></span>
-                  <span className={`absolute w-5 h-[2px] bg-gray-900 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'
-                  }`}></span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu - Humlytics Style with Framer Motion */}
-      <AnimatePresence mode="wait">
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop - below header */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ 
-                duration: 0.15,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="fixed inset-0 top-[88px] bg-black/20 z-[70] lg:hidden"
-              onClick={closeMobileMenu}
-            />
-        
-            {/* Menu Card - drops down from header */}
-            <motion.div
-              key="mobile-menu"
-              initial={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0
-              }}
-              exit={{ 
-                opacity: 0,
-                scale: 0.96,
-                y: -8
-              }}
-              transition={{ 
-                duration: 0.18,
-                ease: [0.4, 0, 0.2, 1]
-              }}
-              className="fixed top-[88px] left-4 right-4 z-[75] bg-gray-50 rounded-3xl shadow-2xl overflow-hidden lg:hidden max-h-[calc(100vh-7rem)] overflow-y-auto"
-            >
-
-              {/* Menu content */}
-              <div className="px-8 py-8 space-y-2">
-                {/* Product Dropdown */}
-                <div>
-                  <button 
-                    onClick={toggleProductDropdown}
-                    className="w-full flex items-center justify-between py-5 text-left"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Product</span>
-                    <svg 
-                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
-                        isProductDropdownOpen ? 'rotate-180' : ''
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {/* Product Dropdown */}
-                  <AnimatePresence>
-                    {isProductDropdownOpen && (
-                      <motion.div 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="pb-4 pt-2 space-y-3 overflow-hidden"
-                      >
-                        <a 
-                          href="/prestarts" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Pre-Starts</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Complete safety checks in 3 simple steps</p>
-                        </a>
-                        <a
-                          href="/timesheets" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Timesheets</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
-                        </a>
-                        <a
-                          href="/reporting" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Cost tracking</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
-                        </a>
-                        <a
-                          href="/crank-ai" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">AI-powered assistant to streamline your workflow</p>
-                        </a>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-                  
-                {/* Pricing */}
-                <div>
-                  <a 
-                    href="/pricing" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
-                  >
-                    <span className="text-[16px] font-medium text-[#FF8C32]">Pricing</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-                  
-                {/* Resources Dropdown */}
-                <div>
-                  <button 
-                    onClick={toggleResourcesDropdown}
-                    className="w-full flex items-center justify-between py-5 text-left"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Resources</span>
-                    <svg 
-                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
-                        isResourcesDropdownOpen ? 'rotate-180' : ''
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {/* Resources Dropdown */}
-                  <AnimatePresence>
-                    {isResourcesDropdownOpen && (
-                      <motion.div 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="pb-4 pt-2 space-y-3 overflow-hidden"
-                      >
-                        <a 
-                          href="/guides" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Guides</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Step-by-step guides to help you get started</p>
-                        </a>
-                        <a
-                          href="/video-tutorials" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Video Tutorials</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
-                        </a>
-                        <a
-                          href="/free-tools" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Crank.ai Cheat Sheet</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Quick reference guide for Crank.ai commands and queries</p>
-                        </a>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-                  
-                {/* Support */}
-                <div>
-                  <a 
-                    href="/support" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Support</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="pt-8 space-y-4">
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="w-full rounded-full border border-gray-200 py-4 text-lg font-semibold text-gray-800 hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Login
-                  </button>
-                  
-                  <a
-                    href="https://app.civdocs.com/auth/signup"
-                    onClick={closeMobileMenu}
-                    className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
-                  >
-                    Start Free Trial →
-                  </a>
-                  
-                  <p className="text-center text-sm text-gray-500 pt-2">No credit card required</p>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
+      <Header />
+      <div className="pt-20">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-[#FFF5ED] pt-32 pb-20 sm:pt-40 sm:pb-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -473,7 +146,7 @@ export default function PricingPage() {
                 </div>
                 <div>
                   <p className="text-gray-900 font-medium leading-relaxed text-base">
-                    <span className="font-semibold">Best Value:</span> Get <span className="font-bold">6 months free</span> with annual billing. Lock in your rate and save hundreds per year.
+                    <span className="font-semibold">Best Value:</span> Get <span className="font-bold">6 months free</span> with annual billing. Lock in your rate and save thousands per year.
                   </p>
                 </div>
               </div>
@@ -498,7 +171,7 @@ export default function PricingPage() {
 
                 {/* 6 months free banner for yearly */}
                 {billingPeriod === 'yearly' && plan.monthlyPrice !== null && (
-                  <div className="bg-orange-100 border-b-2 border-orange-300 rounded-t-3xl px-6 py-3 shadow-sm">
+                  <div className="bg-white border-b-2 border-gray-200 rounded-t-3xl px-6 py-3">
                     <p className="text-sm font-semibold text-[#FF8C32] text-center">6 months free with annual billing</p>
                   </div>
                 )}
@@ -654,7 +327,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 sm:py-32 bg-gradient-to-b from-white to-[#FFF5ED]">
+      <section className="py-20 sm:py-32 bg-gradient-to-b from-white via-[#FFF5ED] to-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
             Ready to Get Started?
@@ -662,20 +335,28 @@ export default function PricingPage() {
           <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
             Start your free 14 day trial today. No credit card required.
           </p>
-          <a 
-            href="https://app.civdocs.com/auth/signup" 
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            Start Free Trial →
-          </a>
-          <p className="text-sm text-gray-500 mt-4">
-            Try all features free for 14 days • Cancel anytime • 24/7 support
-          </p>
+          <div className="flex flex-col items-center gap-4">
+            <a 
+              href="/pricing" 
+              className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
+            >
+              <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>
+              <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+            <p className="text-sm text-gray-500">
+              Get started in minutes
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <Footer />
+      </div>
     </div>
   );
 }
