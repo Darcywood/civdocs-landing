@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
+import Footer from '@/components/Footer';
 
 export default function CrankAIPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -494,12 +495,14 @@ export default function CrankAIPage() {
       {/* Image Placeholder Section */}
       <section className="py-12 bg-[#FFFEFB]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex items-center justify-center">
-            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[300px]">
-                <p className="text-gray-400 font-medium text-center px-4">
-                [IMAGE PLACEHOLDER — Visual showing disconnected data / problem illustration]
-                </p>
-            </div>
+          <div className="flex items-center justify-center">
+            <OptimizedImage
+              src="/Crank.ai/crankai3.png"
+              alt="Crank.ai visual showing connected data and answers"
+              width={800}
+              height={600}
+              className="w-full max-w-4xl h-auto"
+            />
           </div>
         </div>
       </section>
@@ -620,14 +623,6 @@ export default function CrankAIPage() {
             </div>
           </div>
 
-          {/* Example Screenshot Placeholder */}
-          <div className="flex items-center justify-center mt-12">
-            <div className="w-full max-w-4xl rounded-2xl bg-gray-100 border-2 border-gray-200 flex items-center justify-center shadow-lg min-h-[400px]">
-              <p className="text-gray-400 font-medium text-center px-4">
-                [Crank.ai Interface Screenshot — Question / Answer Example]
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -809,36 +804,7 @@ export default function CrankAIPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1E1E1E] text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-              <p className="text-gray-400 leading-relaxed">
-                Simplifying civil construction management for teams everywhere.
-              </p>
-            </div>
-            <div className="md:text-right">
-              <div className="space-y-3">
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 CivDocs. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
+import Footer from '@/components/Footer';
 
 export default function VideoTutorialsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -449,36 +450,7 @@ export default function VideoTutorialsPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1E1E1E] text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-              <p className="text-gray-400 leading-relaxed">
-                Simplifying civil construction management for teams everywhere.
-              </p>
-            </div>
-            <div className="md:text-right">
-              <div className="space-y-3">
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 CivDocs. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import PrestartSteps from '@/components/marketing/PrestartSteps';
+import Footer from '@/components/Footer';
 
 export default function PreStartsPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -347,6 +348,7 @@ export default function PreStartsPage() {
                   Start Free Trial
                 </Link>
                 <button
+                  onClick={() => setIsVideoModalOpen(true)}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-300 text-gray-900 font-semibold text-lg rounded-full hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all"
                 >
                   Watch Demo
@@ -447,7 +449,7 @@ export default function PreStartsPage() {
                 Every Pre-Start becomes a clean, compliant PDF.
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Created instantly, emailed automatically, and stored under the project for easy audit and safety compliance.
+                Created instantly and stored under the project for easy audit and safety compliance.
               </p>
               
               {/* Bullets */}
@@ -636,51 +638,32 @@ export default function PreStartsPage() {
       {/* Final CTA Section */}
       <section className="bg-[#FFFEFB] py-20 sm:py-32">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-8 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
             Digitise your pre-starts today.
           </h2>
-          <div className="flex justify-center">
-            <Link
-              href="/start-trial"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
+          <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
+            Capture compliant pre-starts, fault reports, and signatures in one simple flow — without slowing your crew down.
+          </p>
+          <div className="flex flex-col items-center gap-4">
+            <a 
+              href="/pricing" 
+              className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
             >
-              Start Free Trial
-            </Link>
+              <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>
+              <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+            <p className="text-sm text-gray-500">
+              Get started in minutes
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#1E1E1E] text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-              <p className="text-gray-400 leading-relaxed">
-                Simplifying civil construction management for teams everywhere.
-              </p>
-            </div>
-            <div className="md:text-right">
-              <div className="space-y-3">
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 CivDocs. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Video Modal */}
       <AnimatePresence>

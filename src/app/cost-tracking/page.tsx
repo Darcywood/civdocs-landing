@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
+import Footer from '@/components/Footer';
 
 export default function CostTrackingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -376,6 +377,7 @@ export default function CostTrackingPage() {
                   Start Free Trial
                 </Link>
                 <button
+                  onClick={() => setIsVideoModalOpen(true)}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-300 text-gray-900 font-semibold text-lg rounded-full hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all"
                 >
                   Watch Demo
@@ -453,22 +455,14 @@ export default function CostTrackingPage() {
 
             {/* Cost Reporting Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/costreporting.png"
-                    alt="Cost Reporting Overview"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">View budget vs actual costs</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  Compare budgets set in cost codes against actual costs posted from timesheets, pre-starts, and materials.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/costreporting.png"
+                alt="Cost Reporting Overview"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -484,7 +478,7 @@ export default function CostTrackingPage() {
                 Labour Costing
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Labour cost is calculated from timesheets. Each employee has an hourly rate, and when they select a <span className="font-semibold">project + scope</span>, CivDocs automatically posts that cost into the scope’s <span className="font-semibold">Labour cost code</span>. Timesheets can’t be split across multiple scopes — each entry goes to one scope.
+                Labour cost is calculated from timesheets. Each employee has an hourly rate, and when they select a <span className="font-semibold">project + scope</span> when filling their timesheet out, CivDocs automatically posts that cost into the scope's <span className="font-semibold">Labour cost code</span>.
               </p>
               
               {/* Bullets */}
@@ -512,22 +506,14 @@ export default function CostTrackingPage() {
 
             {/* Labour Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/labourreports.png"
-                    alt="Labour Costing Reports"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track labour costs by scope</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  See how employee timesheets automatically post to labour cost codes and roll up into your project budgets.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/labourreports.png"
+                alt="Labour Costing Reports"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -571,22 +557,14 @@ export default function CostTrackingPage() {
 
             {/* Plant Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/Plantreports.png"
-                    alt="Plant Costing Reports"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track plant costs from pre-starts</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  See how machine day rates from pre-starts automatically post to plant cost codes in your project scopes.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/Plantreports.png"
+                alt="Plant Costing Reports"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -630,22 +608,14 @@ export default function CostTrackingPage() {
 
             {/* Materials Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/materialsreports.png"
-                    alt="Materials Costing Reports"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Track materials costs by scope</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  See how materials added by supervisors automatically post to material cost codes and update project budgets.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/materialsreports.png"
+                alt="Materials Costing Reports"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -689,22 +659,14 @@ export default function CostTrackingPage() {
 
             {/* Project Scopes Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/scopesproper (1).png"
-                    alt="Project Scopes"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Create scopes with cost codes</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  Set up project scopes with planned quantities and assign cost codes for labour, plant, and materials.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/scopesproper (1).png"
+                alt="Project Scopes"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -748,22 +710,14 @@ export default function CostTrackingPage() {
 
             {/* Daily Progress Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/dailyprogress.png"
-                    alt="Daily Progress Updates"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Update progress daily</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  Supervisors enter daily progress quantities to track completion percentage and calculate cost per unit.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/dailyprogress.png"
+                alt="Daily Progress Updates"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -779,7 +733,7 @@ export default function CostTrackingPage() {
                 Cost Codes
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Your organisation has a library of cost codes. CivDocs comes with common defaults (for example: <span className="font-semibold">3100-L</span> Labour, <span className="font-semibold">3100-P</span> Plant, <span className="font-semibold">3100-M</span> Material), and you’re encouraged to create your own to match how your business wants to track costs. When you build a scope, you choose which codes that scope will use — then CivDocs posts costs automatically into them.
+                Your organisation has a library of cost codes. CivDocs comes with common defaults (for example: <span className="font-semibold">3100-L</span> is all rock install Labour, <span className="font-semibold">3100-P</span> is all rock install Plant, <span className="font-semibold">3100-M</span> is all rock install Material), and you're encouraged to create your own to match how your business wants to track costs. When you build a scope, you choose which codes that scope will use — then CivDocs posts costs automatically into them.
               </p>
               
               {/* Bullets */}
@@ -807,22 +761,14 @@ export default function CostTrackingPage() {
 
             {/* Cost Codes Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/costcodes.png"
-                    alt="Cost Codes"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Manage your cost code library</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  Use default cost codes or create custom ones to match how your business tracks costs across projects.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/costcodes.png"
+                alt="Cost Codes"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -878,22 +824,14 @@ export default function CostTrackingPage() {
 
             {/* Cost Rollup Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/scopes1.png"
-                    alt="How All Costs Roll Up"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">See all costs in one place</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  View actual costs, budget vs actual, and cost per unit all rolled up at the scope level in real-time.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/scopes1.png"
+                alt="How All Costs Roll Up"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -937,22 +875,14 @@ export default function CostTrackingPage() {
 
             {/* Materials Library Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/materials.png"
-                    alt="Materials Library"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Store materials with rates</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  Build your materials library with unit types and rates for consistent pricing across all projects.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/materials.png"
+                alt="Materials Library"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -1002,22 +932,14 @@ export default function CostTrackingPage() {
 
             {/* Cost Reports Card */}
             <div className="flex items-center justify-center">
-              <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center max-w-xl mx-auto">
-                <div className="max-w-[460px] mx-auto">
-                  <OptimizedImage
-                    src="/John Smith/cost tracking/scopes.png"
-                    alt="Cost Reports"
-                    width={320}
-                    height={640}
-                    sizes="(max-width: 768px) 90vw, 380px"
-                    className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">Generate comprehensive cost reports</h3>
-                <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                  View budget vs actual, remaining budget, over/under analysis, and cost breakdowns by category.
-                </p>
-              </div>
+              <OptimizedImage
+                src="/John Smith/cost tracking/scopes.png"
+                alt="Cost Reports"
+                width={320}
+                height={640}
+                sizes="(max-width: 768px) 90vw, 380px"
+                className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
+              />
             </div>
           </div>
         </div>
@@ -1097,48 +1019,27 @@ export default function CostTrackingPage() {
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
             See where every dollar goes with real-time cost tracking that updates automatically from timesheets, pre-starts, and materials.
           </p>
-          <div className="flex justify-center">
-            <Link
-              href="/start-trial"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
+          <div className="flex flex-col items-center gap-4">
+            <a 
+              href="/pricing" 
+              className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
             >
-              Start Free Trial →
-            </Link>
+              <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>
+              <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+            <p className="text-sm text-gray-500">
+              Get started in minutes
+            </p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1E1E1E] text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-              <p className="text-gray-400 leading-relaxed">
-                Simplifying civil construction management for teams everywhere.
-              </p>
-            </div>
-            <div className="md:text-right">
-              <div className="space-y-3">
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 CivDocs. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Video Modal */}
       <AnimatePresence>

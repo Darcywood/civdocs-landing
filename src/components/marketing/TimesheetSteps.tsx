@@ -104,6 +104,10 @@ export default function TimesheetSteps() {
               <SwiperSlide key={index} style={{ height: 'auto' }}>
                 <div className="max-w-xl mx-auto h-full">
                   <div className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center h-full">
+                    <h3 className="text-xl font-semibold text-center mb-2 text-[#111827]">{step.title}</h3>
+                    <p className="text-[#6B7280] text-center text-sm mb-4 max-w-[90%]">
+                      {step.description}
+                    </p>
                     <div className="max-w-[460px] mx-auto">
                       <OptimizedImage
                         src={step.image}
@@ -115,10 +119,6 @@ export default function TimesheetSteps() {
                         className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">{step.title}</h3>
-                    <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                      {step.description}
-                    </p>
                   </div>
                 </div>
               </SwiperSlide>
@@ -130,6 +130,10 @@ export default function TimesheetSteps() {
         <div className="hidden md:grid grid-cols-3 gap-8">
           {steps.map((step, index) => (
             <div key={index} className="bg-gradient-to-b from-white to-[#f4f4f4] rounded-2xl shadow-sm px-6 py-4 md:px-8 md:py-6 flex flex-col items-center">
+              <h3 className="text-xl font-semibold text-center mb-2 text-[#111827]">{step.title}</h3>
+              <p className="text-[#6B7280] text-center text-sm mb-4 max-w-[90%]">
+                {step.description}
+              </p>
               <div className="max-w-[460px] mx-auto">
                 <OptimizedImage
                   src={step.image}
@@ -140,10 +144,6 @@ export default function TimesheetSteps() {
                   className="rounded-xl drop-shadow-2xl w-full max-w-[320px] h-auto object-contain"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-center mt-4 text-[#111827]">{step.title}</h3>
-              <p className="text-[#6B7280] text-center text-sm mt-1 max-w-[90%]">
-                {step.description}
-              </p>
             </div>
           ))}
         </div>

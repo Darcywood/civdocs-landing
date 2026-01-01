@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 import OptimizedImage from '@/components/OptimizedImage';
+import Footer from '@/components/Footer';
 
 
 
@@ -686,13 +687,10 @@ export default function LogbookPage() {
                 </Link>
 
                 <button
-
+                  onClick={() => setIsVideoModalOpen(true)}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-300 text-gray-900 font-semibold text-lg rounded-full hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all"
-
                 >
-
                   Watch Demo
-
                 </button>
 
               </div>
@@ -1056,7 +1054,7 @@ export default function LogbookPage() {
           <div className="flex items-center justify-center">
             <button
               onClick={() => setIsUnlocksVideoModalOpen(true)}
-              className="relative w-full max-w-sm sm:max-w-md cursor-pointer hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
+              className="relative w-full max-w-sm sm:max-w-md cursor-pointer hover:scale-[1.02] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2"
               aria-label="Play invoice workflow video"
             >
               <OptimizedImage 
@@ -1064,7 +1062,7 @@ export default function LogbookPage() {
                 alt="Invoice Workflow Video Preview"
                 width={600}
                 height={1200}
-                className="w-full h-auto rounded-2xl shadow-lg"
+                className="w-full h-auto"
               />
               {/* Play button overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -1073,9 +1071,7 @@ export default function LogbookPage() {
                     <path d="M8 5v14l11-7z"/>
                   </svg>
               </div>
-
               </div>
-
             </button>
           </div>
 
@@ -1332,63 +1328,7 @@ export default function LogbookPage() {
 
       {/* Footer */}
 
-      <footer className="bg-[#1E1E1E] text-white py-16">
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-            <div>
-
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-
-              <p className="text-gray-400 leading-relaxed">
-
-                Simplifying civil construction management for teams everywhere.
-
-              </p>
-
-            </div>
-
-            <div className="md:text-right">
-
-              <div className="space-y-3">
-
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-
-                </a>
-
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-
-                </a>
-
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-
-                  Support
-
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-
-            <p className="text-gray-400 text-sm">
-
-              © 2025 CivDocs. All rights reserved.
-
-            </p>
-
-          </div>
-
-        </div>
-
-      </footer>
+      <Footer />
 
 
       {/* Video Modal */}
