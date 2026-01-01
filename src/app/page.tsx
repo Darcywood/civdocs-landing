@@ -1119,32 +1119,117 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1E1E1E] text-white py-16">
+      <footer className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <OptimizedImage src="/CivDocs no lift.svg" alt="CivDocs" width={150} height={40} className="h-10 mb-6 brightness-0 invert" />
-              <p className="text-gray-400 leading-relaxed">
-                Simplifying civil construction management for teams everywhere.
-              </p>
+          {/* Logo and Tagline */}
+          <div className="mb-12">
+            <OptimizedImage src="/homepage/pngcivdocs1000x400.png" alt="CivDocs" width={150} height={40} className="h-10 mb-4" />
+            <p className="text-gray-600 leading-relaxed">
+              Simplifying civil construction management for teams everywhere.
+            </p>
+          </div>
+
+          {/* Footer Links - Two Column Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            {/* Left Column */}
+            <div className="grid grid-cols-2 gap-8">
+              {/* Product */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Product</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Pricing
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/prestarts" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Pre-Starts
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/timesheets" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Timesheets
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/cost-tracking" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Cost Tracking
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/logbook" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Plant Hire Logbooks
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/crank-ai" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Crank.ai
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Resources</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a href="/guides" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Guides
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/video-tutorials" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Video Tutorials
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/free-tools" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Crank.ai Cheat Sheet
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="md:text-right">
-              <div className="space-y-3">
-                <a href="/privacy" className="block text-gray-400 hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
-                <a href="/terms" className="block text-gray-400 hover:text-white transition-colors">
-                  Terms of Service
-                </a>
-                <a href="/support" className="block text-gray-400 hover:text-white transition-colors">
-                  Support
-                </a>
+
+            {/* Right Column */}
+            <div className="grid grid-cols-2 gap-8">
+              {/* Policies */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Policies</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a href="/terms" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Terms of Service
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/privacy" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Privacy Policy
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Support */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Support</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a href="/support" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Support & Feedback
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 CivDocs. All rights reserved.
+
+          {/* Copyright */}
+          <div className="border-t border-gray-200 pt-8">
+            <p className="text-gray-500 text-sm text-center">
+              © 2026 CivDocs. All rights reserved.
             </p>
           </div>
         </div>
