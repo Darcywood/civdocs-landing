@@ -128,7 +128,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-[80]">
         <div className={`transition-all duration-200 ${
           isMobileMenuOpen ? 'shadow-none' : 'shadow-sm'
-        }`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)' }}>
+        }`} style={{ backgroundColor: 'rgb(255, 255, 255)' }}>
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
             {/* Logo */}
@@ -235,7 +235,7 @@ export default function Home() {
                 ease: [0.4, 0, 0.2, 1]
               }}
               className="fixed top-[80px] left-0 right-0 z-[75] rounded-b-2xl shadow-lg overflow-hidden lg:hidden max-h-[calc(100vh-5rem)] overflow-y-auto"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)' }}
+              style={{ backgroundColor: 'rgb(255, 255, 255)' }}
             >
 
               {/* Menu content */}
