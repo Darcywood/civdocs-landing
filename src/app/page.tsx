@@ -102,7 +102,7 @@ export default function Home() {
               Know your job costs while work is still underway.
               </h1>
             <h2 className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              CivDocs turns daily site activity into live project, plant, and cost data — without paperwork.
+              CivDocs turns your daily site activity into live project, plant, and cost data — without paperwork or spending $120,000 a year on an engineer/analyst.
               </h2>
             <div className="flex flex-col items-center">
                 <a 
@@ -313,7 +313,7 @@ export default function Home() {
             {/* Body copy */}
             <div className="space-y-6 text-lg font-normal text-neutral-700 leading-relaxed mb-12">
               <p>
-                CivDocs turns daily site activity into live project costs — automatically.
+                CivDocs turns your daily site activity into live project costs — automatically.
               </p>
               
               <ul className="space-y-8">

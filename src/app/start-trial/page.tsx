@@ -57,15 +57,22 @@ function StartTrialContent() {
       });
 
       const data = await response.json();
+      console.log('[Signup] Full API response:', data);
 
       if (data.ok || data.success) {
-        // If magic link is available, redirect to web app for auto-login
+        // Use magic link for cross-domain auto-login
         if (data.magicLink) {
-          console.log('[Signup] Redirecting to web app with magic link for auto-login');
+          console.log('[Signup] ✓ Magic link received in response');
+          console.log('[Signup] Magic link URL:', data.magicLink);
+          console.log('[Signup] Magic link length:', data.magicLink.length);
+          console.log('[Signup] Redirecting to magic link for auto-login...');
+          // Redirect to magic link - this will set the session on the web app domain
           window.location.href = data.magicLink;
         } else {
           // Fallback: redirect to success page if magic link not available
-          console.warn('[Signup] Magic link not available, redirecting to success page');
+          console.warn('[Signup] ⚠️ Magic link not available in response');
+          console.warn('[Signup] Response data:', JSON.stringify(data, null, 2));
+          console.warn('[Signup] Redirecting to success page');
           window.location.href = `/trial-success?email=${encodeURIComponent(formData.email)}`;
         }
       } else {

@@ -440,8 +440,11 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Step 6: Generating magic link for auto-login`);
     
     // Get web app URL from environment or use default
-    const webAppUrl = process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://app.civdocs.com';
-    const redirectTo = `${webAppUrl}/auth/callback`;
+    const webAppUrl = process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://app.civdocs.com.au';
+    // Use /auth/magic-link directly (web app moved handler there)
+    const redirectTo = `${webAppUrl}/auth/magic-link`;
+    
+    console.log(`[Trial Signup] Magic link redirect URL: ${redirectTo}`);
     
     const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
       type: 'magiclink',
@@ -455,14 +458,30 @@ export async function POST(req: Request) {
     
     if (linkError || !linkData) {
       console.error("[Trial Signup] Magic link generation error:", linkError);
+      console.error("[Trial Signup] Link data:", JSON.stringify(linkData, null, 2));
       console.warn("[Trial Signup] ⚠️ Failed to generate magic link, user will need to log in manually");
       // Don't fail signup if magic link generation fails
     } else {
-      magicLink = linkData.properties?.action_link || null;
+      console.log("[Trial Signup] Link data structure:", JSON.stringify(linkData, null, 2));
+      // Try different possible properties where the link might be
+      // Log the full linkData structure to debug
+      console.log("[Trial Signup] Full linkData structure:", JSON.stringify(linkData, null, 2));
+      
+      magicLink = linkData.properties?.action_link 
+        || linkData.properties?.actionLink
+        || (linkData as any)?.action_link
+        || (linkData as any)?.actionLink
+        || linkData?.properties?.hashed_token
+        || null;
+        
       if (magicLink) {
         console.log(`[Trial Signup] ✓ Magic link generated successfully`);
+        console.log(`[Trial Signup] Magic link URL: ${magicLink}`);
+        console.log(`[Trial Signup] Magic link length: ${magicLink.length}`);
       } else {
-        console.warn("[Trial Signup] ⚠️ Magic link generated but action_link not found");
+        console.warn("[Trial Signup] ⚠️ Magic link generated but action_link not found in response");
+        console.warn("[Trial Signup] Available properties:", Object.keys(linkData || {}));
+        console.warn("[Trial Signup] linkData.properties:", linkData.properties);
       }
     }
 
@@ -494,13 +513,21 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Organization ID: ${orgId}`);
     console.log(`[Trial Signup] Trial expires: ${trialExpiresAt.toISOString()}`);
 
+    const responseData = {
+      ok: true,
+      success: true,
+      message: "Trial created",
+      magicLink: magicLink, // Return magic link for auto-login
+    };
+    
+    console.log("[Trial Signup] Response data:", {
+      ...responseData,
+      magicLink: magicLink ? `${magicLink.substring(0, 80)}...` : null,
+      magicLinkLength: magicLink?.length || 0,
+    });
+
     return NextResponse.json(
-      {
-        ok: true,
-        success: true,
-        message: "Trial created",
-        magicLink: magicLink, // Return magic link for auto-login
-      },
+      responseData,
       {
         status: 201,
         headers: getCorsHeaders(),
