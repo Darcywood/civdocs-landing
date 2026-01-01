@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import OptimizedImage from '@/components/OptimizedImage';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
