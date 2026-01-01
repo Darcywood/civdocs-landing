@@ -467,8 +467,8 @@ export async function POST(req: Request) {
       // Log the full linkData structure to debug
       console.log("[Trial Signup] Full linkData structure:", JSON.stringify(linkData, null, 2));
       
+      // GenerateLinkProperties only has action_link (snake_case), not actionLink
       magicLink = linkData.properties?.action_link 
-        || linkData.properties?.actionLink
         || (linkData as any)?.action_link
         || (linkData as any)?.actionLink
         || linkData?.properties?.hashed_token
