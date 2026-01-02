@@ -673,29 +673,27 @@ export default function Home() {
             {/* Right Column - Visual Container */}
             <div className="w-full flex flex-col items-center justify-center">
               {/* Optional label */}
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-6">
                 Crank.ai Preview
               </p>
               
               {/* Premium SaaS-style card */}
               <div className="w-full flex justify-center">
-                <div className="bg-white rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] overflow-hidden p-8 sm:p-12 lg:p-16">
-                  <div className="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-white">
-                    <video 
-                      src="/homepage/gifcrank.mov" 
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="rounded-xl w-full h-auto max-w-full"
-                      style={{
-                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
-                        display: 'block'
-                      }}
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
+                <div className="bg-white rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] overflow-hidden p-6 sm:p-8 lg:p-10">
+                  <video 
+                    src="/homepage/crankvidhome.mov" 
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="rounded-xl w-full h-auto max-w-full"
+                    style={{
+                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
+                      display: 'block'
+                    }}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
               </div>
               
