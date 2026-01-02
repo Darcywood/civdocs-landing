@@ -9,6 +9,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
+  const [isSupportDropdownOpen, setIsSupportDropdownOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     if (isMobileMenuOpen) {
@@ -22,6 +23,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
     setIsProductDropdownOpen(false);
     setIsResourcesDropdownOpen(false);
+    setIsSupportDropdownOpen(false);
     document.body.classList.remove('overflow-hidden');
   };
 
@@ -36,6 +38,10 @@ export default function Header() {
 
   const toggleResourcesDropdown = () => {
     setIsResourcesDropdownOpen(!isResourcesDropdownOpen);
+  };
+
+  const toggleSupportDropdown = () => {
+    setIsSupportDropdownOpen(!isSupportDropdownOpen);
   };
 
   return (
@@ -67,14 +73,48 @@ export default function Header() {
                     Pricing
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                   </a>
-                  <a href="#resources" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                    Resources
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </a>
-                  <a href="/support" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                    Support
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </a>
+                  <div className="relative group">
+                    <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
+                      Resources
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                    </button>
+                    {/* Resources Dropdown */}
+                    <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
+                        <a href="/guides" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Guides</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Step-by-step guides to help you get started</p>
+                        </a>
+                        <a href="/video-tutorials" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Video Tutorials</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Watch video tutorials to master CivDocs</p>
+                        </a>
+                        <a href="/crank-ai-cheat-sheet" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Crank.ai Cheat Sheet</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Quick reference guide for Crank.ai commands and queries</p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative group">
+                    <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
+                      Support
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                    </button>
+                    {/* Support Dropdown */}
+                    <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
+                        <a href="/support" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">FAQs and Support</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Reach out if you have any questions or require help</p>
+                        </a>
+                        <a href="/support?inquiry=enterprise" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Enterprise enquiries</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">For large companies with multiple divisions</p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </nav>
                 
                 {/* CTA Button */}
@@ -289,7 +329,7 @@ export default function Header() {
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
                         </a>
                         <a
-                          href="/free-tools" 
+                          href="/crank-ai-cheat-sheet" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -301,18 +341,54 @@ export default function Header() {
                   </AnimatePresence>
                 </div>
                   
-                {/* Support */}
+                {/* Support Dropdown */}
                 <div>
-                  <a 
-                    href="/support" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
+                  <button 
+                    onClick={toggleSupportDropdown}
+                    className="w-full flex items-center justify-between py-5 text-left"
                   >
                     <span className="text-[16px] font-medium text-gray-600">Support</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <svg 
+                      className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${
+                        isSupportDropdownOpen ? 'rotate-180' : ''
+                      }`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
-                  </a>
+                  </button>
+                  
+                  {/* Support Dropdown */}
+                  <AnimatePresence>
+                    {isSupportDropdownOpen && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="pb-4 pt-2 space-y-3 overflow-hidden"
+                      >
+                        <a 
+                          href="/support" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">FAQs and Support</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Reach out if you have any questions or require help</p>
+                        </a>
+                        <a
+                          href="/support?inquiry=enterprise" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Enterprise enquiries</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">For large companies with multiple divisions</p>
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Action Buttons */}
@@ -335,6 +411,7 @@ export default function Header() {
     </>
   );
 }
+
 
 
 

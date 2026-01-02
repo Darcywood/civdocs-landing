@@ -15,10 +15,6 @@ function StartTrialContent() {
   });
   const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState(false);
-  const [orgSignupAccepted, setOrgSignupAccepted] = useState(false);
-  const [legalError, setLegalError] = useState('');
-  const [isOrgAckExpanded, setIsOrgAckExpanded] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,46 +31,21 @@ function StartTrialContent() {
       return;
     }
     
-    // Validate legal checkboxes
-    if (!termsAndPrivacyAccepted || !orgSignupAccepted) {
-      setLegalError('You must accept all terms and agreements to continue');
-      return;
-    }
-    
     setPasswordError('');
-    setLegalError('');
     setLoading(true);
 
     try {
       const response = await fetch('/api/start-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          terms_and_privacy_accepted: termsAndPrivacyAccepted,
-          org_acknowledgement_accepted: orgSignupAccepted,
-        })
+        body: JSON.stringify(formData)
       });
 
       const data = await response.json();
-      console.log('[Signup] Full API response:', data);
 
       if (data.ok || data.success) {
-        // Use magic link for cross-domain auto-login
-        if (data.magicLink) {
-          console.log('[Signup] ✓ Magic link received in response');
-          console.log('[Signup] Magic link URL:', data.magicLink);
-          console.log('[Signup] Magic link length:', data.magicLink.length);
-          console.log('[Signup] Redirecting to magic link for auto-login...');
-          // Redirect to magic link - this will set the session on the web app domain
-          window.location.href = data.magicLink;
-        } else {
-          // Fallback: redirect to success page if magic link not available
-          console.warn('[Signup] ⚠️ Magic link not available in response');
-          console.warn('[Signup] Response data:', JSON.stringify(data, null, 2));
-          console.warn('[Signup] Redirecting to success page');
-          window.location.href = `/trial-success?email=${encodeURIComponent(formData.email)}`;
-        }
+        // Redirect to success page
+        window.location.href = `/trial-success?email=${encodeURIComponent(formData.email)}`;
       } else {
         alert('⚠️ ' + (data.error || 'An error occurred'));
         setLoading(false);
@@ -88,7 +59,7 @@ function StartTrialContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
-      <div className="max-w-2xl w-full">
+      <div className="max-w-md w-full">
         {/* Back to home link */}
         <div className="mb-6">
           <Link 
@@ -103,14 +74,10 @@ function StartTrialContent() {
         </div>
 
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <OptimizedImage 
-              src="/CivDocs 500x500.svg" 
-              alt="CivDocs Logo" 
-              width={64} 
-              height={64} 
-              className="w-16 h-16"
-            />
+          <div className="w-16 h-16 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
           </div>
           <h1 className="text-3xl font-semibold text-[#1E1E1E] mb-2">
             Start Your Free Trial
@@ -202,48 +169,6 @@ function StartTrialContent() {
               />
               {passwordError && (
                 <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-              )}
-            </div>
-
-            {/* Legal Checkboxes */}
-            <div className="space-y-3 pt-2">
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={termsAndPrivacyAccepted}
-                  onChange={(e) => {
-                    setTermsAndPrivacyAccepted(e.target.checked);
-                    setLegalError('');
-                  }}
-                  className="mt-1 h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:ring-offset-0 cursor-pointer"
-                  disabled={loading}
-                />
-                <span className="text-xs text-gray-700">
-                  I agree to the{' '}
-                  <Link
-                    href="/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-[#FF8C32] hover:text-[#E67E22] underline"
-                  >
-                    Terms & Conditions
-                  </Link>
-                  {' '}and{' '}
-                  <Link
-                    href="/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-[#FF8C32] hover:text-[#E67E22] underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </span>
-              </label>
-
-              {legalError && (
-                <p className="text-xs text-red-600 mt-1">{legalError}</p>
               )}
             </div>
 
@@ -344,83 +269,12 @@ function StartTrialContent() {
               </div>
             </div>
 
-            {/* Organisation Acknowledgement Section */}
-            <div className="border border-gray-200 rounded-lg bg-white shadow-sm">
-              <button
-                type="button"
-                onClick={() => setIsOrgAckExpanded(!isOrgAckExpanded)}
-                className="w-full flex items-center justify-between p-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors rounded-t-lg"
-                disabled={loading}
-              >
-                <h3 className="text-base font-semibold text-gray-900">
-                  Organisation Acknowledgement
-                </h3>
-                <svg
-                  className={`w-5 h-5 text-gray-600 transition-transform duration-200 ${isOrgAckExpanded ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {isOrgAckExpanded && (
-                <div className="px-4 py-4">
-                  <p className="text-sm text-gray-700 mb-4">
-                    By creating an organisation in CivDocs, you acknowledge and agree that:
-                  </p>
-                  <ul className="space-y-2.5 mb-4 text-sm text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs is a productivity and record-keeping tool only</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs does not verify, validate, or enforce WHS, safety, payroll, tax, or legal compliance</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Pre-starts, timesheets, invoices, and reports are user-generated records and are not certified</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs does not prevent machines, workers, or jobs from being used based on entered data</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Any AI-generated insights are informational only and must be independently verified</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Your organisation remains fully responsible for all operational, safety, financial, and legal decisions</span>
-                    </li>
-                  </ul>
-                  <label className="flex items-start gap-2 cursor-pointer pt-2 border-t border-gray-100">
-                    <input
-                      type="checkbox"
-                      checked={orgSignupAccepted}
-                      onChange={(e) => {
-                        setOrgSignupAccepted(e.target.checked);
-                        setLegalError('');
-                      }}
-                      className="mt-0.5 h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:ring-offset-0 cursor-pointer"
-                      disabled={loading}
-                    />
-                    <span className="text-sm text-gray-700">
-                      I accept and agree on behalf of my organisation
-                    </span>
-                  </label>
-                </div>
-              )}
-            </div>
-
             <button
               type="submit"
-              disabled={loading || !termsAndPrivacyAccepted || !orgSignupAccepted}
+              disabled={loading}
               className="w-full py-3 px-6 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              {loading ? 'Creating Organisation...' : 'Create Organisation'}
+              {loading ? 'Starting Your Trial...' : 'Start Free Trial →'}
             </button>
           </form>
 

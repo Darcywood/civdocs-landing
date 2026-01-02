@@ -57,7 +57,7 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a href="/free-tools" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                    <a href="/crank-ai-cheat-sheet" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
                       Crank.ai Cheat Sheet
                     </a>
                   </li>
@@ -93,19 +93,17 @@ export default function Footer() {
                       Support & Feedback
                     </a>
                   </li>
+                  <li>
+                    <a href="tel:1300071577" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      1300 071 577
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:support@civdocs.com.au" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      support@civdocs.com.au
+                    </a>
+                  </li>
                 </ul>
-                
-                {/* Pricing - Bottom Right */}
-                <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Pricing</h3>
-                  <ul className="space-y-3">
-                    <li>
-                      <a href="/pricing" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                        Pricing
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -121,6 +119,7 @@ export default function Footer() {
     </footer>
   );
 }
+
 
 
 
