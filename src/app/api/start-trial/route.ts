@@ -32,7 +32,13 @@ interface StartTrialRequest {
   company_type: string;
   password: string;
   confirmPassword: string;
+  terms_and_privacy_accepted: boolean;
+  org_acknowledgement_accepted: boolean;
 }
+
+// Document versions (matching web app)
+const TERMS_VERSION = '2.0';
+const PRIVACY_VERSION = '1.0';
 
 export async function POST(req: Request) {
   // Track created resources for cleanup on error
@@ -90,7 +96,7 @@ export async function POST(req: Request) {
     console.log("[Trial Signup] Parsing request body...");
     const body: StartTrialRequest = await req.json();
     console.log("[Trial Signup] Request body:", body);
-    const { full_name, email, company, company_type, password, confirmPassword } = body;
+    const { full_name, email, company, company_type, password, confirmPassword, terms_and_privacy_accepted, org_acknowledgement_accepted } = body;
 
     // ============================================================
     // VALIDATION
@@ -103,6 +109,20 @@ export async function POST(req: Request) {
         {
           success: false,
           error: "Missing required fields: full_name, email, company, company_type, password, and confirmPassword are required",
+        },
+        { 
+          status: 400,
+          headers: getCorsHeaders(),
+        }
+      );
+    }
+
+    // Validate legal acceptances
+    if (!terms_and_privacy_accepted || !org_acknowledgement_accepted) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "You must accept all terms and agreements to continue",
         },
         { 
           status: 400,
@@ -238,24 +258,27 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] ✓ Organization created: ${orgId}`);
 
     // ============================================================
-    // STEP 3: CREATE PROFILE
+    // STEP 3: CREATE OR UPDATE PROFILE
     // ============================================================
-    console.log(`[Trial Signup] Step 3: Creating profile for user: ${userId}`);
+    console.log(`[Trial Signup] Step 3: Creating/updating profile for user: ${userId}`);
 
+    // Use upsert to handle case where profile already exists (from previous failed signup)
     const { error: profileError } = await supabase
       .from("profiles")
-      .insert({
+      .upsert({
         id: userId,
         email: email,
         full_name: full_name,
         active_organization_id: orgId,
         role: "admin",
+      }, {
+        onConflict: 'id' // Update if profile with this ID already exists
       })
       .select()
       .single();
 
     if (profileError) {
-      console.error("[Trial Signup] Profile creation error:", profileError);
+      console.error("[Trial Signup] Profile creation/update error:", profileError);
       await rollbackOnError(userId, orgId, false, false);
       return NextResponse.json(
         {
@@ -270,7 +293,7 @@ export async function POST(req: Request) {
     }
 
     profileCreated = true;
-    console.log(`[Trial Signup] ✓ Profile created: ${userId}`);
+    console.log(`[Trial Signup] ✓ Profile created/updated: ${userId}`);
 
     // ============================================================
     // STEP 4: CREATE ORGANIZATION USER LINK
@@ -304,12 +327,65 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] ✓ Organization user link created`);
 
     // ============================================================
-    // STEP 5: SEND WELCOME EMAIL
+    // STEP 5: RECORD LEGAL ACCEPTANCES
+    // ============================================================
+    console.log(`[Trial Signup] Step 5: Recording legal acceptances`);
+
+    // Record user-level acceptances (Terms & Privacy)
+    const userAcceptances = [
+      {
+        user_id: userId,
+        organization_id: null, // NULL for user-level
+        document_type: 'terms',
+        document_version: TERMS_VERSION,
+      },
+      {
+        user_id: userId,
+        organization_id: null, // NULL for user-level
+        document_type: 'privacy',
+        document_version: PRIVACY_VERSION,
+      },
+    ];
+
+    const { error: userAcceptancesError } = await supabase
+      .from('legal_acceptances')
+      .insert(userAcceptances);
+
+    if (userAcceptancesError) {
+      console.error("[Trial Signup] User legal acceptances error:", userAcceptancesError);
+      // Don't fail signup if legal acceptance recording fails, but log it
+      console.warn("[Trial Signup] ⚠️ Failed to record user legal acceptances, but continuing signup");
+    } else {
+      console.log(`[Trial Signup] ✓ User legal acceptances recorded`);
+    }
+
+    // Record organization-level acceptance (Org Acknowledgement)
+    const orgAcceptance = {
+      user_id: userId,
+      organization_id: orgId, // UUID for org-level
+      document_type: 'org_ack',
+      document_version: TERMS_VERSION, // Uses TERMS_VERSION per web app convention
+    };
+
+    const { error: orgAcceptanceError } = await supabase
+      .from('legal_acceptances')
+      .insert(orgAcceptance);
+
+    if (orgAcceptanceError) {
+      console.error("[Trial Signup] Organization acknowledgement error:", orgAcceptanceError);
+      // Don't fail signup if legal acceptance recording fails, but log it
+      console.warn("[Trial Signup] ⚠️ Failed to record organization acknowledgement, but continuing signup");
+    } else {
+      console.log(`[Trial Signup] ✓ Organization acknowledgement recorded`);
+    }
+
+    // ============================================================
+    // STEP 6: SEND WELCOME EMAIL
     // ============================================================
     // Extract first name from full_name
     const firstName = full_name.split(' ')[0];
     
-    console.log(`[Trial Signup] Step 5: Sending welcome email to: ${email}`);
+    console.log(`[Trial Signup] Step 6: Sending welcome email to: ${email}`);
     
     try {
       const emailResult = await sendTrialWelcomeEmail({
@@ -324,6 +400,38 @@ export async function POST(req: Request) {
     }
 
     // ============================================================
+    // STEP 7: GENERATE MAGIC LINK FOR AUTO-LOGIN
+    // ============================================================
+    console.log(`[Trial Signup] Step 7: Generating magic link for auto-login`);
+    
+    // Get web app URL from environment or use default
+    const webAppUrl = process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://app.civdocs.com.au';
+    const redirectTo = `${webAppUrl}/auth/callback`;
+    
+    const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
+      type: 'magiclink',
+      email: email,
+      options: {
+        redirectTo: redirectTo,
+      },
+    });
+
+    let magicLink: string | null = null;
+    
+    if (linkError || !linkData) {
+      console.error("[Trial Signup] Magic link generation error:", linkError);
+      console.warn("[Trial Signup] ⚠️ Failed to generate magic link, user will need to log in manually");
+      // Don't fail signup if magic link generation fails
+    } else {
+      magicLink = linkData.properties?.action_link || null;
+      if (magicLink) {
+        console.log(`[Trial Signup] ✓ Magic link generated successfully`);
+      } else {
+        console.warn("[Trial Signup] ⚠️ Magic link generated but action_link not found");
+      }
+    }
+
+    // ============================================================
     // SUCCESS
     // ============================================================
     console.log(`[Trial Signup] ✅ Trial signup completed successfully for: ${email}`);
@@ -334,7 +442,9 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         ok: true,
+        success: true,
         message: "Trial created",
+        magicLink: magicLink, // Return magic link for auto-login
       },
       {
         status: 201,
