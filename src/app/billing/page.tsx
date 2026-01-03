@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect, Suspense, useCallback } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -9,20 +9,25 @@ import Footer from '@/components/Footer';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useStripe, useElements, CardNumberElement } from '@stripe/react-stripe-js';
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient, User } from "@supabase/supabase-js";
 import CardFields from './CardFields';
 
 // Initialize Stripe
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-// Lazy initialize Supabase to avoid build-time errors
+// Singleton Supabase client to avoid multiple instances
+let supabaseInstance: SupabaseClient | null = null;
+
 function getSupabase() {
+  if (supabaseInstance) return supabaseInstance;
+  
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) {
     throw new Error("Supabase environment variables are not set");
   }
-  return createClient(url, key);
+  supabaseInstance = createClient(url, key);
+  return supabaseInstance;
 }
 
 
