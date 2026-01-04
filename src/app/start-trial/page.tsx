@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import OptimizedImage from '@/components/OptimizedImage';
 import FancySpinner from '@/components/fancyspinner/FancySpinner';
 
@@ -20,6 +21,33 @@ function StartTrialContent() {
   const [orgSignupAccepted, setOrgSignupAccepted] = useState(false);
   const [legalError, setLegalError] = useState('');
   const [isOrgAckExpanded, setIsOrgAckExpanded] = useState(false);
+
+  // Preload spinner images immediately when component mounts
+  useEffect(() => {
+    const preloadImages = () => {
+      const imagePaths = [
+        '/John Smith/whitepaper.png',
+        '/realfancyspinner/left.png',
+        '/realfancyspinner/right.png',
+      ];
+      
+      imagePaths.forEach((src) => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+      });
+
+      // Also preload using Image objects for better browser compatibility
+      imagePaths.forEach((src) => {
+        const img = new window.Image();
+        img.src = src;
+      });
+    };
+
+    preloadImages();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +113,30 @@ function StartTrialContent() {
 
   return (
     <>
+      {/* Hidden preload images - ensures spinner images are ready instantly */}
+      <div className="absolute opacity-0 pointer-events-none" aria-hidden="true">
+        <Image
+          src="/John Smith/whitepaper.png"
+          alt=""
+          width={180}
+          height={180}
+          priority
+        />
+        <Image
+          src="/realfancyspinner/left.png"
+          alt=""
+          width={180}
+          height={180}
+          priority
+        />
+        <Image
+          src="/realfancyspinner/right.png"
+          alt=""
+          width={180}
+          height={180}
+          priority
+        />
+      </div>
       {loading && <FancySpinner size="md" showOverlay={true} />}
       <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
         <div className="max-w-2xl w-full">

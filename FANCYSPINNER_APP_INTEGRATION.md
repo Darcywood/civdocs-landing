@@ -147,3 +147,4 @@ interface FancySpinnerProps {
 - All images should use `priority` prop for Next.js Image optimization
 - The component is client-side only (`'use client'`)
 
+
