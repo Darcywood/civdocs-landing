@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
+import FancySpinner from '@/components/fancyspinner/FancySpinner';
 
 function StartTrialContent() {
   const [formData, setFormData] = useState({
@@ -62,6 +63,9 @@ function StartTrialContent() {
         // If magic link is available, redirect to web app for auto-login
         if (data.magicLink) {
           console.log('[Signup] Redirecting to web app with magic link for auto-login');
+          // Set flag in localStorage to show spinner immediately on app load
+          localStorage.setItem('showSpinner', 'true');
+          localStorage.setItem('spinnerMessage', 'Getting your org setup');
           window.location.href = data.magicLink;
         } else {
           // Fallback: redirect to success page if magic link not available
@@ -80,8 +84,10 @@ function StartTrialContent() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
-      <div className="max-w-2xl w-full">
+    <>
+      {loading && <FancySpinner size="md" showOverlay={true} />}
+      <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
+        <div className="max-w-2xl w-full">
         {/* Back to home link */}
         <div className="mb-6">
           <Link 
@@ -429,6 +435,7 @@ function StartTrialContent() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
