@@ -119,7 +119,7 @@ export default function Header() {
                 
                 {/* CTA Button */}
                 <a 
-                  href="/pricing" 
+                  href="/start-trial" 
                   className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
                 >
                   Start Free Trial →
@@ -394,7 +394,7 @@ export default function Header() {
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <a
-                    href="/pricing"
+                    href="/start-trial"
                     onClick={closeMobileMenu}
                     className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
                   >

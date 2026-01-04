@@ -55,7 +55,7 @@ export default function PricingPage() {
       name: 'Gold',
       planId: 'gold',
       emoji: '🥇',
-      description: 'Built for expanding civil companies needing tier-one professionalism.',
+      description: 'Built for civil companies looking to dominate their industry',
       monthlyPrice: 397,
       features: [
         'Up to 75 users',
@@ -231,7 +231,7 @@ export default function PricingPage() {
                     </button>
                   ) : (
                     <a
-                      href="#contact"
+                      href="/support?inquiry=enterprise"
                       className="block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200 mb-8 bg-white border-2 border-gray-200 text-[#1E1E1E] hover:border-[#FF8C32] hover:text-[#FF8C32]"
                     >
                       {plan.cta}
@@ -314,14 +314,6 @@ export default function PricingPage() {
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-6">
-              <h3 className="text-xl font-semibold text-[#1E1E1E] mb-3">
-                Do you offer discounts for non-profits or educational institutions?
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Yes! We offer special pricing for non-profit organizations and educational institutions. Please contact our sales team to learn more about our discount programs.
-              </p>
-            </div>
           </div>
         </div>
       </section>
