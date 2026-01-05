@@ -6,7 +6,6 @@ import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import FancySpinner from '@/components/fancyspinner/FancySpinner';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
@@ -14,7 +13,6 @@ import 'swiper/css';
 export default function Home() {
   const [logbookCarouselIndex, setLogbookCarouselIndex] = useState(0);
   const logbookSwiperRef = useRef<SwiperType | null>(null);
-  const [showSpinner, setShowSpinner] = useState(false);
 
   // Preload logbook carousel images
   useEffect(() => {
@@ -96,22 +94,10 @@ export default function Home() {
     <div className="min-h-screen bg-white font-sans antialiased">
       <Header />
       <div className="pt-20">
-      {showSpinner && <FancySpinner size="md" showOverlay={true} />}
-      
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#FFFEFB] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Test Spinner Button */}
-            <div 
-              onClick={() => {
-                setShowSpinner(true);
-                setTimeout(() => setShowSpinner(false), 3000);
-              }}
-              className="mb-8 inline-block px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-xl cursor-pointer"
-            >
-              Test Spinner
-            </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
               Know your job costs while work is still underway.
             </h1>
