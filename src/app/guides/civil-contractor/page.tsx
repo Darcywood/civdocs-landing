@@ -650,12 +650,12 @@ export default function CivilContractorGuidesPage() {
           <p className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed">
             Start your free trial and explore all the features with our step-by-step guides.
           </p>
-          <a 
-            href="https://app.civdocs.com/auth/signup" 
+          <Link 
+            href="/start-trial" 
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             Start Free Trial →
-          </a>
+          </Link>
           <p className="text-sm mt-4">
             <span className="font-bold text-[#FF8C32] animate-pulse-glow">No credit card required</span>
             <span className="text-gray-500"> • Get started in minutes</span>

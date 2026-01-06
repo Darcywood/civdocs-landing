@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { generateTempPassword, sendTrialWelcomeEmail } from "@/lib/email";
+import { generateTempPassword, sendTrialWelcomeEmail, sendAdminSignupNotification } from "@/lib/email";
 
 // Force Node.js runtime for Resend SDK
 export const runtime = "nodejs";
@@ -400,9 +400,27 @@ export async function POST(req: Request) {
     }
 
     // ============================================================
-    // STEP 7: GENERATE MAGIC LINK FOR AUTO-LOGIN
+    // STEP 7: NOTIFY ADMIN OF NEW SIGNUP
     // ============================================================
-    console.log(`[Trial Signup] Step 7: Generating magic link for auto-login`);
+    console.log(`[Trial Signup] Step 7: Sending admin notification`);
+    
+    try {
+      await sendAdminSignupNotification({
+        email,
+        fullName: full_name,
+        company,
+        companyType: company_type,
+      });
+      console.log(`[Trial Signup] ✓ Admin notification sent`);
+    } catch (emailError) {
+      console.error(`[Trial Signup] Failed to send admin notification:`, emailError);
+      // Don't fail the trial creation if admin notification fails
+    }
+
+    // ============================================================
+    // STEP 8: GENERATE MAGIC LINK FOR AUTO-LOGIN
+    // ============================================================
+    console.log(`[Trial Signup] Step 8: Generating magic link for auto-login`);
     
     // Get web app URL from environment or use default
     const webAppUrl = process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://app.civdocs.com.au';
