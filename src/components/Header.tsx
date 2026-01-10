@@ -89,6 +89,10 @@ export default function Header() {
                           <h3 className="text-base font-semibold text-[#111827]">Video Tutorials</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">Watch video tutorials to master CivDocs</p>
                         </a>
+                        <a href="/affiliate-partners" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Affiliate Partners</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Earn 30% of recurring revenue by partnering with CivDocs</p>
+                        </a>
                         <a href="/crank-ai-cheat-sheet" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Crank.ai Cheat Sheet</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">Quick reference guide for Crank.ai commands and queries</p>
@@ -327,6 +331,14 @@ export default function Header() {
                         >
                           <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Video Tutorials</h3>
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Watch video tutorials to master CivDocs</p>
+                        </a>
+                        <a
+                          href="/affiliate-partners" 
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Affiliate Partners</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Earn 30% of recurring revenue by partnering with CivDocs</p>
                         </a>
                         <a
                           href="/crank-ai-cheat-sheet" 

@@ -57,6 +57,11 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
+                    <a href="/affiliate-partners" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Affiliate Partners
+                    </a>
+                  </li>
+                  <li>
                     <a href="/crank-ai-cheat-sheet" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
                       Crank.ai Cheat Sheet
                     </a>
