@@ -231,18 +231,23 @@ export async function POST(req: Request) {
     const trialExpiresAt = new Date();
     trialExpiresAt.setDate(trialExpiresAt.getDate() + 14);
 
+    // Convert company_type for database: 'civil' → 'civil_contractor'
+    // Database constraint expects 'civil_contractor', not 'civil'
+    const dbCompanyType = company_type === 'civil' ? 'civil_contractor' : company_type;
+
     const orgData = {
       name: company,
       email: email,
-      company_type: company_type, // Add company_type field - matches default_view_mode value
+      company_type: dbCompanyType, // Use converted value for database constraint
       // plan_type is intentionally NULL during trial - only set when subscribing
-      default_view_mode: company_type as CompanyType,
+      default_view_mode: company_type as CompanyType, // Keep original for view mode
       trial_expires_at: trialExpiresAt.toISOString(),
       created_by: userId, // Set creator immediately
     };
     
     console.log(`[Trial Signup] Organization data being inserted:`, JSON.stringify(orgData, null, 2));
-    console.log(`[Trial Signup] company_type value: "${orgData.company_type}"`);
+    console.log(`[Trial Signup] Original company_type: "${company_type}"`);
+    console.log(`[Trial Signup] Database company_type (converted): "${orgData.company_type}"`);
     console.log(`[Trial Signup] default_view_mode value: "${orgData.default_view_mode}"`);
 
     const { data: organization, error: orgError } = await supabase
