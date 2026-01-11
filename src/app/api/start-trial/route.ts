@@ -234,6 +234,7 @@ export async function POST(req: Request) {
     const orgData = {
       name: company,
       email: email,
+      company_type: company_type, // Add company_type field - matches default_view_mode value
       // plan_type is intentionally NULL during trial - only set when subscribing
       default_view_mode: company_type as CompanyType,
       trial_expires_at: trialExpiresAt.toISOString(),
@@ -241,6 +242,7 @@ export async function POST(req: Request) {
     };
     
     console.log(`[Trial Signup] Organization data being inserted:`, JSON.stringify(orgData, null, 2));
+    console.log(`[Trial Signup] company_type value: "${orgData.company_type}"`);
     console.log(`[Trial Signup] default_view_mode value: "${orgData.default_view_mode}"`);
 
     const { data: organization, error: orgError } = await supabase
@@ -266,6 +268,7 @@ export async function POST(req: Request) {
 
     orgId = organization.id;
     console.log(`[Trial Signup] ✓ Organization created: ${orgId}`);
+    console.log(`[Trial Signup] Organization company_type saved as: "${organization.company_type}"`);
     console.log(`[Trial Signup] Organization default_view_mode saved as: "${organization.default_view_mode}"`);
     console.log(`[Trial Signup] ===== END BACKEND DEBUG =====`);
 
