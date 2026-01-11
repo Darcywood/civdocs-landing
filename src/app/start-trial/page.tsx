@@ -24,6 +24,29 @@ function StartTrialContent() {
 
   // Preload spinner images immediately when component mounts
   useEffect(() => {
+    // Clear any potential localStorage interference from app
+    // This ensures a fresh signup experience
+    const keysToClear = [
+      'company_type',
+      'view_mode', 
+      'default_view_mode',
+      'organization_view_mode'
+    ];
+    
+    console.log('[Signup] Clearing localStorage keys that might interfere:', keysToClear);
+    keysToClear.forEach(key => {
+      try {
+        const value = localStorage.getItem(key);
+        if (value) {
+          console.log(`[Signup] Found and clearing localStorage.${key} = "${value}"`);
+          localStorage.removeItem(key);
+        }
+      } catch (e) {
+        // Ignore errors (e.g., in private browsing mode)
+        console.warn(`[Signup] Could not clear localStorage.${key}:`, e);
+      }
+    });
+
     const preloadImages = () => {
       const imagePaths = [
         '/John Smith/whitepaper.png',
@@ -52,8 +75,24 @@ function StartTrialContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Safety check: Read company_type directly from form element as fallback
+    const form = e.currentTarget as HTMLFormElement;
+    const formDataElement = form.querySelector('input[name="company_type"]:checked') as HTMLInputElement;
+    const companyTypeFromForm = formDataElement?.value || formData.company_type;
+    
+    // Debug logging
+    console.log('[Signup] ===== FORM SUBMISSION DEBUG =====');
+    console.log('[Signup] Form state company_type:', formData.company_type);
+    console.log('[Signup] Form element company_type (from DOM):', companyTypeFromForm);
+    console.log('[Signup] All form state:', formData);
+    
+    // Use form element value if state is empty or different (safety check)
+    const finalCompanyType = companyTypeFromForm || formData.company_type;
+    console.log('[Signup] Final company_type being used:', finalCompanyType);
+    
     // Validate company type is selected
-    if (!formData.company_type) {
+    if (!finalCompanyType) {
+      console.error('[Signup] ERROR: No company_type selected!');
       alert('⚠️ Please select a company type');
       return;
     }
@@ -75,14 +114,22 @@ function StartTrialContent() {
     setLoading(true);
 
     try {
+      const requestBody = {
+        ...formData,
+        company_type: finalCompanyType, // Explicitly set the company_type
+        terms_and_privacy_accepted: termsAndPrivacyAccepted,
+        org_acknowledgement_accepted: orgSignupAccepted,
+      };
+      
+      // Debug: Log the exact request body
+      console.log('[Signup] Request body being sent:', JSON.stringify(requestBody, null, 2));
+      console.log('[Signup] Company type in request body:', requestBody.company_type);
+      console.log('[Signup] ===== END DEBUG =====');
+
       const response = await fetch('/api/start-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          terms_and_privacy_accepted: termsAndPrivacyAccepted,
-          org_acknowledgement_accepted: orgSignupAccepted,
-        })
+        body: JSON.stringify(requestBody)
       });
 
       const data = await response.json();
@@ -312,7 +359,12 @@ function StartTrialContent() {
                       ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
                       : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
                   }`}
-                  onClick={() => !loading && setFormData({ ...formData, company_type: 'civil' })}
+                  onClick={() => {
+                    if (!loading) {
+                      console.log('[Signup] Civil Contractor clicked - setting company_type to "civil"');
+                      setFormData({ ...formData, company_type: 'civil' });
+                    }
+                  }}
                 >
                   <input
                     type="radio"
@@ -321,7 +373,9 @@ function StartTrialContent() {
                     checked={formData.company_type === 'civil'}
                     onChange={(e) => {
                       e.stopPropagation();
-                      setFormData({ ...formData, company_type: e.target.value });
+                      const value = e.target.value;
+                      console.log('[Signup] Civil Contractor radio onChange - value:', value);
+                      setFormData({ ...formData, company_type: value });
                     }}
                     className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
                     required
@@ -355,7 +409,12 @@ function StartTrialContent() {
                       ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
                       : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
                   }`}
-                  onClick={() => !loading && setFormData({ ...formData, company_type: 'plant_hire' })}
+                  onClick={() => {
+                    if (!loading) {
+                      console.log('[Signup] Plant Hire Company clicked - setting company_type to "plant_hire"');
+                      setFormData({ ...formData, company_type: 'plant_hire' });
+                    }
+                  }}
                 >
                   <input
                     type="radio"
@@ -364,7 +423,9 @@ function StartTrialContent() {
                     checked={formData.company_type === 'plant_hire'}
                     onChange={(e) => {
                       e.stopPropagation();
-                      setFormData({ ...formData, company_type: e.target.value });
+                      const value = e.target.value;
+                      console.log('[Signup] Civil Contractor radio onChange - value:', value);
+                      setFormData({ ...formData, company_type: value });
                     }}
                     className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
                     required

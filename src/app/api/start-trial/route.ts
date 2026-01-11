@@ -101,7 +101,10 @@ export async function POST(req: Request) {
     // ============================================================
     // VALIDATION
     // ============================================================
+    console.log(`[Trial Signup] ===== BACKEND DEBUG =====`);
     console.log(`[Trial Signup] Starting trial signup for: ${email}`);
+    console.log(`[Trial Signup] Company type received: "${company_type}" (type: ${typeof company_type})`);
+    console.log(`[Trial Signup] Valid company types:`, VALID_COMPANY_TYPES);
 
     // Validate required fields
     if (!full_name || !email || !company || !company_type || !password || !confirmPassword) {
@@ -221,21 +224,28 @@ export async function POST(req: Request) {
     // STEP 2: CREATE ORGANIZATION
     // ============================================================
     console.log(`[Trial Signup] Step 2: Creating organization: ${company}`);
+    console.log(`[Trial Signup] Company type being saved to database: "${company_type}"`);
+    console.log(`[Trial Signup] Company type as CompanyType: ${company_type as CompanyType}`);
 
     // Calculate trial expiration date (14 days from now)
     const trialExpiresAt = new Date();
     trialExpiresAt.setDate(trialExpiresAt.getDate() + 14);
 
+    const orgData = {
+      name: company,
+      email: email,
+      // plan_type is intentionally NULL during trial - only set when subscribing
+      default_view_mode: company_type as CompanyType,
+      trial_expires_at: trialExpiresAt.toISOString(),
+      created_by: userId, // Set creator immediately
+    };
+    
+    console.log(`[Trial Signup] Organization data being inserted:`, JSON.stringify(orgData, null, 2));
+    console.log(`[Trial Signup] default_view_mode value: "${orgData.default_view_mode}"`);
+
     const { data: organization, error: orgError } = await supabase
       .from("organizations")
-      .insert({
-        name: company,
-        email: email,
-        // plan_type is intentionally NULL during trial - only set when subscribing
-        default_view_mode: company_type as CompanyType,
-        trial_expires_at: trialExpiresAt.toISOString(),
-        created_by: userId, // Set creator immediately
-      })
+      .insert(orgData)
       .select()
       .single();
 
@@ -256,6 +266,8 @@ export async function POST(req: Request) {
 
     orgId = organization.id;
     console.log(`[Trial Signup] ✓ Organization created: ${orgId}`);
+    console.log(`[Trial Signup] Organization default_view_mode saved as: "${organization.default_view_mode}"`);
+    console.log(`[Trial Signup] ===== END BACKEND DEBUG =====`);
 
     // ============================================================
     // STEP 3: CREATE OR UPDATE PROFILE
