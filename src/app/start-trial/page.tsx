@@ -135,6 +135,23 @@ function StartTrialContent() {
       const data = await response.json();
 
       if (data.ok || data.success) {
+        // Fire Meta Pixel StartTrial event
+        if (typeof window !== 'undefined' && (window as any).fbq) {
+          try {
+            (window as any).fbq('track', 'StartTrial', {
+              value: 0,
+              currency: 'AUD',
+              subscription_id: data.organizationId || '',
+              predicted_ltv: 20,
+            });
+            console.log('[Signup] Meta Pixel StartTrial event fired with org ID:', data.organizationId);
+          } catch (error) {
+            console.error('[Signup] Error firing Meta Pixel event:', error);
+          }
+        } else {
+          console.warn('[Signup] Meta Pixel not loaded, skipping StartTrial event');
+        }
+
         // If magic link is available, redirect to web app for auto-login
         if (data.magicLink) {
           console.log('[Signup] Redirecting to web app with magic link for auto-login');

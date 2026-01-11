@@ -478,6 +478,7 @@ export async function POST(req: Request) {
         success: true,
         message: "Trial created",
         magicLink: magicLink, // Return magic link for auto-login
+        organizationId: orgId, // Return organization ID for Meta Pixel tracking
       },
       {
         status: 201,
