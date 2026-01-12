@@ -145,6 +145,9 @@ function StartTrialContent() {
               predicted_ltv: 20,
             });
             console.log('[Signup] Meta Pixel StartTrial event fired with org ID:', data.organizationId);
+            
+            // Small delay to ensure event is sent before redirect
+            await new Promise(resolve => setTimeout(resolve, 500));
           } catch (error) {
             console.error('[Signup] Error firing Meta Pixel event:', error);
           }
@@ -369,7 +372,7 @@ function StartTrialContent() {
               <p className="text-xs text-gray-500 mb-3">
                 Don't worry, you can change this anytime later
               </p>
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <div
                   className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all group ${
                     formData.company_type === 'civil'
@@ -408,7 +411,7 @@ function StartTrialContent() {
                         Civil Contractor
                       </div>
                       <div className="text-xs text-gray-500">
-                        Project management and construction
+                        Select this for cost tracking.
                       </div>
                     </div>
                     <OptimizedImage 
@@ -458,7 +461,7 @@ function StartTrialContent() {
                         Plant Hire Company
                       </div>
                       <div className="text-xs text-gray-500">
-                        Wet hire and fleet management
+                        Select this for logbooks / invoicing
                       </div>
                     </div>
                     <OptimizedImage 
