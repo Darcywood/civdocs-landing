@@ -20,7 +20,7 @@ export default function CostTrackingPage() {
 
     const preload = async () => {
       try {
-        const res = await fetch('/John Smith/costtrackingvideo.mov', { signal: controller.signal });
+        const res = await fetch('/John Smith/cost tracking/costtrackingvid.mp4.mp4', { signal: controller.signal });
         if (!res.ok) return;
         const blob = await res.blob();
         objectUrl = URL.createObjectURL(blob);
@@ -777,7 +777,7 @@ export default function CostTrackingPage() {
                   muted
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
-                  <source src={preloadedVideoUrl ?? "/John Smith/costtrackingvideo.mov"} type="video/quicktime" />
+                  <source src={preloadedVideoUrl ?? "/John Smith/cost tracking/costtrackingvid.mp4.mp4"} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>

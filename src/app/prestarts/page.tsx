@@ -398,7 +398,7 @@ export default function PreStartsPage() {
                   muted
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
-                  <source src="/John Smith/prestart-video.mov" type="video/quicktime" />
+                  <source src="/prestart-page/prestart.mp4.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>

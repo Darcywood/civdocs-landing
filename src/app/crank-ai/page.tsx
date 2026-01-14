@@ -57,7 +57,7 @@ export default function CrankAIPage() {
                   muted
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
-                  <source src="/Crank.ai/Video 24-12-2025, 2 07 38 PM.mov" type="video/quicktime" />
+                  <source src="/Crank.ai/crankfull.mp4.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>

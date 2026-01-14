@@ -754,7 +754,7 @@ export default function LogbookPage() {
                   muted
                   onEnded={() => setIsVideoModalOpen(false)}
                 >
-                  <source src="/logbook/Video 19-12-2025, 8 55 13 AM.mov" type="video/quicktime" />
+                  <source src="/logbook/logbookfull.mp4.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
@@ -806,7 +806,7 @@ export default function LogbookPage() {
                   muted
                   onEnded={() => setIsUnlocksVideoModalOpen(false)}
                 >
-                  <source src="/logbook/Video 19-12-2025, 10 03 55 AM.mov" type="video/quicktime" />
+                  <source src="/logbook/createinvoice.mp4.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>

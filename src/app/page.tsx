@@ -681,7 +681,7 @@ export default function Home() {
               <div className="w-full flex justify-center">
                 <div className="bg-white rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] overflow-hidden p-6 sm:p-8 lg:p-10">
                   <video 
-                    src="/homepage/crankvidhome.mov" 
+                    src="/Crank.ai/crankvidhome.mp4.mp4" 
                     autoPlay
                     loop
                     muted
