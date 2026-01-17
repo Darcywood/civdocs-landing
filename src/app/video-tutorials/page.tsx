@@ -132,9 +132,132 @@ export default function VideoTutorialsPage() {
                 <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] mb-3">
                   Civil Contractors
                 </h2>
-                <p className="text-lg text-gray-600">
+                <p className="text-lg text-gray-600 mb-2">
                   Tutorials for civil construction projects and cost tracking
                 </p>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.0-overview.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.0 Overview
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.1-invite-employee.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.1 Inviting Employees
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.2-add-machine-.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.2 Add Machine
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.3-add-project.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.3 Add Project
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.4-how-employees-do-timesheets.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.4 How Employees Do Timesheets
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.5-how-to-do-prestart.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.5 How to Do a Prestart
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.6-cost-tracking-overview.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.6 Cost Tracking Overview
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.7-how-to-create-project-scope.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.7 How to Create Project Scope
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.8-cost-code-creation.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.8 Cost Code Creation
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/1.9-how-to-create-materials.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 1.9 How to Create Materials
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/Civil-Contractors/2.0-how-to-add-materials-and-progress.mp4');
+                      setIsVideoModalOpen(true);
+                      setVideoError(false);
+                      setVideoLoading(true);
+                    }}
+                    className="text-sm text-gray-500 hover:text-[#FF8C32] transition-colors text-left"
+                  >
+                    • 2.0 How to Add Materials and Progress
+                  </button>
+                </div>
               </div>
             )}
             {activeTab === 'plant-hire' && (
@@ -156,7 +279,17 @@ export default function VideoTutorialsPage() {
               <div className="mt-6">
                 {/* Video Card */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-center p-6">
+                  <div className="p-6 pb-4">
+                    <div className="text-center">
+                      <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
+                        Onboarding Tutorial
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        A comprehensive guide to getting started with CivDocs
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center px-6 pb-6">
                     <button
                       onClick={() => {
                         setCurrentVideoSrc('/video-tutorials/onboardingemployee.mp4.mp4');
@@ -168,7 +301,7 @@ export default function VideoTutorialsPage() {
                       aria-label="Play onboarding video"
                     >
                       <OptimizedImage 
-                        src="/video-tutorials/onboard.png" 
+                        src="/video-tutorials/Plant-hire/onboard.png" 
                         alt="Onboarding Tutorial Preview"
                         width={400}
                         height={800}
@@ -184,18 +317,6 @@ export default function VideoTutorialsPage() {
                       </div>
                     </button>
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
-                          Onboarding Tutorial
-                        </h3>
-                        <p className="text-gray-600 text-sm">
-                          A comprehensive guide to getting started with CivDocs
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             )}
@@ -205,20 +326,30 @@ export default function VideoTutorialsPage() {
               <div className="mt-6 space-y-6">
                 {/* Video Cards */}
                 {[
-                  { video: '1.0-overview.mp4', image: '1.0.png', title: 'Overview', description: 'Get an overview of CivDocs for civil contractors' },
-                  { video: '1.1-invite-employee.mp4', image: '1.1-invite-employee.png', title: 'Inviting Employees', description: 'Learn how to invite employees to join your CivDocs organization' },
-                  { video: '1.2-add-machine-.mp4', image: '1.2.png', title: 'Add Machine', description: 'Learn how to add machines to your fleet' },
-                  { video: '1.3-add-project.mp4', image: '1.3.png', title: 'Add Project', description: 'Create and manage projects in CivDocs' },
-                  { video: '1.4-how-employees-do-timesheets.mp4', image: '1.4.png', title: 'How Employees Do Timesheets', description: 'Guide for employees on submitting timesheets' },
-                  { video: '1.5-how-to-do-prestart.mp4', image: '1.5.png', title: 'How to Do Prestart', description: 'Complete prestart checks for your machines' },
-                  { video: '1.6-cost-tracking-overview.mp4', image: '1.6.png', title: 'Cost Tracking Overview', description: 'Overview of cost tracking features' },
-                  { video: '1.7-how-to-create-project-scope.mp4', image: '1.7.png', title: 'How to Create Project Scope', description: 'Set up project scopes for cost tracking' },
-                  { video: '1.8-cost-code-creation.mp4', image: '1.8.png', title: 'Cost Code Creation', description: 'Create and manage cost codes' },
-                  { video: '1.9-how-to-create-materials.mp4', image: '1.9.png', title: 'How to Create Materials', description: 'Add materials to your projects' },
-                  { video: '2.0-how-to-add-materials-and-progress.mp4', image: '2.0.png', title: 'How to Add Materials and Progress', description: 'Track materials and project progress' },
+                  { video: '1.0-overview.mp4', image: '1.0.png', title: '1.0 Overview', description: 'Get an overview of CivDocs for civil contractors' },
+                  { video: '1.1-invite-employee.mp4', image: '1.1-invite-employee.png', title: '1.1 Inviting Employees', description: 'Learn how to invite employees to join your CivDocs organization' },
+                  { video: '1.2-add-machine-.mp4', image: '1.2.png', title: '1.2 Add Machine', description: 'Learn how to add machines to your fleet' },
+                  { video: '1.3-add-project.mp4', image: '1.3.png', title: '1.3 Add Project', description: 'Create and manage projects in CivDocs' },
+                  { video: '1.4-how-employees-do-timesheets.mp4', image: '1.4.png', title: '1.4 How Employees Do Timesheets', description: 'Guide for employees on submitting timesheets' },
+                  { video: '1.5-how-to-do-prestart.mp4', image: '1.5.png', title: '1.5 How to Do a Prestart', description: 'Complete prestart checks for your machines' },
+                  { video: '1.6-cost-tracking-overview.mp4', image: '1.6.png', title: '1.6 Cost Tracking Overview', description: 'Overview of cost tracking features' },
+                  { video: '1.7-how-to-create-project-scope.mp4', image: '1.7.png', title: '1.7 How to Create Project Scope', description: 'Set up project scopes for cost tracking' },
+                  { video: '1.8-cost-code-creation.mp4', image: '1.8.png', title: '1.8 Cost Code Creation', description: 'Create and manage cost codes' },
+                  { video: '1.9-how-to-create-materials.mp4', image: '1.9.png', title: '1.9 How to Create Materials', description: 'Add materials to your projects' },
+                  { video: '2.0-how-to-add-materials-and-progress.mp4', image: '2.0.png', title: '2.0 How to Add Materials and Progress', description: 'Track materials and project progress' },
                 ].map((item, index) => (
                   <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-center p-6">
+                    <div className="p-6 pb-4">
+                      <div className="text-center">
+                        <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center px-6 pb-6">
                       <button
                         onClick={() => {
                           setCurrentVideoSrc(`/video-tutorials/Civil-Contractors/${item.video}`);
@@ -245,18 +376,6 @@ export default function VideoTutorialsPage() {
                           </div>
                         </div>
                       </button>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
-                            {item.title}
-                          </h3>
-                          <p className="text-gray-600 text-sm">
-                            {item.description}
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 ))}
