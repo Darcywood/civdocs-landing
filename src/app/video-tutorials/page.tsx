@@ -11,6 +11,7 @@ export default function VideoTutorialsPage() {
   const [videoError, setVideoError] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('getting-started');
+  const [currentVideoSrc, setCurrentVideoSrc] = useState('/video-tutorials/onboardingemployee.mp4.mp4');
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
       <Header />
@@ -58,7 +59,7 @@ export default function VideoTutorialsPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Tab Navigation */}
           <div className="mb-12">
-            <div className="flex flex-wrap gap-3 mb-8 border-b border-gray-200">
+            <div className="flex gap-3 mb-8 border-b border-gray-200">
               <button
                 onClick={() => setActiveTab('getting-started')}
                 className={`px-6 py-3 font-semibold text-base transition-all relative ${
@@ -103,6 +104,7 @@ export default function VideoTutorialsPage() {
                 <div className="flex flex-col gap-1">
                   <button
                     onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/onboardingemployee.mp4.mp4');
                       setIsVideoModalOpen(true);
                       setVideoError(false);
                       setVideoLoading(true);
@@ -113,6 +115,7 @@ export default function VideoTutorialsPage() {
                   </button>
                   <button
                     onClick={() => {
+                      setCurrentVideoSrc('/video-tutorials/onboardingemployee.mp4.mp4');
                       setIsVideoModalOpen(true);
                       setVideoError(false);
                       setVideoLoading(true);
@@ -156,6 +159,7 @@ export default function VideoTutorialsPage() {
                   <div className="flex items-center justify-center p-6">
                     <button
                       onClick={() => {
+                        setCurrentVideoSrc('/video-tutorials/onboardingemployee.mp4.mp4');
                         setIsVideoModalOpen(true);
                         setVideoError(false);
                         setVideoLoading(true);
@@ -198,19 +202,64 @@ export default function VideoTutorialsPage() {
 
             {/* Civil Contractors Tab Content */}
             {activeTab === 'civil-contractors' && (
-              <div className="mt-6">
-                {/* Placeholder */}
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden p-8 text-center">
-                  <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
-                    Videos Coming Soon
-                  </h3>
-                  <p className="text-gray-600">
-                    Civil contractor tutorials will be added here
-                  </p>
-                </div>
+              <div className="mt-6 space-y-6">
+                {/* Video Cards */}
+                {[
+                  { video: '1.0-overview.mp4', image: '1.0.png', title: 'Overview', description: 'Get an overview of CivDocs for civil contractors' },
+                  { video: '1.1-invite-employee.mp4', image: '1.1-invite-employee.png', title: 'Inviting Employees', description: 'Learn how to invite employees to join your CivDocs organization' },
+                  { video: '1.2-add-machine-.mp4', image: '1.2.png', title: 'Add Machine', description: 'Learn how to add machines to your fleet' },
+                  { video: '1.3-add-project.mp4', image: '1.3.png', title: 'Add Project', description: 'Create and manage projects in CivDocs' },
+                  { video: '1.4-how-employees-do-timesheets.mp4', image: '1.4.png', title: 'How Employees Do Timesheets', description: 'Guide for employees on submitting timesheets' },
+                  { video: '1.5-how-to-do-prestart.mp4', image: '1.5.png', title: 'How to Do Prestart', description: 'Complete prestart checks for your machines' },
+                  { video: '1.6-cost-tracking-overview.mp4', image: '1.6.png', title: 'Cost Tracking Overview', description: 'Overview of cost tracking features' },
+                  { video: '1.7-how-to-create-project-scope.mp4', image: '1.7.png', title: 'How to Create Project Scope', description: 'Set up project scopes for cost tracking' },
+                  { video: '1.8-cost-code-creation.mp4', image: '1.8.png', title: 'Cost Code Creation', description: 'Create and manage cost codes' },
+                  { video: '1.9-how-to-create-materials.mp4', image: '1.9.png', title: 'How to Create Materials', description: 'Add materials to your projects' },
+                  { video: '2.0-how-to-add-materials-and-progress.mp4', image: '2.0.png', title: 'How to Add Materials and Progress', description: 'Track materials and project progress' },
+                ].map((item, index) => (
+                  <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-center p-6">
+                      <button
+                        onClick={() => {
+                          setCurrentVideoSrc(`/video-tutorials/Civil-Contractors/${item.video}`);
+                          setIsVideoModalOpen(true);
+                          setVideoError(false);
+                          setVideoLoading(true);
+                        }}
+                        className="relative w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] cursor-pointer hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2 rounded-2xl"
+                        aria-label={`Play ${item.title} video`}
+                      >
+                        <OptimizedImage 
+                          src={`/video-tutorials/Civil-Contractors/${item.image}`}
+                          alt={`${item.title} Tutorial Preview`}
+                          width={400}
+                          height={800}
+                          className="w-full h-auto"
+                        />
+                        {/* Play button overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                            <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#FF8C32] ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-[#1E1E1E] mb-2">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
@@ -353,7 +402,7 @@ export default function VideoTutorialsPage() {
                       }}
                       onLoadStart={() => setVideoLoading(true)}
                     >
-                      <source src="/video-tutorials/onboardingemployee.mp4.mp4" type="video/mp4" />
+                      <source src={currentVideoSrc} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </>
