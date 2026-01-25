@@ -158,7 +158,7 @@ export default function PricingPage() {
               <div
                 key={plan.name}
                 className={`relative bg-white rounded-3xl shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
-                  plan.popular ? 'border-[#FF8C32] lg:scale-110 lg:-mt-4 lg:mb-4' : 'border-gray-100'
+                  plan.popular ? 'border-[#FF8C32] lg:scale-110 lg:mb-4' : 'border-gray-100'
                 }`}
               >
                 {plan.popular && (
@@ -329,7 +329,7 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-col items-center gap-4">
             <a 
-              href="/pricing" 
+              href="/start-trial" 
               className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
             >
               <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>

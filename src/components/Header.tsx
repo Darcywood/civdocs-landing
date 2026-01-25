@@ -68,6 +68,31 @@ export default function Header() {
                       Product
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
                     </button>
+                    {/* Product Dropdown */}
+                    <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
+                        <a href="/prestarts" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Pre-Starts</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Complete safety checks in 3 simple steps</p>
+                        </a>
+                        <a href="/timesheets" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Timesheets</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Log crew hours quickly and accurately</p>
+                        </a>
+                        <a href="/cost-tracking" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Cost Tracking</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Track project expenses and costs in real-time</p>
+                        </a>
+                        <a href="/logbook" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Logbook</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Digital logbook for hours, prestarts, machines, and compliance</p>
+                        </a>
+                        <a href="/crank-ai" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Crank.ai</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">AI-powered assistant to streamline your workflow</p>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
                     Pricing
