@@ -23,10 +23,11 @@ export function buildContentFromAnswers(step1: Step1Data, step2: Step2Data): Pdf
   const coreServices = step1.coreServices
     .map((v) => getLabel(coreServicesOptions, v))
     .filter(Boolean);
-  const coreOtherArr = Array.isArray(step1.coreServicesOther)
-    ? step1.coreServicesOther
-    : typeof step1.coreServicesOther === 'string' && step1.coreServicesOther.trim()
-      ? [step1.coreServicesOther.trim()]
+  const coreOtherRaw = step1.coreServicesOther as unknown;
+  const coreOtherArr = Array.isArray(coreOtherRaw)
+    ? coreOtherRaw
+    : typeof coreOtherRaw === 'string' && coreOtherRaw.trim()
+      ? [coreOtherRaw.trim()]
       : [];
   coreOtherArr.forEach((s) => {
     const t = String(s).trim();
@@ -40,10 +41,11 @@ export function buildContentFromAnswers(step1: Step1Data, step2: Step2Data): Pdf
   const plantEquipment = step2.plantEquipment
     .map((v) => getLabel(plantEquipmentOptions, v))
     .filter(Boolean);
-  const plantOtherArr = Array.isArray(step2.plantEquipmentOther)
-    ? step2.plantEquipmentOther
-    : typeof step2.plantEquipmentOther === 'string' && step2.plantEquipmentOther.trim()
-      ? [step2.plantEquipmentOther.trim()]
+  const plantOtherRaw = step2.plantEquipmentOther as unknown;
+  const plantOtherArr = Array.isArray(plantOtherRaw)
+    ? plantOtherRaw
+    : typeof plantOtherRaw === 'string' && plantOtherRaw.trim()
+      ? [plantOtherRaw.trim()]
       : [];
   plantOtherArr.forEach((s) => {
     const t = String(s).trim();
@@ -53,10 +55,11 @@ export function buildContentFromAnswers(step1: Step1Data, step2: Step2Data): Pdf
   const compliance = step2.compliance
     .map((v) => getLabel(complianceOptions, v))
     .filter(Boolean);
-  const complianceOtherArr = Array.isArray(step2.complianceOther)
-    ? step2.complianceOther
-    : typeof step2.complianceOther === 'string' && step2.complianceOther.trim()
-      ? [step2.complianceOther.trim()]
+  const complianceOtherRaw = step2.complianceOther as unknown;
+  const complianceOtherArr = Array.isArray(complianceOtherRaw)
+    ? complianceOtherRaw
+    : typeof complianceOtherRaw === 'string' && complianceOtherRaw.trim()
+      ? [complianceOtherRaw.trim()]
       : [];
   complianceOtherArr.forEach((s) => {
     const t = String(s).trim();
