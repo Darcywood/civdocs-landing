@@ -112,7 +112,7 @@ export default function Header() {
                     {/* Free Tools Dropdown */}
                     <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
-                        <a href="/capability-statement/build" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <a href="/capability-statement" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Capability Statement Generator</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">Create a professional capability statement in minutes</p>
                         </a>
@@ -362,7 +362,7 @@ export default function Header() {
                         className="pb-4 pt-2 space-y-3 overflow-hidden"
                       >
                         <a 
-                          href="/capability-statement/build" 
+                          href="/capability-statement" 
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
