@@ -1,8 +1,10 @@
-import Link from 'next/link';
 import { Marquee } from '@/components/ui/marquee';
+import { PulsatingButton } from '@/components/ui/pulsating-button';
 import { TestimonialCard } from './_components/TestimonialCard';
 import { CapabilityStatCounter } from './_components/CapabilityStatCounter';
 import ScrollScrubVideo from './_components/ScrollScrubVideo';
+import StepCards from './_components/StepCards';
+import IncludedItems from './_components/IncludedItems';
 
 const BUILDER_PATH = '/capability-statement/build';
 
@@ -119,74 +121,24 @@ export default function CapabilityStatementLandingPage() {
             <div className="mt-10">
               <ScrollScrubVideo />
             </div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-3">
-              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF8C32]/10 text-lg font-bold text-[#FF8C32]">1</span>
-                <h3 className="mt-4 font-semibold text-gray-900">Answer 12 questions</h3>
-                <p className="mt-2 text-sm text-gray-600">Business basics, projects, and portfolio — all tailored for civil contractors.</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF8C32]/10 text-lg font-bold text-[#FF8C32]">2</span>
-                <h3 className="mt-4 font-semibold text-gray-900">Upload logo & photos</h3>
-                <p className="mt-2 text-sm text-gray-600">Add your branding and project images for a polished result.</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF8C32]/10 text-lg font-bold text-[#FF8C32]">3</span>
-                <h3 className="mt-4 font-semibold text-gray-900">We generate + email your PDF</h3>
-                <p className="mt-2 text-sm text-gray-600">Get a clean, professional PDF delivered to your inbox.</p>
-              </div>
-            </div>
+            <StepCards />
           </div>
         </section>
 
         {/* What's included */}
-        <section className="border-t border-gray-100 px-4 py-16 sm:py-20">
+        <section className="border-t border-gray-100 px-4 py-12 sm:py-16">
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-semibold text-[#1E1E1E] sm:text-3xl">Everything tender reviewers expect to see</h2>
             <p className="mt-2 text-gray-600">Each capability statement is structured to match how councils, builders, and Tier-1s assess submissions.</p>
-            <div className="mt-10 grid gap-8 sm:grid-cols-2">
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-gray-900">Company overview</h3>
-                  <p className="mt-1 text-sm text-slate-600">Your business details, regions, and delivery type — clearly positioned upfront.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Core capabilities</h3>
-                  <p className="mt-1 text-sm text-slate-600">Your services laid out in a way tender reviewers can scan and understand quickly.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Project experience</h3>
-                  <p className="mt-1 text-sm text-slate-600">Relevant projects with scope, client type, and outcomes — not vague summaries.</p>
-                </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-semibold text-gray-900">Plant & equipment</h3>
-                  <p className="mt-1 text-sm text-slate-600">Machinery and assets listed clearly to demonstrate capacity and scale.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Key personnel</h3>
-                  <p className="mt-1 text-sm text-slate-600">Key team members, roles, and experience that support delivery confidence.</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Compliance snapshot</h3>
-                  <p className="mt-1 text-sm text-slate-600">Licences, certifications, and insurance shown at a glance for compliance checks.</p>
-                </div>
-              </div>
-            </div>
+            <IncludedItems />
           </div>
         </section>
 
         {/* CTA - bottom of page */}
-        <section className="border-t border-gray-100 px-4 py-16 sm:py-20">
+        <section className="border-t border-gray-100 px-4 pt-6 pb-[50px] sm:pt-8 sm:pb-[50px]">
           <div className="mx-auto max-w-6xl text-center">
             <p className="mb-4 text-sm text-slate-600">This is the exact structure used in real tender submissions.</p>
-            <Link
-              href={BUILDER_PATH}
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-10 py-4 text-lg font-semibold text-white shadow-md transition-all hover:shadow-lg"
-            >
-              Start building
-            </Link>
+            <PulsatingButton href={BUILDER_PATH}>Start building</PulsatingButton>
           </div>
         </section>
       </main>

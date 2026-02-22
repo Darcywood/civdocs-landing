@@ -112,10 +112,10 @@ export default function Header() {
                     {/* Free Tools Dropdown */}
                     <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
-                        <a href="/capability-statement" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <Link href="/capability-statement" prefetch={false} className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Capability Statement Generator</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">Create a professional capability statement in minutes</p>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -361,14 +361,15 @@ export default function Header() {
                         transition={{ duration: 0.2 }}
                         className="pb-4 pt-2 space-y-3 overflow-hidden"
                       >
-                        <a 
+                        <Link 
                           href="/capability-statement" 
+                          prefetch={false}
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
                           <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Capability Statement Generator</h3>
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Create a professional capability statement in minutes</p>
-                        </a>
+                        </Link>
                       </motion.div>
                     )}
                   </AnimatePresence>
