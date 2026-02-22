@@ -136,7 +136,6 @@ export const step3LeadSchema = z.object({
 export const step3Schema = step3LeadSchema.extend({
   logo: z.instanceof(File).optional(),
   projectPhotos: z.array(z.instanceof(File)).max(4).optional(),
-  plantPhotos: z.array(z.instanceof(File)).max(4).optional(),
 });
 
 // Full form type (for wizard state)

@@ -109,19 +109,19 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
                 error={errors.projects?.[index]?.name?.message}
               />
               <FormField
-                label="Client (optional)"
+                label="Client"
                 {...register(`projects.${index}.client`)}
                 placeholder="e.g. VicRoads"
               />
             </div>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <FormField
-                label="Location (optional)"
+                label="Location"
                 {...register(`projects.${index}.location`)}
                 placeholder="e.g. Sydney, NSW"
               />
               <FormField
-                label="Duration (optional)"
+                label="Duration"
                 {...register(`projects.${index}.duration`)}
                 placeholder="e.g. 6 months"
               />
@@ -143,7 +143,7 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
             </div>
             <div className="mt-3">
               <label className="block text-sm font-medium text-gray-700">
-                Key challenges (optional) <span className="font-normal text-gray-500">(obstacles faced and how you overcame them)</span>
+                Key challenges <span className="font-normal text-gray-500">(obstacles faced and how you overcame them)</span>
               </label>
               <textarea
                 {...register(`projects.${index}.challenges`)}
@@ -155,12 +155,12 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
             </div>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <FormField
-                label="Contract value (optional)"
+                label="Contract value"
                 {...register(`projects.${index}.value`)}
                 placeholder="e.g. $2.4M"
               />
               <FormField
-                label="Outcome (optional)"
+                label="Outcome"
                 {...register(`projects.${index}.outcome`)}
                 placeholder="e.g. Delivered 2 weeks ahead of program"
               />

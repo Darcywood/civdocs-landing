@@ -120,8 +120,6 @@ export default function CapabilityWizard() {
           projectPhotoMap.push(idx);
         }
       });
-      uploads.plantPhotos.forEach((f) => files.push({ category: 'plant', filename: f.name, contentType: f.type }));
-
       if (files.length > 0) {
         const urlRes = await fetch('/api/capability-statement/create-upload-urls', {
           method: 'POST',
@@ -143,7 +141,6 @@ export default function CapabilityWizard() {
           ...(uploads.coverPhoto ? [uploads.coverPhoto] : []),
           ...(uploads.finishingPhoto ? [uploads.finishingPhoto] : []),
           ...uploads.projectPhotos.filter((f): f is File => f !== null),
-          ...uploads.plantPhotos,
         ];
 
         for (let i = 0; i < signedUploadUrls.length; i++) {

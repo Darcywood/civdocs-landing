@@ -33,7 +33,7 @@ export async function GET() {
 
     const modifiedPdf = await newDoc.save();
 
-    return new NextResponse(modifiedPdf, {
+    return new NextResponse(Buffer.from(modifiedPdf), {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': 'inline; filename="capability-statement-preview.pdf"',

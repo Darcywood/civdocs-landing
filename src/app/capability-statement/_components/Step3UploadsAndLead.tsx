@@ -14,7 +14,6 @@ export interface Step3Uploads {
   coverPhoto: File | null;
   finishingPhoto: File | null;
   projectPhotos: (File | null)[];
-  plantPhotos: File[];
 }
 
 interface Step3UploadsAndLeadProps {
@@ -39,7 +38,6 @@ export default function Step3UploadsAndLead({
       coverPhoto: null,
       finishingPhoto: null,
       projectPhotos: Array(projectCount).fill(null),
-      plantPhotos: [],
     }
   );
 
@@ -125,13 +123,6 @@ export default function Step3UploadsAndLead({
           })}
         </div>
       </div>
-
-      <UploadDropzone
-        category="plant"
-        maxFiles={4}
-        value={uploads.plantPhotos}
-        onChange={(files) => setUploads((u) => ({ ...u, plantPhotos: files }))}
-      />
 
       <ColourPicker
         logoFile={uploads.logo}

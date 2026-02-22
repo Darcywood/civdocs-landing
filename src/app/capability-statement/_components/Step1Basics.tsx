@@ -154,7 +154,7 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
       </div>
 
       <FormField
-        label="Mission statement (optional)"
+        label="Mission statement"
         {...register('missionStatement')}
         placeholder="e.g. Delivering safe, quality civil works across regional Victoria"
         error={errors.missionStatement?.message}
@@ -162,25 +162,25 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
 
       <div className="grid gap-4 sm:grid-cols-2">
         <FormField
-          label="Phone (optional)"
+          label="Phone"
           {...register('phone')}
           placeholder="e.g. 0412 345 678"
           error={errors.phone?.message}
         />
         <FormField
-          label="ABN (optional)"
+          label="ABN"
           {...register('abn')}
           placeholder="e.g. 12 345 678 901"
           error={errors.abn?.message}
         />
         <FormField
-          label="Website (optional)"
+          label="Website"
           {...register('website')}
           placeholder="e.g. www.smithcivil.com.au"
           error={errors.website?.message}
         />
         <FormField
-          label="Contact email (optional)"
+          label="Contact email"
           type="email"
           {...register('contactEmail')}
           placeholder="e.g. info@smithcivil.com.au"
