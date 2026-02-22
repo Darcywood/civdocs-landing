@@ -10,7 +10,7 @@ import {
   uploadPdfBuffer,
   createSignedDownloadUrl,
 } from '@/lib/capability-statement/storage';
-import { sendCapabilityStatementEmail } from '@/lib/capability-statement/email';
+import { sendCapabilityStatementEmail, sendCapabilityFollowUpEmail } from '@/lib/capability-statement/email';
 import CapabilityStatementPdf from '@/lib/pdf/CapabilityStatementPdf';
 
 export const runtime = 'nodejs';
@@ -165,6 +165,18 @@ export async function POST(req: Request) {
       businessName: answers.step1.businessName,
       pdfUrl: pdfSignedUrl,
     });
+
+    if (lead.marketingConsent) {
+      try {
+        await sendCapabilityFollowUpEmail({
+          to: lead.email,
+          firstName: lead.firstName,
+        });
+      } catch (followUpErr) {
+        // Non-critical — log but don't fail the request
+        console.error('[generate] Follow-up email scheduling failed:', followUpErr);
+      }
+    }
 
     await supabase
       .from('capability_statement_submissions')
