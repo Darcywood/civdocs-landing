@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
@@ -9,7 +10,21 @@ interface PdfViewerModalProps {
   onClose: () => void;
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const check = () => setIsMobile(mq.matches);
+    check();
+    mq.addEventListener('change', check);
+    return () => mq.removeEventListener('change', check);
+  }, []);
+  return isMobile;
+}
+
 export default function PdfViewerModal({ pdfUrl, businessName }: PdfViewerModalProps) {
+  const isMobile = useIsMobile();
+
   if (!pdfUrl) return null;
 
   return (
@@ -42,11 +57,27 @@ export default function PdfViewerModal({ pdfUrl, businessName }: PdfViewerModalP
           </div>
         </div>
         <div className="flex-1 overflow-hidden">
-          <iframe
-            src={pdfUrl}
-            title="Capability statement"
-            className="h-full w-full"
-          />
+          {isMobile ? (
+            <div className="flex h-full flex-col items-center justify-center gap-6 px-6 text-center">
+              <p className="text-gray-600">
+                Mobile browsers can&apos;t scroll multi-page PDFs in this view. Open your PDF in a new tab to view all pages.
+              </p>
+              <a
+                href={pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-10 py-4 text-lg font-semibold text-white shadow-md hover:shadow-lg"
+              >
+                Open PDF
+              </a>
+            </div>
+          ) : (
+            <iframe
+              src={pdfUrl}
+              title="Capability statement"
+              className="h-full w-full"
+            />
+          )}
         </div>
         <div className="shrink-0 border-t border-gray-200 bg-gray-50 px-4 py-3 text-center text-sm text-gray-500">
           We&apos;ve also emailed you a secure link to download. The link expires in 7 days.

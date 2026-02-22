@@ -3,6 +3,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const check = () => setIsMobile(mq.matches);
+    check();
+    mq.addEventListener('change', check);
+    return () => mq.removeEventListener('change', check);
+  }, []);
+  return isMobile;
+}
+
 const FRAME_COUNT = 121;
 const PREVIEW_PDF_URL = '/api/capability-statement/preview-pdf';
 const FINAL_FRAME_PATH = '/capability-statement/1lead112/1lead112/CAPABILITY.png';
@@ -24,6 +36,7 @@ export default function ScrollScrubVideo() {
   const rafRef = useRef<number | null>(null);
   const aspectRef = useRef<number | null>(null);
   const [pdfOpen, setPdfOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,7 +147,13 @@ export default function ScrollScrubVideo() {
         <div className="sticky top-[10vh] flex justify-center px-4">
           <button
             type="button"
-            onClick={() => setPdfOpen(true)}
+            onClick={() => {
+              if (isMobile) {
+                window.open(PREVIEW_PDF_URL, '_blank', 'noopener,noreferrer');
+              } else {
+                setPdfOpen(true);
+              }
+            }}
             className="group relative mx-auto w-full max-w-sm cursor-pointer overflow-hidden rounded-2xl shadow-2xl transition-shadow hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#FF8C32] focus:ring-offset-2"
           >
             <div ref={wrapperRef} className="relative w-full">
@@ -150,7 +169,7 @@ export default function ScrollScrubVideo() {
       </div>
 
       <AnimatePresence>
-        {pdfOpen && (
+        {pdfOpen && !isMobile && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
