@@ -166,6 +166,15 @@ export default function Header() {
                     </div>
                   </div>
                 </nav>
+
+                {/* Desktop secondary CTA — book a call */}
+                <a
+                  href="/book"
+                  className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group whitespace-nowrap"
+                >
+                  Book a call
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 
                 {/* CTA Button */}
                 <a 
@@ -489,6 +498,20 @@ export default function Header() {
                       </motion.div>
                     )}
                   </AnimatePresence>
+                </div>
+
+                {/* Book a call */}
+                <div>
+                  <a
+                    href="/book"
+                    onClick={closeMobileMenu}
+                    className="w-full flex items-center justify-between py-5"
+                  >
+                    <span className="text-[16px] font-medium text-gray-600">Book a call</span>
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
                 </div>
 
                 {/* Action Buttons */}
