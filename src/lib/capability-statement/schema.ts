@@ -94,7 +94,10 @@ export const step1Schema = z.object({
   yearsOperating: z.enum(['under_2', '2_5', '5_10', '10_plus']),
   businessType: z.enum(['civil_contractor', 'plant_hire', 'both', 'subcontractor']),
   coreServices: z.array(z.string()).min(1, 'Select at least one core service'),
-  coreServicesOther: z.string().optional(),
+  coreServicesOther: z.preprocess(
+    (val) => (Array.isArray(val) ? val : typeof val === 'string' && val.trim() ? [val.trim()] : []),
+    z.array(z.string()).optional().default([])
+  ),
   typicalClients: z.array(z.string()).min(1, 'Select at least one typical client'),
   phone: z.string().max(20).optional(),
   abn: z.string().max(20).optional(),

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from './_components/TestimonialCard';
 import { CapabilityStatCounter } from './_components/CapabilityStatCounter';
+import ScrollScrubVideo from './_components/ScrollScrubVideo';
 
 const BUILDER_PATH = '/capability-statement/build';
 
@@ -43,40 +44,40 @@ export default function CapabilityStatementLandingPage() {
         <section className="px-4 py-16 sm:py-24">
           <div className="mx-auto max-w-6xl">
             <h1 className="text-3xl font-semibold tracking-tight text-[#1E1E1E] sm:text-4xl lg:text-5xl">
-              Free Civil Capability Statement Generator
+              Get a tender-ready capability statement in 5 minutes
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-gray-600">
-              Answer a few questions. Get a tender-ready PDF, built for Australian civil contractors and plant hire.
+              Answer a few simple questions and we&apos;ll generate a clean PDF that matches what councils, builders, and Tier-1s expect. Built for Australian civil contractors and plant hire.
             </p>
             <ul className="mt-8 space-y-3">
               <li className="flex items-center gap-3 text-gray-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/20 text-[#FF8C32]">
-                  <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#FF8C32]/25 bg-[#FF8C32]/10 text-[#FF8C32]">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 12l5 5L20 7" />
                   </svg>
                 </span>
-                Free, no credit card
+                Structured to meet council & Tier-1 tender expectations
               </li>
               <li className="flex items-center gap-3 text-gray-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/20 text-[#FF8C32]">
-                  <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#FF8C32]/25 bg-[#FF8C32]/10 text-[#FF8C32]">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 12l5 5L20 7" />
                   </svg>
                 </span>
-                Built for civil contractors & plant hire
+                Professional PDF you can attach immediately
               </li>
               <li className="flex items-center gap-3 text-gray-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/20 text-[#FF8C32]">
-                  <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#FF8C32]/25 bg-[#FF8C32]/10 text-[#FF8C32]">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 12l5 5L20 7" />
                   </svg>
                 </span>
-                Clean PDF emailed to you
+                Built for civil contractors, earthworks & plant hire
               </li>
               <li className="flex items-center gap-3 text-gray-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/20 text-[#FF8C32]">
-                  <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#FF8C32]/25 bg-[#FF8C32]/10 text-[#FF8C32]">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 12l5 5L20 7" />
                   </svg>
                 </span>
                 Takes ~5 minutes
@@ -115,6 +116,9 @@ export default function CapabilityStatementLandingPage() {
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-semibold text-[#1E1E1E] sm:text-3xl">How it works</h2>
             <p className="mt-2 text-gray-600">Three simple steps to your capability statement.</p>
+            <div className="mt-10">
+              <ScrollScrubVideo />
+            </div>
             <div className="mt-10 grid gap-6 sm:grid-cols-3">
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF8C32]/10 text-lg font-bold text-[#FF8C32]">1</span>
@@ -123,7 +127,7 @@ export default function CapabilityStatementLandingPage() {
               </div>
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#FF8C32]/10 text-lg font-bold text-[#FF8C32]">2</span>
-                <h3 className="mt-4 font-semibold text-gray-900">Upload logo & photos (optional)</h3>
+                <h3 className="mt-4 font-semibold text-gray-900">Upload logo & photos</h3>
                 <p className="mt-2 text-sm text-gray-600">Add your branding and project images for a polished result.</p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -138,64 +142,36 @@ export default function CapabilityStatementLandingPage() {
         {/* What's included */}
         <section className="border-t border-gray-100 px-4 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-semibold text-[#1E1E1E] sm:text-3xl">What&apos;s included</h2>
-            <p className="mt-2 text-gray-600">Your PDF covers everything tenders and clients expect.</p>
+            <h2 className="text-2xl font-semibold text-[#1E1E1E] sm:text-3xl">Everything tender reviewers expect to see</h2>
+            <p className="mt-2 text-gray-600">Each capability statement is structured to match how councils, builders, and Tier-1s assess submissions.</p>
             <div className="mt-10 grid gap-8 sm:grid-cols-2">
-              <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Company overview</h3>
-                <p className="text-sm text-gray-600">Business name, regions, and type — front and centre.</p>
-                <h3 className="font-medium text-gray-900">Core capabilities</h3>
-                <p className="text-sm text-gray-600">Services you offer, from earthworks to plant hire.</p>
-                <h3 className="font-medium text-gray-900">Project experience</h3>
-                <p className="text-sm text-gray-600">Featured projects with scope, client, and outcomes.</p>
-              </div>
-              <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Plant & equipment</h3>
-                <p className="text-sm text-gray-600">Machinery and assets you operate.</p>
-                <h3 className="font-medium text-gray-900">Key personnel</h3>
-                <p className="text-sm text-gray-600">Team members, roles, and experience.</p>
-                <h3 className="font-medium text-gray-900">Compliance snapshot</h3>
-                <p className="text-sm text-gray-600">Certifications and insurance at a glance.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Preview */}
-        <section id="preview" className="scroll-mt-20 border-t border-gray-100 bg-gray-50/50 px-4 py-16 sm:py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-semibold text-[#1E1E1E] sm:text-3xl">Preview</h2>
-            <p className="mt-2 text-gray-600">A clean, professional document — ready to send.</p>
-            <div className="mt-10 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
-              <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="h-4 w-48 rounded bg-gray-300" />
-                <div className="mt-2 h-3 w-64 rounded bg-gray-200" />
-              </div>
-              <div className="space-y-6 p-6">
+              <div className="space-y-6">
                 <div>
-                  <div className="h-4 w-32 rounded bg-gray-300" />
-                  <div className="mt-2 h-3 w-full max-w-md rounded bg-gray-200" />
-                  <div className="mt-1 h-3 w-full max-w-sm rounded bg-gray-200" />
+                  <h3 className="font-semibold text-gray-900">Company overview</h3>
+                  <p className="mt-1 text-sm text-slate-600">Your business details, regions, and delivery type — clearly positioned upfront.</p>
                 </div>
                 <div>
-                  <div className="h-4 w-36 rounded bg-gray-300" />
-                  <div className="mt-2 flex gap-2">
-                    <div className="h-3 w-24 rounded bg-gray-200" />
-                    <div className="h-3 w-20 rounded bg-gray-200" />
-                    <div className="h-3 w-28 rounded bg-gray-200" />
-                  </div>
+                  <h3 className="font-semibold text-gray-900">Core capabilities</h3>
+                  <p className="mt-1 text-sm text-slate-600">Your services laid out in a way tender reviewers can scan and understand quickly.</p>
                 </div>
                 <div>
-                  <div className="h-4 w-28 rounded bg-gray-300" />
-                  <div className="mt-2 space-y-2">
-                    <div className="h-3 w-full rounded bg-gray-200" />
-                    <div className="h-3 w-[80%] rounded bg-gray-200" />
-                    <div className="h-3 w-[75%] rounded bg-gray-200" />
-                  </div>
+                  <h3 className="font-semibold text-gray-900">Project experience</h3>
+                  <p className="mt-1 text-sm text-slate-600">Relevant projects with scope, client type, and outcomes — not vague summaries.</p>
                 </div>
               </div>
-              <div className="border-t border-gray-200 px-6 py-3">
-                <div className="h-3 w-56 rounded bg-gray-200" />
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-semibold text-gray-900">Plant & equipment</h3>
+                  <p className="mt-1 text-sm text-slate-600">Machinery and assets listed clearly to demonstrate capacity and scale.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Key personnel</h3>
+                  <p className="mt-1 text-sm text-slate-600">Key team members, roles, and experience that support delivery confidence.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Compliance snapshot</h3>
+                  <p className="mt-1 text-sm text-slate-600">Licences, certifications, and insurance shown at a glance for compliance checks.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -204,6 +180,7 @@ export default function CapabilityStatementLandingPage() {
         {/* CTA - bottom of page */}
         <section className="border-t border-gray-100 px-4 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl text-center">
+            <p className="mb-4 text-sm text-slate-600">This is the exact structure used in real tender submissions.</p>
             <Link
               href={BUILDER_PATH}
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-10 py-4 text-lg font-semibold text-white shadow-md transition-all hover:shadow-lg"

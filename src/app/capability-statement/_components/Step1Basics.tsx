@@ -1,9 +1,16 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { step1Schema, type Step1Data, yearsOperatingOptions, businessTypeOptions, coreServicesOptions, typicalClientsOptions } from '@/lib/capability-statement/schema';
 import FormField from './FormField';
+
+function toArray(val: unknown): string[] {
+  if (Array.isArray(val)) return val;
+  if (typeof val === 'string' && val.trim()) return [val.trim()];
+  return [];
+}
 
 interface Step1BasicsProps {
   defaultValues?: Partial<Step1Data>;
@@ -15,6 +22,7 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
@@ -24,6 +32,7 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
       yearsOperating: undefined,
       businessType: undefined,
       coreServices: [],
+      coreServicesOther: [],
       typicalClients: [],
       phone: '',
       abn: '',
@@ -31,11 +40,21 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
       contactEmail: '',
       missionStatement: '',
       ...defaultValues,
+      coreServicesOther: toArray(defaultValues?.coreServicesOther),
     },
   });
 
+  const coreServicesOtherFieldArray = useFieldArray({ control, name: 'coreServicesOther' });
+
   const coreServices = watch('coreServices') || [];
   const hasCoreServicesOther = coreServices.includes('other');
+
+  // Auto-add one empty field when "Other" is first selected
+  useEffect(() => {
+    if (hasCoreServicesOther && coreServicesOtherFieldArray.fields.length === 0) {
+      coreServicesOtherFieldArray.append('');
+    }
+  }, [hasCoreServicesOther]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -103,12 +122,33 @@ export default function Step1Basics({ defaultValues, onSubmit }: Step1BasicsProp
           ))}
         </div>
         {hasCoreServicesOther && (
-          <FormField
-            label="Other services (please specify)"
-            {...register('coreServicesOther')}
-            placeholder="e.g. Landscaping, Asphalt"
-            className="mt-2"
-          />
+          <div className="mt-2 space-y-2">
+            <label className="block text-sm font-medium text-gray-700">Other services (please specify)</label>
+            {coreServicesOtherFieldArray.fields.map((field, index) => (
+              <div key={field.id} className="flex gap-2">
+                <input
+                  {...register(`coreServicesOther.${index}`)}
+                  suppressHydrationWarning
+                  placeholder="e.g. Landscaping, Asphalt"
+                  className="block flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-[#FF8C32] focus:outline-none focus:ring-1 focus:ring-[#FF8C32] sm:text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => coreServicesOtherFieldArray.remove(index)}
+                  className="shrink-0 rounded-lg border border-gray-300 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => coreServicesOtherFieldArray.append('')}
+              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-2.5 text-sm font-medium text-[#FF8C32] hover:border-[#FF8C32] hover:bg-orange-50"
+            >
+              <span aria-hidden>+</span> Add another service
+            </button>
+          </div>
         )}
         {errors.coreServices && <p className="text-sm text-red-600">{errors.coreServices.message}</p>}
       </div>

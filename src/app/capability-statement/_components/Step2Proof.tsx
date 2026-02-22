@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -59,6 +60,13 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
   const hasPlantOther = plantEquipment.includes('other');
   const compliance = watch('compliance') || [];
   const hasComplianceOther = compliance.includes('other');
+
+  useEffect(() => {
+    if (hasPlantOther && plantOtherFieldArray.fields.length === 0) plantOtherFieldArray.append('');
+  }, [hasPlantOther]);
+  useEffect(() => {
+    if (hasComplianceOther && complianceOtherFieldArray.fields.length === 0) complianceOtherFieldArray.append('');
+  }, [hasComplianceOther]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -247,16 +255,7 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
         </div>
         {hasPlantOther && (
           <div className="mt-2 space-y-2">
-            <div className="flex items-center justify-between">
-              <label className="block text-sm font-medium text-gray-700">Other plant/equipment</label>
-              <button
-                type="button"
-                onClick={() => plantOtherFieldArray.append('')}
-                className="text-sm font-medium text-[#FF8C32] hover:text-[#E67E22]"
-              >
-                + Add
-              </button>
-            </div>
+            <label className="block text-sm font-medium text-gray-700">Other plant/equipment</label>
             {plantOtherFieldArray.fields.map((field, index) => (
               <div key={field.id} className="flex gap-2">
                 <input
@@ -268,12 +267,19 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
                 <button
                   type="button"
                   onClick={() => plantOtherFieldArray.remove(index)}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                  className="shrink-0 rounded-lg border border-gray-300 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
                 >
                   Remove
                 </button>
               </div>
             ))}
+            <button
+              type="button"
+              onClick={() => plantOtherFieldArray.append('')}
+              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-2.5 text-sm font-medium text-[#FF8C32] hover:border-[#FF8C32] hover:bg-orange-50"
+            >
+              <span aria-hidden>+</span> Add another
+            </button>
           </div>
         )}
         {errors.plantEquipment && <p className="text-sm text-red-600">{errors.plantEquipment.message}</p>}
@@ -295,16 +301,7 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
         </div>
         {hasComplianceOther && (
           <div className="mt-2 space-y-2">
-            <div className="flex items-center justify-between">
-              <label className="block text-sm font-medium text-gray-700">Other / prequals</label>
-              <button
-                type="button"
-                onClick={() => complianceOtherFieldArray.append('')}
-                className="text-sm font-medium text-[#FF8C32] hover:text-[#E67E22]"
-              >
-                + Add
-              </button>
-            </div>
+            <label className="block text-sm font-medium text-gray-700">Other / prequals</label>
             {complianceOtherFieldArray.fields.map((field, index) => (
               <div key={field.id} className="flex gap-2">
                 <input
@@ -316,12 +313,19 @@ export default function Step2Proof({ defaultValues, onSubmit }: Step2ProofProps)
                 <button
                   type="button"
                   onClick={() => complianceOtherFieldArray.remove(index)}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                  className="shrink-0 rounded-lg border border-gray-300 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
                 >
                   Remove
                 </button>
               </div>
             ))}
+            <button
+              type="button"
+              onClick={() => complianceOtherFieldArray.append('')}
+              className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-2.5 text-sm font-medium text-[#FF8C32] hover:border-[#FF8C32] hover:bg-orange-50"
+            >
+              <span aria-hidden>+</span> Add another
+            </button>
           </div>
         )}
         {errors.compliance && <p className="text-sm text-red-600">{errors.compliance.message}</p>}

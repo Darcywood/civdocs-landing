@@ -20,6 +20,7 @@
     "framer-motion": "^12.23.24",
     "next": "^15.5.7",
     "openai": "^6.22.0",
+    "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.4.449",
     "puppeteer": "^24.25.0",
     "react": "19.1.0",

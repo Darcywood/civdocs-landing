@@ -23,9 +23,15 @@ export function buildContentFromAnswers(step1: Step1Data, step2: Step2Data): Pdf
   const coreServices = step1.coreServices
     .map((v) => getLabel(coreServicesOptions, v))
     .filter(Boolean);
-  if (step1.coreServicesOther?.trim()) {
-    coreServices.push(step1.coreServicesOther.trim());
-  }
+  const coreOtherArr = Array.isArray(step1.coreServicesOther)
+    ? step1.coreServicesOther
+    : typeof step1.coreServicesOther === 'string' && step1.coreServicesOther.trim()
+      ? [step1.coreServicesOther.trim()]
+      : [];
+  coreOtherArr.forEach((s) => {
+    const t = String(s).trim();
+    if (t) coreServices.push(t);
+  });
 
   const typicalClients = step1.typicalClients
     .map((v) => getLabel(typicalClientsOptions, v))
