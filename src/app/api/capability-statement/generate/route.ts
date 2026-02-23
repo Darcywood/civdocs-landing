@@ -10,7 +10,7 @@ import {
   uploadPdfBuffer,
   createSignedDownloadUrl,
 } from '@/lib/capability-statement/storage';
-import { sendCapabilityStatementEmail, sendCapabilityFollowUpEmail, sendCapabilityStatementNotification } from '@/lib/capability-statement/email';
+import { sendCapabilityStatementEmail, sendCapabilityFollowUpEmail, sendCapabilitySecondNurtureEmail, sendCapabilityStatementNotification } from '@/lib/capability-statement/email';
 import { getClientIp, checkAndIncrementRateLimit } from '@/lib/capability-statement/rateLimit';
 import CapabilityStatementPdf from '@/lib/pdf/CapabilityStatementPdf';
 
@@ -205,6 +205,14 @@ export async function POST(req: Request) {
       } catch (followUpErr) {
         // Non-critical — log but don't fail the request
         console.error('[generate] Follow-up email scheduling failed:', followUpErr);
+      }
+      try {
+        await sendCapabilitySecondNurtureEmail({
+          to: lead.email,
+          firstName: lead.firstName,
+        });
+      } catch (secondNurtureErr) {
+        console.error('[generate] Second nurture email scheduling failed:', secondNurtureErr);
       }
     }
 

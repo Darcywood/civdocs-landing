@@ -123,6 +123,134 @@ export async function sendCapabilityFollowUpEmail({
   });
 }
 
+export async function sendCapabilitySecondNurtureEmail({
+  to,
+  firstName,
+}: {
+  to: string;
+  firstName: string;
+}) {
+  const resend = getResend();
+  const from = process.env.FROM_EMAIL;
+  if (!from) throw new Error('FROM_EMAIL is not set');
+
+  // 48 hours after the first nurture (24h + 48h = 72h from generation)
+  const scheduledAt = new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString();
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1E1E1E; line-height: 1.7;">
+
+  <p>Hey ${firstName},</p>
+
+  <p><strong>THIS is how small civil contractors stop jobs quietly bleeding margin.</strong></p>
+
+  <p>Not by working harder.</p>
+
+  <p>Not by hiring more admin.</p>
+
+  <p>Not by building bigger spreadsheets.</p>
+
+  <p>But by fixing one simple thing:</p>
+
+  <p><strong>How information moves from site to office.</strong></p>
+
+  <p>Look — we don't know your business.</p>
+
+  <p>We don't know your crew.</p>
+
+  <p>We don't know your jobs.</p>
+
+  <p>But we DO know this:</p>
+
+  <p>Labour creeps.<br>
+  Plant runs longer than planned.<br>
+  Materials add up quietly.<br>
+  Payroll mistakes happen.</p>
+
+  <p>And by the time you see it…</p>
+
+  <p>The money's already spent.</p>
+
+  <p>That's the issue.</p>
+
+  <p>Not supervision.</p>
+
+  <p><strong>Timing.</strong></p>
+
+  <p>Most civil teams review numbers weekly.</p>
+
+  <p>But jobs move daily.</p>
+
+  <p>So while some contractors are:</p>
+
+  <p>Chasing paper timesheets every Thursday.<br>
+  Trying to remember what happened three weeks ago.<br>
+  Rebuilding documents from scratch every tender.<br>
+  Hoping margins are "probably fine."</p>
+
+  <p>The ones who've fixed the information gap are:</p>
+
+  <p>Seeing hours as they're logged.<br>
+  Approving timesheets without retyping anything.<br>
+  Clicking into a cost code and seeing exactly what made up the number.<br>
+  Pulling real job data into the next quote instead of relying on memory.</p>
+
+  <p>No paper trail.</p>
+
+  <p>No Excel heroics.</p>
+
+  <p>No end-of-month surprises.</p>
+
+  <p>Just clearer numbers, earlier.</p>
+
+  <p>We've seen it turn:</p>
+
+  <p>Payroll from chaos into a clean workflow.<br>
+  Cost reporting from a total number into something you can actually learn from.<br>
+  And quoting from guesswork into something far more confident.</p>
+
+  <p>It's not flashy.</p>
+
+  <p>It's not "AI magic."</p>
+
+  <p>It's just site records, timesheets, plant logs and costs connected properly.</p>
+
+  <p>If you want to see how that would look inside your business…</p>
+
+  <p>And whether it actually makes sense for how you run jobs…</p>
+
+  <p>Book a quick, no-pressure chat.</p>
+
+  <p>We'll walk through your setup.</p>
+
+  <p>And if it's not right, that's fine.</p>
+
+  <p style="margin: 24px 0;">
+    <a href="${BOOK_URL}" style="display: inline-block; background: linear-gradient(to right, #FF8C32, #F5B041); color: white; padding: 12px 24px; text-decoration: none; border-radius: 9999px; font-weight: 600;">See If It's a Fit</a>
+  </p>
+
+  <p>Cheers,<br>Darcy</p>
+
+  <p style="font-size: 14px; color: #666; font-style: italic;">P.S. Most jobs don't blow out from one big mistake.<br>They drift.<br>This is about catching drift earlier.</p>
+
+  <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+  <p style="font-size: 11px; color: #999;">You're receiving this because you opted in to tips and updates from CivDocs. — CivDocs, civdocs.com.au</p>
+</body>
+</html>
+`;
+
+  return resend.emails.send({
+    from,
+    to,
+    subject: `How small civil contractors stop jobs quietly bleeding margin`,
+    html,
+    scheduledAt,
+  });
+}
+
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'darcy@civdocs.com.au';
 
 export async function sendCapabilityStatementNotification({
