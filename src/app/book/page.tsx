@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import DarcyPhoto from '@/components/marketing/DarcyPhoto';
 import CalendlyWithUtm from '@/components/marketing/CalendlyWithUtm';
+import { Marquee } from '@/components/ui/marquee';
+import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
+import BookFAQ from './_components/BookFAQ';
 
 export const metadata: Metadata = {
   title: 'Book a Quick CivDocs Fit Check',
@@ -11,24 +14,27 @@ export const metadata: Metadata = {
 };
 
 const IS_LIST = [
-  'Practical and straight-up',
-  'Focused on your setup',
-  'No prep required',
-  '15 minutes',
+  'Straight-up and practical — no fluff',
+  'About your setup, not a generic pitch',
+  'Zero prep. Just show up.',
+  'Short and to the point',
 ];
 
 const IS_NOT_LIST = [
-  'A hard sales pitch',
-  'A long demo',
-  'A commitment',
-  'A generic SaaS call',
+  'A hard sell or pushy demo',
+  'An hour of slides you don’t need',
+  'Any commitment to sign up',
+  'One of those “let me show you our roadmap” calls',
 ];
 
-const COVER_BULLETS = [
-  'Your current capability statement process',
-  'What tender reviewers typically check',
-  'Where compliance / info usually falls over',
-  'Whether CivDocs would simplify this for you',
+const TOP_ROW_CARDS = [
+  { name: 'John', company: 'Jal Civil', quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.", logoSrc: '/capability-statement/Jal.png' },
+  { name: 'Riley', company: 'RMF Earthworx', quote: "It's simple. Select the job, log the hours, submit. The blokes picked it up without needing a training day.", logoSrc: '/capability-statement/rmf.png' },
+];
+
+const BOTTOM_ROW_CARDS = [
+  { name: 'Colby', company: 'Ali Excavations', quote: "Plant hours used to live in notebooks. Now they're logged daily and tied back to the job properly.", logoSrc: '/capability-statement/ali.png' },
+  { name: 'Riley', company: 'Rj Piling', quote: "Being able to click into a job and see exactly where the hours and plant costs came from has made quoting less stressful.", logoSrc: '/capability-statement/rj.png' },
 ];
 
 export default function BookPage() {
@@ -36,13 +42,22 @@ export default function BookPage() {
     <>
       <Header />
 
-      <main className="bg-[#F8F9FA] min-h-screen">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-12 sm:pb-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
 
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
 
             {/* ── Left column ─────────────────────────────────────── */}
             <div className="mb-10 lg:mb-0 lg:sticky lg:top-24">
+
+              {/* Darcy intro — alternating photos from Bookacall */}
+              <div className="flex items-center gap-4 mb-6">
+                <DarcyPhoto />
+                <div>
+                  <p className="font-semibold text-gray-900">Darcy</p>
+                  <p className="text-sm text-slate-500">Founder, CivDocs</p>
+                </div>
+              </div>
 
               {/* Eyebrow */}
               <p className="text-sm font-semibold uppercase tracking-widest text-[#FF8C32] mb-3">
@@ -54,10 +69,11 @@ export default function BookPage() {
                 Quick CivDocs Fit Check
               </h1>
 
-              {/* Subhead */}
+              {/* Subhead — casual, for someone who&apos;s seen CivDocs but isn&apos;t sure */}
               <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-                A short, no-pressure chat to see whether CivDocs would actually
-                help your business. No prep required.
+                You&apos;ve had a look — now let&apos;s work out if it actually fits.
+                No prep, no pressure. Just a quick friendly chat to see if CivDocs would
+                help your business.
               </p>
 
               {/* Is / Isn't cards */}
@@ -90,49 +106,45 @@ export default function BookPage() {
                   </ul>
                 </div>
               </div>
-
-              {/* What we'll cover */}
-              <div className="mt-8">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-3">
-                  What we&apos;ll cover
-                </h2>
-                <ul className="space-y-2.5">
-                  {COVER_BULLETS.map((b) => (
-                    <li key={b} className="flex items-start gap-3 text-sm text-gray-700">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF8C32]" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Trust line */}
-              <p className="mt-8 text-xs text-slate-400">
-                Built for Australian civil contractors and plant hire.
-              </p>
             </div>
 
             {/* ── Right column — booking card ──────────────────────── */}
             <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              <div className="px-6 pt-6 pb-2">
-                <h2 className="text-xl font-semibold text-gray-900">Pick a time</h2>
-                <p className="mt-1 text-sm text-slate-500">Free chat. No sales pressure.</p>
-              </div>
-
-              <Suspense fallback={
-                <div className="flex items-center justify-center" style={{ height: 720 }}>
-                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#FF8C32] border-t-transparent" />
+                <div className="px-6 pt-6 pb-2">
+                  <h2 className="text-xl font-semibold text-gray-900">Pick a time</h2>
+                  <p className="mt-1 text-sm text-slate-500">Free chat. No sales pressure.</p>
                 </div>
-              }>
-                <CalendlyWithUtm height={720} />
-              </Suspense>
+
+                <Suspense fallback={
+                  <div className="flex items-center justify-center" style={{ height: 720 }}>
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#FF8C32] border-t-transparent" />
+                  </div>
+                }>
+                  <CalendlyWithUtm height={720} />
+                </Suspense>
             </div>
 
           </div>
+
+          {/* Social proof marquee — underneath booking card */}
+          <div className="mt-10 overflow-hidden -mx-4 sm:-mx-6 lg:mx-0">
+            <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse={false} pauseOnHover>
+              {[...TOP_ROW_CARDS, ...BOTTOM_ROW_CARDS].map((card) => (
+                <TestimonialCard
+                  key={`${card.name}-${card.company}`}
+                  name={card.name}
+                  company={card.company}
+                  quote={card.quote}
+                  logoSrc={card.logoSrc}
+                />
+              ))}
+            </Marquee>
+          </div>
+
+          {/* FAQ section */}
+          <BookFAQ />
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

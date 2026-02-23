@@ -106,12 +106,12 @@ export default function Home() {
               </h2>
             <div className="flex flex-col items-center">
                 <a 
-                href="/start-trial" 
+                href="/book" 
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 >
-                Start Free Trial →
+                Book a call →
                 </a>
-              <p className="text-base font-bold text-[#FF8C32] mt-4 animate-pulse-glow drop-shadow-sm">No credit card required</p>
+              <p className="text-base font-bold text-[#FF8C32] mt-4 animate-pulse-glow drop-shadow-sm">Free 15-minute fit check</p>
             </div>
             
             {/* Dashboard Preview */}
@@ -278,10 +278,10 @@ export default function Home() {
             {/* CTA */}
             <div className="flex flex-col items-start">
               <a 
-                href="/start-trial" 
+                href="/book" 
                 className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
               >
-                <span className="text-center sm:text-left">Start 14-Day Trial - No Credit Card Required</span>
+                <span className="text-center sm:text-left">Book a call</span>
                 <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -415,13 +415,13 @@ export default function Home() {
               {/* CTA */}
               <div className="flex flex-col items-start">
                 <a 
-                  href="/start-trial" 
+                  href="/book" 
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
                 >
-                  Start Free Trial →
+                  Book a call →
                 </a>
                 <p className="text-base font-normal text-neutral-700 mt-4">
-                  No credit card required. Create invoices from real site data.
+                  Free 15-minute fit check. No pressure.
                 </p>
               </div>
             </div>
@@ -700,10 +700,10 @@ export default function Home() {
               {/* CTA below video */}
               <div className="mt-8 flex flex-col items-center gap-4">
                 <a 
-                  href="/start-trial" 
+                  href="/book" 
                   className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
-                  <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>
+                  <span className="text-center">Book a call</span>
                   <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -780,10 +780,10 @@ export default function Home() {
               </p>
               <div className="flex flex-col items-start gap-4">
                 <a 
-                  href="/start-trial" 
+                  href="/book" 
                   className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
                 >
-                  <span className="text-center sm:text-left">Start 14-Day Trial - No Credit Card Required</span>
+                  <span className="text-center sm:text-left">Book a call</span>
                   <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
                     <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -791,7 +791,7 @@ export default function Home() {
                   </span>
                 </a>
                 <p className="text-sm text-gray-500">
-                  Get started in minutes
+                  Free 15-minute fit check
                 </p>
               </div>
             </div>
