@@ -2,9 +2,6 @@
 
 import Link from 'next/link';
 
-const CAPABILITY_VIDEO_URL = process.env.NEXT_PUBLIC_CAPABILITY_VIDEO_URL || 'https://placeholder.com/video';
-const CAPABILITY_BOOK_URL = process.env.NEXT_PUBLIC_CAPABILITY_BOOK_URL || 'https://calendly.com/placeholder';
-
 export default function CapabilityStatementSuccessPage() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
@@ -23,22 +20,12 @@ export default function CapabilityStatementSuccessPage() {
               Check your inbox — we&apos;ve sent you a secure link to download your PDF. The link expires in 7 days.
             </p>
             <div className="space-y-4">
-              <a
-                href={CAPABILITY_VIDEO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/book"
                 className="block w-full rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-6 py-3 font-semibold text-white shadow-md transition-all hover:shadow-lg"
               >
-                Watch 3-min CivDocs video
-              </a>
-              <a
-                href={CAPABILITY_BOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full rounded-full border-2 border-gray-200 px-6 py-3 font-semibold text-gray-700 transition-all hover:border-[#FF8C32] hover:text-[#FF8C32]"
-              >
                 Book a 15-min walkthrough
-              </a>
+              </Link>
             </div>
             <p className="mt-8 text-sm text-gray-500">
               While you wait, see what CivDocs can do for your business.

@@ -10,7 +10,8 @@ import {
   uploadPdfBuffer,
   createSignedDownloadUrl,
 } from '@/lib/capability-statement/storage';
-import { sendCapabilityStatementEmail, sendCapabilityFollowUpEmail } from '@/lib/capability-statement/email';
+import { sendCapabilityStatementEmail, sendCapabilityFollowUpEmail, sendCapabilityStatementNotification } from '@/lib/capability-statement/email';
+import { getClientIp, checkAndIncrementRateLimit } from '@/lib/capability-statement/rateLimit';
 import CapabilityStatementPdf from '@/lib/pdf/CapabilityStatementPdf';
 
 export const runtime = 'nodejs';
@@ -44,8 +45,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
     }
 
-    const submissionId = providedId || randomUUID();
     const supabase = getSupabase();
+
+    // IP rate limit: 3 per hour to protect OpenAI costs from bots
+    const clientIp = getClientIp(req) ?? 'unknown';
+    if (clientIp !== 'unknown' && clientIp !== '127.0.0.1') {
+      const { allowed } = await checkAndIncrementRateLimit(supabase, clientIp);
+      if (!allowed) {
+        return NextResponse.json(
+          { error: 'Rate limit exceeded. Please try again in an hour.' },
+          { status: 429 }
+        );
+      }
+    }
+
+    const submissionId = providedId || randomUUID();
 
     const { data: submission, error: insertError } = await supabase
       .from('capability_statement_submissions')
@@ -165,6 +179,22 @@ export async function POST(req: Request) {
       businessName: answers.step1.businessName,
       pdfUrl: pdfSignedUrl,
     });
+
+    // Notify admin of new capability statement
+    const poi1 = answers.step2.keyPersonnel[0];
+    const personOfInterest1 = poi1
+      ? `${poi1.name} (${poi1.role}, ${poi1.yearsExperience})`
+      : null;
+    try {
+      await sendCapabilityStatementNotification({
+        firstName: lead.firstName,
+        businessName: answers.step1.businessName,
+        email: lead.email,
+        personOfInterest1,
+      });
+    } catch (notifyErr) {
+      console.error('[generate] Admin notification failed:', notifyErr);
+    }
 
     if (lead.marketingConsent) {
       try {
