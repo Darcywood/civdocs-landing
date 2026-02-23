@@ -17,14 +17,12 @@ const IS_LIST = [
   'Straight-up and practical — no fluff',
   'About your setup, not a generic pitch',
   'Zero prep. Just show up.',
-  'Short and to the point',
 ];
 
 const IS_NOT_LIST = [
   'A hard sell or pushy demo',
   'An hour of slides you don’t need',
   'Any commitment to sign up',
-  'One of those “let me show you our roadmap” calls',
 ];
 
 const TOP_ROW_CARDS = [
@@ -58,11 +56,6 @@ export default function BookPage() {
                   <p className="text-sm text-slate-500">Founder, CivDocs</p>
                 </div>
               </div>
-
-              {/* Eyebrow */}
-              <p className="text-sm font-semibold uppercase tracking-widest text-[#FF8C32] mb-3">
-                Free · 15 minutes
-              </p>
 
               {/* H1 */}
               <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">

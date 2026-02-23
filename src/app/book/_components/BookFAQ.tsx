@@ -83,7 +83,7 @@ const FAQ_ITEMS = [
 ];
 
 export default function BookFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="mt-16 sm:mt-20">
