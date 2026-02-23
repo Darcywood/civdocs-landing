@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import Header from '@/components/Header';
 import DarcyPhoto from '@/components/marketing/DarcyPhoto';
 import CalendlyWithUtm from '@/components/marketing/CalendlyWithUtm';
-import { Marquee } from '@/components/ui/marquee';
+import { DraggableMarquee } from '@/components/ui/DraggableMarquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import BookFAQ from './_components/BookFAQ';
 
@@ -121,7 +121,7 @@ export default function BookPage() {
 
           {/* Social proof marquee — underneath booking card */}
           <div className="mt-10 overflow-hidden -mx-4 sm:-mx-6 lg:mx-0">
-            <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse={false} pauseOnHover>
+            <DraggableMarquee className="p-2" duration={25} repeat={4} gap={1.5}>
               {[...TOP_ROW_CARDS, ...BOTTOM_ROW_CARDS].map((card) => (
                 <TestimonialCard
                   key={`${card.name}-${card.company}`}
@@ -131,7 +131,7 @@ export default function BookPage() {
                   logoSrc={card.logoSrc}
                 />
               ))}
-            </Marquee>
+            </DraggableMarquee>
           </div>
 
           {/* FAQ section */}

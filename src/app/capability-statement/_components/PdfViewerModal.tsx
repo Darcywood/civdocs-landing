@@ -49,8 +49,8 @@ export default function PdfViewerModal({ pdfUrl, businessName }: PdfViewerModalP
               Download PDF
             </a>
             <Link
-              href="/capability-statement"
-              className="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              href="/book"
+              className="rounded-full bg-[#FF8C32] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E67E22]"
             >
               Done
             </Link>

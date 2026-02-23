@@ -223,6 +223,15 @@ img[src*="CivDocs"] {
   max-width: 100% !important;
 }
 
+/* Hide scrollbar for draggable marquee */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Swiper Smooth Transitions */
 .swiper-wrapper {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
