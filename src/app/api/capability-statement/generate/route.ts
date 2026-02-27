@@ -173,6 +173,8 @@ export async function POST(req: Request) {
 
     const pdfSignedUrl = await createSignedDownloadUrl(pdfPath, EXPIRY_SECONDS);
 
+    const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
     await sendCapabilityStatementEmail({
       to: lead.email,
       firstName: lead.firstName,
@@ -181,6 +183,7 @@ export async function POST(req: Request) {
     });
 
     // Notify admin of new capability statement
+    await delay(600);
     const poi1 = answers.step2.keyPersonnel[0];
     const personOfInterest1 = poi1
       ? `${poi1.name} (${poi1.role}, ${poi1.yearsExperience})`
@@ -197,15 +200,16 @@ export async function POST(req: Request) {
     }
 
     if (lead.marketingConsent) {
+      await delay(600);
       try {
         await sendCapabilityFollowUpEmail({
           to: lead.email,
           firstName: lead.firstName,
         });
       } catch (followUpErr) {
-        // Non-critical — log but don't fail the request
         console.error('[generate] Follow-up email scheduling failed:', followUpErr);
       }
+      await delay(600);
       try {
         await sendCapabilitySecondNurtureEmail({
           to: lead.email,
