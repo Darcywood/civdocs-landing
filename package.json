@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "seed:grader-specs": "node scripts/seed-grader-specs.mjs",
+    "seed:excavator-specs": "node scripts/seed-excavator-specs.mjs",
+    "seed:posi-track-specs": "node scripts/seed-posi-track-specs.mjs",
     "build": "next build --no-lint",
     "start": "next start",
     "lint": "next lint",

@@ -3,11 +3,45 @@ import { createClient } from '@supabase/supabase-js';
 import { renderToBuffer } from '@react-pdf/renderer';
 import React from 'react';
 import { randomUUID } from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import type { RiskAssessmentPayload } from '@/lib/risk-assessment/types';
 import { GRADER_QUESTIONS } from '@/lib/risk-assessment/graderQuestions';
+import { EXCAVATOR_QUESTIONS } from '@/lib/risk-assessment/excavatorQuestions';
+import { POSI_TRACK_QUESTIONS } from '@/lib/risk-assessment/posiTrackQuestions';
+import { ROLLER_QUESTIONS } from '@/lib/risk-assessment/rollerQuestions';
 import { uploadRiskAssessmentPdf, createSignedDownloadUrl } from '@/lib/risk-assessment/storage';
 import { sendRiskAssessmentEmail, sendRiskAssessmentNotification } from '@/lib/risk-assessment/email';
 import RiskAssessmentPdf from '@/lib/pdf/RiskAssessmentPdf';
+
+function loadLogoDataUrl(): string | null {
+  try {
+    const logoPath = path.join(process.cwd(), 'public', 'homepage', 'pngcivdocs1000x400.png');
+    const buffer = fs.readFileSync(logoPath);
+    return `data:image/png;base64,${buffer.toString('base64')}`;
+  } catch {
+    return null;
+  }
+}
+
+function loadRiskIconsDataUrls(): Record<string, string> {
+  const iconsDir = path.join(process.cwd(), 'public', 'icons-riskassesment');
+  const result: Record<string, string> = {};
+  try {
+    const files = fs.readdirSync(iconsDir);
+    for (const file of files) {
+      if (file.endsWith('.png') || file.endsWith('.svg')) {
+        const name = path.basename(file, path.extname(file));
+        const buffer = fs.readFileSync(path.join(iconsDir, file));
+        const mime = file.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
+        result[name] = `data:${mime};base64,${buffer.toString('base64')}`;
+      }
+    }
+  } catch {
+    // Icons folder may not exist yet
+  }
+  return result;
+}
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -27,8 +61,7 @@ function generateReportNumber(): string {
   const now = new Date();
   const date = now.toISOString().slice(0, 10).replace(/-/g, '');
   const time = now.toTimeString().slice(0, 5).replace(':', '');
-  const rand = Math.floor(Math.random() * 90000 + 10000);
-  return `${rand} ${date}-${time}`;
+  return `RA-${date}-${time}`;
 }
 
 export async function POST(req: Request) {
@@ -77,22 +110,37 @@ export async function POST(req: Request) {
       // Non-fatal — continue with PDF generation
     }
 
-    // Count treatments
+    // Count treatments using the correct question set
+    const isExcavator = basics.machineType === 'Excavator';
+    const isPosiTrack = basics.machineType === 'Posi Track';
+    const isRoller = basics.machineType === 'Roller';
+    const activeQuestions = isExcavator
+      ? EXCAVATOR_QUESTIONS
+      : isPosiTrack
+        ? POSI_TRACK_QUESTIONS
+        : isRoller
+          ? ROLLER_QUESTIONS
+          : GRADER_QUESTIONS;
     let treatmentsInPlace = 0;
     let treatmentsRequired = 0;
-    GRADER_QUESTIONS.forEach((q) => {
+    activeQuestions.forEach((q) => {
       const answer = body.answers[q.id];
       if (answer === 'yes') treatmentsInPlace++;
       if (answer === 'no') treatmentsRequired++;
     });
 
     // Generate PDF
+    const logoDataUrl = loadLogoDataUrl();
+    const iconDataUrls = loadRiskIconsDataUrls();
     const pdfBuffer = await renderToBuffer(
       React.createElement(RiskAssessmentPdf, {
         basics,
         specs: body.specs,
         answers: body.answers,
-      })
+        logoDataUrl,
+        iconDataUrls,
+        machineImages: body.lead?.machineImages,
+      }) as Parameters<typeof renderToBuffer>[0]
     );
 
     // Upload PDF

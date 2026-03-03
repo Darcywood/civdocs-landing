@@ -1,13 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import type { Section2Answers, QuestionAnswer } from '@/lib/risk-assessment/types';
+import type { Section2Answers, QuestionAnswer, Question } from '@/lib/risk-assessment/types';
 import { GRADER_QUESTIONS, SURVEY_GROUPS } from '@/lib/risk-assessment/graderQuestions';
 
 interface Props {
   onSubmit: (answers: Section2Answers) => void;
   onBack: () => void;
   initial?: Section2Answers;
+  /** Override question set (defaults to grader questions) */
+  questions?: Question[];
+  /** Override survey group order (defaults to grader groups) */
+  surveyGroups?: string[];
 }
 
 const ANSWER_OPTIONS: { value: QuestionAnswer; label: string; color: string }[] = [
@@ -22,10 +26,13 @@ const ACTIVE_CLASSES: Record<NonNullable<QuestionAnswer>, string> = {
   na: 'bg-gray-500 text-white border-gray-500',
 };
 
-export default function Step3Questions({ onSubmit, onBack, initial }: Props) {
+export default function Step3Questions({ onSubmit, onBack, initial, questions: questionsProp, surveyGroups: surveyGroupsProp }: Props) {
+  const activeQuestions = questionsProp ?? GRADER_QUESTIONS;
+  const activeSurveyGroups = surveyGroupsProp ?? SURVEY_GROUPS;
+
   const [answers, setAnswers] = useState<Section2Answers>(initial ?? {});
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(
-    Object.fromEntries(SURVEY_GROUPS.map((g, i) => [g, i === 0]))
+    Object.fromEntries(activeSurveyGroups.map((g, i) => [g, i === 0]))
   );
   const [showUnanswered, setShowUnanswered] = useState(false);
 
@@ -37,10 +44,10 @@ export default function Step3Questions({ onSubmit, onBack, initial }: Props) {
     setOpenGroups((g) => ({ ...g, [group]: !g[group] }));
   }
 
-  const questionsByGroup = SURVEY_GROUPS.reduce((acc, group) => {
-    acc[group] = GRADER_QUESTIONS.filter((q) => q.surveyGroup === group);
+  const questionsByGroup = activeSurveyGroups.reduce((acc, group) => {
+    acc[group] = activeQuestions.filter((q) => q.surveyGroup === group);
     return acc;
-  }, {} as Record<string, typeof GRADER_QUESTIONS>);
+  }, {} as Record<string, Question[]>);
 
   function groupProgress(group: string) {
     const qs = questionsByGroup[group] ?? [];
@@ -48,9 +55,9 @@ export default function Step3Questions({ onSubmit, onBack, initial }: Props) {
     return { answered, total: qs.length };
   }
 
-  const totalAnswered = GRADER_QUESTIONS.filter((q) => answers[q.id]).length;
-  const totalQuestions = GRADER_QUESTIONS.length;
-  const unanswered = GRADER_QUESTIONS.filter((q) => !answers[q.id]);
+  const totalAnswered = activeQuestions.filter((q) => answers[q.id]).length;
+  const totalQuestions = activeQuestions.length;
+  const unanswered = activeQuestions.filter((q) => !answers[q.id]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -60,7 +67,7 @@ export default function Step3Questions({ onSubmit, onBack, initial }: Props) {
       const groupsWithUnanswered = new Set(unanswered.map((q) => q.surveyGroup));
       setOpenGroups((g) => {
         const next = { ...g };
-        groupsWithUnanswered.forEach((gr) => { next[gr] = true; });
+        groupsWithUnanswered.forEach((gr: string) => { next[gr] = true; });
         return next;
       });
       window.scrollTo({ top: 200, behavior: 'smooth' });
@@ -100,7 +107,7 @@ export default function Step3Questions({ onSubmit, onBack, initial }: Props) {
       )}
 
       {/* Question groups */}
-      {SURVEY_GROUPS.map((group) => {
+      {activeSurveyGroups.map((group) => {
         const qs = questionsByGroup[group] ?? [];
         const { answered, total } = groupProgress(group);
         const allAnswered = answered === total;

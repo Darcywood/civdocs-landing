@@ -4,11 +4,22 @@ import { useState, useEffect, useCallback } from 'react';
 import type {
   MachineBasics,
   GraderSpecs,
+  ExcavatorSpecs,
+  PosiTrackSpecs,
+  RollerSpecs,
   Section2Answers,
   RiskAssessmentLead,
 } from '@/lib/risk-assessment/types';
+import { EXCAVATOR_QUESTIONS, EXCAVATOR_SURVEY_GROUPS } from '@/lib/risk-assessment/excavatorQuestions';
+import { POSI_TRACK_QUESTIONS, POSI_TRACK_SURVEY_GROUPS } from '@/lib/risk-assessment/posiTrackQuestions';
+import { ROLLER_QUESTIONS, ROLLER_SURVEY_GROUPS } from '@/lib/risk-assessment/rollerQuestions';
+import RiskAssessmentGenerationModal from './RiskAssessmentGenerationModal';
+import RiskAssessmentPdfViewerModal from './RiskAssessmentPdfViewerModal';
 import Step1Basics from './Step1Basics';
 import Step2Specs from './Step2Specs';
+import Step2ExcavatorSpecs from './Step2ExcavatorSpecs';
+import Step2PosiTrackSpecs from './Step2PosiTrackSpecs';
+import Step2RollerSpecs from './Step2RollerSpecs';
 import Step3Questions from './Step3Questions';
 import Step4Lead from './Step4Lead';
 
@@ -17,9 +28,13 @@ const STORAGE_KEY = 'risk-assessment-draft';
 interface Draft {
   step: number;
   basics?: MachineBasics;
-  specs?: GraderSpecs;
+  specs?: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs;
   answers?: Section2Answers;
   lead?: Partial<RiskAssessmentLead>;
+}
+
+interface RiskAssessmentWizardProps {
+  onStepChange?: (step: number) => void;
 }
 
 const STEPS = [
@@ -29,10 +44,10 @@ const STEPS = [
   { label: 'Your Details', short: '4' },
 ];
 
-export default function RiskAssessmentWizard() {
+export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWizardProps = {}) {
   const [step, setStep] = useState(1);
   const [basics, setBasics] = useState<MachineBasics | null>(null);
-  const [specs, setSpecs] = useState<GraderSpecs | null>(null);
+  const [specs, setSpecs] = useState<GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | null>(null);
   const [answers, setAnswers] = useState<Section2Answers>({});
   const [lead, setLead] = useState<Partial<RiskAssessmentLead>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -61,6 +76,7 @@ export default function RiskAssessmentWizard() {
 
   useEffect(() => { loadDraft(); }, [loadDraft]);
   useEffect(() => { saveDraft(); }, [saveDraft]);
+  useEffect(() => { onStepChange?.(step); }, [step, onStepChange]);
 
   const clearDraft = useCallback(() => {
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
@@ -96,12 +112,22 @@ export default function RiskAssessmentWizard() {
     }
   }
 
-  if (result) {
-    return <SuccessScreen result={result} machineLabel={basics ? `${basics.make} ${basics.model} ${basics.machineType}` : 'Machine'} email={lead.email ?? ''} />;
-  }
+  const machineLabel = basics ? `${basics.make} ${basics.model} ${basics.machineType}` : 'Machine';
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <>
+      {result && (
+        <RiskAssessmentPdfViewerModal
+          pdfUrl={result.pdfUrl}
+          reportNumber={result.reportNumber}
+          machineLabel={machineLabel}
+          treatmentsInPlace={result.treatmentsInPlace}
+          treatmentsRequired={result.treatmentsRequired}
+          onClose={() => setResult(null)}
+        />
+      )}
+      <div className="max-w-2xl mx-auto">
+        {isSubmitting && <RiskAssessmentGenerationModal isOpen={true} />}
       {/* Progress stepper */}
       <div className="mb-8">
         <div className="flex items-center justify-between relative">
@@ -140,14 +166,66 @@ export default function RiskAssessmentWizard() {
           onSubmit={(data) => { setBasics(data); setStep(2); window.scrollTo(0, 0); }}
         />
       )}
-      {step === 2 && (
-        <Step2Specs
-          initial={specs ?? {}}
+      {step === 2 && basics?.machineType === 'Excavator' && (
+        <Step2ExcavatorSpecs
+          initial={(specs as ExcavatorSpecs) ?? {}}
           onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
           onBack={() => { setStep(1); window.scrollTo(0, 0); }}
+          onSpecsChange={(data) => setSpecs(data)}
         />
       )}
-      {step === 3 && (
+      {step === 2 && basics?.machineType === 'Posi Track' && (
+        <Step2PosiTrackSpecs
+          initial={(specs as PosiTrackSpecs) ?? {}}
+          onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(1); window.scrollTo(0, 0); }}
+          onSpecsChange={(data) => setSpecs(data)}
+        />
+      )}
+      {step === 2 && basics?.machineType === 'Roller' && (
+        <Step2RollerSpecs
+          initial={(specs as RollerSpecs) ?? {}}
+          onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(1); window.scrollTo(0, 0); }}
+          onSpecsChange={(data) => setSpecs(data)}
+        />
+      )}
+      {step === 2 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && (
+        <Step2Specs
+          initial={(specs as GraderSpecs) ?? {}}
+          onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(1); window.scrollTo(0, 0); }}
+          onSpecsChange={(data) => setSpecs(data)}
+        />
+      )}
+      {step === 3 && basics?.machineType === 'Excavator' && (
+        <Step3Questions
+          initial={answers}
+          questions={EXCAVATOR_QUESTIONS}
+          surveyGroups={[...EXCAVATOR_SURVEY_GROUPS]}
+          onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(2); window.scrollTo(0, 0); }}
+        />
+      )}
+      {step === 3 && basics?.machineType === 'Posi Track' && (
+        <Step3Questions
+          initial={answers}
+          questions={POSI_TRACK_QUESTIONS}
+          surveyGroups={[...POSI_TRACK_SURVEY_GROUPS]}
+          onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(2); window.scrollTo(0, 0); }}
+        />
+      )}
+      {step === 3 && basics?.machineType === 'Roller' && (
+        <Step3Questions
+          initial={answers}
+          questions={ROLLER_QUESTIONS}
+          surveyGroups={[...ROLLER_SURVEY_GROUPS]}
+          onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(2); window.scrollTo(0, 0); }}
+        />
+      )}
+      {step === 3 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && (
         <Step3Questions
           initial={answers}
           onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}
@@ -160,62 +238,11 @@ export default function RiskAssessmentWizard() {
           isSubmitting={isSubmitting}
           onSubmit={handleFinalSubmit}
           onBack={() => { setStep(3); window.scrollTo(0, 0); }}
+          onMachineImagesChange={(images) => setLead((l) => ({ ...l, machineImages: images }))}
         />
       )}
-    </div>
+      </div>
+    </>
   );
 }
 
-function SuccessScreen({
-  result,
-  machineLabel,
-  email,
-}: {
-  result: { pdfUrl: string; reportNumber: string; treatmentsInPlace: number; treatmentsRequired: number };
-  machineLabel: string;
-  email: string;
-}) {
-  return (
-    <div className="max-w-lg mx-auto text-center space-y-6">
-      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mx-auto">
-        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Report is Ready</h2>
-        <p className="text-gray-600">
-          Your Risk Management Report for <strong>{machineLabel}</strong> has been generated.
-          A download link has been sent to <strong>{email}</strong>.
-        </p>
-      </div>
-
-      <div className="bg-gray-50 rounded-xl p-5 text-left space-y-2">
-        <p className="text-sm text-gray-500">Report Number: <span className="font-mono text-gray-700">{result.reportNumber}</span></p>
-        <div className="flex gap-6 pt-1">
-          <div className="text-center">
-            <p className="text-2xl font-bold text-green-600">{result.treatmentsInPlace}</p>
-            <p className="text-xs text-gray-500">Treatments In Place</p>
-          </div>
-          {result.treatmentsRequired > 0 && (
-            <div className="text-center">
-              <p className="text-2xl font-bold text-red-600">{result.treatmentsRequired}</p>
-              <p className="text-xs text-gray-500">Treatments Required</p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <a
-        href={result.pdfUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] py-3.5 font-semibold text-white shadow-md hover:shadow-lg transition-all text-center"
-      >
-        Download PDF Report
-      </a>
-
-      <p className="text-xs text-gray-400">Download link expires in 7 days. Check your email if you need it later.</p>
-    </div>
-  );
-}

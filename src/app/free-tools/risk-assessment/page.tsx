@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
-import RiskAssessmentWizard from './_components/RiskAssessmentWizard';
+import QuickGenerateButton from './_components/QuickGenerateButton';
 
 export const metadata: Metadata = {
   title: 'Free Machine Risk Assessment Generator — CivDocs',
@@ -13,13 +15,13 @@ const TESTIMONIAL_CARDS = [
   {
     name: 'John',
     company: 'Jal Civil',
-    quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.",
+    quote: "Before CivDocs, risk assessments were rushed the night before mobilisation. Now they're structured and consistent every time. Instead of editing Word docs from 2018, we're generating assessments specific to the machine and job.",
     logoSrc: '/capability-statement/Jal.png',
   },
   {
-    name: 'Mitchell',
+    name: 'Riley',
     company: 'RJ Piling',
-    quote: "Being able to click into a job and see exactly where the hours and plant costs came from has made quoting less stressful.",
+    quote: "It's simple. Fill it out, export the PDF, done. No overcomplicated forms. It's honestly dead simple. Answer a few questions and the risk assessment's done. No overthinking it.",
     logoSrc: '/capability-statement/rj.png',
   },
   {
@@ -38,7 +40,7 @@ const TESTIMONIAL_CARDS = [
 
 const STEPS = [
   { num: '1', title: 'Machine Details', desc: 'Enter the make, model, type and basic identification info.' },
-  { num: '2', title: 'Standard Specs', desc: 'Fill in the machine specs grouped by category — all optional.' },
+  { num: '2', title: 'Standard Specs', desc: 'Fill in the machine specs grouped by category.' },
   { num: '3', title: 'Compliance Questions', desc: 'Answer Yes, No, or N/A for each safety question.' },
   { num: '4', title: 'Get Your PDF', desc: 'Enter your details and we\'ll email you the full report.' },
 ];
@@ -46,8 +48,10 @@ const STEPS = [
 export default function RiskAssessmentPage() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <Header />
+      <div className="pt-20">
       {/* Hero */}
-      <section className="px-4 py-16 sm:py-24 bg-gradient-to-b from-white to-[#FFF5ED]">
+      <section className="px-4 py-16 sm:py-24 bg-[#FFF5ED]" style={{ background: 'linear-gradient(to bottom, #ffffff 0%, #FFF5ED 40%)' }}>
         <div className="mx-auto max-w-6xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#FF8C32]/20 bg-[#FF8C32]/5 px-3 py-1 mb-6">
             <span className="text-xs font-semibold text-[#CC5500]">FREE TOOL</span>
@@ -76,12 +80,21 @@ export default function RiskAssessmentPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-10 flex flex-col items-start gap-2">
+            <QuickGenerateButton />
+            <Link
+              href="/free-tools/risk-assessment/build"
+              className="inline-flex items-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-8 py-3.5 font-semibold text-white shadow-md hover:shadow-lg transition-all"
+            >
+              Build Your Risk Assessment →
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Social proof */}
-      <section className="py-8 overflow-hidden">
-        <Marquee className="p-2" duration={30} repeat={4} gap={1.5}>
+      <section className="py-8 overflow-hidden" style={{ background: 'linear-gradient(to bottom, #FFF5ED 0%, #ffffff 100%)' }}>
+        <Marquee className="p-2 [--duration:30s] [--gap:1.5rem]" repeat={4} pauseOnHover>
           {TESTIMONIAL_CARDS.map((card) => (
             <TestimonialCard key={card.company} {...card} />
           ))}
@@ -103,17 +116,14 @@ export default function RiskAssessmentPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Wizard */}
-      <section id="build" className="px-4 py-16 sm:py-20">
-        <div className="mx-auto max-w-2xl">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">Build Your Risk Assessment</h2>
-            <p className="text-gray-500 text-sm">Your progress is saved automatically as you go.</p>
+          <div className="mt-12 text-center">
+            <Link
+              href="/free-tools/risk-assessment/build"
+              className="inline-flex items-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-10 py-4 font-semibold text-white shadow-md hover:shadow-lg transition-all text-lg"
+            >
+              Build Your Risk Assessment →
+            </Link>
           </div>
-          <RiskAssessmentWizard />
         </div>
       </section>
 
@@ -131,6 +141,8 @@ export default function RiskAssessmentPage() {
           </Link>
         </div>
       </section>
+      </div>
+      <Footer />
     </div>
   );
 }

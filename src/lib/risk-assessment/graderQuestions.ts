@@ -153,7 +153,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'MAINTENANCE',
       treatmentText:
-        'The brakes fitted to this item of plant must be fully functional at all times whilst this item of plant is in operation. The brakes must be regularly inspected and tested. These inspections and tests must be documented as part of your plant safety programme.',
+        'The brakes fitted to this item of plant must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation. The brakes must be regularly inspected and tested. These inspections and tests must be documented as part of your plant safety programme.',
       references: 'AS3450',
     },
   },
@@ -170,7 +170,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a fully functional park (hand) brake which meets the following requirements – 1. Is separate to the service brakes 2. Has a device which maintains the brake in the on position until intentionally disengaged. The park brake must be regularly inspected and tested. These inspections and tests must be documented as part of your plant safety programme.',
+        'This item of plant is reported/observed as fitted with a fully functional park (hand) brake which meets the following requirements – 1. Is separate to the service brakes 2. Has a device which maintains the brake in the on position until intentionally disengaged. The park brake must be regularly inspected and tested. These inspections and tests must be documented as part of your plant safety programme.',
       references: 'AS3450',
     },
   },
@@ -242,7 +242,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'The emergency exits for this item of plant meet the following requirements – 1. Clearly and legibly labelled 2. Instructions for use are clear and legible and located adjacent the exit 3. Any required tools required for use are available e.g. Emergency hammers. These exits must be legibly labelled and fully functional at all times whenever the item of plant is manned, whether during operation or maintenance activities.',
+        'The emergency exits for this item of plant meet the following requirements – 1. Clearly and legibly labelled 2. Instructions for use are clear and legible and located adjacent the exit 3. Any required tools required for use are available e.g. Emergency hammers. These exits must be legibly labelled and kept serviceable and verified by the operator/owner at all times whenever the item of plant is manned, whether during operation or maintenance activities.',
       references: 'ISO31000',
     },
   },
@@ -278,7 +278,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'The windscreen wipers and washers fitted to this item of plant must be fully functional at all times.',
+        'The windscreen wipers and washers fitted to this item of plant must be kept serviceable and verified by the operator/owner at all times.',
       references: 'AS/NZS4024.1201',
     },
   },
@@ -329,7 +329,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'The operator rear view mirrors fitted to this item of plant must be fully functional and kept clean at all times. There must always be at least one mirror on each side to provide rear vision to the operator to avoid striking bystanders and objects.',
+        'The operator rear view mirrors fitted to this item of plant must be kept serviceable and verified by the operator/owner and kept clean at all times. There must always be at least one mirror on each side to provide rear vision to the operator to avoid striking bystanders and objects.',
       references: 'AS/NZS4024.1201, ISO14401.1',
     },
   },
@@ -363,7 +363,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with an operator seat belt. This seat belt must be free from damage, and permanently and sturdily attached at all times whilst this item of plant is in operation. Operators must use this seat belt at all times during operation.',
+        'This item of plant is reported/observed as fitted with an operator seat belt. This seat belt must be free from damage, and permanently and sturdily attached at all times whilst this item of plant is in operation. Operators must use this seat belt at all times during operation.',
       references: 'ISO6683',
     },
   },
@@ -381,7 +381,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with a clear hazard warning label re: Operator only, No passengers. Passengers must not be carried at anytime. This label must be clear and legible at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a clear hazard warning label re: Operator only, No passengers. Passengers must not be carried at anytime. This label must be clear and legible at all times whilst this item of plant is in operation.',
       references: 'AS1319- , State Health & Safety Legislation & Regulation',
     },
   },
@@ -399,7 +399,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 4 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with an air conditioned cabin. This air conditioned cabin helps control the air quality and temperature for the operator and also provides shade from the sun. The air conditioner must be fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with an air conditioned cabin. This air conditioned cabin helps control the air quality and temperature for the operator and also provides shade from the sun. The air conditioner must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'ISO31000',
     },
   },
@@ -434,7 +434,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with an instruction label advising that mobile phones must not be used whilst operating this machine. Accordingly all operators must not use a mobile phone at any time whilst operating machine. If phone use is necessary then operator must place machine in park configuration in a safe position prior to phone use. Operators MUST adhere to this advice at all times. This label must be clear and legible at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with an instruction label advising that mobile phones must not be used whilst operating this machine. Accordingly all operators must not use a mobile phone at any time whilst operating machine. If phone use is necessary then operator must place machine in park configuration in a safe position prior to phone use. Operators MUST adhere to this advice at all times. This label must be clear and legible at all times whilst this item of plant is in operation.',
       references: 'AS1319- , ISO31000',
     },
   },
@@ -451,7 +451,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with a rear camera which is suitable for day and night operations. This camera and screen must be fully functional at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a rear camera which is suitable for day and night operations. This camera and screen must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS/NZS4024.1201, ISO31000',
     },
   },
@@ -469,7 +469,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'All operator work platforms are fitted with guardrails which meet the following requirements: 1. All guardrails are at least 1.1m high 2. All guardrails have a mid rail 3. All sides and ends have a kick plate which is at least 100mm high. These work platforms and/or access points must have guardrails present that are fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'All operator work platforms are reported/observed as fitted with guardrails which meet the following requirements: 1. All guardrails are at least 1.1m high 2. All guardrails have a mid rail 3. All sides and ends have a kick plate which is at least 100mm high. These work platforms and/or access points must have guardrails present that are kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS5327',
     },
   },
@@ -488,7 +488,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 13 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a device to restrict operators. A code/key must only be given to those that have appropriate experience or training.',
+        'This item of plant is reported/observed as fitted with a device to restrict operators. A code/key must only be given to those that have appropriate experience or training.',
       references: 'AS20474.1',
     },
   },
@@ -505,7 +505,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 6 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with a fully functional audible warning device such as a horn. This must be easily accessed by the operator, and easily identifiable by nearby pedestrians. All operators should ensure the warning devices are functional at the start of each shift, by completing pre-start checklists. Warning devices should operate automatically where appropriate (eg reversing).',
+        'This item of plant is reported/observed as fitted with a fully functional audible warning device such as a horn. This must be easily accessed by the operator, and easily identifiable by nearby pedestrians. All operators should ensure the warning devices are functional at the start of each shift, by completing pre-start checklists. Warning devices should operate automatically where appropriate (eg reversing).',
       references: 'ISO7731, ISO9533',
     },
   },
@@ -590,7 +590,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant has neutral start control in place. It must be fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'This item of plant has neutral start control in place. It must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS4024.1603',
     },
   },
@@ -607,7 +607,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a reverse movement awareness alarm which is automatically activated when reverse gear is selected. This alarm must be fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a reverse movement awareness alarm which is automatically activated when reverse gear is selected. This alarm must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'ISO7731, ISO9533',
     },
   },
@@ -624,7 +624,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with an emergency stop/shutdown device, capable of shutting the machine down, located at the normal operating position. This device must be fully functional at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with an emergency stop/shutdown device, capable of shutting the machine down, located at the normal operating position. This device must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS20474.1',
     },
   },
@@ -641,7 +641,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with an emergency stop/shutdown device, capable of shutting the machine down located on at least one external surface of the machine and is easily accessible. This device must be fully functional at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with an emergency stop/shutdown device, capable of shutting the machine down located on at least one external surface of the machine and is easily accessible. This device must be kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS20474.1',
     },
   },
@@ -715,7 +715,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with a ROPS and has an advisory label stating that "seatbelts must be worn". This label must be present, clean and legible at all times. All operators and passengers must wear seatbelts whilst on this item of plant.',
+        'This item of plant is reported/observed as fitted with a ROPS and has an advisory label stating that "seatbelts must be worn". This label must be present, clean and legible at all times. All operators and passengers must wear seatbelts whilst on this item of plant.',
       references: 'AS2294, ISO3471',
     },
   },
@@ -733,7 +733,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 5 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a Level I Falling Objects Protective Structure (FOPS). This structure is designed to protect the operator from small falling objects (e.g. bricks, small concrete blocks, hand tools). Before operating this item of plant a task based risk assessment must be conducted to determine the level of FOPS required. Level I - withstands 1,365 joules. Level II - withstands 11,600 joules. This task risk assessment must be undertaken before each operation, in particular when the item of plant is moved to a new location.',
+        'This item of plant is reported/observed as fitted with a Level I Falling Objects Protective Structure (FOPS). This structure is designed to protect the operator from small falling objects (e.g. bricks, small concrete blocks, hand tools). Before operating this item of plant a task based risk assessment must be conducted to determine the level of FOPS required. Level I - withstands 1,365 joules. Level II - withstands 11,600 joules. This task risk assessment must be undertaken before each operation, in particular when the item of plant is moved to a new location.',
       references: 'AS2294, ISO3449, ISO10262',
     },
   },
@@ -751,7 +751,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 5 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a level II Falling Objects Protective Structure (FOPS). This structure is designed to protect the operator from heavy falling objects (e.g. trees, rocks). Care should still be exercised when operating in an area with a risk of falling objects.',
+        'This item of plant is reported/observed as fitted with a level II Falling Objects Protective Structure (FOPS). This structure is designed to protect the operator from heavy falling objects (e.g. trees, rocks). Care should still be exercised when operating in an area with a risk of falling objects.',
       references: 'AS2294, ISO3449',
     },
   },
@@ -808,7 +808,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with self contained lighting. All of these lights must be fully functional and serviceable whilst this item of plant is in operation in areas of reduced light. If any of these lights stop working the operation must cease immediately and the faulty light be repaired before operation can continue in the areas of reduced light.',
+        'This item of plant is reported/observed as fitted with self contained lighting. All of these lights must be kept serviceable and verified by the operator/owner whilst this item of plant is in operation in areas of reduced light. If any of these lights stop working the operation must cease immediately and the faulty light be repaired before operation can continue in the areas of reduced light.',
       references: 'ISO20474-',
     },
   },
@@ -825,7 +825,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with lighting to indicate presence, turning and braking. All of these lights must be fully functional whilst this item of plant is in operation in areas of reduced light. If any of these lights stop working the operation must cease immediately and the faulty light be repaired before operation can continue.',
+        'This item of plant is reported/observed as fitted with lighting to indicate presence, turning and braking. All of these lights must be kept serviceable and verified by the operator/owner whilst this item of plant is in operation in areas of reduced light. If any of these lights stop working the operation must cease immediately and the faulty light be repaired before operation can continue.',
       references: 'AS/NZS4024.1201',
     },
   },
@@ -842,7 +842,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a safety beacon. This beacon must meet the following criteria at all times whilst this item of plant is in operation – Is visible up to 200m in all directions (allowing for intermittent obstruction from the plant structure whilst the plant is in operation) – Is fitted in the most appropriate location on machine to maximise visibility without risking continual damage. NOTE: more than one beacon may be fitted to meet these criteria.',
+        'This item of plant is reported/observed as fitted with a safety beacon. This beacon must meet the following criteria at all times whilst this item of plant is in operation – Is visible up to 200m in all directions (allowing for intermittent obstruction from the plant structure whilst the plant is in operation) – Is fitted in the most appropriate location on machine to maximise visibility without risking continual damage. NOTE: more than one beacon may be fitted to meet these criteria.',
       references: 'ISO20474-',
     },
   },
@@ -862,7 +862,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 13 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'The front blade on this item of plant is fitted with a hazard warning label re: crush zone, keep clear. This label must be present and fully functional and serviceable at all times.',
+        'The front blade on this item of plant is reported/observed as fitted with a hazard warning label re: crush zone, keep clear. This label must be present and kept serviceable and verified by the operator/owner at all times.',
       references: 'AS1319- , ISO20474-',
     },
   },
@@ -881,7 +881,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'The engine fan and alternator belts, pulleys and gears are guarded. These guards must be present and fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'The engine fan and alternator belts, pulleys and gears are guarded. These guards must be present and kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS/NZS4024.1601',
     },
   },
@@ -915,7 +915,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 6 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'The engine exhaust on this item of plant is located/fitted with a guard to prevent injury to any person and control the risk of initiating a fire. Guards must be present, fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'The engine exhaust on this item of plant is located/fitted with a guard to prevent injury to any person and control the risk of initiating a fire. Guards must be present, kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS/NZS4024.1201',
     },
   },
@@ -952,7 +952,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 6 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'All batteries fitted to this item of plant are constrained to prevent displacement & fitted with a permanent sturdy cover which allows for ventilation & ensures the terminals are protected. The constraint and cover must be present and fully functional and serviceable at all times whilst this item of plant is in operation.',
+        'All batteries fitted to this item of plant are constrained to prevent displacement & fitted with a permanent sturdy cover which allows for ventilation & ensures the terminals are protected. The constraint and cover must be present and kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS/NZS4024.1201',
     },
   },
@@ -969,7 +969,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a fully functional battery isolation switch that is clearly and legibly marked and lockable in the off position. The battery isolation switch must remain clearly and legibly marked and lockable at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a fully functional battery isolation switch that is clearly and legibly marked and lockable in the off position. The battery isolation switch must remain clearly and legibly marked and lockable at all times whilst this item of plant is in operation.',
       references: 'AS20474.1',
     },
   },
@@ -1024,7 +1024,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a sturdy, permanent shield(s) between the hydraulic hoses and any body parts of the operator to provide protection during a hose or component failure. This shield(s) must be present and fully functional at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a sturdy, permanent shield(s) between the hydraulic hoses and any body parts of the operator to provide protection during a hose or component failure. This shield(s) must be present and kept serviceable and verified by the operator/owner at all times whilst this item of plant is in operation.',
       references: 'AS4024, ISO4413, AS2671',
     },
   },
@@ -1043,7 +1043,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with an approved and maintained fire extinguisher. Fire extinguisher(s) must be present and fully functional at all times. They must be readily accessible to the operator. Regular inspections must also be carried out in accordance with the manufacturer\'s requirements and AS 1851 – 1995.',
+        'This item of plant is reported/observed as fitted with an approved and maintained fire extinguisher. Fire extinguisher(s) must be present and kept serviceable and verified by the operator/owner at all times. They must be readily accessible to the operator. Regular inspections must also be carried out in accordance with the manufacturer\'s requirements and AS 1851 – 1995.',
       references: 'AS1851',
     },
   },
@@ -1077,7 +1077,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 13 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'The grader blade on this item of plant is fitted with a hazard warning label re: crush zone, keep clear. This label must be present and fully functional and serviceable at all times.',
+        'The grader blade on this item of plant is reported/observed as fitted with a hazard warning label re: crush zone, keep clear. This label must be present and kept serviceable and verified by the operator/owner at all times.',
       references: 'AS1319- , ISO20474-',
     },
   },
@@ -1130,7 +1130,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a safety locking device to the articulated joint (either a locking arm or cylinder locking devices) and clear, legible instruction labels on both sides of the articulated joint which state that either of these devices must be engaged during any maintenance to the articulated joint. These must be present, serviceable and employed at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a safety locking device to the articulated joint (either a locking arm or cylinder locking devices) and clear, legible instruction labels on both sides of the articulated joint which state that either of these devices must be engaged during any maintenance to the articulated joint. These must be present, serviceable and employed at all times whilst this item of plant is in operation.',
       references: 'AS/NZS4024.1201, AS1319-',
     },
   },
@@ -1169,7 +1169,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        "The item of plant has a drawbar and a hazard warning label attached adjacent the drawbar/tow hitch re: maximum towing capacity, crushing, keep clear. It must be present and fully functional and serviceable at all times.",
+        "The item of plant has a drawbar and a hazard warning label attached adjacent the drawbar/tow hitch re: maximum towing capacity, crushing, keep clear. It must be present and kept serviceable and verified by the operator/owner at all times.",
       references: 'ISO31000',
     },
   },
@@ -1187,7 +1187,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'LOW', value: 5 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'This item of plant is fitted with a hazard warning label adjacent the recovery tow point which states "Recovery tow point – Read manufacturer\'s towing instructions before towing". Failure to do so could result in DEATH or SERIOUS INJURY. This label must be clear and legible at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a hazard warning label adjacent the recovery tow point which states "Recovery tow point – Read manufacturer\'s towing instructions before towing". Failure to do so could result in DEATH or SERIOUS INJURY. This label must be clear and legible at all times whilst this item of plant is in operation.',
       references: 'ISO31000',
     },
   },
@@ -1207,7 +1207,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 13 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'The rippers on this item of plant are fitted with a hazard warning label re: crush zone, keep clear. This label must be present and fully functional and serviceable at all times.',
+        'The rippers on this item of plant are reported/observed as fitted with a hazard warning label re: crush zone, keep clear. This label must be present and kept serviceable and verified by the operator/owner at all times.',
       references: 'AS/NZS4024.1201, ISO20474-',
     },
   },
@@ -1225,7 +1225,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'DESIGN COMPLIANCE',
       treatmentText:
-        'This item of plant is fitted with a roller attachment to the rear ripper bar (e.g. a "Freeroll"). Accordingly this item of plant meets the following criteria – 1. Roller does not exceed machine and ripper manufacturers weight requirements 2. Has a device in the operator cabin to select either RIPPER or ROLLER mode which is clearly labelled 3. When in Roller mode – (a) Has a visual system within clear view of the operator which provides verification that roller mode is selected (b) Has a device which limits the speed of the machine to 20 kmh/hr and (c) Has a device which releases hydraulic pressure in the ripper bar lift/lower cylinders when the service brakes are applied. All operators must be familiar with these devices prior to operation. These safety devices must be in place at all times whilst this item of plant is in operation.',
+        'This item of plant is reported/observed as fitted with a roller attachment to the rear ripper bar (e.g. a "Freeroll"). Accordingly this item of plant meets the following criteria – 1. Roller does not exceed machine and ripper manufacturers weight requirements 2. Has a device in the operator cabin to select either RIPPER or ROLLER mode which is clearly labelled 3. When in Roller mode – (a) Has a visual system within clear view of the operator which provides verification that roller mode is selected (b) Has a device which limits the speed of the machine to 20 kmh/hr and (c) Has a device which releases hydraulic pressure in the ripper bar lift/lower cylinders when the service brakes are applied. All operators must be familiar with these devices prior to operation. These safety devices must be in place at all times whilst this item of plant is in operation.',
       references: 'ISO31000',
     },
   },
@@ -1242,7 +1242,7 @@ export const GRADER_QUESTIONS: Question[] = [
       residualRating: { label: 'MEDIUM', value: 15 },
       operationCategory: 'OPERATION',
       treatmentText:
-        'The rear of this item of plant has a hazard warning label re: vehicle frequently reversing. It must be present and fully functional and serviceable at all times.',
+        'The rear of this item of plant has a hazard warning label re: vehicle frequently reversing. It must be present and kept serviceable and verified by the operator/owner at all times.',
       references: 'ISO20474-',
     },
   },

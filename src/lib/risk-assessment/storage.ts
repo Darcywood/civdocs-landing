@@ -13,7 +13,7 @@ export async function ensureBucketExists(): Promise<void> {
   const supabase = getSupabase();
   const { error } = await supabase.storage.createBucket(BUCKET, { public: false });
   if (error && (error.message?.includes('already exists') || error.message?.includes('Bucket already exists'))) return;
-  if (error) console.warn('[RiskAssessment Storage] Bucket creation:', error.message);
+  if (error) console.warn('[risk-assessment/storage] Bucket creation:', error.message);
 }
 
 export async function uploadRiskAssessmentPdf(submissionId: string, buffer: Buffer): Promise<string> {
