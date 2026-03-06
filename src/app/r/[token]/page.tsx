@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ReportPage({ params }: { params: { token: string } }) {
-  return <ReportViewer token={params.token} />;
+export default async function ReportPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params;
+  return <ReportViewer token={token} />;
 }

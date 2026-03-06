@@ -13,9 +13,9 @@ function getSupabase() {
 
 export async function GET(
   _req: Request,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
-  const { token } = params;
+  const { token } = await params;
 
   if (!token || !/^[0-9a-f-]{36}$/.test(token)) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
