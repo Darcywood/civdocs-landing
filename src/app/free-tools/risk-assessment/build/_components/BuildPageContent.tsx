@@ -1,13 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import Footer from '@/components/Footer';
 import RiskAssessmentWizard from '../../_components/RiskAssessmentWizard';
 
 export default function BuildPageContent() {
-  const [step, setStep] = useState(1);
-
   return (
     <>
       <div className="pt-20 px-4 py-16 sm:py-20">
@@ -19,10 +15,9 @@ export default function BuildPageContent() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-2">Build Your Risk Assessment</h2>
             <p className="text-gray-500 text-sm">Your progress is saved automatically as you go.</p>
           </div>
-          <RiskAssessmentWizard onStepChange={setStep} />
+          <RiskAssessmentWizard />
         </div>
       </div>
-      {step === 4 && <Footer />}
     </>
   );
 }

@@ -29,7 +29,7 @@ export default function RiskAssessmentHero() {
             <span className="text-xs font-semibold text-[#CC5500]">FREE TOOL</span>
           </div>
           <h1 className="text-3xl font-semibold tracking-tight text-[#1E1E1E] sm:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.15]">
-            Generate a $300 Machine Risk Assessment in 5 Minutes — Free
+            Stop Paying $300 Per Machine for Risk Assessments
           </h1>
           <div className="mt-[30px]">
             <p className="text-sm font-medium text-gray-500 mb-3">Used by civil contractors across Australia</p>
@@ -48,7 +48,7 @@ export default function RiskAssessmentHero() {
             </div>
           </div>
           <p className="mt-[15px] text-lg text-gray-600 leading-relaxed max-w-xl">
-            Built for civil contractors. Create a full plant risk management report ready for safety audits and principal contractors.
+            Generate a compliant plant risk assessment in 5 minutes — ready for site audits and principal contractors.
           </p>
           <ul className="mt-8 space-y-4">
             {BULLETS.map((item) => (

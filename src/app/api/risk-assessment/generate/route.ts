@@ -26,7 +26,7 @@ function loadLogoDataUrl(): string | null {
 }
 
 function loadRiskIconsDataUrls(): Record<string, string> {
-  const iconsDir = path.join(process.cwd(), 'public', 'icons-riskassesment');
+  const iconsDir = path.join(process.cwd(), 'public', 'riskassesement', 'icons-riskassesment');
   const result: Record<string, string> = {};
   try {
     const files = fs.readdirSync(iconsDir);

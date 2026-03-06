@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
-import SampleReportModal from '@/components/marketing/SampleReportModal';
 import RiskAssessmentHero from './RiskAssessmentHero';
 import RiskAssessmentScrollScrub from './RiskAssessmentScrollScrub';
 
@@ -48,18 +46,11 @@ const NEW_STEPS = [
 ];
 
 export default function RiskAssessmentPageContent() {
-  const [showSampleReport, setShowSampleReport] = useState(false);
-
   return (
     <div className="min-h-screen font-sans antialiased" style={{ background: '#F7F3EC' }}>
       <Header />
       <div className="pt-20">
         <RiskAssessmentHero />
-
-        <SampleReportModal
-          isOpen={showSampleReport}
-          onClose={() => setShowSampleReport(false)}
-        />
 
         {/* Scroll scrub — between hero and Problem section */}
         <section className="w-full px-4">
@@ -211,6 +202,9 @@ export default function RiskAssessmentPageContent() {
                 { label: 'Hazard treatment section', src: '/riskassesement/6.png' },
               ].map((card) => (
                 <div key={card.src} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                  <p className="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-100">
+                    {card.label}
+                  </p>
                   <div className="aspect-[3/4] bg-gray-50 relative">
                     <Image
                       src={card.src}
@@ -220,20 +214,8 @@ export default function RiskAssessmentPageContent() {
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
                   </div>
-                  <p className="px-4 py-3 text-sm font-medium text-gray-700 border-t border-gray-100">
-                    {card.label}
-                  </p>
                 </div>
               ))}
-            </div>
-            <div className="mt-10">
-              <button
-                type="button"
-                onClick={() => setShowSampleReport(true)}
-                className="text-[#FF8C32] font-semibold hover:underline"
-              >
-                View full sample report →
-              </button>
             </div>
           </div>
         </section>
@@ -292,9 +274,15 @@ export default function RiskAssessmentPageContent() {
                   </li>
                 ))}
               </ul>
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-500 text-sm mb-10">
                 All captured daily from site.
               </p>
+              <Link
+                href="/free-tools/risk-assessment/build"
+                className="inline-flex items-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-8 py-4 font-semibold text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
+              >
+                Build Your Risk Assessment →
+              </Link>
             </div>
           </div>
         </section>
