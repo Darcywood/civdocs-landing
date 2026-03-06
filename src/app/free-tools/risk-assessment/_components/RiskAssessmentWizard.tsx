@@ -51,7 +51,14 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
   const [answers, setAnswers] = useState<Section2Answers>({});
   const [lead, setLead] = useState<Partial<RiskAssessmentLead>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [result, setResult] = useState<{ pdfUrl: string; reportNumber: string; treatmentsInPlace: number; treatmentsRequired: number } | null>(null);
+  const [result, setResult] = useState<{
+    pdfUrl: string;
+    reportNumber: string;
+    treatmentsInPlace: number;
+    treatmentsRequired: number;
+    publicReportUrl?: string;
+    qrCodeDataUrl?: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const loadDraft = useCallback(() => {
@@ -104,6 +111,8 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
         reportNumber: data.reportNumber,
         treatmentsInPlace: data.treatmentsInPlace,
         treatmentsRequired: data.treatmentsRequired,
+        publicReportUrl: data.publicReportUrl,
+        qrCodeDataUrl: data.qrCodeDataUrl,
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
@@ -123,6 +132,8 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
           machineLabel={machineLabel}
           treatmentsInPlace={result.treatmentsInPlace}
           treatmentsRequired={result.treatmentsRequired}
+          publicReportUrl={result.publicReportUrl}
+          qrCodeDataUrl={result.qrCodeDataUrl}
           onClose={() => setResult(null)}
         />
       )}

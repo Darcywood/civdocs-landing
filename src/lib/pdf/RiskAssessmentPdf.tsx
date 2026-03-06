@@ -1128,6 +1128,10 @@ export interface RiskAssessmentPdfProps {
   logoDataUrl?: string | null;
   /** Map of icon filename (without extension) to base64 data URL. Icons in public/icons-riskassesment/ */
   iconDataUrls?: Record<string, string>;
+  /** QR code data URL for hosted report link (printed on last page) */
+  qrCodeDataUrl?: string;
+  /** Public URL to view this report (e.g. civdocs.com.au/r/{token}) */
+  publicReportUrl?: string;
 }
 
 const CATEGORIES: Array<'DELIVERY' | 'OPERATION' | 'DESIGN COMPLIANCE' | 'MAINTENANCE'> = [
@@ -1145,6 +1149,8 @@ export default function RiskAssessmentPdf({
   machineImages,
   logoDataUrl,
   iconDataUrls,
+  qrCodeDataUrl,
+  publicReportUrl,
 }: RiskAssessmentPdfProps) {
   const isExcavator = basics.machineType === 'Excavator';
   const isPosiTrack = basics.machineType === 'Posi Track';
@@ -1904,6 +1910,24 @@ export default function RiskAssessmentPdf({
               </View>
             ))}
           </View>
+
+          {/* QR code for hosted report */}
+          {qrCodeDataUrl && publicReportUrl && (
+            <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: BORDER, paddingTop: 16 }}>
+              <Image src={qrCodeDataUrl} style={{ width: 72, height: 72, marginRight: 14 }} />
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: NAVY, marginBottom: 4 }}>
+                  Scan to view this report online
+                </Text>
+                <Text style={{ fontSize: 7, color: MID_GREY, lineHeight: 1.4 }}>
+                  Print this page and mount the QR code on the machine. Anyone can scan it to instantly view this risk assessment — no app, no login.
+                </Text>
+                <Text style={{ fontSize: 6.5, color: ORANGE, marginTop: 4, fontFamily: 'Helvetica-Bold' }}>
+                  {publicReportUrl}
+                </Text>
+              </View>
+            </View>
+          )}
         </View>
         <PageFooter basics={basics} logoDataUrl={logoDataUrl} />
       </Page>

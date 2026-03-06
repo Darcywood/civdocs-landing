@@ -5,6 +5,7 @@ import React from 'react';
 import { randomUUID } from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import QRCode from 'qrcode';
 import type { RiskAssessmentPayload } from '@/lib/risk-assessment/types';
 import { GRADER_QUESTIONS } from '@/lib/risk-assessment/graderQuestions';
 import { EXCAVATOR_QUESTIONS } from '@/lib/risk-assessment/excavatorQuestions';
@@ -83,6 +84,7 @@ export async function POST(req: Request) {
     const submissionId = body.submissionId || randomUUID();
     const reportNumber = body.basics.reportNumber || generateReportNumber();
     const basics = { ...body.basics, reportNumber };
+    const publicToken = randomUUID();
 
     const supabase = getSupabase();
 
@@ -90,6 +92,7 @@ export async function POST(req: Request) {
     try {
       await supabase.from('risk_assessment_submissions').insert({
         id: submissionId,
+        public_token: publicToken,
         first_name: body.lead.firstName,
         email: body.lead.email,
         company_name: body.lead.companyName,
@@ -129,6 +132,20 @@ export async function POST(req: Request) {
       if (answer === 'no') treatmentsRequired++;
     });
 
+    // Build public report URL and QR code for PDF
+    const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://civdocs.com.au';
+    const publicReportUrl = `${siteUrl}/r/${publicToken}`;
+    let qrCodeDataUrl: string | null = null;
+    try {
+      qrCodeDataUrl = await QRCode.toDataURL(publicReportUrl, {
+        width: 300,
+        margin: 2,
+        color: { dark: '#1a1a1a', light: '#ffffff' },
+      });
+    } catch (qrErr) {
+      console.error('[risk-assessment/generate] QR code generation failed:', qrErr);
+    }
+
     // Generate PDF
     const logoDataUrl = loadLogoDataUrl();
     const iconDataUrls = loadRiskIconsDataUrls();
@@ -140,6 +157,8 @@ export async function POST(req: Request) {
         logoDataUrl,
         iconDataUrls,
         machineImages: body.lead?.machineImages,
+        qrCodeDataUrl: qrCodeDataUrl ?? undefined,
+        publicReportUrl,
       }) as Parameters<typeof renderToBuffer>[0]
     );
 
@@ -189,6 +208,8 @@ export async function POST(req: Request) {
       submissionId,
       reportNumber,
       pdfUrl,
+      publicReportUrl,
+      qrCodeDataUrl,
       treatmentsInPlace,
       treatmentsRequired,
     });
