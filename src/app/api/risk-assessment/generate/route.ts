@@ -132,9 +132,10 @@ export async function POST(req: Request) {
       if (answer === 'no') treatmentsRequired++;
     });
 
-    // Build public report URL and QR code for PDF
-    const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://civdocs.com.au';
-    const publicReportUrl = `${siteUrl}/r/${publicToken}`;
+    // Build public report URL and QR code for PDF (use SITE_URL so QR codes work when scanned — never localhost)
+    const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://civdocs.com.au';
+    const publicSiteUrl = siteUrl.startsWith('http://localhost') ? 'https://civdocs.com.au' : siteUrl;
+    const publicReportUrl = `${publicSiteUrl}/r/${publicToken}`;
     let qrCodeDataUrl: string | null = null;
     try {
       qrCodeDataUrl = await QRCode.toDataURL(publicReportUrl, {
