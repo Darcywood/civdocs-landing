@@ -130,10 +130,6 @@ export async function POST(req: Request) {
     const openaiKey = process.env.OPENAI_API_KEY;
     const firecrawlKey = process.env.FIRECRAWL_API_KEY;
 
-    if (!openaiKey) {
-      return NextResponse.json({ error: 'OpenAI not configured' }, { status: 500 });
-    }
-
     const query = machineDescription.trim();
     const isExcavator = machineType === 'Excavator';
     const isPosiTrack = machineType === 'Posi Track';
@@ -257,6 +253,17 @@ export async function POST(req: Request) {
     }
 
     // ── Step 2: GPT-4o extracts spec fields ──────────────────────────────
+    if (!openaiKey) {
+      return NextResponse.json({
+        ok: true,
+        specs: {},
+        filledCount: 0,
+        source: '',
+        webSearchUsed: false,
+        message: 'Auto-fill from web is not available. Please enter specs manually.',
+      });
+    }
+
     const openai = new OpenAI({ apiKey: openaiKey });
 
     const yearNote = yearInQuery
