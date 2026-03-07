@@ -100,10 +100,6 @@ export default function Header() {
                       </div>
                     </div>
                   </div>
-                  <a href="/pricing" className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative group">
-                    Pricing
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C32] transition-all duration-300 group-hover:w-full"></span>
-                  </a>
                   <div className="relative group">
                     <button className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base relative">
                       Free Tools
@@ -177,10 +173,10 @@ export default function Header() {
 
                 {/* CTA Button */}
                 <a 
-                  href="/start-trial" 
+                  href="/book" 
                   className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
                 >
-                  Start Free Trial →
+                  Book a call →
                 </a>
               </div>
               
@@ -325,20 +321,6 @@ export default function Header() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
-                  
-                {/* Pricing */}
-                <div>
-                  <a 
-                    href="/pricing" 
-                    onClick={closeMobileMenu}
-                    className="w-full flex items-center justify-between py-5"
-                  >
-                    <span className="text-[16px] font-medium text-gray-600">Pricing</span>
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
                 </div>
 
                 {/* Free Tools Dropdown */}
