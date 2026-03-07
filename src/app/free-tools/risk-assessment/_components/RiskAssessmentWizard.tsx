@@ -22,6 +22,7 @@ import Step2PosiTrackSpecs from './Step2PosiTrackSpecs';
 import Step2RollerSpecs from './Step2RollerSpecs';
 import Step3Questions from './Step3Questions';
 import Step4Lead from './Step4Lead';
+import { trackRiskAssessmentGenerated } from '@/lib/metaPixel';
 
 const STORAGE_KEY = 'risk-assessment-draft';
 
@@ -114,6 +115,10 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
         publicReportUrl: data.publicReportUrl,
         qrCodeDataUrl: data.qrCodeDataUrl,
       });
+      trackRiskAssessmentGenerated({
+        reportNumber: data.reportNumber,
+        machineType: basics?.machineType,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     } finally {
@@ -132,8 +137,6 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
           machineLabel={machineLabel}
           treatmentsInPlace={result.treatmentsInPlace}
           treatmentsRequired={result.treatmentsRequired}
-          publicReportUrl={result.publicReportUrl}
-          qrCodeDataUrl={result.qrCodeDataUrl}
           onClose={() => setResult(null)}
         />
       )}

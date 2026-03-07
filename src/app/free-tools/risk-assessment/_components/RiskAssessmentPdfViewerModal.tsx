@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import Link from 'next/link';
 
 interface RiskAssessmentPdfViewerModalProps {
   pdfUrl: string | null;
@@ -10,8 +10,6 @@ interface RiskAssessmentPdfViewerModalProps {
   machineLabel: string;
   treatmentsInPlace: number;
   treatmentsRequired: number;
-  publicReportUrl?: string;
-  qrCodeDataUrl?: string;
   onClose: () => void;
 }
 
@@ -33,8 +31,6 @@ export default function RiskAssessmentPdfViewerModal({
   machineLabel,
   treatmentsInPlace,
   treatmentsRequired,
-  publicReportUrl,
-  qrCodeDataUrl,
   onClose,
 }: RiskAssessmentPdfViewerModalProps) {
   const isMobile = useIsMobile();
@@ -50,11 +46,23 @@ export default function RiskAssessmentPdfViewerModal({
         className="fixed inset-0 z-[100] flex flex-col bg-white"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-3">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">Your Risk Management Report</h2>
-            <p className="text-xs text-gray-500 mt-0.5">
-              {machineLabel} · {reportNumber}
-            </p>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+              aria-label="Close"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Your Risk Management Report</h2>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {machineLabel} · {reportNumber}
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <a
@@ -63,30 +71,36 @@ export default function RiskAssessmentPdfViewerModal({
               rel="noopener noreferrer"
               className="rounded-full bg-[#FF8C32] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E67E22]"
             >
-              Download PDF
+              View PDF
             </a>
-            <button
-              type="button"
-              onClick={onClose}
+            <a
+              href={pdfUrl}
+              download
               className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
             >
-              Done
-            </button>
+              Download
+            </a>
+            <Link
+              href="/book"
+              className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+            >
+              Book a call
+            </Link>
           </div>
         </div>
         <div className="flex-1 overflow-hidden">
           {isMobile ? (
             <div className="flex h-full flex-col items-center justify-center gap-6 px-6 text-center">
               <p className="text-gray-600">
-                Mobile browsers can&apos;t scroll multi-page PDFs in this view. Open your PDF in a new tab to view all pages.
+                Open your PDF in a new tab to view all pages.
               </p>
               <a
                 href={pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-10 py-4 text-lg font-semibold text-white shadow-md hover:shadow-lg"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF8C32] px-10 py-4 text-lg font-semibold text-white hover:bg-[#E67E22]"
               >
-                Open PDF
+                View PDF
               </a>
             </div>
           ) : (
@@ -111,33 +125,6 @@ export default function RiskAssessmentPdfViewerModal({
             </div>
             <p className="text-sm text-gray-500">We&apos;ve also emailed you a secure link to download. The link expires in 7 days.</p>
           </div>
-
-          {/* QR code panel */}
-          {qrCodeDataUrl && publicReportUrl && (
-            <div className="mt-3 flex items-start gap-4 rounded-xl border border-[#FF8C32]/20 bg-white px-4 py-3">
-              <Image
-                src={qrCodeDataUrl}
-                alt="QR code for this report"
-                width={72}
-                height={72}
-                className="shrink-0 rounded"
-              />
-              <div>
-                <p className="text-sm font-semibold text-gray-900">Print this QR code on the machine</p>
-                <p className="mt-0.5 text-xs text-gray-500">
-                  Anyone can scan it to instantly view this risk assessment — no app, no login.
-                </p>
-                <a
-                  href={publicReportUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1.5 inline-block text-xs font-medium text-[#FF8C32] hover:underline break-all"
-                >
-                  {publicReportUrl}
-                </a>
-              </div>
-            </div>
-          )}
         </div>
       </motion.div>
     </AnimatePresence>
