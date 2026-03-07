@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface RiskAssessmentPdfViewerModalProps {
   pdfUrl: string | null;
@@ -34,6 +34,7 @@ export default function RiskAssessmentPdfViewerModal({
   onClose,
 }: RiskAssessmentPdfViewerModalProps) {
   const isMobile = useIsMobile();
+  const router = useRouter();
 
   if (!pdfUrl) return null;
 
@@ -49,7 +50,7 @@ export default function RiskAssessmentPdfViewerModal({
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => router.push('/')}
               className="rounded-full p-1.5 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
               aria-label="Close"
             >
@@ -67,25 +68,11 @@ export default function RiskAssessmentPdfViewerModal({
           <div className="flex items-center gap-2">
             <a
               href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-[#FF8C32] px-4 py-2 text-sm font-semibold text-white hover:bg-[#E67E22]"
-            >
-              View PDF
-            </a>
-            <a
-              href={pdfUrl}
               download
               className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
             >
-              Download
+              Download PDF
             </a>
-            <Link
-              href="/book"
-              className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-            >
-              Book a call
-            </Link>
           </div>
         </div>
         <div className="flex-1 overflow-hidden">

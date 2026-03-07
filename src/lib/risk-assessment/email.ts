@@ -111,3 +111,136 @@ export async function sendRiskAssessmentNotification({
     html,
   });
 }
+
+export async function sendRiskAssessmentFollowUpEmail({
+  to,
+  firstName,
+  machineType,
+}: {
+  to: string;
+  firstName: string;
+  machineType: string;
+}) {
+  const resend = getResend();
+  const from = process.env.FROM_EMAIL;
+  if (!from) throw new Error('FROM_EMAIL is not set');
+
+  const scheduledAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1E1E1E; line-height: 1.7;">
+
+  <p>Hi ${firstName},</p>
+
+  <p>I saw you generated a machine risk assessment for your <strong>${machineType}</strong> yesterday.</p>
+
+  <p>Hope it was useful.</p>
+
+  <p>I built that tool after years working in civil construction operating plant and seeing how frustrating the whole risk assessment process could be on site.</p>
+
+  <p>One thing some companies end up asking about afterwards is how to <strong>keep track of machines, compliance and paperwork across multiple jobs</strong> without everything turning into spreadsheets and folders.</p>
+
+  <p>That's actually what the full CivDocs platform was built for.</p>
+
+  <p>If you're interested, I'd love to jump on a quick 15-minute call and show you how some civil companies are using it to:</p>
+
+  <ul style="padding-left: 20px;">
+    <li style="margin-bottom: 8px;">keep risk assessments organised</li>
+    <li style="margin-bottom: 8px;">track machine hours across jobs</li>
+    <li style="margin-bottom: 8px;">manage machine compliance in one place</li>
+  </ul>
+
+  <p>No pressure — just thought I'd offer since you already generated a report.</p>
+
+  <p>You can book a time here if you'd like:</p>
+
+  <p style="margin: 24px 0;">
+    <a href="${BOOK_URL}" style="display: inline-block; background: linear-gradient(to right, #FF8C32, #F5B041); color: white; padding: 12px 24px; text-decoration: none; border-radius: 9999px; font-weight: 600;">Book a quick chat</a>
+  </p>
+
+  <p>Cheers,<br>Darcy<br>Founder – CivDocs</p>
+
+  <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+  <p style="font-size: 11px; color: #999;">You're receiving this because you opted in to tips and updates from CivDocs. — CivDocs, civdocs.com.au</p>
+</body>
+</html>
+`;
+
+  return resend.emails.send({
+    from,
+    to,
+    subject: `Quick follow-up — your ${machineType} risk assessment`,
+    html,
+    scheduledAt,
+  });
+}
+
+export async function sendRiskAssessmentSecondNurtureEmail({
+  to,
+  firstName,
+}: {
+  to: string;
+  firstName: string;
+}) {
+  const resend = getResend();
+  const from = process.env.FROM_EMAIL;
+  if (!from) throw new Error('FROM_EMAIL is not set');
+
+  const scheduledAt = new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString();
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1E1E1E; line-height: 1.7;">
+
+  <p>Hi ${firstName},</p>
+
+  <p>Just wanted to quickly follow up after you generated the risk assessment the other day.</p>
+
+  <p>A lot of civil companies end up using that tool first, and then realise the bigger headache isn't really the risk assessments.</p>
+
+  <p>It's <strong>keeping track of machines across jobs</strong>.</p>
+
+  <p>Things like:</p>
+
+  <ul style="padding-left: 20px;">
+    <li style="margin-bottom: 8px;">machine hours getting written down in notebooks</li>
+    <li style="margin-bottom: 8px;">trying to work out which job the machine was actually on</li>
+    <li style="margin-bottom: 8px;">chasing timesheets at the end of the week</li>
+    <li style="margin-bottom: 8px;">manually turning machine hours into invoices</li>
+  </ul>
+
+  <p>That's actually why I built the full CivDocs platform.</p>
+
+  <p>It lets companies track <strong>machine hours, jobs and compliance in one place</strong>, and automatically generate invoices from machine hours that can sync straight into Xero.</p>
+
+  <p>If you're running a few machines across different jobs it can save a lot of admin and make job costing a lot clearer.</p>
+
+  <p>If you want, I'm happy to show you how it works on a quick <strong>15-minute call</strong>.</p>
+
+  <p>You can grab a time here if it's helpful:</p>
+
+  <p style="margin: 24px 0;">
+    <a href="${BOOK_URL}" style="display: inline-block; background: linear-gradient(to right, #FF8C32, #F5B041); color: white; padding: 12px 24px; text-decoration: none; border-radius: 9999px; font-weight: 600;">Book a quick chat</a>
+  </p>
+
+  <p>Cheers,<br>Darcy</p>
+
+  <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;">
+  <p style="font-size: 11px; color: #999;">You're receiving this because you opted in to tips and updates from CivDocs. — CivDocs, civdocs.com.au</p>
+</body>
+</html>
+`;
+
+  return resend.emails.send({
+    from,
+    to,
+    subject: `Keeping track of machines across jobs`,
+    html,
+    scheduledAt,
+  });
+}

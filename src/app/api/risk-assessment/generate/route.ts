@@ -12,7 +12,7 @@ import { EXCAVATOR_QUESTIONS } from '@/lib/risk-assessment/excavatorQuestions';
 import { POSI_TRACK_QUESTIONS } from '@/lib/risk-assessment/posiTrackQuestions';
 import { ROLLER_QUESTIONS } from '@/lib/risk-assessment/rollerQuestions';
 import { uploadRiskAssessmentPdf, createSignedDownloadUrl } from '@/lib/risk-assessment/storage';
-import { sendRiskAssessmentEmail, sendRiskAssessmentNotification } from '@/lib/risk-assessment/email';
+import { sendRiskAssessmentEmail, sendRiskAssessmentNotification, sendRiskAssessmentFollowUpEmail, sendRiskAssessmentSecondNurtureEmail } from '@/lib/risk-assessment/email';
 import RiskAssessmentPdf from '@/lib/pdf/RiskAssessmentPdf';
 
 function loadLogoDataUrl(): string | null {
@@ -202,6 +202,51 @@ export async function POST(req: Request) {
       });
     } catch (notifyErr) {
       console.error('[risk-assessment/generate] Admin notification failed:', notifyErr);
+    }
+
+    if (!body.lead.marketingConsent) {
+      console.log('[risk-assessment/generate] Nurture scheduling skipped: no marketing consent');
+    } else {
+      const normalisedEmail = body.lead.email.toLowerCase().trim();
+      const { data: dedupRows, error: dedupError } = await supabase.rpc(
+        'check_and_schedule_risk_assessment_nurture',
+        { p_email: normalisedEmail, p_machine_type: basics.machineType }
+      );
+
+      if (dedupError) {
+        console.error('[risk-assessment/generate] Nurture dedup RPC failed — skipping scheduling:', dedupError.message);
+      } else {
+        const dedup = Array.isArray(dedupRows) ? dedupRows[0] : dedupRows;
+
+        if (!dedup?.allowed) {
+          console.log(`[risk-assessment/generate] Nurture scheduling skipped for ${normalisedEmail}: ${dedup?.reason ?? 'unknown'}`);
+        } else {
+          console.log(`[risk-assessment/generate] Nurture scheduling allowed for ${normalisedEmail}: ${dedup.reason}`);
+
+          await delay(600);
+          try {
+            await sendRiskAssessmentFollowUpEmail({
+              to: body.lead.email,
+              firstName: body.lead.firstName,
+              machineType: basics.machineType,
+            });
+            console.log('[risk-assessment/generate] 24h follow-up scheduled');
+          } catch (followUpErr) {
+            console.error('[risk-assessment/generate] 24h follow-up scheduling failed:', followUpErr);
+          }
+
+          await delay(600);
+          try {
+            await sendRiskAssessmentSecondNurtureEmail({
+              to: body.lead.email,
+              firstName: body.lead.firstName,
+            });
+            console.log('[risk-assessment/generate] 72h nurture scheduled');
+          } catch (secondNurtureErr) {
+            console.error('[risk-assessment/generate] 72h nurture scheduling failed:', secondNurtureErr);
+          }
+        }
+      }
     }
 
     return NextResponse.json({
