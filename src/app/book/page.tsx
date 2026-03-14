@@ -1,29 +1,18 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Header from '@/components/Header';
-import DarcyPhoto from '@/components/marketing/DarcyPhoto';
-import CalendlyWithUtm from '@/components/marketing/CalendlyWithUtm';
-import { DraggableMarquee } from '@/components/ui/DraggableMarquee';
+import CalendlyPopupButton from '@/components/marketing/CalendlyPopupButton';
+import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import BookFAQ from './_components/BookFAQ';
+import StepHeading from './_components/StepHeading';
+import BookVideoPlayer from './_components/BookVideoPlayer';
 
 export const metadata: Metadata = {
   title: 'Book a Quick CivDocs Fit Check',
   description:
     'Book a 15-minute chat to see if CivDocs is a fit for your civil contracting or plant hire business.',
 };
-
-const IS_LIST = [
-  'Straight-up and practical — no fluff',
-  'About your setup, not a generic pitch',
-  'Zero prep. Just show up.',
-];
-
-const IS_NOT_LIST = [
-  'A hard sell or pushy demo',
-  'An hour of slides you don’t need',
-  'Any commitment to sign up',
-];
 
 const TOP_ROW_CARDS = [
   { name: 'John', company: 'Jal Civil', quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.", logoSrc: '/capability-statement/Jal.png' },
@@ -40,101 +29,78 @@ export default function BookPage() {
     <>
       <Header />
 
-      <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-12 sm:pb-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-16 sm:pb-24">
+        <div className="mx-auto max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4 sm:px-6 lg:px-12 xl:px-16">
 
-          <div className="lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
+          {/* ── Hero / Intro ───────────────────────────────────────── */}
+          <section className="mb-20 sm:mb-28 text-center">
+            <h1 className="text-[3.4rem] sm:text-[4.59rem] md:text-[4.59rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold text-gray-900 leading-[1.05] tracking-tight mx-auto">
+              Still Doing Civil Paperwork at Night?
+            </h1>
 
-            {/* ── Left column ─────────────────────────────────────── */}
-            <div className="mb-10 lg:mb-0 lg:sticky lg:top-24">
+            <p className="mt-8 sm:mt-10 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-700 leading-relaxed max-w-3xl mx-auto">
+              CivDocs connects day dockets, logbooks and plant hours directly to your invoicing — so admin takes minutes instead of hours.
+            </p>
+          </section>
 
-              {/* Darcy intro — alternating photos from Bookacall */}
-              <div className="flex items-center gap-4 mb-6">
-                <DarcyPhoto />
-                <div>
-                  <p className="font-semibold text-gray-900">Darcy</p>
-                  <p className="text-sm text-slate-500">Founder, CivDocs</p>
-                </div>
-              </div>
-
-              {/* H1 */}
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-                Quick CivDocs Fit Check
-              </h1>
-
-              {/* Subhead — casual, for someone who&apos;s seen CivDocs but isn&apos;t sure */}
-              <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-                You&apos;ve had a look — now let&apos;s work out if it actually fits.
-                No prep, no pressure. Just a quick friendly chat to see if CivDocs would
-                help your business.
-              </p>
-
-              {/* Is / Isn't cards */}
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600 mb-3">
-                    This call is
-                  </p>
-                  <ul className="space-y-2">
-                    {IS_LIST.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="mt-0.5 text-emerald-500 shrink-0">✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-rose-500 mb-3">
-                    This call isn&apos;t
-                  </p>
-                  <ul className="space-y-2">
-                    {IS_NOT_LIST.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="mt-0.5 text-rose-400 shrink-0">✗</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+          {/* ── Step 1 of 2: Watch Video ─────────────────────────────── */}
+          <section className="mb-24 sm:mb-28">
+            <StepHeading step="Step 1 of 2:" title="Watch Video" />
+            <div className="mt-8 sm:mt-10">
+              <BookVideoPlayer />
             </div>
+          </section>
 
-            {/* ── Right column — booking card ──────────────────────── */}
-            <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-                <div className="px-6 pt-6 pb-2">
-                  <h2 className="text-xl font-semibold text-gray-900">Pick a time</h2>
-                  <p className="mt-1 text-sm text-slate-500">Free chat. No sales pressure.</p>
-                </div>
-
-                <Suspense fallback={
-                  <div className="flex items-center justify-center" style={{ height: 720 }}>
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#FF8C32] border-t-transparent" />
-                  </div>
-                }>
-                  <CalendlyWithUtm height={720} />
-                </Suspense>
+          {/* ── Step 2 of 2: Book a Call ────────────────────────────── */}
+          <section className="mb-20 sm:mb-24 text-center">
+            <StepHeading step="Step 2 of 2:" title="Book a Call" />
+            <p className="mt-8 sm:mt-10 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              Just a quick chat about how you&apos;re currently doing admin and whether CivDocs could save you time.
+            </p>
+            <p className="mt-5 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              Zoom or phone — whatever&apos;s easiest.
+            </p>
+            <div className="mt-12 sm:mt-14 flex justify-center">
+              <Suspense fallback={
+                <a
+                  href="https://calendly.com/darcy-civdocs/30min?primary_color=FF8C32"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse"
+                >
+                  Book a Call
+                </a>
+              }>
+                <CalendlyPopupButton className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse">
+                  Book a Call
+                </CalendlyPopupButton>
+              </Suspense>
             </div>
+          </section>
 
-          </div>
+          {/* ── Testimonials ────────────────────────────────────────── */}
+          <section className="mb-20 sm:mb-24">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+              Trusted by civil contractors
+            </h2>
+            <p className="mt-4 text-lg text-slate-600">
+              Simple enough for crews to use. Powerful enough to save serious admin time.
+            </p>
+            <div className="mt-8 mx-auto max-w-[600px] lg:max-w-full space-y-4 overflow-hidden">
+              <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse={false} pauseOnHover>
+                {TOP_ROW_CARDS.map((card) => (
+                  <TestimonialCard key={`${card.name}-${card.company}`} {...card} />
+                ))}
+              </Marquee>
+              <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse pauseOnHover>
+                {BOTTOM_ROW_CARDS.map((card) => (
+                  <TestimonialCard key={`${card.name}-${card.company}`} {...card} />
+                ))}
+              </Marquee>
+            </div>
+          </section>
 
-          {/* Social proof marquee — underneath booking card */}
-          <div className="mt-10 overflow-hidden -mx-4 sm:-mx-6 lg:mx-0">
-            <DraggableMarquee className="p-2" duration={25} repeat={4} gap={1.5}>
-              {[...TOP_ROW_CARDS, ...BOTTOM_ROW_CARDS].map((card) => (
-                <TestimonialCard
-                  key={`${card.name}-${card.company}`}
-                  name={card.name}
-                  company={card.company}
-                  quote={card.quote}
-                  logoSrc={card.logoSrc}
-                />
-              ))}
-            </DraggableMarquee>
-          </div>
-
-          {/* FAQ section */}
+          {/* ── FAQ ─────────────────────────────────────────────────── */}
           <BookFAQ />
         </div>
       </main>

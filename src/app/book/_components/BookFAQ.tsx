@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import CalendlyPopupButton from '@/components/marketing/CalendlyPopupButton';
 
 const FAQ_ITEMS = [
   {
@@ -139,6 +140,23 @@ export default function BookFAQ() {
             )}
           </div>
         ))}
+      </div>
+
+      <div className="mt-12 flex justify-center">
+        <Suspense fallback={
+          <a
+            href="https://calendly.com/darcy-civdocs/30min?primary_color=FF8C32"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse"
+          >
+            Book a Call
+          </a>
+        }>
+          <CalendlyPopupButton className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse">
+            Book a Call
+          </CalendlyPopupButton>
+        </Suspense>
       </div>
     </section>
   );
