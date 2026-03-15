@@ -1,13 +1,30 @@
 const LEAD_FIRED_KEY = 'capability_lead_fired';
 const RISK_ASSESSMENT_FIRED_KEY = 'risk_assessment_generated_fired';
+const CAPABILITY_LEAD_KEY = 'capability_lead_fired';
+const CAPABILITY_COMPLETE_REG_KEY = 'capability_complete_registration_fired';
 
-function fireLead(): boolean {
+type MetaStandardEvent =
+  | 'Lead'
+  | 'CompleteRegistration'
+  | 'ViewContent'
+  | 'AddToCart'
+  | 'Purchase'
+  | string;
+
+function fireMetaEvent(
+  eventName: MetaStandardEvent,
+  params?: Record<string, unknown>
+): boolean {
   if (typeof window === 'undefined') return false;
   if (typeof window.fbq !== 'function') return false;
   try {
-    window.fbq('track', 'Lead');
+    if (params && Object.keys(params).length > 0) {
+      window.fbq('track', eventName, params);
+    } else {
+      window.fbq('track', eventName);
+    }
     if (process.env.NODE_ENV === 'development') {
-      console.log('[Meta Pixel] Lead event fired');
+      console.log('[Meta Pixel]', eventName, params ?? '');
     }
     return true;
   } catch {
@@ -16,43 +33,111 @@ function fireLead(): boolean {
 }
 
 /**
- * Fire Meta Pixel Lead event. Fails silently if fbq not loaded.
- * Uses sessionStorage to prevent duplicate fires for the same submission.
- * Retries once after 150ms if fbq isn't ready (handles script load race).
+ * Fire a Meta Pixel standard event with optional params and deduplication.
+ * Retries once after 150ms if fbq isn't ready.
  */
-export function trackLead(submissionId?: string): void {
+export function trackMetaEvent(
+  eventName: MetaStandardEvent,
+  params?: Record<string, unknown>,
+  dedupeKey?: string
+): void {
   if (typeof window === 'undefined') return;
 
-  const guardKey = submissionId ? `${LEAD_FIRED_KEY}_${submissionId}` : LEAD_FIRED_KEY;
-
-  let shouldSkip = false;
-  try {
-    if (sessionStorage.getItem(guardKey)) shouldSkip = true;
-  } catch {
-    // sessionStorage can throw in private browsing
-  }
-  if (shouldSkip) return;
-
-  if (fireLead()) {
+  const guardKey = dedupeKey;
+  if (guardKey) {
     try {
-      if (guardKey !== LEAD_FIRED_KEY) sessionStorage.setItem(guardKey, '1');
+      if (sessionStorage.getItem(guardKey)) return;
     } catch {
-      // ignore
+      /* sessionStorage can throw in private browsing */
+    }
+  }
+
+  const fire = (): boolean => fireMetaEvent(eventName, params);
+
+  if (fire()) {
+    try {
+      if (guardKey) sessionStorage.setItem(guardKey, '1');
+    } catch {
+      /* ignore */
     }
     return;
   }
 
-  // fbq may not be loaded yet; retry once after a short delay
   setTimeout(() => {
     try {
-      if (sessionStorage.getItem(guardKey)) return;
-      if (fireLead()) {
-        if (guardKey !== LEAD_FIRED_KEY) sessionStorage.setItem(guardKey, '1');
+      if (guardKey && sessionStorage.getItem(guardKey)) return;
+      if (fire()) {
+        if (guardKey) sessionStorage.setItem(guardKey, '1');
       }
     } catch {
-      // fail silently
+      /* fail silently */
     }
   }, 150);
+}
+
+/**
+ * Fire Meta Pixel Lead event. Fails silently if fbq not loaded.
+ * Uses sessionStorage to prevent duplicate fires for the same submission.
+ */
+export function trackLead(submissionId?: string): void {
+  const guardKey = submissionId ? `${LEAD_FIRED_KEY}_${submissionId}` : LEAD_FIRED_KEY;
+  trackMetaEvent('Lead', undefined, guardKey);
+}
+
+const CAPABILITY_PARAMS = { content_name: 'Capability Statement Generated' } as const;
+
+/**
+ * Fire Lead + CompleteRegistration for capability statement success.
+ * Each event has its own dedupe key so both fire once per submission.
+ */
+export function trackCapabilityStatementGenerated(submissionId?: string): void {
+  if (typeof window === 'undefined') return;
+
+  const base = submissionId ?? 'anon';
+  const leadKey = `${CAPABILITY_LEAD_KEY}_${base}`;
+  const regKey = `${CAPABILITY_COMPLETE_REG_KEY}_${base}`;
+
+  // Fire Lead with content_name
+  let skipLead = false;
+  try {
+    if (sessionStorage.getItem(leadKey)) skipLead = true;
+  } catch {
+    /* ignore */
+  }
+  if (!skipLead) {
+    const fireLead = (): boolean => fireMetaEvent('Lead', CAPABILITY_PARAMS);
+    if (fireLead()) {
+      try { sessionStorage.setItem(leadKey, '1'); } catch { /* ignore */ }
+    } else {
+      setTimeout(() => {
+        try {
+          if (sessionStorage.getItem(leadKey)) return;
+          if (fireMetaEvent('Lead', CAPABILITY_PARAMS)) sessionStorage.setItem(leadKey, '1');
+        } catch { /* ignore */ }
+      }, 150);
+    }
+  }
+
+  // Fire CompleteRegistration with content_name
+  let skipReg = false;
+  try {
+    if (sessionStorage.getItem(regKey)) skipReg = true;
+  } catch {
+    /* ignore */
+  }
+  if (!skipReg) {
+    const fireReg = (): boolean => fireMetaEvent('CompleteRegistration', CAPABILITY_PARAMS);
+    if (fireReg()) {
+      try { sessionStorage.setItem(regKey, '1'); } catch { /* ignore */ }
+    } else {
+      setTimeout(() => {
+        try {
+          if (sessionStorage.getItem(regKey)) return;
+          if (fireMetaEvent('CompleteRegistration', CAPABILITY_PARAMS)) sessionStorage.setItem(regKey, '1');
+        } catch { /* ignore */ }
+      }, 150);
+    }
+  }
 }
 
 /**

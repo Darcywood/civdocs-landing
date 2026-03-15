@@ -10,7 +10,7 @@ import Step2Proof from './Step2Proof';
 import Step3UploadsAndLead from './Step3UploadsAndLead';
 import GenerationLoadingModal from './GenerationLoadingModal';
 import PdfViewerModal from './PdfViewerModal';
-import { trackLead } from '@/lib/metaPixel';
+import { trackCapabilityStatementGenerated } from '@/lib/metaPixel';
 
 const STORAGE_KEY = 'capability-statement-draft';
 
@@ -181,7 +181,7 @@ export default function CapabilityWizard() {
         throw new Error(genData.error || genRes.statusText);
       }
 
-      trackLead(genData.submissionId);
+      trackCapabilityStatementGenerated(genData.submissionId);
 
       setGenerationComplete(true);
       await new Promise((r) => setTimeout(r, 600));
