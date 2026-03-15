@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import Header from '@/components/Header';
 import CalendlyPopupButton from '@/components/marketing/CalendlyPopupButton';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import BookFAQ from './_components/BookFAQ';
 import StepHeading from './_components/StepHeading';
 import BookVideoPlayer from './_components/BookVideoPlayer';
-import BookPageLayout from './_components/BookPageLayout';
 
 export const metadata: Metadata = {
   title: 'Book a Quick CivDocs Fit Check',
@@ -27,13 +25,7 @@ const BOTTOM_ROW_CARDS = [
 
 export default function BookPage() {
   return (
-    <Suspense fallback={
-      <>
-        <Header />
-        <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-16 sm:pb-24" />
-      </>
-    }>
-      <BookPageLayout>
+    <main className="bg-[#F8F9FA] min-h-screen pt-8 sm:pt-12 pb-16 sm:pb-24">
       <div className="mx-auto max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4 sm:px-6 lg:px-12 xl:px-16">
 
           {/* ── Hero / Intro ───────────────────────────────────────── */}
@@ -107,7 +99,6 @@ export default function BookPage() {
           {/* ── FAQ ─────────────────────────────────────────────────── */}
           <BookFAQ />
         </div>
-      </BookPageLayout>
-    </Suspense>
+    </main>
   );
 }
