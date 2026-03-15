@@ -339,7 +339,7 @@ export interface RiskAssessmentLead {
   companyName: string;
   phone?: string;
   marketingConsent: boolean;
-  /** Base64 data URLs of uploaded machine images (max 2, ~500KB each) */
+  /** Base64 data URLs of uploaded machine images (max 2, ~2MB each) */
   machineImages?: string[];
 }
 

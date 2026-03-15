@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import type { RiskAssessmentLead } from '@/lib/risk-assessment/types';
 
 const MAX_IMAGES = 2;
-const MAX_SIZE_KB = 500;
+const MAX_SIZE_KB = 2048; // 2MB per image
 
 interface Props {
   onSubmit: (lead: RiskAssessmentLead) => void;
@@ -47,7 +47,7 @@ export default function Step4Lead({ onSubmit, onBack, initial, isSubmitting, onM
     for (let i = 0; i < toAdd; i++) {
       const file = files[i];
       if (file.size > MAX_SIZE_KB * 1024) {
-        setImageError(`Image "${file.name}" is too large. Max ${MAX_SIZE_KB}KB per image.`);
+        setImageError(`Image "${file.name}" is too large. Max 2MB per image.`);
         return;
       }
       try {
