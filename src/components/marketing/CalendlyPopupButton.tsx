@@ -7,6 +7,14 @@ import { useCallback } from 'react';
 const BASE_URL = 'https://calendly.com/darcy-civdocs/30min';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 
+// Calendly popup is unreliable in mobile browsers and in-app webviews (Facebook,
+// Instagram, etc.) — it injects a heavy overlay that freezes or crashes the page.
+// On mobile we use a plain anchor so the OS opens Calendly in the system browser.
+function isMobileBrowser(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+}
+
 declare global {
   interface Window {
     Calendly?: {
@@ -32,14 +40,20 @@ export default function CalendlyPopupButton({ children, className }: CalendlyPop
   const params = new URLSearchParams({ primary_color: 'FF8C32', ...utmParams });
   const finalUrl = `${BASE_URL}?${params.toString()}`;
 
-  const handleClick = useCallback(() => {
-    if (typeof window === 'undefined') return;
-    if (window.Calendly?.initPopupWidget) {
-      window.Calendly.initPopupWidget({ url: finalUrl });
-    } else {
-      window.open(finalUrl, '_blank', 'noopener,noreferrer');
-    }
-  }, [finalUrl]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (typeof window === 'undefined') return;
+      // Let the anchor handle navigation on mobile — popup crashes in-app browsers
+      if (isMobileBrowser()) return;
+      e.preventDefault();
+      if (window.Calendly?.initPopupWidget) {
+        window.Calendly.initPopupWidget({ url: finalUrl });
+      } else {
+        window.open(finalUrl, '_blank', 'noopener,noreferrer');
+      }
+    },
+    [finalUrl]
+  );
 
   return (
     <>
@@ -47,14 +61,17 @@ export default function CalendlyPopupButton({ children, className }: CalendlyPop
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
       />
-      <button
-        type="button"
+      {/* anchor so mobile browsers navigate cleanly; desktop intercepts with popup */}
+      <a
+        href={finalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         onClick={handleClick}
         className={className}
         style={{ WebkitTapHighlightColor: 'transparent' }}
       >
         {children}
-      </button>
+      </a>
     </>
   );
 }

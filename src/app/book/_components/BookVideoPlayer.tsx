@@ -9,7 +9,7 @@ export default function BookVideoPlayer() {
       <div className="relative aspect-video bg-gray-100">
         {WISTIA_VIDEO_ID ? (
           <iframe
-            src={`https://fast.wistia.net/embed/iframe/${WISTIA_VIDEO_ID}?videoFoam=true`}
+            src={`https://fast.wistia.net/embed/iframe/${WISTIA_VIDEO_ID}?videoFoam=true&qualityMin=720&playerColor=FF8C32`}
             title="CivDocs walkthrough"
             allow="autoplay; fullscreen"
             allowFullScreen
