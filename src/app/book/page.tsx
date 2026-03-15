@@ -7,6 +7,7 @@ import { TestimonialCard } from '@/app/capability-statement/_components/Testimon
 import BookFAQ from './_components/BookFAQ';
 import StepHeading from './_components/StepHeading';
 import BookVideoPlayer from './_components/BookVideoPlayer';
+import BookPageLayout from './_components/BookPageLayout';
 
 export const metadata: Metadata = {
   title: 'Book a Quick CivDocs Fit Check',
@@ -26,11 +27,14 @@ const BOTTOM_ROW_CARDS = [
 
 export default function BookPage() {
   return (
-    <>
-      <Header />
-
-      <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-16 sm:pb-24">
-        <div className="mx-auto max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4 sm:px-6 lg:px-12 xl:px-16">
+    <Suspense fallback={
+      <>
+        <Header />
+        <main className="bg-[#F8F9FA] min-h-screen pt-[130px] pb-16 sm:pb-24" />
+      </>
+    }>
+      <BookPageLayout>
+      <div className="mx-auto max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4 sm:px-6 lg:px-12 xl:px-16">
 
           {/* ── Hero / Intro ───────────────────────────────────────── */}
           <section className="mb-20 sm:mb-28 text-center">
@@ -103,7 +107,7 @@ export default function BookPage() {
           {/* ── FAQ ─────────────────────────────────────────────────── */}
           <BookFAQ />
         </div>
-      </main>
-    </>
+      </BookPageLayout>
+    </Suspense>
   );
 }
