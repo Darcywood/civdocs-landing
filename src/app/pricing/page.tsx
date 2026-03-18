@@ -23,7 +23,7 @@ export default function PricingPage() {
       planId: 'bronze',
       emoji: '🥉',
       description: 'Perfect for owner-operators and small civil crews.',
-      monthlyPrice: 197,
+      monthlyPrice: 297,
       features: [
         '5 users included',
         '10 machines',
@@ -39,7 +39,7 @@ export default function PricingPage() {
       planId: 'silver',
       emoji: '🥈',
       description: 'Great for civil crews growing into medium projects.',
-      monthlyPrice: 297,
+      monthlyPrice: 997,
       features: [
         '10 users included',
         '15 machines',
@@ -56,7 +56,7 @@ export default function PricingPage() {
       planId: 'gold',
       emoji: '🥇',
       description: 'Built for civil companies looking to dominate their industry',
-      monthlyPrice: 397,
+      monthlyPrice: 2497,
       features: [
         'Up to 75 users',
         'Up to 125 machines',
