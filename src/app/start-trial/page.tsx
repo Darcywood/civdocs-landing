@@ -3,7 +3,6 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import StartTrialForm from './_components/StartTrialForm';
@@ -56,18 +55,13 @@ function StartTrialWarmupContent() {
 
   return (
     <div
-      className="min-h-screen"
+      className="min-h-screen overflow-x-hidden"
       style={{
         background: 'linear-gradient(to bottom, #ffffff 0%, #fefaf8 15%, #FFF5ED 35%, #FFF5ED 65%, #faf9f8 85%, #f3f4f6 100%)',
       }}
     >
       {/* Hero */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pt-12 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6"
-      >
+      <section className="pt-12 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6">
         <div className="mx-auto max-w-[680px] text-center">
           <Link href="/" className="inline-flex items-center text-gray-600 hover:text-[#F97316] transition-colors text-sm font-medium mb-10">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,21 +90,15 @@ function StartTrialWarmupContent() {
           </button>
           <p className="mt-4 text-xs text-gray-500">14 days free. Cancel anytime.</p>
         </div>
-      </motion.section>
+      </section>
 
       {/* Social proof — Trusted by civil contractors */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-12 sm:py-16"
-      >
+      <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
             Trusted by civil contractors across Australia
           </h2>
-          <div className="mt-8 mx-auto max-w-[600px] lg:max-w-full space-y-4 overflow-hidden">
+          <div className="mt-8 mx-auto max-w-[600px] lg:max-w-full space-y-4 overflow-hidden" style={{ touchAction: 'pan-y' }}>
             <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse={false} pauseOnHover>
               {TOP_ROW_CARDS.map((card) => (
                 <TestimonialCard key={`${card.name}-${card.company}`} {...card} />
@@ -123,70 +111,40 @@ function StartTrialWarmupContent() {
             </Marquee>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* What changes */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-16 sm:py-24 px-4 sm:px-6"
-      >
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-[1100px]">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-12">What actually changes.</h2>
           <div className="flex flex-col gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
-            >
+            <div className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6">
               <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>01</p>
               <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Daily data. Not Friday&apos;s memory.</h3>
               <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
               <p className="text-[13px] text-gray-500 leading-relaxed mb-2">You can&apos;t trust data that was written from memory two days later.</p>
               <p className="text-[13px] text-gray-900 leading-relaxed">CivDocs captures hours, plant and progress on site each day — while it&apos;s actually happening.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
-            >
+            </div>
+            <div className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6">
               <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>02</p>
               <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Know you&apos;re losing margin before it&apos;s too late.</h3>
               <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
               <p className="text-[13px] text-gray-500 leading-relaxed mb-2">Most contractors find out a job went wrong after it&apos;s already done.</p>
               <p className="text-[13px] text-gray-900 leading-relaxed">CivDocs shows labour and plant costs building in real time — so you can act while the job&apos;s still running.</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
-            >
+            </div>
+            <div className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6">
               <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>03</p>
               <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Payroll that doesn&apos;t eat your Friday.</h3>
               <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
               <p className="text-[13px] text-gray-500 leading-relaxed mb-2">Chasing timesheets at the end of the week is a tax on your whole operation.</p>
               <p className="text-[13px] text-gray-900 leading-relaxed">Operators submit from their phone. Supervisors approve in seconds. It&apos;s done before the week closes out.</p>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Testimonials */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-16 sm:py-24 px-4 sm:px-6"
-      >
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-[1100px]">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-12">What civil contractors say.</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -231,16 +189,10 @@ function StartTrialWarmupContent() {
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* FAQ */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-16 sm:py-24 px-4 sm:px-6"
-      >
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-[680px]">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-10">Common questions.</h2>
           <div className="space-y-3">
@@ -305,32 +257,20 @@ function StartTrialWarmupContent() {
             })}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Signup form */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-16 sm:py-24 px-4 sm:px-6"
-      >
+      <section className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="mx-auto max-w-[680px]">
           <StartTrialForm />
         </div>
-      </motion.section>
+      </section>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="py-8 text-center"
-      >
+      <div className="py-8 text-center">
         <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#F97316] transition-colors">
           ← Back to pricing
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 }
