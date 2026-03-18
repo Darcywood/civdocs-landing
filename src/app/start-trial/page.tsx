@@ -1,587 +1,355 @@
 'use client';
 
-import { useState, Suspense, useEffect } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import OptimizedImage from '@/components/OptimizedImage';
-import FancySpinner from '@/components/fancyspinner/FancySpinner';
+import { motion } from 'framer-motion';
+import { Marquee } from '@/components/ui/marquee';
+import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
+import StartTrialForm from './_components/StartTrialForm';
 
-function StartTrialContent() {
-  const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    company: '',
-    company_type: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [loading, setLoading] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
-  const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState(false);
-  const [orgSignupAccepted, setOrgSignupAccepted] = useState(false);
-  const [legalError, setLegalError] = useState('');
-  const [isOrgAckExpanded, setIsOrgAckExpanded] = useState(false);
+const ORANGE = '#F97316';
 
-  // Preload spinner images immediately when component mounts
-  useEffect(() => {
-    // Clear any potential localStorage interference from app
-    // This ensures a fresh signup experience
-    const keysToClear = [
-      'company_type',
-      'view_mode', 
-      'default_view_mode',
-      'organization_view_mode'
-    ];
-    
-    console.log('[Signup] Clearing localStorage keys that might interfere:', keysToClear);
-    keysToClear.forEach(key => {
-      try {
-        const value = localStorage.getItem(key);
-        if (value) {
-          console.log(`[Signup] Found and clearing localStorage.${key} = "${value}"`);
-          localStorage.removeItem(key);
-        }
-      } catch (e) {
-        // Ignore errors (e.g., in private browsing mode)
-        console.warn(`[Signup] Could not clear localStorage.${key}:`, e);
-      }
-    });
+const TOP_ROW_CARDS = [
+  { name: 'John', company: 'Jal Civil', quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.", logoSrc: '/capability-statement/Jal.png' },
+  { name: 'Riley', company: 'RMF Earthworx', quote: "It's simple. Select the job, log the hours, submit. The blokes picked it up without needing a training day.", logoSrc: '/capability-statement/rmf.png' },
+];
 
-    const preloadImages = () => {
-      const imagePaths = [
-        '/John Smith/whitepaper.png',
-        '/realfancyspinner/left.png',
-        '/realfancyspinner/right.png',
-      ];
-      
-      imagePaths.forEach((src) => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
-      });
+const BOTTOM_ROW_CARDS = [
+  { name: 'Colby', company: 'Ali Excavations', quote: "Plant hours used to live in notebooks. Now they're logged daily and tied back to the job properly.", logoSrc: '/capability-statement/ali.png' },
+  { name: 'Riley', company: 'Rj Piling', quote: "Being able to click into a job and see exactly where the hours and plant costs came from has made quoting less stressful.", logoSrc: '/capability-statement/rj.png' },
+];
+const FAQ_ITEMS = [
+  {
+    num: '1',
+    q: 'Is there a free trial?',
+    a: 'Yes. 14 days, no credit card required. Add your projects, machines and crew — then start with one live job. No complex onboarding. Just mirror how you already run work.',
+  },
+  {
+    num: '2',
+    q: 'Will my operators actually use it?',
+    a: "That was one of the biggest concerns we heard early on. CivDocs is built for site use — big buttons, minimal steps, no clutter. If someone can use basic apps on their phone, they can use this. Most crews pick it up in minutes because it mirrors how they already think about their day.",
+  },
+  {
+    num: '3',
+    q: 'Who can see the data?',
+    a: "There are three access levels. Employees log their own hours and pre-starts only. Supervisors approve submissions and see their projects. Admins have full visibility and control. Operators can't see sensitive rates or business-wide data. You control access.",
+  },
+  {
+    num: '4',
+    q: 'Can we cancel anytime?',
+    a: 'Yes. No lock-in contracts. Cancel during the trial and you won\'t be charged. Not happy? We\'ll refund you — no questions asked.',
+  },
+  {
+    num: '5',
+    q: 'Can I test it without the whole team?',
+    a: 'Yes. Start with just yourself or one supervisor. Get comfortable with the system before rolling it out to crew.',
+  },
+];
 
-      // Also preload using Image objects for better browser compatibility
-      imagePaths.forEach((src) => {
-        const img = new window.Image();
-        img.src = src;
-      });
-    };
+function scrollToForm() {
+  document.getElementById('signup-form')?.scrollIntoView({ behavior: 'smooth' });
+}
 
-    preloadImages();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Safety check: Read company_type directly from form element as fallback
-    const form = e.currentTarget as HTMLFormElement;
-    const formDataElement = form.querySelector('input[name="company_type"]:checked') as HTMLInputElement;
-    const companyTypeFromForm = formDataElement?.value || formData.company_type;
-    
-    // Debug logging
-    console.log('[Signup] ===== FORM SUBMISSION DEBUG =====');
-    console.log('[Signup] Form state company_type:', formData.company_type);
-    console.log('[Signup] Form element company_type (from DOM):', companyTypeFromForm);
-    console.log('[Signup] All form state:', formData);
-    
-    // Use form element value if state is empty or different (safety check)
-    const finalCompanyType = companyTypeFromForm || formData.company_type;
-    console.log('[Signup] Final company_type being used:', finalCompanyType);
-    
-    // Validate company type is selected
-    if (!finalCompanyType) {
-      console.error('[Signup] ERROR: No company_type selected!');
-      alert('⚠️ Please select a company type');
-      return;
-    }
-    
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordError('Passwords do not match');
-      return;
-    }
-    
-    // Validate legal checkboxes
-    if (!termsAndPrivacyAccepted || !orgSignupAccepted) {
-      setLegalError('You must accept all terms and agreements to continue');
-      return;
-    }
-    
-    setPasswordError('');
-    setLegalError('');
-    setLoading(true);
-
-    try {
-      const requestBody = {
-        ...formData,
-        company_type: finalCompanyType, // Explicitly set the company_type
-        terms_and_privacy_accepted: termsAndPrivacyAccepted,
-        org_acknowledgement_accepted: orgSignupAccepted,
-      };
-      
-      // Debug: Log the exact request body
-      console.log('[Signup] Request body being sent:', JSON.stringify(requestBody, null, 2));
-      console.log('[Signup] Company type in request body:', requestBody.company_type);
-      console.log('[Signup] ===== END DEBUG =====');
-
-      const response = await fetch('/api/start-trial', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      });
-
-      const data = await response.json();
-
-      if (data.ok || data.success) {
-        // Fire Meta Pixel StartTrial event
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-          try {
-            (window as any).fbq('track', 'StartTrial', {
-              value: 0,
-              currency: 'AUD',
-              subscription_id: data.organizationId || '',
-              predicted_ltv: 20,
-            });
-            console.log('[Signup] Meta Pixel StartTrial event fired with org ID:', data.organizationId);
-            
-            // Small delay to ensure event is sent before redirect
-            await new Promise(resolve => setTimeout(resolve, 500));
-          } catch (error) {
-            console.error('[Signup] Error firing Meta Pixel event:', error);
-          }
-        } else {
-          console.warn('[Signup] Meta Pixel not loaded, skipping StartTrial event');
-        }
-
-        // If magic link is available, redirect to web app for auto-login
-        if (data.magicLink) {
-          console.log('[Signup] Redirecting to web app with magic link for auto-login');
-          // Set flag in localStorage to show spinner immediately on app load
-          localStorage.setItem('showSpinner', 'true');
-          localStorage.setItem('spinnerMessage', 'Getting your org setup');
-          window.location.href = data.magicLink;
-        } else {
-          // Fallback: redirect to success page if magic link not available
-          console.warn('[Signup] Magic link not available, redirecting to success page');
-          window.location.href = `/trial-success?email=${encodeURIComponent(formData.email)}`;
-        }
-      } else {
-        alert('⚠️ ' + (data.error || 'An error occurred'));
-        setLoading(false);
-      }
-    } catch {
-      alert('⚠️ An error occurred. Please try again.');
-      setLoading(false);
-    }
-  };
-
+function StartTrialWarmupContent() {
+  const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
   return (
-    <>
-      {/* Hidden preload images - ensures spinner images are ready instantly */}
-      <div className="absolute opacity-0 pointer-events-none" aria-hidden="true">
-        <Image
-          src="/John Smith/whitepaper.png"
-          alt=""
-          width={180}
-          height={180}
-          priority
-        />
-        <Image
-          src="/realfancyspinner/left.png"
-          alt=""
-          width={180}
-          height={180}
-          priority
-        />
-        <Image
-          src="/realfancyspinner/right.png"
-          alt=""
-          width={180}
-          height={180}
-          priority
-        />
-      </div>
-      {loading && <FancySpinner size="md" showOverlay={true} />}
-      <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
-        <div className="max-w-2xl w-full">
-        {/* Back to home link */}
-        <div className="mb-6">
-          <Link 
-            href="/" 
-            className="inline-flex items-center text-gray-600 hover:text-[#FF8C32] transition-colors font-medium"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div
+      className="min-h-screen"
+      style={{
+        background: 'linear-gradient(to bottom, #ffffff 0%, #fefaf8 15%, #FFF5ED 35%, #FFF5ED 65%, #faf9f8 85%, #f3f4f6 100%)',
+      }}
+    >
+      {/* Hero */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="pt-12 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6"
+      >
+        <div className="mx-auto max-w-[680px] text-center">
+          <Link href="/" className="inline-flex items-center text-gray-600 hover:text-[#F97316] transition-colors text-sm font-medium mb-10">
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Back to home
           </Link>
-        </div>
-
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-            <OptimizedImage 
-              src="/CivDocs 500x500.svg" 
-              alt="CivDocs Logo" 
-              width={64} 
-              height={64} 
-              className="w-16 h-16"
-            />
+          <div className="w-14 h-14 mx-auto mb-8 flex items-center justify-center">
+            <Image src="/CivDocs 500x500.svg" alt="CivDocs" width={56} height={56} className="w-14 h-14" />
           </div>
-          <h1 className="text-3xl font-semibold text-[#1E1E1E] mb-2">
-            Start Your Free Trial
+          <h1 className="text-[3.4rem] sm:text-[4.59rem] md:text-[4.59rem] lg:text-[5.5rem] xl:text-[6.5rem] font-bold text-gray-900 leading-[1.05] tracking-tight mx-auto">
+            Every Missed Hour Is Money You&apos;ll Never See Again.
           </h1>
-          <p className="text-gray-600">
-            No credit card required. 14 days of unlimited access to all features.
+          <p className="mt-8 sm:mt-10 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-700 leading-relaxed max-w-3xl mx-auto">
+            CivDocs captures every machine hour, overtime, and attachment on site — then turns it straight into invoices. No missed charges. No disputes. No chasing operators for paperwork.
           </p>
+          <p className="mt-4 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-700 leading-relaxed max-w-3xl mx-auto">
+            Built for plant hire companies and civil contractors across Australia.
+          </p>
+          <button
+            onClick={scrollToForm}
+            className="mt-10 inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold text-white transition-all hover:opacity-95 shadow-lg"
+            style={{ backgroundColor: ORANGE }}
+          >
+            Start Free Trial — No Credit Card Needed
+          </button>
+          <p className="mt-4 text-xs text-gray-500">14 days free. Cancel anytime.</p>
         </div>
+      </motion.section>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
-          <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Name *
-              </label>
-              <input
-                type="text"
-                value={formData.full_name}
-                onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                placeholder="John Smith"
-                required
-                disabled={loading}
-                suppressHydrationWarning
-              />
-            </div>
+      {/* Social proof — Trusted by civil contractors */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-12 sm:py-16"
+      >
+        <div className="mx-auto max-w-[1100px] px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center">
+            Trusted by civil contractors across Australia
+          </h2>
+          <div className="mt-8 mx-auto max-w-[600px] lg:max-w-full space-y-4 overflow-hidden">
+            <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse={false} pauseOnHover>
+              {TOP_ROW_CARDS.map((card) => (
+                <TestimonialCard key={`${card.name}-${card.company}`} {...card} />
+              ))}
+            </Marquee>
+            <Marquee className="[--duration:25s] [--gap:1.5rem]" reverse pauseOnHover>
+              {BOTTOM_ROW_CARDS.map((card) => (
+                <TestimonialCard key={`${card.name}-${card.company}`} {...card} />
+              ))}
+            </Marquee>
+          </div>
+        </div>
+      </motion.section>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Work Email *
-              </label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                placeholder="you@company.com"
-                required
-                disabled={loading}
-                suppressHydrationWarning
-              />
-            </div>
+      {/* What changes */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-16 sm:py-24 px-4 sm:px-6"
+      >
+        <div className="mx-auto max-w-[1100px]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-12">What actually changes.</h2>
+          <div className="flex flex-col gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
+            >
+              <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>01</p>
+              <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Daily data. Not Friday&apos;s memory.</h3>
+              <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-2">You can&apos;t trust data that was written from memory two days later.</p>
+              <p className="text-[13px] text-gray-900 leading-relaxed">CivDocs captures hours, plant and progress on site each day — while it&apos;s actually happening.</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
+            >
+              <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>02</p>
+              <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Know you&apos;re losing margin before it&apos;s too late.</h3>
+              <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-2">Most contractors find out a job went wrong after it&apos;s already done.</p>
+              <p className="text-[13px] text-gray-900 leading-relaxed">CivDocs shows labour and plant costs building in real time — so you can act while the job&apos;s still running.</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-[14px] overflow-hidden border-[0.5px] border-gray-200 bg-white py-7 px-6"
+            >
+              <p className="text-[36px] font-bold leading-none mb-3" style={{ color: '#D85A30' }}>03</p>
+              <h3 className="text-[15px] font-semibold text-gray-900 mb-3">Payroll that doesn&apos;t eat your Friday.</h3>
+              <div className="w-6 h-[1.5px] bg-gray-300 mb-3" />
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-2">Chasing timesheets at the end of the week is a tax on your whole operation.</p>
+              <p className="text-[13px] text-gray-900 leading-relaxed">Operators submit from their phone. Supervisors approve in seconds. It&apos;s done before the week closes out.</p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Company Name *
-              </label>
-              <input
-                type="text"
-                value={formData.company}
-                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                placeholder="Acme Construction"
-                required
-                disabled={loading}
-                suppressHydrationWarning
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password *
-              </label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                placeholder="Create a secure password"
-                required
-                disabled={loading}
-                suppressHydrationWarning
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password *
-              </label>
-              <input
-                type="password"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FF8C32] focus:border-transparent outline-none transition-all text-gray-900"
-                placeholder="Confirm your password"
-                required
-                disabled={loading}
-                suppressHydrationWarning
-              />
-              {passwordError && (
-                <p className="text-red-500 text-sm mt-1">{passwordError}</p>
-              )}
-            </div>
-
-            {/* Legal Checkboxes */}
-            <div className="space-y-3 pt-2">
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={termsAndPrivacyAccepted}
-                  onChange={(e) => {
-                    setTermsAndPrivacyAccepted(e.target.checked);
-                    setLegalError('');
-                  }}
-                  className="mt-1 h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:ring-offset-0 cursor-pointer"
-                  disabled={loading}
-                />
-                <span className="text-xs text-gray-700">
-                  I agree to the{' '}
-                  <Link
-                    href="/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-[#FF8C32] hover:text-[#E67E22] underline"
-                  >
-                    Terms & Conditions
-                  </Link>
-                  {' '}and{' '}
-                  <Link
-                    href="/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-[#FF8C32] hover:text-[#E67E22] underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </span>
-              </label>
-
-              {legalError && (
-                <p className="text-xs text-red-600 mt-1">{legalError}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Which setup best suits your company? *
-              </label>
-              <p className="text-xs text-gray-500 mb-3">
-                Don't worry, you can change this anytime later
-              </p>
-              <div className="space-y-4">
-                <div
-                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all group ${
-                    formData.company_type === 'civil'
-                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
-                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
-                  }`}
-                  onClick={() => {
-                    if (!loading) {
-                      console.log('[Signup] Civil Contractor clicked - setting company_type to "civil"');
-                      setFormData({ ...formData, company_type: 'civil' });
-                    }
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="company_type"
-                    value="civil"
-                    checked={formData.company_type === 'civil'}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      const value = e.target.value;
-                      console.log('[Signup] Civil Contractor radio onChange - value:', value);
-                      setFormData({ ...formData, company_type: value });
-                    }}
-                    className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
-                    required
-                    disabled={loading}
-                  />
-                  <div className="flex items-center flex-1 justify-between">
-                    <div>
-                      <div className={`text-sm font-medium transition-colors ${
-                        formData.company_type === 'civil'
-                          ? 'text-[#FF8C32]'
-                          : 'text-gray-900 group-hover:text-[#FF8C32]'
-                      }`}>
-                        Civil Contractor
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        Select this for cost tracking.
-                      </div>
-                    </div>
-                    <OptimizedImage 
-                      src="/icons-pricing/Civil-Contractor.png" 
-                      alt="Civil Contractor" 
-                      width={64} 
-                      height={64} 
-                      className="w-16 h-16 ml-1 object-contain"
-                    />
-                  </div>
+      {/* Testimonials */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-16 sm:py-24 px-4 sm:px-6"
+      >
+        <div className="mx-auto max-w-[1100px]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight text-center mb-12">What civil contractors say.</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-full bg-gray-100">
+                  <Image src="/logos-testomonials/hlm.png" alt="HLM Earthworks" width={48} height={48} className="object-cover w-full h-full" />
                 </div>
-                <div
-                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all group ${
-                    formData.company_type === 'plant_hire'
-                      ? 'border-[#FF8C32] bg-gradient-to-r from-[#FF8C32]/10 to-[#F5B041]/10'
-                      : 'border-gray-300 hover:border-[#FF8C32] hover:bg-[#FF8C32]/5'
-                  }`}
-                  onClick={() => {
-                    if (!loading) {
-                      console.log('[Signup] Plant Hire Company clicked - setting company_type to "plant_hire"');
-                      setFormData({ ...formData, company_type: 'plant_hire' });
-                    }
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="company_type"
-                    value="plant_hire"
-                    checked={formData.company_type === 'plant_hire'}
-                    onChange={(e) => {
-                      e.stopPropagation();
-                      const value = e.target.value;
-                      console.log('[Signup] Civil Contractor radio onChange - value:', value);
-                      setFormData({ ...formData, company_type: value });
-                    }}
-                    className="w-4 h-4 text-[#FF8C32] border-gray-300 focus:ring-[#FF8C32] focus:ring-2 mr-2 cursor-pointer accent-[#FF8C32]"
-                    required
-                    disabled={loading}
-                  />
-                  <div className="flex items-center flex-1 justify-between">
-                    <div>
-                      <div className={`text-sm font-medium transition-colors ${
-                        formData.company_type === 'plant_hire'
-                          ? 'text-[#FF8C32]'
-                          : 'text-gray-900 group-hover:text-[#FF8C32]'
-                      }`}>
-                        Plant Hire Company
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        Select this for logbooks / invoicing
-                      </div>
-                    </div>
-                    <OptimizedImage 
-                      src="/icons-pricing/Plant-hire.png" 
-                      alt="Plant Hire Company" 
-                      width={64} 
-                      height={64} 
-                      className="w-16 h-16 ml-1 object-contain"
-                    />
-                  </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Harry</p>
+                  <p className="text-sm text-gray-500">HLM Earthworks, Brisbane</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Invoicing &amp; Xero integration</p>
                 </div>
               </div>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;End of month used to take me half a day — pulling hours from the logbook, typing it all up, checking it twice. Now the approved hours flow straight into the invoice and it syncs to Xero. I&apos;m done in 20 minutes and I know it&apos;s right.&quot;</p>
             </div>
-
-            {/* Organisation Acknowledgement Section */}
-            <div className="border border-gray-200 rounded-lg bg-white shadow-sm">
-              <button
-                type="button"
-                onClick={() => setIsOrgAckExpanded(!isOrgAckExpanded)}
-                className="w-full flex items-center justify-between p-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors rounded-t-lg"
-                disabled={loading}
-              >
-                <h3 className="text-base font-semibold text-gray-900">
-                  Organisation Acknowledgement
-                </h3>
-                <svg
-                  className={`w-5 h-5 text-gray-600 transition-transform duration-200 ${isOrgAckExpanded ? 'rotate-180' : ''}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {isOrgAckExpanded && (
-                <div className="px-4 py-4">
-                  <p className="text-sm text-gray-700 mb-4">
-                    By creating an organisation in CivDocs, you acknowledge and agree that:
-                  </p>
-                  <ul className="space-y-2.5 mb-4 text-sm text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs is a productivity and record-keeping tool only</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs does not verify, validate, or enforce WHS, safety, payroll, tax, or legal compliance</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Pre-starts, timesheets, invoices, and reports are user-generated records and are not certified</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>CivDocs does not prevent machines, workers, or jobs from being used based on entered data</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Any AI-generated insights are informational only and must be independently verified</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FF8C32] mt-1 flex-shrink-0">•</span>
-                      <span>Your organisation remains fully responsible for all operational, safety, financial, and legal decisions</span>
-                    </li>
-                  </ul>
-                  <label className="flex items-start gap-2 cursor-pointer pt-2 border-t border-gray-100">
-                    <input
-                      type="checkbox"
-                      checked={orgSignupAccepted}
-                      onChange={(e) => {
-                        setOrgSignupAccepted(e.target.checked);
-                        setLegalError('');
-                      }}
-                      className="mt-0.5 h-4 w-4 text-gray-600 border-gray-300 rounded focus:ring-2 focus:ring-gray-400 focus:ring-offset-0 cursor-pointer"
-                      disabled={loading}
-                    />
-                    <span className="text-sm text-gray-700">
-                      I accept and agree on behalf of my organisation
-                    </span>
-                  </label>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-full bg-gray-100">
+                  <Image src="/logos-testomonials/2.png" alt="Fogarty Earthmovers" width={48} height={48} className="object-cover w-full h-full" />
                 </div>
-              )}
+                <div>
+                  <p className="font-semibold text-gray-900">Morgan</p>
+                  <p className="text-sm text-gray-500">Fogarty Earthmovers</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Civil contractor — tracking plant costs across jobs</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;We run machines across multiple jobs at once and I had no idea where plant costs were landing until the job was done. CivDocs fixed that. Now I can see exactly what each machine is costing on each job while it&apos;s still running.&quot;</p>
             </div>
-
-            <button
-              type="submit"
-              disabled={loading || !termsAndPrivacyAccepted || !orgSignupAccepted}
-              className="w-full py-3 px-6 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            >
-              {loading ? 'Creating Organisation...' : 'Create Organisation'}
-            </button>
-          </form>
-
-          <p className="text-xs text-gray-500 text-center mt-4">
-            ✓ No credit card required • ✓ 14 days free • ✓ Full access to all features • ✓ Select a plan after trial
-          </p>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:col-start-2">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative h-12 w-12 shrink-0 flex items-center justify-center rounded-lg bg-gray-100">
+                  <Image src="/logos-testomonials/gladelogo.png" alt="Glade Civil" width={48} height={48} className="object-contain w-full h-full" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Reece</p>
+                  <p className="text-sm text-gray-500">Glade Civil</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Tier One infrastructure — multi-site machine tracking</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;We&apos;re running graders across Tier One infrastructure — night shifts, live rail corridors, multiple machines on multiple sites. Every hour and UTS attachment needs to be logged correctly or the invoice to the head contractor is wrong. CivDocs captures it on site, supervisor signs it off, and it goes straight to billing. No more chasing operators at the end of the week.&quot;</p>
+            </div>
+          </div>
         </div>
+      </motion.section>
 
-        <div className="text-center">
-          <Link href="/pricing" className="text-sm text-gray-600 hover:text-[#FF8C32] transition-colors">
-            ← Back to pricing
-          </Link>
+      {/* FAQ */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-16 sm:py-24 px-4 sm:px-6"
+      >
+        <div className="mx-auto max-w-[680px]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-10">Common questions.</h2>
+          <div className="space-y-3">
+            {FAQ_ITEMS.map((item, i) => {
+              const isOpen = faqOpen === i;
+              return (
+                <div
+                  key={item.num}
+                  className={`rounded-2xl overflow-hidden bg-white/90 backdrop-blur-sm transition-all duration-300 ${
+                    isOpen
+                      ? 'shadow-lg shadow-orange-900/5 ring-1 ring-orange-200/60'
+                      : 'shadow-sm hover:shadow-md hover:ring-1 hover:ring-gray-200/80'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setFaqOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-2xl group"
+                  >
+                    <span
+                      className={`text-lg font-semibold transition-colors duration-200 ${
+                        isOpen ? 'text-orange-600' : 'text-gray-900 group-hover:text-orange-600'
+                      }`}
+                    >
+                      {item.q}
+                    </span>
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                        isOpen
+                          ? 'bg-orange-500 text-white'
+                          : 'bg-gray-100 text-gray-600 group-hover:bg-orange-50 group-hover:text-orange-600'
+                      }`}
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        className={`transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                      >
+                        <path
+                          d="M7 2v10M2 7h10"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <div
+                    className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                    style={{ maxHeight: isOpen ? 600 : 0 }}
+                  >
+                    <div className="border-t border-orange-100/80 bg-gradient-to-b from-orange-50/40 to-transparent px-6 pb-6 pt-4">
+                      <p className="text-[15px] leading-[1.75] text-gray-600">
+                        {item.a}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </motion.section>
+
+      {/* Signup form */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-16 sm:py-24 px-4 sm:px-6"
+      >
+        <div className="mx-auto max-w-[680px]">
+          <StartTrialForm />
+        </div>
+      </motion.section>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="py-8 text-center"
+      >
+        <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#F97316] transition-colors">
+          ← Back to pricing
+        </Link>
+      </motion.div>
     </div>
-    </>
   );
 }
 
 export default function StartTrialPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6 py-12">
-        <div className="max-w-md w-full text-center">
+    <Suspense
+      fallback={
+        <div
+          className="min-h-screen flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(to bottom, #ffffff 0%, #fefaf8 15%, #FFF5ED 35%, #FFF5ED 65%, #faf9f8 85%, #f3f4f6 100%)',
+          }}
+        >
           <p className="text-gray-600">Loading...</p>
         </div>
-      </div>
-    }>
-      <StartTrialContent />
+      }
+    >
+      <StartTrialWarmupContent />
     </Suspense>
   );
 }

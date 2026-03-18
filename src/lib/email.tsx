@@ -54,11 +54,13 @@ export async function sendAdminSignupNotification({
   fullName,
   company,
   companyType,
+  phone,
 }: {
   email: string;
   fullName: string;
   company: string;
   companyType: string;
+  phone?: string;
 }) {
   const resend = getResend();
   
@@ -71,6 +73,7 @@ export async function sendAdminSignupNotification({
         <p style="margin: 5px 0;"><strong>Name:</strong> ${fullName}</p>
         <p style="margin: 5px 0;"><strong>Company Name:</strong> ${company}</p>
         <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
+        ${phone ? `<p style="margin: 5px 0;"><strong>Phone:</strong> ${phone}</p>` : ''}
         <p style="margin: 5px 0;"><strong>Type of Company:</strong> ${companyType === 'civil' ? 'Civil Contractor' : 'Plant Hire Company'}</p>
         <p style="margin: 5px 0;"><strong>Signed up:</strong> ${new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}</p>
       </div>

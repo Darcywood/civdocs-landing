@@ -32,6 +32,7 @@ interface StartTrialRequest {
   company_type: string;
   password: string;
   confirmPassword: string;
+  phone?: string;
   terms_and_privacy_accepted: boolean;
   org_acknowledgement_accepted: boolean;
 }
@@ -96,7 +97,7 @@ export async function POST(req: Request) {
     console.log("[Trial Signup] Parsing request body...");
     const body: StartTrialRequest = await req.json();
     console.log("[Trial Signup] Request body:", body);
-    const { full_name, email, company, company_type, password, confirmPassword, terms_and_privacy_accepted, org_acknowledgement_accepted } = body;
+    const { full_name, email, company, company_type, password, confirmPassword, phone, terms_and_privacy_accepted, org_acknowledgement_accepted } = body;
 
     // ============================================================
     // VALIDATION
@@ -430,6 +431,7 @@ export async function POST(req: Request) {
         fullName: full_name,
         company,
         companyType: company_type,
+        phone: phone || undefined,
       });
       console.log(`[Trial Signup] ✓ Admin notification sent`);
     } catch (emailError) {
