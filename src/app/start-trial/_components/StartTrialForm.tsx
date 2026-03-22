@@ -120,9 +120,9 @@ export default function StartTrialForm() {
       </div>
       {loading && <FancySpinner size="md" showOverlay={true} />}
       <div id="signup-form" className="scroll-mt-24">
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Start your free trial</h2>
-          <p className="text-sm text-gray-500 mt-1">No credit card required</p>
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">Start your free trial</h2>
+          <p className="text-base sm:text-lg text-gray-500 mt-3">No credit card required</p>
         </div>
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
           <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
