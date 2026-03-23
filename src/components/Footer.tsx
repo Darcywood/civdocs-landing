@@ -163,6 +163,12 @@ export default function Footer() {
           <div className="border-t border-gray-200 pt-8">
             <p className="text-gray-500 text-sm text-center">
               © 2026 CivDocs. All rights reserved.
+              <span className="mx-2 text-gray-300" aria-hidden>
+                ·
+              </span>
+              <a href="/blog" className="text-gray-400 hover:text-[#FF8C32] transition-colors">
+                Blog
+              </a>
             </p>
           </div>
         </div>
