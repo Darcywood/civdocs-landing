@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 
+const appOrigin = process.env.NEXT_PUBLIC_WEB_APP_URL ?? 'https://app.civdocs.com.au';
+const appLoginUrl = `${appOrigin.replace(/\/$/, '')}/login`;
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
@@ -171,13 +174,26 @@ export default function Header() {
                   </div>
                 </nav>
 
-                {/* CTA Button */}
-                <a 
-                  href="/book" 
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out"
-                >
-                  Book a call →
-                </a>
+                <div className="flex items-center gap-5 shrink-0">
+                  <a
+                    href={appLoginUrl}
+                    className="text-[#1E1E1E] hover:text-[#FF8C32] transition-all duration-300 font-medium text-base whitespace-nowrap"
+                  >
+                    Log in
+                  </a>
+                  <Link
+                    href="/start-trial"
+                    className="inline-flex items-center px-5 py-2.5 border-2 border-[#FF8C32] text-[#1E1E1E] font-semibold text-base rounded-full hover:bg-[#FFF5ED] transition-all duration-200 ease-out whitespace-nowrap"
+                  >
+                    Start free trial
+                  </Link>
+                  <a
+                    href="/book"
+                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-base rounded-full hover:shadow-xl hover:scale-[1.02] transition-all duration-200 ease-out whitespace-nowrap"
+                  >
+                    Book a call →
+                  </a>
+                </div>
               </div>
               
               {/* Mobile menu button */}
@@ -500,10 +516,24 @@ export default function Header() {
 
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
+                  <Link
+                    href="/start-trial"
+                    onClick={closeMobileMenu}
+                    className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
+                  >
+                    Start free trial
+                  </Link>
+                  <a
+                    href={appLoginUrl}
+                    onClick={closeMobileMenu}
+                    className="block w-full rounded-full py-3.5 text-base font-semibold text-[#1E1E1E] border-2 border-gray-200 hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all duration-300 text-center"
+                  >
+                    Log in
+                  </a>
                   <a
                     href="/book"
                     onClick={closeMobileMenu}
-                    className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
+                    className="block w-full rounded-full py-4 text-lg font-semibold text-[#1E1E1E] border-2 border-gray-200 hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all duration-300 text-center"
                   >
                     Run a Quick Fit Check →
                   </a>
