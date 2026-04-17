@@ -40,7 +40,7 @@ const jsonLd = {
         'Darcy Wood is the founder of CivDocs, civil construction management software built for Australian contractors. He has hands-on experience in civil construction and earthmoving in Victoria.',
       url: `${SITE}/about`,
       sameAs: [
-        'https://www.linkedin.com/in/darcy-wood-2b7bab395',
+        'https://www.linkedin.com/in/-darcywood',
         'https://www.civdocs.com.au',
       ],
       email: 'darcy@civdocs.com.au',
@@ -139,7 +139,7 @@ export default function AboutPage() {
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="https://www.linkedin.com/in/darcy-wood-2b7bab395"
+                href="https://www.linkedin.com/in/-darcywood"
                 target="_blank"
                 rel="noopener noreferrer"
                 itemProp="sameAs"
