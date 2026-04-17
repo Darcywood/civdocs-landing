@@ -530,13 +530,6 @@ export default function Header() {
                   >
                     Log in
                   </a>
-                  <a
-                    href="/book"
-                    onClick={closeMobileMenu}
-                    className="block w-full rounded-full py-4 text-lg font-semibold text-[#1E1E1E] border-2 border-gray-200 hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all duration-300 text-center"
-                  >
-                    Run a Quick Fit Check →
-                  </a>
                   
                   <p className="text-center text-sm font-semibold text-[#FF8C32] pt-2 animate-pulse-glow">No credit card required</p>
                 </div>
