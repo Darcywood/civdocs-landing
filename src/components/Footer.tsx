@@ -169,6 +169,12 @@ export default function Footer() {
               <a href="/blog" className="text-gray-400 hover:text-[#FF8C32] transition-colors">
                 Blog
               </a>
+              <span className="mx-2 text-gray-300" aria-hidden>
+                ·
+              </span>
+              <a href="/about" className="text-gray-400 hover:text-[#FF8C32] transition-colors">
+                About
+              </a>
             </p>
           </div>
         </div>
