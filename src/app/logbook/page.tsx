@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 import OptimizedImage from '@/components/OptimizedImage';
+import DayDocketPreviewCard from '@/components/marketing/DayDocketPreviewCard';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
@@ -460,7 +461,127 @@ export default function LogbookPage() {
 
       </section>
 
+      {/* Day Docket automatic email */}
+      <section className="pt-20 pb-24 bg-[#FFFEFB]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              Everyone knows what happened. Every single day.
+            </h2>
+            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              When a logbook entry is approved in CivDocs, a Day Docket PDF is automatically generated and emailed — no action required from anyone. It goes out the moment the supervisor signs off, every single day.
+            </p>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              No phone calls. No end-of-week catch-ups. No surprises when the invoice arrives.
+            </p>
 
+            <h3 className="text-xl font-semibold text-[#1E1E1E] mb-4">Set it up once when you create the job</h3>
+            <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              When you set up a plant hire job in CivDocs, you enter the name and email address of whoever needs to receive the daily docket — the site supervisor, the engineer, the project manager, your office, or all of the above.
+            </p>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              From that point on, CivDocs handles it automatically. Every time a logbook entry is approved for that job, the Day Docket goes straight to their inbox. You don&apos;t touch it again.
+            </p>
+
+            <h3 className="text-xl font-semibold text-[#1E1E1E] mb-4">Who typically receives it:</h3>
+            <ul className="space-y-3 mb-16">
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">The site supervisor or engineer on the client side</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">The project manager or contract administrator</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Your own office or admin team</span>
+              </li>
+            </ul>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6">
+              What the Day Docket includes
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Every Day Docket is a clean, professional PDF that captures the full picture of what happened on site that day.
+            </p>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Date and total hours — regular and overtime broken out separately</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Machine and asset number</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Operator name and company</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Job name</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Attachments used — UTS, hammer, GPS, or whatever was on the machine</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Full hours breakdown — start time, finish time, break, regular hours, overtime hours</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-[#FF8C32] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-gray-700 text-lg">Supervisor sign-off — name, timestamp, and digital signature</span>
+              </li>
+            </ul>
+
+            <div className="max-w-2xl mb-8">
+              <DayDocketPreviewCard />
+            </div>
+
+            <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              The document is generated automatically the moment the logbook entry is approved. Nothing is typed manually. Nothing can be changed after sign-off.
+            </p>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] mb-6 mt-16">
+              Why this matters
+            </h2>
+            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+              The most common plant hire dispute isn&apos;t about whether the work happened. It&apos;s about whether the client knew what was being charged before the invoice arrived.
+            </p>
+            <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              When the supervisor and engineer receive a Day Docket automatically every day, they&apos;ve already seen every hour, every attachment, and every overtime entry — approved and timestamped — before the invoice is ever raised.
+            </p>
+            <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              By the time you send the invoice, it&apos;s not news to anyone. The client has been seeing the same numbers in their inbox every morning for the entire hire period.
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Disputes become nearly impossible. The proof was delivered automatically, every single day.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* 6. Built For Plant Hire & Internal Fleets Section */}
       <section className="pt-20 pb-24 bg-[#FFFEFB]">
