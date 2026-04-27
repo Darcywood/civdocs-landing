@@ -1,8 +1,8 @@
 'use client';
 
 const BULLETS = [
-  'See every control point on satellite imagery before you leave the office',
-  'Works with Trimble, Leica, and any total station CSV export',
+  'See every control point on satellite imagery before you get on site',
+  'Works with Trimble, Topcon, Leica, and any total station CSV export',
   'GDA2020 and GDA94 — MGA Zones 46–56',
   'Free, no account required',
 ];
@@ -22,7 +22,9 @@ export default function CsvToKmlHero() {
             CSV to KML Converter
           </h1>
           <p className="mt-5 text-lg text-gray-600 leading-relaxed max-w-xl">
-            Turn your survey control points into a Google Earth file in seconds. See exactly where every peg sits before you're on site — and share it with your grader operator so they know too.
+            Upload your control point CSV and get a KML file you can open straight in Google Earth. See where every mark
+            sits on the ground before you set up — so you&apos;re not shooting retros one by one trying to figure out
+            which one&apos;s which.
           </p>
           <ul className="mt-8 space-y-4">
             {BULLETS.map((item) => (
