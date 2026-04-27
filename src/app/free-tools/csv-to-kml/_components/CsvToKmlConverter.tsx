@@ -49,12 +49,26 @@ function tryMobileAppThenStore(
   return true;
 }
 
+const EARTH_APP_SCHEME = 'comgoogleearth://';
+const EARTH_IOS_APP_STORE = 'https://apps.apple.com/app/google-earth/id293622097';
+const EARTH_PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.google.earth';
+const EARTH_WEB_URL = 'https://earth.google.com/web/';
+
 /**
  * Tries the CivDocs app; on mobile, falls back to the store. On desktop, opens the web app.
  */
 function tryOpenCivDocsAppOrWeb(): void {
   if (tryMobileAppThenStore(CIVDOCS_APP_SCHEME, CIVDOCS_IOS_APP_STORE, CIVDOCS_PLAY_STORE)) return;
   window.open(CIVDOCS_APP_URL, '_blank', 'noopener,noreferrer');
+}
+
+/**
+ * Tries the Google Earth app; on mobile, falls back to the store. On desktop, opens Earth on the web.
+ * Does NOT download the KML — the file is expected to already be saved before this runs.
+ */
+function tryOpenGoogleEarthAppOrWeb(): void {
+  if (tryMobileAppThenStore(EARTH_APP_SCHEME, EARTH_IOS_APP_STORE, EARTH_PLAY_STORE)) return;
+  window.open(EARTH_WEB_URL, '_blank', 'noopener,noreferrer');
 }
 
 const DATUMS = ['GDA2020', 'GDA94'] as const;
@@ -97,6 +111,7 @@ export default function CsvToKmlConverter() {
   const [geoLocating, setGeoLocating] = useState(false);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [kmlOptionsModalOpen, setKmlOptionsModalOpen] = useState(false);
+  const [postSaveOptionsModalOpen, setPostSaveOptionsModalOpen] = useState(false);
   const [googleEarthHelpModalOpen, setGoogleEarthHelpModalOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -215,49 +230,23 @@ export default function CsvToKmlConverter() {
     saveKmlToDevice(afterSave);
   }, [saveKmlToDevice]);
 
-  const openInGoogleEarth = useCallback(() => {
-    if (!kml) return;
-    if (typeof window === 'undefined') return;
-
-    const ua = window.navigator.userAgent;
-    const isIOS =
-      /iPhone|iPad|iPod/.test(ua) || (ua.includes('Mac') && 'ontouchend' in document);
-    const isAndroid = /Android/.test(ua);
-
-    if (isIOS || isAndroid) {
-      // Mobile: hand the file to the OS share sheet so the user can pick Google Earth.
-      saveKmlToDevice();
-      return;
-    }
-
-    // Desktop: download the KML (Earth Pro auto-opens if it is the registered handler)
-    // and open Google Earth on the web in a new tab so the user can drop the file in.
-    const blob = new Blob([kml], { type: 'application/vnd.google-earth.kml+xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = kmlFilename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 2_000);
-
-    window.open('https://earth.google.com/web/', '_blank', 'noopener,noreferrer');
-  }, [kml, kmlFilename, saveKmlToDevice]);
+  const openGoogleEarth = useCallback(() => {
+    tryOpenGoogleEarthAppOrWeb();
+  }, []);
 
   const openInCivDocs = useCallback(() => {
     if (!kml) return;
     tryOpenCivDocsAppOrWeb();
   }, [kml]);
 
-  const modalOpen = kmlOptionsModalOpen || googleEarthHelpModalOpen;
+  const modalOpen = kmlOptionsModalOpen || postSaveOptionsModalOpen || googleEarthHelpModalOpen;
   useEffect(() => {
     if (!modalOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (googleEarthHelpModalOpen) setGoogleEarthHelpModalOpen(false);
-        else if (kmlOptionsModalOpen) setKmlOptionsModalOpen(false);
-      }
+      if (e.key !== 'Escape') return;
+      if (googleEarthHelpModalOpen) setGoogleEarthHelpModalOpen(false);
+      else if (postSaveOptionsModalOpen) setPostSaveOptionsModalOpen(false);
+      else if (kmlOptionsModalOpen) setKmlOptionsModalOpen(false);
     };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
@@ -265,7 +254,7 @@ export default function CsvToKmlConverter() {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [kmlOptionsModalOpen, googleEarthHelpModalOpen, modalOpen]);
+  }, [kmlOptionsModalOpen, postSaveOptionsModalOpen, googleEarthHelpModalOpen, modalOpen]);
 
   const hasResults = points.length > 0 && kml;
 
@@ -557,23 +546,86 @@ export default function CsvToKmlConverter() {
                 {kmlFilename} &middot; {points.length} point{points.length !== 1 ? 's' : ''}
               </p>
               <p className="mt-3 text-sm text-gray-600">
-                Download the file, open it in Google Earth, or send your points to CivDocs.
+                Download the file to your device. We&apos;ll then show you how to open it in Google Earth or CivDocs.
+              </p>
+              <button
+                type="button"
+                onClick={() =>
+                  handleDownload(() => {
+                    setKmlOptionsModalOpen(false);
+                    setPostSaveOptionsModalOpen(true);
+                  })
+                }
+                className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-6 py-3.5 font-semibold text-white shadow-md hover:shadow-lg transition-all"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download
+              </button>
+              <button
+                type="button"
+                onClick={() => setKmlOptionsModalOpen(false)}
+                className="mt-4 w-full text-center text-sm font-medium text-gray-500 hover:text-gray-800"
+              >
+                View map and table
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Step 2 — after the file is saved: pick where to open it */}
+      <AnimatePresence>
+        {postSaveOptionsModalOpen && kml && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[102] bg-black/50 backdrop-blur-sm"
+              onClick={() => setPostSaveOptionsModalOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="post-save-title"
+              initial={{ opacity: 0, scale: 0.96, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.2 }}
+              className="fixed left-1/2 top-1/2 z-[103] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl border border-gray-200"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setPostSaveOptionsModalOpen(false)}
+                className="absolute right-4 top-4 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                aria-label="Close"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-3">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 id="post-save-title" className="text-lg font-semibold text-gray-900 pr-10">
+                File saved
+              </h3>
+              <p className="mt-1 text-sm text-gray-500 break-all">{kmlFilename}</p>
+              <p className="mt-3 text-sm text-gray-600">
+                Where would you like to open it?
               </p>
               <div className="mt-5 flex flex-col gap-3">
                 <button
                   type="button"
-                  onClick={() => handleDownload(() => setKmlOptionsModalOpen(false))}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-6 py-3.5 font-semibold text-white shadow-md hover:shadow-lg transition-all"
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                  Download
-                </button>
-                <button
-                  type="button"
                   onClick={() => {
-                    setKmlOptionsModalOpen(false);
+                    setPostSaveOptionsModalOpen(false);
                     setGoogleEarthHelpModalOpen(true);
                   }}
                   className="w-full inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 bg-white px-6 py-3.5 font-semibold text-gray-800 hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all"
@@ -591,7 +643,7 @@ export default function CsvToKmlConverter() {
                   type="button"
                   onClick={() => {
                     openInCivDocs();
-                    setKmlOptionsModalOpen(false);
+                    setPostSaveOptionsModalOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 bg-white px-6 py-3.5 font-semibold text-gray-800 hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all"
                   aria-label="Open in CivDocs"
@@ -608,7 +660,7 @@ export default function CsvToKmlConverter() {
               </div>
               <button
                 type="button"
-                onClick={() => setKmlOptionsModalOpen(false)}
+                onClick={() => setPostSaveOptionsModalOpen(false)}
                 className="mt-4 w-full text-center text-sm font-medium text-gray-500 hover:text-gray-800"
               >
                 View map and table
@@ -618,7 +670,7 @@ export default function CsvToKmlConverter() {
         )}
       </AnimatePresence>
 
-      {/* Google Earth: manual open hint */}
+      {/* Step 3 — Google Earth: how to load the saved file */}
       <AnimatePresence>
         {googleEarthHelpModalOpen && kml && (
           <>
@@ -627,7 +679,7 @@ export default function CsvToKmlConverter() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[102] bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 z-[104] bg-black/50 backdrop-blur-sm"
               onClick={() => setGoogleEarthHelpModalOpen(false)}
               aria-hidden="true"
             />
@@ -639,7 +691,7 @@ export default function CsvToKmlConverter() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
               transition={{ duration: 0.2 }}
-              className="fixed left-1/2 top-1/2 z-[103] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl border border-gray-200"
+              className="fixed left-1/2 top-1/2 z-[105] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-6 shadow-2xl border border-gray-200"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -662,21 +714,22 @@ export default function CsvToKmlConverter() {
                   {kmlFilename}
                 </span>
               </p>
-              <p className="mt-2 text-xs text-gray-500">
-                When you&apos;re ready, use the button below to get the KML and open Google Earth.
-              </p>
               <button
                 type="button"
                 onClick={() => {
-                  openInGoogleEarth();
+                  openGoogleEarth();
                   setGoogleEarthHelpModalOpen(false);
                 }}
                 className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-6 py-3.5 font-semibold text-white shadow-md hover:shadow-lg transition-all"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m-9 9a9 9 0 019-9"
+                  />
                 </svg>
-                Save file and open Google Earth
+                Open Google Earth
               </button>
             </motion.div>
           </>
