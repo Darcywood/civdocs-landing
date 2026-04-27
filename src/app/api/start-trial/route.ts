@@ -292,6 +292,7 @@ export async function POST(req: Request) {
         full_name: full_name,
         active_organization_id: orgId,
         role: "admin",
+        ...(phone ? { phone } : {}),
       }, {
         onConflict: 'id' // Update if profile with this ID already exists
       })
