@@ -16,6 +16,7 @@ const STATIC_PATHS: string[] = [
   '/crank-ai',
   '/crank-ai-cheat-sheet',
   '/free-tools',
+  '/free-tools/csv-to-kml',
   '/free-tools/risk-assessment',
   '/free-tools/risk-assessment/build',
   '/guides',

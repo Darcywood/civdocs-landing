@@ -123,6 +123,10 @@ export default function Header() {
                           <h3 className="text-base font-semibold text-[#111827]">Machine Risk Assessment Generator</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">Generate a compliant risk management report for your plant</p>
                         </Link>
+                        <Link href="/free-tools/csv-to-kml" prefetch={false} className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">CSV to KML Converter</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Convert survey control points to Google Earth KML instantly</p>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -392,6 +396,15 @@ export default function Header() {
                         >
                           <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Machine Risk Assessment Generator</h3>
                           <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Generate a compliant risk management report for your plant</p>
+                        </Link>
+                        <Link
+                          href="/free-tools/csv-to-kml"
+                          prefetch={false}
+                          onClick={closeMobileMenu}
+                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
+                        >
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">CSV to KML Converter</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Convert survey control points to Google Earth KML instantly</p>
                         </Link>
                       </motion.div>
                     )}
