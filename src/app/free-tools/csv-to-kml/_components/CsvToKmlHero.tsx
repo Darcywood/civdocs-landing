@@ -22,8 +22,8 @@ export default function CsvToKmlHero() {
             CSV to KML Converter
           </h1>
           <p className="mt-5 text-lg text-gray-600 leading-relaxed max-w-xl">
-            Upload your control point CSV and get a KML file you can open straight in Google Earth. See where every mark
-            sits on the ground before you set up — so you&apos;re not shooting retros one by one trying to figure out
+            Upload your control point CSV and get a KML file you can open straight in Google Earth. See where every
+            control point is before you get to site — so you&apos;re not shooting retros one by one trying to figure out
             which one&apos;s which.
           </p>
           <ul className="mt-8 space-y-4">
