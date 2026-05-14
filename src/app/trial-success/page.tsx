@@ -1,25 +1,12 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 function TrialSuccessContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
-
-  useEffect(() => {
-    // Auto-redirect disabled for local development
-    // In production, uncomment this to redirect to app.civdocs.com
-  }, []);
-
-  useEffect(() => {
-    const sendTo = process.env.NEXT_PUBLIC_GOOGLE_ADS_TRIAL_CONVERSION_SEND_TO;
-    if (!sendTo) return;
-    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-    if (typeof gtag !== "function") return;
-    gtag("event", "conversion", { send_to: sendTo });
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6">

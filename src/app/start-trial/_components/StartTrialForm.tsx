@@ -80,6 +80,22 @@ export default function StartTrialForm() {
       const data = await response.json();
 
       if (data.ok || data.success) {
+        /* Google Ads: successful signup from "Create Organisation" (form submit), before redirect */
+        if (typeof window !== 'undefined') {
+          const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+          if (typeof gtag === 'function') {
+            try {
+              gtag('event', 'conversion', {
+                send_to: 'AW-18162388889/cK4KCJvr-6wcEJmfwNRD',
+                value: 1.0,
+                currency: 'AUD',
+              });
+            } catch {
+              /* ignore */
+            }
+          }
+        }
+
         if (typeof window !== 'undefined' && (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq) {
           try {
             (window as unknown as { fbq: (...args: unknown[]) => void }).fbq('track', 'StartTrial', {
@@ -335,6 +351,7 @@ export default function StartTrialForm() {
             </div>
 
             <button
+              id="create-organisation-submit"
               type="submit"
               disabled={loading || !termsAndPrivacyAccepted || !orgSignupAccepted}
               className="w-full py-3 px-6 bg-[#F97316] text-white font-semibold rounded-full hover:bg-[#EA580C] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
