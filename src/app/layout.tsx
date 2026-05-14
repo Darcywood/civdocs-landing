@@ -68,6 +68,23 @@ export default function RootLayout({
           />
         </noscript>
         {/* End Meta Pixel Code */}
+        {/* Google tag (gtag.js) — Google Ads */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18162388889"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-ads-gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18162388889');
+            `,
+          }}
+        />
         {children}
       </body>
     </html>

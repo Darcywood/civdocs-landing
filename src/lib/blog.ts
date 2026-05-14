@@ -55,12 +55,28 @@ export async function getPostBySlug(slug: string): Promise<{
 }
 
 export async function getAllPosts() {
-  const slugs = await getAllSlugs();
+  const files = await fs.readdir(BLOG_DIR);
+  const mdFiles = files
+    .filter((f) => /^article-\d+-(.+)\.md$/.test(f))
+    .sort((a, b) => {
+      const na = parseInt(a.match(/^article-(\d+)/)?.[1] ?? '0', 10);
+      const nb = parseInt(b.match(/^article-(\d+)/)?.[1] ?? '0', 10);
+      return na - nb;
+    });
+
   const posts = await Promise.all(
-    slugs.map(async (slug) => {
-      const post = await getPostBySlug(slug);
-      return post ? { slug, title: post.title, description: post.description } : null;
+    mdFiles.map(async (file) => {
+      const m = file.match(/^article-\d+-(.+)\.md$/);
+      const slug = m?.[1];
+      if (!slug) return null;
+      const content = await fs.readFile(path.join(BLOG_DIR, file), 'utf-8');
+      return {
+        slug,
+        title: extractTitleFromMarkdown(content),
+        description: extractDescriptionFromMarkdown(content),
+      };
     })
   );
+
   return posts.filter((p): p is { slug: string; title: string; description: string } => p !== null);
 }

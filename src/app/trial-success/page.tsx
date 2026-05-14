@@ -13,6 +13,14 @@ function TrialSuccessContent() {
     // In production, uncomment this to redirect to app.civdocs.com
   }, []);
 
+  useEffect(() => {
+    const sendTo = process.env.NEXT_PUBLIC_GOOGLE_ADS_TRIAL_CONVERSION_SEND_TO;
+    if (!sendTo) return;
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    if (typeof gtag !== "function") return;
+    gtag("event", "conversion", { send_to: sendTo });
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#FFFAF7] to-[#FFF5ED] flex items-center justify-center px-6">
       <div className="max-w-2xl w-full text-center">
