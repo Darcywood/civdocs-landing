@@ -8,12 +8,12 @@ const SITE = 'https://www.civdocs.com.au';
 export const metadata: Metadata = {
   title: 'About | CivDocs — Civil Construction Management Software',
   description:
-    'CivDocs was founded by Darcy Wood, a civil construction professional from Victoria. Learn about the team behind Australia\'s purpose-built civil contractor software.',
+    'Darcy Wood founded CivDocs after years in civil construction and earthmoving in Victoria — software built for Australian contractors, not generic builders.',
   alternates: { canonical: `${SITE}/about` },
   openGraph: {
     title: 'About | CivDocs — Civil Construction Management Software',
     description:
-      "CivDocs was founded by Darcy Wood, a civil construction professional from Victoria. Learn about the team behind Australia's purpose-built civil contractor software.",
+      "Purpose-built civil construction management software for Australian contractors — learn about CivDocs and why it exists.",
     url: `${SITE}/about`,
     siteName: 'CivDocs',
     type: 'profile',
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About CivDocs — Darcy Wood',
+    title: 'About | CivDocs — Civil Construction Management Software',
     description:
-      "CivDocs was founded by Darcy Wood, a civil construction professional from Victoria, Australia.",
+      'Purpose-built civil construction management software for Australian contractors — learn about CivDocs and why it exists.',
   },
   robots: { index: true, follow: true },
 };
@@ -37,7 +37,7 @@ const jsonLd = {
       name: 'Darcy Wood',
       jobTitle: 'Founder',
       description:
-        'Darcy Wood is the founder of CivDocs, civil construction management software built for Australian contractors. He has hands-on experience in civil construction and earthmoving in Victoria.',
+        'Founder of CivDocs, civil construction management software built for Australian contractors, with hands-on experience in civil construction and earthmoving in Victoria.',
       url: `${SITE}/about`,
       sameAs: [
         'https://www.linkedin.com/in/-darcywood',
@@ -71,7 +71,7 @@ const jsonLd = {
       url: `${SITE}/about`,
       name: 'About CivDocs',
       description:
-        'Learn about CivDocs — purpose-built civil construction management software founded by Darcy Wood in Victoria, Australia.',
+        'Learn about CivDocs — purpose-built civil construction management software built in Victoria from hands-on site experience.',
       mainEntity: { '@id': `${SITE}/about#darcy-wood` },
       isPartOf: { '@type': 'WebSite', url: SITE },
     },
@@ -131,10 +131,10 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-5 text-[17px] text-gray-700 leading-relaxed" itemProp="description">
               <p>
-                Darcy Wood founded CivDocs after working in civil construction and earthmoving in Victoria. Having seen first-hand how contractors were managing compliance, site documentation, and plant operations across spreadsheets, paper forms, and disconnected tools, he set out to build something better.
+                After working in civil construction and earthmoving in Victoria, he founded CivDocs. Having seen first-hand how contractors were managing compliance, site documentation, and plant operations across spreadsheets, paper forms, and disconnected tools, he set out to build something better.
               </p>
               <p>
-                Based in Victoria, Darcy combines hands-on industry knowledge with software development to build tools that work the way contractors think — not the other way around.
+                Based in Victoria, he combines hands-on industry knowledge with software development to build tools that work the way contractors think — not the other way around.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -148,7 +148,7 @@ export default function AboutPage() {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
-                LinkedIn — Darcy Wood
+                LinkedIn
               </a>
               <a
                 href="mailto:darcy@civdocs.com.au"

@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/blog/why-i-built-civdocs-darcy-wood-founder',
+        destination: '/blog/why-i-built-civdocs',
+        permanent: true,
+      },
+    ];
+  },
   reactStrictMode: true,
   eslint: {
     // 🚫 Skip all ESLint checks during builds (Vercel, CI)
