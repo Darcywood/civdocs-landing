@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { generateTempPassword, sendTrialWelcomeEmail, sendAdminSignupNotification } from "@/lib/email";
+import {
+  SIGNUP_ATTRIBUTION_COOKIE_NAME,
+  sanitizeAttributionBody,
+  classifySignupAcquisitionSource,
+  parseAttributionCookie,
+} from "@/lib/marketingAttribution";
 
 // Force Node.js runtime for Resend SDK
 export const runtime = "nodejs";
@@ -35,6 +42,8 @@ interface StartTrialRequest {
   phone?: string;
   terms_and_privacy_accepted: boolean;
   org_acknowledgement_accepted: boolean;
+  /** Client localStorage snapshot: gclid, fbclid, utm_*, first landing path, etc. */
+  signup_attribution?: unknown;
 }
 
 // Document versions (matching web app)
@@ -97,7 +106,25 @@ export async function POST(req: Request) {
     console.log("[Trial Signup] Parsing request body...");
     const body: StartTrialRequest = await req.json();
     console.log("[Trial Signup] Request body:", body);
-    const { full_name, email, company, company_type, password, confirmPassword, phone, terms_and_privacy_accepted, org_acknowledgement_accepted } = body;
+    const {
+      full_name,
+      email,
+      company,
+      company_type,
+      password,
+      confirmPassword,
+      phone,
+      terms_and_privacy_accepted,
+      org_acknowledgement_accepted,
+      signup_attribution: signupAttributionRaw,
+    } = body;
+
+    const cookieStore = await cookies();
+    const fromCookie = parseAttributionCookie(cookieStore.get(SIGNUP_ATTRIBUTION_COOKIE_NAME)?.value);
+    const fromBody = sanitizeAttributionBody(signupAttributionRaw);
+    const attributionSnapshot = sanitizeAttributionBody({ ...fromCookie, ...fromBody });
+    const signup_acquisition_source = classifySignupAcquisitionSource(attributionSnapshot);
+    console.log(`[Trial Signup] Acquisition: ${signup_acquisition_source}`, attributionSnapshot);
 
     // ============================================================
     // VALIDATION
@@ -244,6 +271,8 @@ export async function POST(req: Request) {
       default_view_mode: company_type as CompanyType, // Keep original for view mode
       trial_expires_at: trialExpiresAt.toISOString(),
       created_by: userId, // Set creator immediately
+      signup_acquisition_source,
+      signup_attribution: attributionSnapshot,
     };
     
     console.log(`[Trial Signup] Organization data being inserted:`, JSON.stringify(orgData, null, 2));
@@ -433,6 +462,8 @@ export async function POST(req: Request) {
         company,
         companyType: company_type,
         phone: phone || undefined,
+        signupAcquisitionSource: signup_acquisition_source,
+        signupAttribution: attributionSnapshot,
       });
       console.log(`[Trial Signup] ✓ Admin notification sent`);
     } catch (emailError) {

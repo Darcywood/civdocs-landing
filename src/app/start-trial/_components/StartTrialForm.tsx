@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import OptimizedImage from '@/components/OptimizedImage';
 import FancySpinner from '@/components/fancyspinner/FancySpinner';
+import { getStoredAttributionForSignup } from '@/lib/marketingAttribution';
 
 export default function StartTrialForm() {
   const [formData, setFormData] = useState({
@@ -74,6 +75,7 @@ export default function StartTrialForm() {
           company_type: finalCompanyType,
           terms_and_privacy_accepted: termsAndPrivacyAccepted,
           org_acknowledgement_accepted: orgSignupAccepted,
+          signup_attribution: getStoredAttributionForSignup(),
         }),
       });
 
