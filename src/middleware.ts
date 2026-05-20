@@ -9,19 +9,26 @@ import {
 } from "@/lib/marketingAttribution";
 
 /**
- * When a visitor hits any URL with ad/UTM query params, persist them in a first-party cookie
- * so /api/start-trial can classify the org even if localStorage is empty or the signup path
- * never ran the client capture script.
+ * Capture first-touch attribution into a first-party cookie so /api/start-trial
+ * can classify the org even if localStorage is empty or the signup path never
+ * ran the client capture script.
+ *
+ * Runs on every non-asset path. Two write conditions:
+ *  - URL has ad/UTM params -> always merge them into cookie (preserve first-touch)
+ *  - No cookie yet -> write a "first visit" record with landing path + referrer host
  */
 export function middleware(request: NextRequest) {
   const { nextUrl, headers, cookies } = request;
   const sp = nextUrl.searchParams;
+  const existingRaw = cookies.get(SIGNUP_ATTRIBUTION_COOKIE_NAME)?.value;
+  const existing = parseAttributionCookie(existingRaw);
+  const hasParams = attributionParamsPresent(sp);
+  const isFirstVisit = !existingRaw || Object.keys(existing).length === 0;
 
-  if (!attributionParamsPresent(sp)) {
+  if (!hasParams && !isFirstVisit) {
     return NextResponse.next();
   }
 
-  const existing = parseAttributionCookie(cookies.get(SIGNUP_ATTRIBUTION_COOKIE_NAME)?.value);
   const landingPath = `${nextUrl.pathname}${nextUrl.search}`;
   const merged = mergeSearchParamsIntoAttributionRecord(
     existing,

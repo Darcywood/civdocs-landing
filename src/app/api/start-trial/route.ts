@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { generateTempPassword, sendTrialWelcomeEmail, sendAdminSignupNotification } from "@/lib/email";
 import {
   SIGNUP_ATTRIBUTION_COOKIE_NAME,
+  META_PIXEL_CLICK_COOKIE,
+  META_PIXEL_BROWSER_COOKIE,
+  GOOGLE_ADS_COOKIE,
   sanitizeAttributionBody,
   classifySignupAcquisitionSource,
   parseAttributionCookie,
+  extractHostFromUrl,
 } from "@/lib/marketingAttribution";
 
 // Force Node.js runtime for Resend SDK
@@ -120,11 +124,51 @@ export async function POST(req: Request) {
     } = body;
 
     const cookieStore = await cookies();
+    const headerStore = await headers();
     const fromCookie = parseAttributionCookie(cookieStore.get(SIGNUP_ATTRIBUTION_COOKIE_NAME)?.value);
     const fromBody = sanitizeAttributionBody(signupAttributionRaw);
-    const attributionSnapshot = sanitizeAttributionBody({ ...fromCookie, ...fromBody });
+
+    // Pull Pixel/gtag cookies (set by Meta Pixel and Google gtag on first ad click)
+    const fbcCookie = cookieStore.get(META_PIXEL_CLICK_COOKIE)?.value || "";
+    const fbpCookie = cookieStore.get(META_PIXEL_BROWSER_COOKIE)?.value || "";
+    const gclAwCookie = cookieStore.get(GOOGLE_ADS_COOKIE)?.value || "";
+
+    // Referer of the actual /api/start-trial POST (current page, e.g. /start-trial).
+    // If first-touch referrer wasn't stored anywhere, this is the only signal we have.
+    const apiReferer = headerStore.get("referer") || "";
+
+    const pixelSignals: Record<string, string> = {};
+    if (fbcCookie) pixelSignals._fbc = fbcCookie;
+    if (fbpCookie) pixelSignals._fbp = fbpCookie;
+    if (gclAwCookie) pixelSignals._gcl_aw = gclAwCookie;
+
+    // Merge precedence: body (live client snapshot) > cookie (server first-touch) > Pixel/gtag cookies
+    const merged: Record<string, string> = {
+      ...pixelSignals,
+      ...fromCookie,
+      ...fromBody,
+    };
+
+    // Add a fallback referrer_first_host if neither client nor cookie captured one
+    if (!merged.referrer_first_host && apiReferer) {
+      const host = extractHostFromUrl(apiReferer);
+      // Skip self-referrer (the /start-trial page)
+      if (host && !host.includes("civdocs.com.au") && !host.includes("localhost")) {
+        merged.referrer_first_host = host;
+      }
+    }
+
+    const attributionSnapshot = sanitizeAttributionBody(merged);
     const signup_acquisition_source = classifySignupAcquisitionSource(attributionSnapshot);
-    console.log(`[Trial Signup] Acquisition: ${signup_acquisition_source}`, attributionSnapshot);
+
+    console.log(`[Trial Signup] ===== ATTRIBUTION DEBUG =====`);
+    console.log(`[Trial Signup] Acquisition source: ${signup_acquisition_source}`);
+    console.log(`[Trial Signup] From body:`, fromBody);
+    console.log(`[Trial Signup] From first-touch cookie:`, fromCookie);
+    console.log(`[Trial Signup] Pixel/gtag cookies: _fbc=${fbcCookie ? "yes" : "no"}, _fbp=${fbpCookie ? "yes" : "no"}, _gcl_aw=${gclAwCookie ? "yes" : "no"}`);
+    console.log(`[Trial Signup] API referer header: ${apiReferer || "(none)"}`);
+    console.log(`[Trial Signup] Final snapshot:`, attributionSnapshot);
+    console.log(`[Trial Signup] ===== END ATTRIBUTION DEBUG =====`);
 
     // ============================================================
     // VALIDATION
