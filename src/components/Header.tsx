@@ -80,21 +80,13 @@ export default function Header() {
                     {/* Product Dropdown */}
                     <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
-                        <a href="/logbook" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                          <h3 className="text-base font-semibold text-[#111827]">Logbook</h3>
-                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Digital logbook for hours, prestarts, machines, and compliance</p>
+                        <a href="/plant-hire" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Plant Hire</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Logbook, machine hours, attachments and billing for plant hire</p>
                         </a>
-                        <a href="/prestarts" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                          <h3 className="text-base font-semibold text-[#111827]">Pre-Starts</h3>
-                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Complete safety checks in 3 simple steps</p>
-                        </a>
-                        <a href="/timesheets" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                          <h3 className="text-base font-semibold text-[#111827]">Timesheets</h3>
-                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Log crew hours quickly and accurately</p>
-                        </a>
-                        <a href="/cost-tracking" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                          <h3 className="text-base font-semibold text-[#111827]">Cost Tracking</h3>
-                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Track project expenses and costs in real-time</p>
+                        <a href="/civil-contractors" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                          <h3 className="text-base font-semibold text-[#111827]">Civil Contractors</h3>
+                          <p className="mt-1 text-sm font-normal text-[#6B7280]">Cost tracking, pre-starts, and timesheets for civil projects</p>
                         </a>
                         <a href="/crank-ai" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Crank.ai</h3>
@@ -111,7 +103,7 @@ export default function Header() {
                     {/* Free Tools Dropdown */}
                     <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
-                        <a href="/start-trial" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <a href="/start-trial#signup-form" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Start a free trial</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">14 days, no credit card required</p>
                         </a>
@@ -186,7 +178,7 @@ export default function Header() {
                     Log in
                   </a>
                   <Link
-                    href="/start-trial"
+                    href="/start-trial#signup-form"
                     className="inline-flex items-center px-5 py-2.5 border-2 border-[#FF8C32] text-[#1E1E1E] font-semibold text-base rounded-full hover:bg-[#FFF5ED] transition-all duration-200 ease-out whitespace-nowrap"
                   >
                     Start free trial
@@ -299,36 +291,20 @@ export default function Header() {
                         className="pb-4 pt-2 space-y-3 overflow-hidden"
                       >
                         <a
-                          href="/logbook"
+                          href="/plant-hire"
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Logbook</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Digital logbook for hours, prestarts, machines, and compliance</p>
-                        </a>
-                        <a 
-                          href="/prestarts" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Pre-Starts</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Complete safety checks in 3 simple steps</p>
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Plant Hire</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Logbook, machine hours, attachments and billing for plant hire</p>
                         </a>
                         <a
-                          href="/timesheets" 
+                          href="/civil-contractors"
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Timesheets</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Log crew hours quickly and accurately</p>
-                        </a>
-                        <a
-                          href="/cost-tracking" 
-                          onClick={closeMobileMenu}
-                          className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
-                        >
-                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Cost tracking</h3>
-                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Track project expenses and costs in real-time</p>
+                          <h3 className="text-[16px] font-semibold text-[#111827] leading-[1.25] tracking-[-0.01em]">Civil Contractors</h3>
+                          <p className="mt-[4px] text-[14px] font-normal text-[#6B7280] leading-snug">Cost tracking, pre-starts, and timesheets for civil projects</p>
                         </a>
                         <a
                           href="/crank-ai" 
@@ -372,7 +348,7 @@ export default function Header() {
                         className="pb-4 pt-2 space-y-3 overflow-hidden"
                       >
                         <a
-                          href="/start-trial"
+                          href="/start-trial#signup-form"
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -530,7 +506,7 @@ export default function Header() {
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <Link
-                    href="/start-trial"
+                    href="/start-trial#signup-form"
                     onClick={closeMobileMenu}
                     className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
                   >

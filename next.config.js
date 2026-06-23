@@ -7,6 +7,26 @@ const nextConfig = {
         destination: '/blog/why-i-built-civdocs',
         permanent: true,
       },
+      {
+        source: '/logbook',
+        destination: '/plant-hire',
+        permanent: true,
+      },
+      {
+        source: '/cost-tracking',
+        destination: '/civil-contractors',
+        permanent: true,
+      },
+      {
+        source: '/prestarts',
+        destination: '/civil-contractors',
+        permanent: true,
+      },
+      {
+        source: '/timesheets',
+        destination: '/civil-contractors',
+        permanent: true,
+      },
     ];
   },
   reactStrictMode: true,

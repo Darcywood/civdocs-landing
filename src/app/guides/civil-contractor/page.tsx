@@ -651,7 +651,7 @@ export default function CivilContractorGuidesPage() {
             Start your free trial and explore all the features with our step-by-step guides.
           </p>
           <Link 
-            href="/start-trial" 
+            href="/start-trial#signup-form" 
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             Start Free Trial →

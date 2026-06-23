@@ -329,7 +329,7 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-col items-center gap-4">
             <a 
-              href="/start-trial" 
+              href="/start-trial#signup-form" 
               className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center"
             >
               <span className="text-center">Start 14-Day Trial - No Credit Card Required</span>

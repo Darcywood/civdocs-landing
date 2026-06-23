@@ -1,0 +1,10 @@
+{"sessionId":"9980e3","location":"generate/route.ts:entry","message":"POST handler entered (first line)","data":{"elapsed":0},"timestamp":1772348507216,"hypothesisId":"A"}
+{"sessionId":"9980e3","location":"generate/route.ts:before-db-insert","message":"Before DB insert","data":{"submissionId":"671d7db8-6b19-4f04-80c9-034b21072ee9"},"timestamp":1772348507230,"hypothesisId":"E"}
+{"sessionId":"9980e3","location":"generate/route.ts:after-parse","message":"Parsed request body","data":{"hasBasics":true,"hasLead":true},"timestamp":1772348507225,"hypothesisId":"A"}
+{"sessionId":"9980e3","location":"generate/route.ts:after-db-insert","message":"DB insert done","data":{},"timestamp":1772348508969,"hypothesisId":"E"}
+{"sessionId":"9980e3","location":"generate/route.ts:before-pdf","message":"Before PDF renderToBuffer","data":{},"timestamp":1772348508974,"hypothesisId":"B"}
+{"sessionId":"9980e3","location":"generate/route.ts:after-pdf","message":"PDF render done","data":{"bytes":78268},"timestamp":1772348510740,"hypothesisId":"B"}
+{"sessionId":"9980e3","location":"generate/route.ts:before-storage","message":"Before storage upload","data":{},"timestamp":1772348510742,"hypothesisId":"C"}
+{"sessionId":"9980e3","location":"generate/route.ts:after-storage","message":"Storage upload done","data":{"path":"pdf/671d7db8-6b19-4f04-80c9-034b21072ee9/risk-assessment.pdf"},"timestamp":1772348511628,"hypothesisId":"C"}
+{"sessionId":"9980e3","location":"generate/route.ts:before-email","message":"Before Resend email","data":{"to":"darcy@civdocs.com.au"},"timestamp":1772348511983,"hypothesisId":"D"}
+{"sessionId":"9980e3","location":"generate/route.ts:after-email","message":"User email sent","data":{},"timestamp":1772348513450,"hypothesisId":"D"}

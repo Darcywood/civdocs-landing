@@ -15,23 +15,13 @@ export default function Footer() {
                 <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Product</h3>
                 <ul className="space-y-3">
                   <li>
-                    <a href="/prestarts" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                      Pre-Starts
+                    <a href="/plant-hire" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Plant Hire
                     </a>
                   </li>
                   <li>
-                    <a href="/timesheets" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                      Timesheets
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/cost-tracking" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                      Cost Tracking
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/logbook" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
-                      Plant Hire Logbooks
+                    <a href="/civil-contractors" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Civil Contractors
                     </a>
                   </li>
                   <li>

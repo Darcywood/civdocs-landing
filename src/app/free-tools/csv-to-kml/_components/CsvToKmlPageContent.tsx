@@ -138,7 +138,7 @@ export default function CsvToKmlPageContent() {
                 CivDocs also handles your plant logbooks, pre-starts, timesheets, and invoicing — everything a civil contractor needs in one place.
               </p>
               <Link
-                href="/start-trial"
+                href="/start-trial#signup-form"
                 className="inline-flex items-center rounded-full bg-gradient-to-r from-[#FF8C32] to-[#F5B041] px-8 py-4 font-semibold text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all"
               >
                 Start Free Trial →

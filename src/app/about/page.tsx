@@ -185,7 +185,7 @@ export default function AboutPage() {
                 darcy@civdocs.com.au
               </a>
               <Link
-                href="/start-trial"
+                href="/start-trial#signup-form"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-full font-semibold border-2 border-gray-200 text-gray-900 hover:border-[#F97316] hover:text-[#F97316] transition-all"
               >
                 Start free trial

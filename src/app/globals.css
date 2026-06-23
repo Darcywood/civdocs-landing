@@ -253,3 +253,165 @@ img[src*="CivDocs"] {
 .swiper-slide {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+/* View mode cards — neon point travels the border path (constant clockwise speed) */
+@keyframes view-mode-neon-chase {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.view-mode-card-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  border-radius: 2rem;
+}
+
+.view-mode-card-shell-static .view-mode-card-border-track {
+  stroke-opacity: 0.45;
+}
+
+.view-mode-card-border-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.view-mode-card-border-track {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-opacity: 0.28;
+}
+
+.view-mode-card-border-neon-beam {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20 80;
+  animation: view-mode-neon-chase 26s linear infinite;
+}
+
+.view-mode-card-body {
+  position: relative;
+  z-index: 2;
+  margin: 3px;
+  border-radius: calc(2rem - 3px);
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-mode-card-border-neon-beam {
+    display: none;
+  }
+
+  .view-mode-card-border-track {
+    stroke-opacity: 0.45;
+  }
+}
+
+.view-mode-learn-more {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  max-width: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 2px solid rgb(30 30 30 / 0.18);
+  background: #fff;
+  margin-top: 50px;
+  padding: 1rem 2.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e1e1e;
+  transition:
+    transform 0.25s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.view-mode-learn-more::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #ff8c32 0%, #f5b041 50%, #ffb347 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.view-mode-learn-more::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+
+.view-mode-learn-more span {
+  position: relative;
+  z-index: 1;
+}
+
+.view-mode-learn-more:hover {
+  border-color: transparent;
+  color: #fff;
+  box-shadow:
+    0 10px 28px rgb(255 140 50 / 0.35),
+    0 0 0 1px rgb(255 140 50 / 0.15);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.view-mode-learn-more:hover::before {
+  opacity: 1;
+}
+
+.view-mode-learn-more:hover::after {
+  left: 140%;
+}
+
+.view-mode-learn-more:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 14px rgb(255 140 50 / 0.28);
+}
+
+@media (min-width: 640px) {
+  .view-mode-learn-more {
+    padding: 1.125rem 3rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .view-mode-learn-more {
+    width: auto;
+    margin-top: 2rem;
+    padding: 0.875rem 2.75rem;
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-mode-learn-more,
+  .view-mode-learn-more::after {
+    transition: none;
+  }
+
+  .view-mode-learn-more:hover {
+    transform: none;
+  }
+
+  .view-mode-learn-more:hover::after {
+    left: -120%;
+  }
+}

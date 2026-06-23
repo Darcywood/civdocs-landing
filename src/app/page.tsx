@@ -6,6 +6,10 @@ import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import HeroTestimonialList from '@/components/marketing/HeroTestimonialList';
+import HeroProofSection from '@/components/marketing/HeroProofSection';
+import HeroStackedTestimonials from '@/components/marketing/HeroStackedTestimonials';
+import HeroViewModeCards from '@/components/marketing/HeroViewModeCards';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
@@ -95,27 +99,48 @@ export default function Home() {
       <Header />
       <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#FFFEFB] pt-32 pb-32 sm:pt-40 sm:pb-40 lg:pt-48 lg:pb-48">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Know your job costs while work is still underway.
-            </h1>
-            <h2 className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-12 font-medium">
-              CivDocs turns your daily site activity into live project, plant, and cost data — without paperwork or spending $120,000 a year on an engineer/analyst.
-              </h2>
-            <div className="flex flex-col items-center">
+      <section className="relative overflow-hidden bg-[#FFFEFB] pb-12 sm:pb-40 lg:pb-48">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="sm:pt-40 lg:pt-48">
+            {/* Mobile Hyros-style: left text, full-width buttons */}
+            <div className="pt-[84px] sm:pt-0">
+              <div className="text-left w-full ml-[15px] lg:ml-0">
+                <h1>
+                  <span className="block font-serif text-[3rem] lg:text-[2.75rem] xl:text-[3rem] font-normal text-[#1E1E1E] tracking-tight">
+                    Meet
+                  </span>
+                  <span className="block font-serif text-[7.25rem] lg:text-[6.5rem] xl:text-[7.75rem] 2xl:text-[8.5rem] font-normal text-[#1E1E1E] leading-[0.86] lg:leading-[0.9] tracking-tight mt-1 lg:mt-0 lg:mb-10">
+                    CivDocs.
+                  </span>
+                </h1>
+                <h2 className="mt-5 lg:mt-0 lg:mb-[60px] text-[1.75rem] lg:text-xl xl:text-2xl text-gray-600 leading-snug lg:leading-relaxed font-normal font-sans max-w-[21rem] lg:max-w-xl">
+                  The end of paper dockets for plant hire.
+                </h2>
+              </div>
+
+              <div className="mt-10 lg:mt-0 lg:mb-[100px] flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4 w-full lg:w-auto">
+                <a 
+                href="/start-trial#signup-form" 
+                className="inline-flex items-center justify-center w-full lg:w-auto px-8 lg:px-10 py-[1.125rem] lg:py-3.5 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg lg:text-base xl:text-lg rounded-full hover:shadow-2xl hover:scale-[1.02] lg:hover:scale-105 transition-all duration-300"
+                >
+                Start free trial
+                </a>
                 <a 
                 href="/book" 
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                className="inline-flex items-center justify-center w-full lg:w-auto px-8 lg:px-10 py-[1.125rem] lg:py-3.5 bg-transparent border-2 border-[#1E1E1E]/25 text-[#1E1E1E] font-semibold text-lg lg:text-base xl:text-lg rounded-full hover:border-[#FF8C32] hover:text-[#FF8C32] transition-all duration-300"
                 >
-                Book a call →
+                Book a call
                 </a>
-              <p className="text-base font-bold text-[#FF8C32] mt-4 animate-pulse-glow drop-shadow-sm">Free 15-minute fit check</p>
+              </div>
+
+              <HeroTestimonialList />
+              <HeroProofSection />
             </div>
             
+            <HeroStackedTestimonials />
+
             {/* Dashboard Preview */}
-            <div className="mt-16 flex items-center justify-center">
+            <div className="mt-12 sm:mt-16 flex items-center justify-center">
               <div className="w-full max-w-[230px] sm:max-w-[270px] md:max-w-[310px]">
                 <OptimizedImage 
                   src="/homepage/dashboard1.png" 
@@ -131,237 +156,14 @@ export default function Home() {
                 />
               </div>
             </div>
+
+            <HeroViewModeCards />
           </div>
         </div>
       </section>
 
-      {/* Story Section - Humblytics Style */}
-      <section className="relative overflow-hidden bg-white pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-left">
-            {/* Large headline for first sentence */}
-            <h2 className="text-3xl sm:text-4xl font-medium text-[#1E1E1E] leading-tight tracking-tight mb-10 max-w-3xl">
-              It's the end of the month — and you're left scratching your head.
-            </h2>
-
-            {/* Story paragraphs - large, airy, readable */}
-            <div className="space-y-5 text-lg font-normal text-neutral-700 leading-relaxed">
-              <ul className="space-y-2 mb-8">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>The job looked busy.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Crews were flat out.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Plant ran all week.</span>
-                </li>
-              </ul>
-              <p className="text-xl mb-8">
-                But the numbers don't line up.
-              </p>
-              <ul className="space-y-2 mb-8">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Labour's higher than planned.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Plant hours feel off.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Attachments didn't get charged.</span>
-                </li>
-              </ul>
-              <p className="text-xl mb-8">
-                You're jumping between timesheets, logbooks, and spreadsheets trying to work out what actually happened.
-              </p>
-              
-              {/* Short emphasis lines - grouped with extra spacing */}
-              <div className="mt-4 mb-8">
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                    <span className="text-lg font-normal text-neutral-700 leading-relaxed">Was it overtime?</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                    <span className="text-lg font-normal text-neutral-700 leading-relaxed">Was plant sitting idle?</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                    <span className="text-lg font-normal text-neutral-700 leading-relaxed">Or was it just bad data?</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <p className="text-xl">
-                You don't know — and that's the problem.
-              </p>
-            </div>
-
-            {/* Solution statement */}
-            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mt-10 mb-8">
-              CivDocs changes this.
-            </h3>
-            
-            {/* Solution description */}
-            <div className="max-w-2xl space-y-2">
-              <p className="text-lg font-normal text-neutral-700 leading-relaxed">
-                Construction management software for civil contractors.
-              </p>
-              <p className="text-lg font-normal text-neutral-700 leading-relaxed">
-                Pre-starts, timesheets, plant logbooks, and cost tracking — all connected, approved, and trusted.
-              </p>
-            </div>
-
-            {/* Dashboard Preview */}
-            <div className="mt-12 flex items-center justify-center">
-              <div className="w-full max-w-[230px] sm:max-w-[270px] md:max-w-[310px]">
-                <OptimizedImage 
-                  src="/homepage/dashboardcostreport.png" 
-                  alt="Desktop cost tracking dashboard" 
-                  width={400}
-                  height={800}
-                  className="w-full h-auto drop-shadow-lg md:drop-shadow-2xl"
-                  style={{ 
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    willChange: 'transform'
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Your Numbers Section - Humblytics Style */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-left">
-            {/* Headline */}
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              Imagine being able to trust your numbers
-            </h2>
-
-            {/* Body paragraphs */}
-            <div className="space-y-6 text-lg font-normal text-neutral-700 leading-relaxed mb-10">
-              <p>
-                CivDocs turns approved site data into real project numbers — while work is still underway.
-              </p>
-              
-              <ul className="space-y-3">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>See labour, plant, and material costs as they build.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Spot overruns early.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Fix issues before they kill your margin.</span>
-                </li>
-              </ul>
-              
-              <p>
-                No spreadsheets. No chasing paperwork. No waiting until month-end.
-              </p>
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-col items-start">
-              <a 
-                href="/book" 
-                className="inline-flex items-center gap-2 sm:gap-3 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-sm sm:text-base rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
-              >
-                <span className="text-center sm:text-left">Book a call</span>
-                <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#E67E22] flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How CivDocs Works Section - Humblytics Style */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-left">
-            {/* Eyebrow heading */}
-            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-wide mb-4 flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              How CivDocs Works
-            </p>
-
-            {/* Main headline */}
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-8">
-              From messy site data to trusted project numbers.
-            </h2>
-
-            {/* Body copy */}
-            <div className="space-y-6 text-lg font-normal text-neutral-700 leading-relaxed mb-12">
-              <p>
-                CivDocs turns your daily site activity into live project costs — automatically.
-              </p>
-              
-              <ul className="space-y-8">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Pre-starts capture the machines used on site and apply the correct daily plant rate to the plant cost code.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Timesheets feed labour hours directly into labour cost codes as they're approved.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-[#FF8C32] mt-0.5 flex-shrink-0">•</span>
-                  <span>Materials are added by supervisors and allocated to the correct material cost codes.</span>
-                </li>
-              </ul>
-              
-              <p>
-                Every entry is approved and locked to the job. Costs roll up into your project scope in real time — so budget vs actuals are always current.
-              </p>
-              
-              <p>
-                No spreadsheets. No backtracking. No waiting until the end of the month to find problems.
-              </p>
-            </div>
-
-            {/* Diagram image */}
-            <div className="mb-6">
-              <OptimizedImage
-                src="/homepage/scopediagrem.png"
-                alt="CivDocs project scope diagram showing approved site data flowing into cost codes and live project scope"
-                width={1200}
-                height={800}
-                className="w-full max-w-4xl mx-auto"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-              />
-            </div>
-
-            {/* Caption */}
-            <p className="text-sm text-gray-500 text-center italic">
-              Approved site data → cost codes → live project scope → trusted reporting
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Plant Hire Logbooks → Invoicing Section */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
+      {/* REMOVED: Plant Hire Logbooks → Invoicing Section */}
+      {false && <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Text Content */}
@@ -608,7 +410,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* Crank.ai Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50/30 pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
@@ -719,6 +521,245 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Machine Compliance Section */}
+      <section className="relative overflow-hidden bg-[#FFFEFB] pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header */}
+          <div className="max-w-3xl mb-16">
+            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-widest mb-3 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Machine Compliance
+            </p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-6">
+              Every compliance document, one place. One click to share.
+            </h2>
+            <p className="text-xl text-neutral-700 leading-relaxed">
+              Store risk assessments, service history, operator manuals, insurances, and operator tickets against each machine. When an engineer or project manager needs them, send a branded link in seconds — no Dropbox hunting, no email chains.
+            </p>
+          </div>
+
+          {/* Two screenshots */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16 items-start">
+            <div>
+              <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Your machine library</p>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                <OptimizedImage
+                  src="/machinehomepageattachements/machine-compliance-list.png"
+                  alt="CivDocs machine compliance list showing risk assessments, service history and operator tickets per machine"
+                  width={1024}
+                  height={768}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 90vw, 520px"
+                  quality={95}
+                />
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">What the recipient sees</p>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                <OptimizedImage
+                  src="/machinehomepageattachements/machine-compliance-export.png"
+                  alt="CivDocs compliance export page — what a client or engineer sees after receiving the link"
+                  width={1024}
+                  height={1400}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 90vw, 520px"
+                  quality={95}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Feature bullets */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+            {[
+              { title: 'Everything stored per machine', body: 'Risk assessments, service history, operator manual, insurances, and operator tickets & VOCs — all attached directly to the machine.' },
+              { title: 'No risk assessment? Create one free.', body: 'Use the CivDocs free risk assessment generator. Build one in minutes and attach it straight to the machine.', link: { label: 'Generate a free risk assessment →', href: '/free-tools/risk-assessment' } },
+              { title: 'Export in one click', body: 'Hit "Export data", choose email or SMS, and the recipient gets a link — no CivDocs account needed to view or download.' },
+              { title: 'Stop digging through Dropbox', body: 'No more hunting through shared drives to find the right document. It\'s already there — one link covers everything.' },
+              { title: 'Looks professional', body: 'Your client or engineer receives a clean, branded compliance pack with your company name — exactly what Tier One sites expect.' },
+            ].map(({ title, body, link }) => (
+              <div key={title} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h4 className="font-semibold text-gray-900 mb-2">{title}</h4>
+                <p className="text-sm text-gray-600 leading-relaxed">{body}</p>
+                {link && (
+                  <a href={link.href} className="mt-3 inline-block text-sm font-semibold text-[#FF8C32] hover:underline">{link.label}</a>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-gradient-to-br from-white to-orange-50/40 px-8 py-6 shadow-sm">
+            <p className="text-lg font-medium text-gray-700">Keep all your compliance documents in one place — ready to share instantly.</p>
+            <a href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+              Start Free Trial →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Site Works Section */}
+      <section className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-28">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="max-w-3xl mb-16">
+            <p className="text-sm font-semibold text-[#FF8C32] uppercase tracking-widest mb-3 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              Site Works
+            </p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1E1E1E] leading-tight tracking-tight mb-6">
+              Everything happening on site — tracked in real time.
+            </h2>
+            <p className="text-xl text-neutral-700 leading-relaxed">
+              Site equipment, truck loads, and daily notes — all in one place. Your crew can see what&apos;s at the yard, log truck movements, and record what happened on site, all from their phone.
+            </p>
+          </div>
+
+          {/* Three tabs layout */}
+          <div className="flex flex-col gap-20">
+
+            {/* Site Equipment */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#FF8C32] mb-3">Site Equipment</p>
+                <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E1E1E] mb-4 tracking-tight">
+                  No more driving to the yard for a tool that isn&apos;t there.
+                </h3>
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  Water trailers, DPUs, demo saws, whacker plates — any small plant your crew shares day to day. Employees check items out to a job or to themselves, and check them back in when done. Everyone can see exactly what&apos;s at the yard and who has what, right now.
+                </p>
+                <ul className="space-y-3 text-base text-gray-600">
+                  {[
+                    'Check equipment out to a job or your possession',
+                    'Every employee can see what\'s available at the yard',
+                    'See who has what — line up with other crews before leaving',
+                    'Check back in when the job\'s done',
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <span className="mt-1 h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-orange-100">
+                        <svg className="h-3 w-3 text-[#FF8C32]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                <OptimizedImage
+                  src="/machinehomepageattachements/site-equipment.png"
+                  alt="CivDocs site equipment screen showing check in and check out for yard equipment"
+                  width={1024}
+                  height={1200}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 90vw, 520px"
+                  quality={95}
+                />
+              </div>
+            </div>
+
+            {/* Truck Tracking */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div className="lg:order-2">
+                <p className="text-xs font-bold uppercase tracking-widest text-[#FF8C32] mb-3">Truck Tracking</p>
+                <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E1E1E] mb-4 tracking-tight">
+                  Every load tracked. Every truck accounted for.
+                </h3>
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  Add a truck by numberplate, select the material, and tap each time a load goes out or tips. At the end of the day, export the load count straight to the supervisor — no trying to remember how many runs were done.
+                </p>
+                <ul className="space-y-3 text-base text-gray-600">
+                  {[
+                    'Log loads by numberplate and material type',
+                    'Tap once per load — nothing complicated',
+                    'Multiple trucks on one job, tracked separately',
+                    'Export the daily load summary to the supervisor',
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <span className="mt-1 h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-orange-100">
+                        <svg className="h-3 w-3 text-[#FF8C32]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="lg:order-1 overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                <OptimizedImage
+                  src="/machinehomepageattachements/truck-tracking.png"
+                  alt="CivDocs truck tracking screen showing load count per truck"
+                  width={1024}
+                  height={1200}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 90vw, 520px"
+                  quality={95}
+                />
+              </div>
+            </div>
+
+            {/* Site Diary */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#FF8C32] mb-3">Site Diary</p>
+                <h3 className="text-2xl sm:text-3xl font-semibold text-[#1E1E1E] mb-4 tracking-tight">
+                  A daily record of what actually happened on site.
+                </h3>
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  Supervisors and operators can record what the crew got done, any delays, issues, or things the office needs to know — straight from their phone at end of day. No paperwork, no calls back to the office.
+                </p>
+                <ul className="space-y-3 text-base text-gray-600">
+                  {[
+                    'Quick daily notes tied to the job',
+                    'Issues and delays recorded on the spot',
+                    'Office stays informed without calls back to site',
+                    'Builds a project history automatically',
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <span className="mt-1 h-5 w-5 shrink-0 flex items-center justify-center rounded-full bg-orange-100">
+                        <svg className="h-3 w-3 text-[#FF8C32]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                <OptimizedImage
+                  src="/machinehomepageattachements/site-diary.png"
+                  alt="CivDocs site diary screen showing daily notes field for supervisors"
+                  width={1024}
+                  height={1200}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 90vw, 520px"
+                  quality={95}
+                />
+              </div>
+            </div>
+
+          </div>
+
+          {/* CTA */}
+          <div className="mt-20 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-gradient-to-br from-white to-orange-50/40 px-8 py-6 shadow-sm">
+            <p className="text-lg font-medium text-gray-700">See everything happening on your sites — from one app.</p>
+            <a href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+              Start Free Trial →
+            </a>
+          </div>
+
         </div>
       </section>
 

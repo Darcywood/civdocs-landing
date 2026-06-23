@@ -85,7 +85,7 @@ export default function CrankAIPage() {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 lg:mb-0">
                 <Link
-                  href="/start-trial"
+                  href="/start-trial#signup-form"
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
                 >
                   Start Free Trial
@@ -505,7 +505,7 @@ export default function CrankAIPage() {
           </p>
           <div className="flex justify-center mb-4">
             <Link
-              href="/start-trial"
+              href="/start-trial#signup-form"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
             >
               Start Free Trial →
