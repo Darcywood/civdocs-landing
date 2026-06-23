@@ -104,12 +104,12 @@ export default function Home() {
           <div className="sm:pt-40 lg:pt-48">
             {/* Mobile Hyros-style: left text, full-width buttons */}
             <div className="pt-[84px] sm:pt-0">
-              <div className="text-left w-full ml-[15px] lg:ml-0">
+              <div className="text-left w-full lg:ml-0">
                 <h1>
                   <span className="block font-serif text-[3rem] lg:text-[2.75rem] xl:text-[3rem] font-normal text-[#1E1E1E] tracking-tight">
                     Meet
                   </span>
-                  <span className="block font-serif text-[7.25rem] lg:text-[6.5rem] xl:text-[7.75rem] 2xl:text-[8.5rem] font-normal text-[#1E1E1E] leading-[0.86] lg:leading-[0.9] tracking-tight mt-1 lg:mt-0 lg:mb-10">
+                  <span className="block font-serif text-[17vw] sm:text-[7.25rem] lg:text-[6.5rem] xl:text-[7.75rem] 2xl:text-[8.5rem] font-normal text-[#1E1E1E] leading-[0.86] lg:leading-[0.9] tracking-tight mt-1 lg:mt-0 lg:mb-10">
                     CivDocs.
                   </span>
                 </h1>
