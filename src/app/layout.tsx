@@ -11,6 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.civdocs.com.au'),
   title: "CivDocs - Construction Management Software for Civil Contractors",
   description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system. Built for civil contractors.",
   icons: {
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.",
     type: "website",
     siteName: "CivDocs",
+    url: "https://www.civdocs.com.au",
   },
   twitter: {
     card: "summary_large_image",

@@ -5,44 +5,40 @@ import { comparisons } from '@/data/comparisons/index';
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://www.civdocs.com.au';
 
-/** Public marketing routes we want discoverable in search (no auth, tokens, or test pages). */
-const STATIC_PATHS: string[] = [
-  '/',
-  '/about',
-  '/affiliate-partners',
-  '/book',
-  '/capability-statement',
-  '/capability-statement/build',
-  '/cost-tracking',
-  '/crank-ai',
-  '/crank-ai-cheat-sheet',
-  '/free-tools',
-  '/free-tools/csv-to-kml',
-  '/free-tools/risk-assessment',
-  '/free-tools/risk-assessment/build',
-  '/guides',
-  '/guides/civil-contractor',
-  '/guides/plant-hire',
-  '/guides/view-switching',
-  '/logbook',
-  '/prestarts',
-  '/pricing',
-  '/privacy',
-  '/start-trial',
-  '/support',
-  '/terms',
-  '/timesheets',
-  '/video-tutorials',
-  '/blog',
+/** Public marketing routes we want discoverable in search (no auth, tokens, redirects, or tool wizard steps). */
+const STATIC_PATHS: { path: string; priority?: number; freq?: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
+  { path: '/', priority: 1.0, freq: 'weekly' },
+  { path: '/civil-contractors', priority: 0.95 },
+  { path: '/plant-hire', priority: 0.95 },
+  { path: '/pricing', priority: 0.9 },
+  { path: '/start-trial', priority: 0.9 },
+  { path: '/book', priority: 0.85 },
+  { path: '/about', priority: 0.8 },
+  { path: '/crank-ai', priority: 0.85 },
+  { path: '/crank-ai-cheat-sheet', priority: 0.75 },
+  { path: '/free-tools', priority: 0.8 },
+  { path: '/free-tools/csv-to-kml', priority: 0.75 },
+  { path: '/free-tools/risk-assessment', priority: 0.75 },
+  { path: '/guides', priority: 0.75 },
+  { path: '/guides/civil-contractor', priority: 0.7 },
+  { path: '/guides/plant-hire', priority: 0.7 },
+  { path: '/guides/view-switching', priority: 0.65 },
+  { path: '/affiliate-partners', priority: 0.7 },
+  { path: '/capability-statement', priority: 0.7 },
+  { path: '/video-tutorials', priority: 0.7 },
+  { path: '/support', priority: 0.7 },
+  { path: '/blog', priority: 0.85, freq: 'weekly' },
+  { path: '/privacy', priority: 0.5 },
+  { path: '/terms', priority: 0.5 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map((path) => ({
+  const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map(({ path, priority = 0.8, freq = 'monthly' }) => ({
     url: `${SITE}${path === '/' ? '' : path}`,
     lastModified: now,
-    changeFrequency: path === '/' ? 'weekly' : 'monthly',
-    priority: path === '/' ? 1 : path.startsWith('/blog') ? 0.85 : 0.8,
+    changeFrequency: freq,
+    priority,
   }));
 
   let blogEntries: MetadataRoute.Sitemap = [];

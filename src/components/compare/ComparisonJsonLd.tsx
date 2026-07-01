@@ -9,10 +9,10 @@ export function buildComparisonJsonLd({ data, pageUrl }: JsonLdProps): string {
   const graph: Record<string, unknown>[] = [
     {
       '@type': 'Organization',
-      '@id': 'https://civdocs.com.au/#organization',
+      '@id': 'https://www.civdocs.com.au/#organization',
       name: 'CivDocs',
-      url: 'https://civdocs.com.au',
-      logo: 'https://civdocs.com.au/icon.svg',
+      url: 'https://www.civdocs.com.au',
+      logo: 'https://www.civdocs.com.au/icon.svg',
       description:
         'Australian all-in-one SaaS platform for civil contractors and plant hire companies — timesheets, pre-starts, plant hire logbooks, invoicing, job costing, scheduling, and Xero/MYOB integrations.',
       sameAs: [
@@ -42,11 +42,11 @@ export function buildComparisonJsonLd({ data, pageUrl }: JsonLdProps): string {
       url: pageUrl,
       name: data.titleTag,
       description: data.metaDescription,
-      isPartOf: { '@id': 'https://civdocs.com.au/#website' },
+      isPartOf: { '@id': 'https://www.civdocs.com.au/#website' },
       datePublished: data.datePublished,
       dateModified: data.dateModified,
       about: {
-        '@id': 'https://civdocs.com.au/#organization',
+        '@id': 'https://www.civdocs.com.au/#organization',
       },
       breadcrumb: {
         '@type': 'BreadcrumbList',
@@ -55,13 +55,13 @@ export function buildComparisonJsonLd({ data, pageUrl }: JsonLdProps): string {
             '@type': 'ListItem',
             position: 1,
             name: 'CivDocs',
-            item: 'https://civdocs.com.au',
+            item: 'https://www.civdocs.com.au',
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Compare',
-            item: 'https://civdocs.com.au/compare',
+            item: 'https://www.civdocs.com.au/compare',
           },
           {
             '@type': 'ListItem',
@@ -81,10 +81,10 @@ export function buildComparisonJsonLd({ data, pageUrl }: JsonLdProps): string {
       datePublished: data.datePublished,
       dateModified: data.dateModified,
       author: {
-        '@id': 'https://civdocs.com.au/#organization',
+        '@id': 'https://www.civdocs.com.au/#organization',
       },
       publisher: {
-        '@id': 'https://civdocs.com.au/#organization',
+        '@id': 'https://www.civdocs.com.au/#organization',
       },
       mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
     },

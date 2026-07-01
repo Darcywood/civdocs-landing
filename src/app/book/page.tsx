@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import CalendlyPopupButton from '@/components/marketing/CalendlyPopupButton';
 import { Marquee } from '@/components/ui/marquee';
@@ -6,12 +5,6 @@ import { TestimonialCard } from '@/app/capability-statement/_components/Testimon
 import BookFAQ from './_components/BookFAQ';
 import StepHeading from './_components/StepHeading';
 import BookVideoPlayer from './_components/BookVideoPlayer';
-
-export const metadata: Metadata = {
-  title: 'Book a Quick CivDocs Fit Check',
-  description:
-    'Book a 15-minute chat to see if CivDocs is a fit for your civil contracting or plant hire business.',
-};
 
 const TOP_ROW_CARDS = [
   { name: 'Harry', company: 'HLM Earthworks', quote: "End of month invoicing takes 20 minutes, not half a day.", logoSrc: '/logos-testomonials/hlm.png' },

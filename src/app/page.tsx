@@ -87,7 +87,21 @@ export default function Home() {
   };
 
   // Combine all schemas into a single array for efficient rendering
-  const allSchemas = [organizationSchema, brandSchema, homepageSchema];
+  const allSchemas = [
+    organizationSchema,
+    brandSchema,
+    homepageSchema,
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://www.civdocs.com.au/#website",
+      "url": "https://www.civdocs.com.au",
+      "name": "CivDocs",
+      "description": "Australian construction management software for civil contractors and plant hire companies.",
+      "publisher": { "@id": "https://www.civdocs.com.au/#organization" },
+      "inLanguage": "en-AU",
+    },
+  ];
 
   return (
     <>
@@ -811,11 +825,11 @@ export default function Home() {
 
             {/* CTA Section */}
             <div className="pt-12 border-t border-gray-200">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
                 <div className="mb-4">Better data.</div>
                 <div className="mb-4">Better decisions.</div>
                 <div>Better margins.</div>
-              </h1>
+              </h2>
               <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                 CivDocs connects site activity to real project costs so you can act early — not after it's too late.
               </p>

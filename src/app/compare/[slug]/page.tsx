@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = comparisonsBySlug[slug];
   if (!data) return {};
 
-  const url = `https://civdocs.com.au/compare/${slug}`;
+  const url = `https://www.civdocs.com.au/compare/${slug}`;
   return {
     title: data.titleTag,
     description: data.metaDescription,
@@ -43,7 +43,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
   const data = comparisonsBySlug[slug];
   if (!data) notFound();
 
-  const pageUrl = `https://civdocs.com.au/compare/${slug}`;
+  const pageUrl = `https://www.civdocs.com.au/compare/${slug}`;
   const jsonLd = buildComparisonJsonLd({ data, pageUrl });
 
   return (

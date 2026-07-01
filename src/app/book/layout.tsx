@@ -2,22 +2,21 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Start Your Free Trial | CivDocs',
+  title: 'Book a Quick CivDocs Fit Check',
   description:
-    'Know your job costs before the job finishes. CivDocs captures daily site data — hours, plant, progress. 14 days free, no credit card required.',
-  alternates: { canonical: 'https://www.civdocs.com.au/start-trial' },
+    'Book a 15-minute chat to see if CivDocs is a fit for your civil contracting or plant hire business.',
+  alternates: { canonical: 'https://www.civdocs.com.au/book' },
   openGraph: {
-    title: 'Start Your Free Trial | CivDocs',
-    description:
-      'CivDocs captures daily site data — hours, plant, progress. 14 days free, no credit card required.',
-    url: 'https://www.civdocs.com.au/start-trial',
+    title: 'Book a Quick CivDocs Fit Check',
+    description: 'Book a 15-minute chat to see if CivDocs fits your civil contracting or plant hire business.',
+    url: 'https://www.civdocs.com.au/book',
     type: 'website',
     siteName: 'CivDocs',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Start Your Free Trial | CivDocs',
-    description: '14 days free, no credit card required. Built for civil contractors.',
+    title: 'Book a Quick CivDocs Fit Check',
+    description: 'Book a 15-minute chat to see if CivDocs fits your business.',
   },
 };
 
@@ -35,10 +34,10 @@ const faqSchema = JSON.stringify({
     },
     {
       '@type': 'Question',
-      name: 'Will my operators actually use it?',
+      name: 'Can I test this without involving the whole team?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'CivDocs is built for site use — big buttons, minimal steps, no clutter. If someone can use basic apps on their phone, they can use this. Most crews pick it up in minutes because it mirrors how they already think about their day.',
+        text: 'Yes. You can trial it with one job or a small group first. No full rollout required. Test it properly, then decide.',
       },
     },
     {
@@ -54,29 +53,25 @@ const faqSchema = JSON.stringify({
       name: 'Can we cancel anytime?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. No lock-in contracts. Cancel during the trial and you will not be charged. Not happy? We will refund you — no questions asked.',
+        text: 'Yes. There are no lock-in contracts. Cancel during the trial and you will not be charged. Not happy? We will refund you — no questions asked.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Can I test it without the whole team?',
+      name: 'Do older operators struggle with the app?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Start with just yourself or one supervisor. Get comfortable with the system before rolling it out to crew.',
+        text: 'CivDocs is built for site use — big buttons, minimal steps, no clutter. If someone can use basic apps on their phone, they can use this. Most crews pick it up in minutes because it mirrors how they already think about their day.',
       },
     },
   ],
 });
 
-export default function StartTrialLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function BookLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Script
-        id="start-trial-faq-schema"
+        id="book-faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: faqSchema }}
       />

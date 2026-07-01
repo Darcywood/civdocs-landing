@@ -8,7 +8,22 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/r/', '/test-trial'],
+      disallow: [
+        '/api/',
+        '/r/',
+        '/test-trial',
+        '/login',
+        '/sign-in',
+        '/forgot-password',
+        '/reset-password',
+        '/billing',
+        '/success',
+        '/trial-success',
+        '/booking-confirmed',
+        '/account-deletion',
+        '/capability-statement/success',
+        '/capability-statement/build',
+      ],
     },
     sitemap: `${SITE}/sitemap.xml`,
   };

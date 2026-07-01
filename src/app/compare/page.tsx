@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: 'CivDocs vs Competitors (2026): Honest Comparisons for Civil Contractors',
   description:
     'Honest, detailed comparisons of CivDocs vs Procore, Simpro, Varicon, Assignar, HammerTech, and Record TIME — written for Australian civil contractors and plant hire businesses. Find the right fit for your business.',
-  alternates: { canonical: 'https://civdocs.com.au/compare' },
+  alternates: { canonical: 'https://www.civdocs.com.au/compare' },
   openGraph: {
     title: 'CivDocs vs Competitors (2026): Honest Comparisons for Civil Contractors',
     description:
       'Honest, detailed comparisons of CivDocs vs leading construction software — written for Australian civil contractors and plant hire businesses.',
-    url: 'https://civdocs.com.au/compare',
+    url: 'https://www.civdocs.com.au/compare',
     type: 'website',
     siteName: 'CivDocs',
   },
@@ -25,24 +25,24 @@ const hubJsonLd = JSON.stringify({
   '@graph': [
     {
       '@type': 'CollectionPage',
-      '@id': 'https://civdocs.com.au/compare#webpage',
-      url: 'https://civdocs.com.au/compare',
+      '@id': 'https://www.civdocs.com.au/compare#webpage',
+      url: 'https://www.civdocs.com.au/compare',
       name: 'CivDocs vs Competitors (2026): Honest Comparisons for Civil Contractors',
       description:
         'Honest, detailed comparisons of CivDocs vs Procore, Simpro, Varicon, Assignar, HammerTech, and Record TIME.',
-      isPartOf: { '@id': 'https://civdocs.com.au/#website' },
-      about: { '@id': 'https://civdocs.com.au/#organization' },
+      isPartOf: { '@id': 'https://www.civdocs.com.au/#website' },
+      about: { '@id': 'https://www.civdocs.com.au/#organization' },
       hasPart: comparisons.map((c) => ({
         '@type': 'WebPage',
-        url: `https://civdocs.com.au/compare/${c.slug}`,
+        url: `https://www.civdocs.com.au/compare/${c.slug}`,
         name: c.titleTag,
       })),
     },
     {
       '@type': 'Organization',
-      '@id': 'https://civdocs.com.au/#organization',
+      '@id': 'https://www.civdocs.com.au/#organization',
       name: 'CivDocs',
-      url: 'https://civdocs.com.au',
+      url: 'https://www.civdocs.com.au',
     },
   ],
 });

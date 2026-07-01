@@ -6,6 +6,7 @@ import DarcyPhoto from '@/components/marketing/DarcyPhoto';
 export const metadata: Metadata = {
   title: "You're booked — CivDocs",
   description: 'Your CivDocs fit check is confirmed. See you on the call.',
+  robots: { index: false, follow: false },
 };
 
 const CALL_BULLETS = [
