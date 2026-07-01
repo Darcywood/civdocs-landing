@@ -39,10 +39,9 @@ interface StartTrialRequest {
   full_name: string;
   email: string;
   company: string;
-  plan_type?: string; // Optional - not required during trial signup, only set when subscribing
+  plan_type?: string;
   company_type: string;
   password: string;
-  confirmPassword: string;
   phone?: string;
   terms_and_privacy_accepted: boolean;
   org_acknowledgement_accepted: boolean;
@@ -116,7 +115,6 @@ export async function POST(req: Request) {
       company,
       company_type,
       password,
-      confirmPassword,
       phone,
       terms_and_privacy_accepted,
       org_acknowledgement_accepted,
@@ -179,11 +177,11 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Valid company types:`, VALID_COMPANY_TYPES);
 
     // Validate required fields
-    if (!full_name || !email || !company || !company_type || !password || !confirmPassword) {
+    if (!full_name || !email || !company || !company_type || !password) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required fields: full_name, email, company, company_type, password, and confirmPassword are required",
+          error: "Missing required fields: full_name, email, company, company_type, and password are required",
         },
         { 
           status: 400,
@@ -198,20 +196,6 @@ export async function POST(req: Request) {
         {
           success: false,
           error: "You must accept all terms and agreements to continue",
-        },
-        { 
-          status: 400,
-          headers: getCorsHeaders(),
-        }
-      );
-    }
-
-    // Validate passwords match
-    if (password !== confirmPassword) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Passwords do not match",
         },
         { 
           status: 400,

@@ -37,6 +37,11 @@ export default function Footer() {
                 <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Resources</h3>
                 <ul className="space-y-3">
                   <li>
+                    <a href="/compare" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
+                      Compare
+                    </a>
+                  </li>
+                  <li>
                     <a href="/guides" className="text-gray-600 hover:text-[#FF8C32] transition-colors text-sm">
                       Guides
                     </a>

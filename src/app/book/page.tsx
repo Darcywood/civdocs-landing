@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 };
 
 const TOP_ROW_CARDS = [
-  { name: 'John', company: 'Jal Civil', quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.", logoSrc: '/capability-statement/Jal.png' },
-  { name: 'Riley', company: 'RMF Earthworx', quote: "It's simple. Select the job, log the hours, submit. The blokes picked it up without needing a training day.", logoSrc: '/capability-statement/rmf.png' },
+  { name: 'Harry', company: 'HLM Earthworks', quote: "End of month invoicing takes 20 minutes, not half a day.", logoSrc: '/logos-testomonials/hlm.png' },
+  { name: 'Jacko', company: 'Elev8 Earthworks', quote: "My bookkeeper loves it.", logoSrc: '/homepage_logos/2.png' },
 ];
 
 const BOTTOM_ROW_CARDS = [
-  { name: 'Colby', company: 'Ali Excavations', quote: "Plant hours used to live in notebooks. Now they're logged daily and tied back to the job properly.", logoSrc: '/capability-statement/ali.png' },
-  { name: 'Riley', company: 'Rj Piling', quote: "Being able to click into a job and see exactly where the hours and plant costs came from has made quoting less stressful.", logoSrc: '/capability-statement/rj.png' },
+  { name: 'Matt', company: 'Roughans Haulage', quote: "Perfect user friendly scheduling and day docket system.", logoSrc: '/homepage_logos/1.png' },
+  { name: 'Reece', company: 'Glade Civil', quote: "Perfect for tracking UTS/GPS and float movements.", logoSrc: '/logos-testomonials/gladelogo.png' },
 ];
 
 export default function BookPage() {

@@ -9,13 +9,13 @@ import StartTrialForm from './_components/StartTrialForm';
 const ORANGE = '#F97316';
 
 const TOP_ROW_CARDS = [
-  { name: 'John', company: 'Jal Civil', quote: "I was sceptical because we'd tried other systems before. This one actually fits how site runs. The blokes use it without drama.", logoSrc: '/capability-statement/Jal.png' },
-  { name: 'Riley', company: 'RMF Earthworx', quote: "It's simple. Select the job, log the hours, submit. The blokes picked it up without needing a training day.", logoSrc: '/capability-statement/rmf.png' },
+  { name: 'Harry', company: 'HLM Earthworks', quote: "End of month invoicing takes 20 minutes, not half a day.", logoSrc: '/logos-testomonials/hlm.png' },
+  { name: 'Jacko', company: 'Elev8 Earthworks', quote: "My bookkeeper loves it.", logoSrc: '/homepage_logos/2.png' },
 ];
 
 const BOTTOM_ROW_CARDS = [
-  { name: 'Colby', company: 'Ali Excavations', quote: "Plant hours used to live in notebooks. Now they're logged daily and tied back to the job properly.", logoSrc: '/capability-statement/ali.png' },
-  { name: 'Riley', company: 'Rj Piling', quote: "Being able to click into a job and see exactly where the hours and plant costs came from has made quoting less stressful.", logoSrc: '/capability-statement/rj.png' },
+  { name: 'Matt', company: 'Roughans Haulage', quote: "Perfect user friendly scheduling and day docket system.", logoSrc: '/homepage_logos/1.png' },
+  { name: 'Reece', company: 'Glade Civil', quote: "Perfect for tracking UTS/GPS and float movements.", logoSrc: '/logos-testomonials/gladelogo.png' },
 ];
 const FAQ_ITEMS = [
   {
@@ -176,18 +176,31 @@ function StartTrialWarmupContent() {
             </div>
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-full bg-gray-100">
-                  <Image src="/logos-testomonials/2.png" alt="Fogarty Earthmovers" width={48} height={48} className="object-cover w-full h-full" />
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-lg flex items-center justify-center" style={{ backgroundColor: '#111827' }}>
+                  <Image src="/homepage_logos/2.png" alt="Elev8 Earthworks" width={48} height={48} className="object-contain w-full h-full" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Morgan</p>
-                  <p className="text-sm text-gray-500">Fogarty Earthmovers</p>
-                  <p className="text-xs text-gray-400 mt-0.5">Civil contractor — tracking plant costs across jobs</p>
+                  <p className="font-semibold text-gray-900">Jacko</p>
+                  <p className="text-sm text-gray-500">Elev8 Earthworks</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Civil contractor</p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">&quot;We run machines across multiple jobs at once and I had no idea where plant costs were landing until the job was done. CivDocs fixed that. Now I can see exactly what each machine is costing on each job while it&apos;s still running.&quot;</p>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;My bookkeeper loves it.&quot;</p>
             </div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:col-start-2">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1d355e' }}>
+                  <Image src="/homepage_logos/1.png" alt="Roughans Haulage" width={48} height={48} className="object-contain w-full h-full" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Matt</p>
+                  <p className="text-sm text-gray-500">Roughans Haulage</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Scheduling &amp; day dockets</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;Perfect user friendly scheduling and day docket system.&quot;</p>
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <div className="relative h-12 w-12 shrink-0 flex items-center justify-center rounded-lg bg-gray-100">
                   <Image src="/logos-testomonials/gladelogo.png" alt="Glade Civil" width={48} height={48} className="object-contain w-full h-full" />

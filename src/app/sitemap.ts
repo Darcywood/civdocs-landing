@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blog';
+import { comparisons } from '@/data/comparisons/index';
 
 const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://www.civdocs.com.au';
@@ -57,5 +58,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // If blog dir is missing in an edge environment, still serve static URLs
   }
 
-  return [...staticEntries, ...blogEntries];
+  const compareEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE}/compare`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    ...comparisons.map((c) => ({
+      url: `${SITE}/compare/${c.slug}`,
+      lastModified: new Date(c.dateModified),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
+  ];
+
+  return [...staticEntries, ...compareEntries, ...blogEntries];
 }
