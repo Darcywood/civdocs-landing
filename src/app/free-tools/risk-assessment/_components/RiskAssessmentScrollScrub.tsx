@@ -1,12 +1,19 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const FRAME_COUNT = 90;
+const SOURCE_FRAME_COUNT = 90;
+const FRAME_STEP = 2;
+const LOGICAL_FRAME_COUNT = Math.ceil(SOURCE_FRAME_COUNT / FRAME_STEP);
 const FRAME_BASE = '/riskassesement/fff3ed-ezgif-14a0e0c9bed3a19d-webp-jpg';
+const PRELOAD_BUFFER = 2;
 
-function getFramePath(i: number): string {
-  const num = String(i).padStart(2, '0');
+function getSourceFrameIndex(logicalIndex: number): number {
+  return Math.min(logicalIndex * FRAME_STEP, SOURCE_FRAME_COUNT - 1);
+}
+
+function getFramePath(sourceIndex: number): string {
+  const num = String(sourceIndex).padStart(2, '0');
   return `${FRAME_BASE}/frame_${num}_delay-0.033s.jpg`;
 }
 
@@ -15,11 +22,33 @@ export default function RiskAssessmentScrollScrub() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const framesRef = useRef<(HTMLImageElement | null)[]>([]);
+  const loadingRef = useRef<Set<number>>(new Set());
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const aspectRef = useRef<number | null>(null);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsActive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px 0px' },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isActive) return;
+
     const canvas = canvasRef.current;
     const wrapper = wrapperRef.current;
     const ctx = canvas?.getContext('2d');
@@ -36,12 +65,13 @@ export default function RiskAssessmentScrollScrub() {
       wrapper.style.height = `${h}px`;
     }
 
-    function drawFrame(index: number) {
+    function drawFrame(logicalIndex: number) {
       if (!canvas || !ctx) return;
       const w = canvas.width;
       const h = canvas.height;
       if (w === 0 || h === 0) return;
-      const img = framesRef.current[index];
+      const sourceIndex = getSourceFrameIndex(logicalIndex);
+      const img = framesRef.current[sourceIndex];
       if (!img?.complete || !img.naturalWidth) return;
       ctx.clearRect(0, 0, w, h);
       ctx.drawImage(img, 0, 0, w, h);
@@ -52,18 +82,33 @@ export default function RiskAssessmentScrollScrub() {
       drawFrame(currentFrameRef.current);
     }
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    function loadFrame(sourceIndex: number) {
+      if (loadingRef.current.has(sourceIndex) || framesRef.current[sourceIndex]) return;
+      loadingRef.current.add(sourceIndex);
+
       const img = new Image();
-      const idx = i;
-      img.src = getFramePath(i);
+      img.src = getFramePath(sourceIndex);
       img.onload = () => {
-        if (idx === 0) {
+        if (sourceIndex === 0 && aspectRef.current === null) {
           aspectRef.current = img.naturalWidth / img.naturalHeight;
           tryDraw();
         }
+        if (getSourceFrameIndex(currentFrameRef.current) === sourceIndex) {
+          drawFrame(currentFrameRef.current);
+        }
       };
-      framesRef.current[i] = img;
+      framesRef.current[sourceIndex] = img;
     }
+
+    function preloadAround(logicalIndex: number) {
+      for (let offset = -PRELOAD_BUFFER; offset <= PRELOAD_BUFFER; offset++) {
+        const idx = logicalIndex + offset;
+        if (idx < 0 || idx >= LOGICAL_FRAME_COUNT) continue;
+        loadFrame(getSourceFrameIndex(idx));
+      }
+    }
+
+    loadFrame(0);
 
     const ro = new ResizeObserver(() => tryDraw());
     ro.observe(wrapper);
@@ -79,9 +124,10 @@ export default function RiskAssessmentScrollScrub() {
         const scrollRange = vh * 0.5;
         const scrolled = vh - rect.top;
         const progress = Math.max(0, Math.min(1, (scrolled - startOffset) / scrollRange));
-        const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+        const frame = Math.min(LOGICAL_FRAME_COUNT - 1, Math.floor(progress * LOGICAL_FRAME_COUNT));
         if (frame !== currentFrameRef.current) {
           currentFrameRef.current = frame;
+          preloadAround(frame);
           drawFrame(frame);
         }
       });
@@ -105,20 +151,16 @@ export default function RiskAssessmentScrollScrub() {
       window.removeEventListener('resize', onResize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [isActive]);
 
   return (
     <div ref={containerRef} style={{ height: '45vh' }} className="relative">
       <div className="sticky top-[5vh] w-full px-4">
         <div ref={wrapperRef} className="relative w-full overflow-hidden">
           <canvas ref={canvasRef} className="block h-full w-full" />
-          {/* Left fade */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-[12%]" style={{ background: 'linear-gradient(to right, #F7F3EC, transparent)' }} />
-          {/* Right fade */}
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[12%]" style={{ background: 'linear-gradient(to left, #F7F3EC, transparent)' }} />
-          {/* Top fade */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[10%]" style={{ background: 'linear-gradient(to bottom, #F7F3EC, transparent)' }} />
-          {/* Bottom fade */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%]" style={{ background: 'linear-gradient(to top, #F7F3EC, transparent)' }} />
         </div>
       </div>

@@ -286,6 +286,47 @@ export default function RiskAssessmentPageContent() {
             </div>
           </div>
         </section>
+
+        {/* SEO / educational Q&A sections */}
+        <section className="border-t border-gray-200 px-4 py-16 sm:py-20">
+          <div className="mx-auto w-full max-w-[1200px] space-y-14">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
+                What is a machine risk assessment?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                A machine risk assessment is a structured document that identifies hazards linked to operating a specific piece of plant, rates the level of risk, and sets out control measures to bring that risk down to an acceptable level. On civil and earthmoving sites, principal contractors and safety auditors routinely ask for a plant risk assessment before a machine mobilises — covering everything from pinch points and rollover risk to operator competency and maintenance requirements. CivDocs generates a complete machine risk assessment template in minutes: hazard identification, risk evaluation matrix, control measures, and relevant Australian standards references, all in a professional PDF ready for site.
+              </p>
+            </div>
+
+            <div className="max-w-2xl">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
+                Do I need a risk assessment for every machine on site?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                In practice, yes — each machine should have its own plant risk assessment. Hazards, operating conditions, and control measures differ between machine types and even between individual units in your fleet. A principal contractor or safety auditor will typically want to see a separate assessment per machine, not a generic document copied from a previous job. If you are running excavators, graders, rollers, and posi tracks across multiple sites, that can mean a significant compliance workload. CivDocs lets you generate a machine-specific, audit-ready plant risk assessment for each unit free of charge, so nothing gets missed when you mobilise.
+              </p>
+            </div>
+
+            <div className="max-w-2xl">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
+                How is this different from a SWMS?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                A SWMS (Safe Work Method Statement) describes how a specific high-risk construction task will be carried out safely — it is task-focused and tied to a particular activity on a particular day. A machine risk assessment is plant-focused: it documents the hazards inherent to operating that machine, regardless of which task it is performing. On most civil sites you need both. Your SWMS covers the safe work method for trenching, lifting, or earthworks on that job; your plant risk assessment covers the machine itself. CivDocs generates the machine risk assessment. Your SWMS is prepared separately for each high-risk task.
+              </p>
+            </div>
+
+            <div className="max-w-2xl">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
+                How much does a professional risk assessment normally cost?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                WHS consultants typically charge $250 to $400 per machine for a professional plant risk assessment in Australia. For a contractor running five or more machines across active sites, that adds up fast — and assessments need updating when machines change, controls are revised, or new principal contractor requirements come through. CivDocs offers a free machine risk assessment generator that produces a structured, audit-ready PDF in under five minutes. No consultant fees, no waiting on a third party, and no copying outdated Word templates from a previous mobilisation.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
