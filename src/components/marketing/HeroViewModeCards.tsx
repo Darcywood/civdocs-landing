@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
+import ExpandedTestimonialsGrid from '@/components/marketing/ExpandedTestimonialsGrid';
 
 type ViewModeCard = {
   title: string;
@@ -217,6 +218,131 @@ function ViewModeCardItem({
   );
 }
 
+function FounderQuote() {
+  return (
+    <div className="relative mx-auto max-w-4xl px-6 py-14 text-center sm:py-20 lg:py-24">
+      <span
+        className="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 select-none font-serif text-[7rem] leading-none text-[#F97316] opacity-[0.08] sm:top-10 sm:text-[9rem] lg:top-12 lg:text-[11rem]"
+        aria-hidden="true"
+      >
+        &ldquo;
+      </span>
+      <div className="relative z-10">
+        <blockquote className="text-[1.625rem] font-medium leading-[1.35] tracking-tight text-[#1E1E1E] sm:text-[2rem] sm:leading-[1.3] lg:text-[2.375rem] xl:text-[2.5rem]">
+          &ldquo;Most software makes contractors change how they work to fit the tool. I built CivDocs to fit the work instead — designed on site, not in a boardroom.&rdquo;
+        </blockquote>
+        <div className="mt-10 flex flex-col items-center sm:mt-12">
+          <div className="h-3 w-3 rounded-full bg-black" aria-hidden="true" />
+          <p className="mt-5 text-xl font-medium text-[#FF8C32] sm:text-[1.375rem]">Darcy Wood</p>
+          <p className="mt-1.5 text-base text-gray-600 sm:text-lg">CivDocs Founder</p>
+          <hr className="mt-8 w-20 border-t border-gray-300" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeatureWalkthroughIntro() {
+  return (
+    <div className="mt-16 w-full bg-[#f4f5f7] sm:mt-20 lg:mt-24">
+      <div className="mx-auto max-w-3xl px-6 py-16 text-center sm:py-20 lg:max-w-4xl lg:py-28">
+        <p className="font-serif text-[1.625rem] font-normal leading-[1.35] tracking-tight text-[#1E1E1E] sm:text-[2rem] sm:leading-[1.3] lg:text-[2.25rem]">
+          Here&apos;s what that looks like, day to day.
+        </p>
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-gray-600 sm:mt-6 sm:text-lg">
+          Three tools civil crews actually use, every job.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function SchedulingCard() {
+  const shellRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const wasOutOfViewRef = useRef(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotion = () => setReducedMotion(media.matches);
+    updateMotion();
+    media.addEventListener('change', updateMotion);
+    return () => media.removeEventListener('change', updateMotion);
+  }, []);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    if (!shell) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          const video = videoRef.current;
+          if (video && !reducedMotion && wasOutOfViewRef.current) {
+            video.currentTime = 0;
+            void video.play().catch(() => {});
+          }
+          wasOutOfViewRef.current = false;
+        } else {
+          wasOutOfViewRef.current = true;
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(shell);
+    return () => observer.disconnect();
+  }, [reducedMotion]);
+
+  const handleVideoEnded = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.duration && Number.isFinite(video.duration)) {
+      video.currentTime = Math.max(video.duration - 0.05, 0);
+    }
+    video.pause();
+  };
+
+  return (
+    <div ref={shellRef} className="w-full">
+      <div className="rounded-[2rem] border border-gray-100 bg-white px-5 py-10 shadow-sm sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+        <div className="mx-auto w-full max-w-5xl">
+          <div className="mx-auto w-full overflow-hidden rounded-2xl border border-gray-200 bg-[#111827] shadow-lg">
+            {shouldLoad ? (
+              <video
+                ref={videoRef}
+                src="/homepage/schedulingss.mp4"
+                className="h-auto w-full"
+                autoPlay
+                muted
+                playsInline
+                loop={false}
+                preload="none"
+                onEnded={handleVideoEnded}
+                aria-label="CivDocs scheduling demo — drag an employee onto a job and send an SMS notification"
+              />
+            ) : (
+              <div className="aspect-video w-full bg-[#111827]" />
+            )}
+          </div>
+
+          <div className="mt-8 text-center sm:mt-10">
+            <h3 className="font-serif text-[2.375rem] font-normal leading-[1.08] tracking-tight text-[#1E1E1E] sm:text-[2.625rem] lg:text-[2.75rem]">
+              Schedule your crew in seconds
+            </h3>
+            <p className="mx-auto mt-5 max-w-2xl text-[1.25rem] font-normal leading-relaxed text-gray-600 sm:mt-6 sm:text-xl lg:text-lg">
+              Assign a job and they&apos;re notified instantly — address, map pin, and supervisor contact, all in one text.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function HeroViewModeCards() {
   return (
     <section className="mt-14 w-full overflow-visible sm:mt-16 lg:mt-20">
@@ -231,6 +357,14 @@ export default function HeroViewModeCards() {
             startCorner={index === 0 ? 'top-right' : 'bottom-left'}
           />
         ))}
+      </div>
+      <div className="mx-auto mt-[175px] max-w-5xl">
+        <FounderQuote />
+      </div>
+      <ExpandedTestimonialsGrid />
+      <FeatureWalkthroughIntro />
+      <div className="mx-auto mt-8 max-w-5xl sm:mt-10 lg:mt-12">
+        <SchedulingCard />
       </div>
     </section>
   );

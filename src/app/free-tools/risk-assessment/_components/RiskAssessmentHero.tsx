@@ -24,7 +24,7 @@ export default function RiskAssessmentHero() {
       style={{ background: '#F7F3EC' }}
     >
       <div className="mx-auto w-full max-w-[1200px] flex-1 flex flex-col">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl lg:mx-auto lg:max-w-3xl lg:text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#FF8C32]/20 bg-[#FF8C32]/5 px-3 py-1 mb-6">
             <span className="text-xs font-semibold text-[#CC5500]">FREE TOOL</span>
           </div>
@@ -33,7 +33,7 @@ export default function RiskAssessmentHero() {
           </h1>
           <div className="mt-[30px]">
             <p className="text-sm font-medium text-gray-500 mb-3">Used by civil contractors across Australia</p>
-            <div className="flex items-center gap-6 sm:gap-8 flex-wrap">
+            <div className="flex items-center gap-6 sm:gap-8 flex-wrap lg:justify-center">
               {CONTRACTOR_LOGOS.map((logo) => (
                 <div key={logo.alt} className="h-12 w-12 rounded-full overflow-hidden border border-gray-200 bg-white shrink-0">
                   <Image
@@ -47,10 +47,10 @@ export default function RiskAssessmentHero() {
               ))}
             </div>
           </div>
-          <p className="mt-[15px] text-lg text-gray-600 leading-relaxed max-w-xl">
+          <p className="mt-[15px] text-lg text-gray-600 leading-relaxed max-w-xl lg:mx-auto">
             Generate a compliant plant risk assessment in 5 minutes — ready for site audits and principal contractors.
           </p>
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-8 space-y-4 lg:inline-block lg:text-left">
             {BULLETS.map((item) => (
               <li key={item} className="flex items-center gap-3 text-gray-700">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#FF8C32]/25 bg-[#FF8C32]/10 text-[#FF8C32]">

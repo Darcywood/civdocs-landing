@@ -59,7 +59,10 @@ export default function RiskAssessmentScrollScrub() {
       const w = wrapper.offsetWidth;
       if (w === 0) return;
       const aspect = aspectRef.current;
-      const h = aspect ? w / aspect : w * 0.5625;
+      let h = aspect ? w / aspect : w * 0.5625;
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        h = Math.min(h, 400);
+      }
       canvas.width = w;
       canvas.height = h;
       wrapper.style.height = `${h}px`;
@@ -154,14 +157,14 @@ export default function RiskAssessmentScrollScrub() {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} style={{ height: '45vh' }} className="relative">
-      <div className="sticky top-[5vh] w-full px-4">
-        <div ref={wrapperRef} className="relative w-full overflow-hidden">
+    <div ref={containerRef} className="relative h-[45vh] overflow-hidden lg:mb-10 lg:h-auto lg:overflow-visible">
+      <div className="sticky top-[5vh] w-full px-4 max-lg:sticky lg:relative lg:top-0 lg:px-6">
+        <div ref={wrapperRef} className="relative mx-auto w-full max-w-4xl overflow-hidden">
           <canvas ref={canvasRef} className="block h-full w-full" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-[12%]" style={{ background: 'linear-gradient(to right, #F7F3EC, transparent)' }} />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[12%]" style={{ background: 'linear-gradient(to left, #F7F3EC, transparent)' }} />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[10%]" style={{ background: 'linear-gradient(to bottom, #F7F3EC, transparent)' }} />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%]" style={{ background: 'linear-gradient(to top, #F7F3EC, transparent)' }} />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[25%] max-lg:h-[10%]" style={{ background: 'linear-gradient(to top, #F7F3EC, transparent)' }} />
         </div>
       </div>
     </div>

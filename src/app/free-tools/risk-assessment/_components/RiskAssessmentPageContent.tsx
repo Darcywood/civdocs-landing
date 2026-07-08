@@ -53,16 +53,16 @@ export default function RiskAssessmentPageContent() {
         <RiskAssessmentHero />
 
         {/* Scroll scrub — between hero and Problem section */}
-        <section className="w-full px-4">
+        <section className="relative z-0 w-full px-4">
           <div className="w-full">
             <RiskAssessmentScrollScrub />
           </div>
         </section>
 
         {/* Section 1 — Problem */}
-        <section className="px-4 pt-4 pb-16 sm:pt-6 sm:pb-20">
+        <section className="relative z-10 px-4 pt-4 pb-16 sm:pt-6 sm:pb-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-8">
                 Most contractors are doing risk assessments the hard way
               </h2>
@@ -94,31 +94,37 @@ export default function RiskAssessmentPageContent() {
         </section>
 
         {/* Section 2 — Solution */}
-        <section className="px-4 py-16 sm:py-20">
+        <section className="relative z-10 px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6">
-                CivDocs built a faster way
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Instead of writing risk assessments manually, answer a few questions about your machine and CivDocs generates a structured risk management report in minutes.
-              </p>
-              <p className="text-gray-700 mb-5 font-medium">The report includes:</p>
-              <ul className="space-y-3 mb-8">
-                {['Hazard identification', 'Risk evaluation matrix', 'Control measures', 'Standards references', 'Operator acknowledgement'].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/10 text-[#FF8C32]">
-                      <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </span>
-                    <span className="text-gray-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-gray-600">
-                This produces the exact type of document safety auditors expect.
-              </p>
+            <div className="max-w-2xl lg:mx-auto lg:max-w-4xl">
+              <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-14">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6">
+                    CivDocs built a faster way
+                  </h2>
+                  <p className="text-lg text-gray-600">
+                    Instead of writing risk assessments manually, answer a few questions about your machine and CivDocs generates a structured risk management report in minutes.
+                  </p>
+                  <p className="mt-8 text-gray-600 lg:mt-10">
+                    This produces the exact type of document safety auditors expect.
+                  </p>
+                </div>
+                <div className="mt-8 lg:mt-0 lg:rounded-2xl lg:border lg:border-gray-200/70 lg:bg-white/70 lg:p-8 lg:shadow-sm">
+                  <p className="text-gray-700 mb-5 font-medium">The report includes:</p>
+                  <ul className="space-y-3">
+                    {['Hazard identification', 'Risk evaluation matrix', 'Control measures', 'Standards references', 'Operator acknowledgement'].map((item) => (
+                      <li key={item} className="flex items-center gap-3">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#FF8C32]/10 text-[#FF8C32]">
+                          <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </span>
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -126,7 +132,7 @@ export default function RiskAssessmentPageContent() {
         {/* Section 3 — How it Works */}
         <section className="px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-10">
                 How it works
               </h2>
@@ -153,7 +159,7 @@ export default function RiskAssessmentPageContent() {
         {/* QR Code hosting section */}
         <section className="px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-5">
                 Your report. On the machine. Always accessible.
               </h2>
@@ -187,7 +193,7 @@ export default function RiskAssessmentPageContent() {
         {/* Section 4 — Sample Report Preview */}
         <section className="px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl mb-10">
+            <div className="mb-10 max-w-2xl lg:mx-auto lg:max-w-3xl lg:text-center">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
                 Sample Report Preview
               </h2>
@@ -195,7 +201,7 @@ export default function RiskAssessmentPageContent() {
                 Example pages from a report generated by CivDocs
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
               {[
                 { label: 'Cover page', src: '/riskassesement/1.png' },
                 { label: 'Risk matrix', src: '/riskassesement/4.png' },
@@ -223,7 +229,7 @@ export default function RiskAssessmentPageContent() {
         {/* Section 5 — CTA */}
         <section className="px-4 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl lg:text-center">
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-8">
                 Stop paying consultants for plant risk assessments
               </h2>
@@ -255,7 +261,7 @@ export default function RiskAssessmentPageContent() {
         {/* Section 6 — CivDocs Soft Pitch */}
         <section className="px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px]">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <p className="text-gray-600 mb-4">
                 This free generator is powered by <span className="font-semibold text-gray-900">CivDocs</span>.
               </p>
@@ -290,7 +296,7 @@ export default function RiskAssessmentPageContent() {
         {/* SEO / educational Q&A sections */}
         <section className="border-t border-gray-200 px-4 py-16 sm:py-20">
           <div className="mx-auto w-full max-w-[1200px] space-y-14">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
                 What is a machine risk assessment?
               </h2>
@@ -299,7 +305,7 @@ export default function RiskAssessmentPageContent() {
               </p>
             </div>
 
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
                 Do I need a risk assessment for every machine on site?
               </h2>
@@ -308,7 +314,7 @@ export default function RiskAssessmentPageContent() {
               </p>
             </div>
 
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
                 How is this different from a SWMS?
               </h2>
@@ -317,7 +323,7 @@ export default function RiskAssessmentPageContent() {
               </p>
             </div>
 
-            <div className="max-w-2xl">
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
                 How much does a professional risk assessment normally cost?
               </h2>
