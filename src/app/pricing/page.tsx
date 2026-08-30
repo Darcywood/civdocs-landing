@@ -23,7 +23,7 @@ export default function PricingPage() {
       planId: 'bronze',
       emoji: '🥉',
       description: 'Perfect for owner-operators and small civil crews.',
-      monthlyPrice: 297,
+      monthlyPrice: 497,
       features: [
         '5 users included',
         '10 machines',
