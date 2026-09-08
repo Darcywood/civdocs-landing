@@ -75,6 +75,9 @@ export default function StartTrialLayout({
 }) {
   return (
     <>
+      <Script id="strip-signup-hash" strategy="beforeInteractive">
+        {`if(location.hash==='#signup-form'){history.replaceState(null,'',location.pathname+location.search)}`}
+      </Script>
       <Script
         id="start-trial-faq-schema"
         type="application/ld+json"

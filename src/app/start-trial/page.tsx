@@ -54,10 +54,8 @@ function StartTrialWarmupContent() {
 
   useEffect(() => {
     if (window.location.hash === '#signup-form') {
-      const el = document.getElementById('signup-form');
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-      }
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.scrollTo(0, 0);
     }
   }, []);
 

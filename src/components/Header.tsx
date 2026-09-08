@@ -103,7 +103,7 @@ export default function Header() {
                     {/* Free Tools Dropdown */}
                     <div className="absolute top-full left-0 mt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-4 space-y-2">
-                        <a href="/start-trial#signup-form" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                        <a href="/start-trial" className="block rounded-xl bg-white border border-gray-200 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                           <h3 className="text-base font-semibold text-[#111827]">Start a free trial</h3>
                           <p className="mt-1 text-sm font-normal text-[#6B7280]">14 days, no credit card required</p>
                         </a>
@@ -178,7 +178,7 @@ export default function Header() {
                     Log in
                   </a>
                   <Link
-                    href="/start-trial#signup-form"
+                    href="/start-trial"
                     className="inline-flex items-center px-5 py-2.5 border-2 border-[#FF8C32] text-[#1E1E1E] font-semibold text-base rounded-full hover:bg-[#FFF5ED] transition-all duration-200 ease-out whitespace-nowrap"
                   >
                     Start free trial
@@ -348,7 +348,7 @@ export default function Header() {
                         className="pb-4 pt-2 space-y-3 overflow-hidden"
                       >
                         <a
-                          href="/start-trial#signup-form"
+                          href="/start-trial"
                           onClick={closeMobileMenu}
                           className="block rounded-2xl bg-white border border-gray-200 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ease-in-out"
                         >
@@ -506,7 +506,7 @@ export default function Header() {
                 {/* Action Buttons */}
                 <div className="pt-8 space-y-4">
                   <Link
-                    href="/start-trial#signup-form"
+                    href="/start-trial"
                     onClick={closeMobileMenu}
                     className="block w-full rounded-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#FF8C32] to-[#F5B041] hover:shadow-lg transition-all duration-300 text-center"
                   >

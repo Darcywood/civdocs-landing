@@ -134,7 +134,7 @@ export default function Home() {
 
               <div className="mt-10 lg:mt-0 lg:mb-[100px] flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-4 w-full lg:w-auto">
                 <a 
-                href="/start-trial#signup-form" 
+                href="/start-trial" 
                 className="inline-flex items-center justify-center w-full lg:w-auto px-8 lg:px-10 py-[1.125rem] lg:py-3.5 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg lg:text-base xl:text-lg rounded-full hover:shadow-2xl hover:scale-[1.02] lg:hover:scale-105 transition-all duration-300"
                 >
                 Start free trial
@@ -611,7 +611,7 @@ export default function Home() {
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-gradient-to-br from-white to-orange-50/40 px-8 py-6 shadow-sm">
             <p className="text-lg font-medium text-gray-700">Keep all your compliance documents in one place — ready to share instantly.</p>
-            <a href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+            <a href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
               Start Free Trial →
             </a>
           </div>
@@ -769,7 +769,7 @@ export default function Home() {
           {/* CTA */}
           <div className="mt-20 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-gradient-to-br from-white to-orange-50/40 px-8 py-6 shadow-sm">
             <p className="text-lg font-medium text-gray-700">See everything happening on your sites — from one app.</p>
-            <a href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+            <a href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
               Start Free Trial →
             </a>
           </div>

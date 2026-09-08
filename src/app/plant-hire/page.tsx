@@ -142,7 +142,7 @@ export default function PlantHirePage() {
 
                 <Link
 
-                  href="/start-trial#signup-form"
+                  href="/start-trial"
 
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
 
@@ -429,7 +429,7 @@ export default function PlantHirePage() {
       <div className="bg-[#FFFEFB] py-10 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-lg font-medium text-gray-700">Ready to ditch the paper logbook?</p>
-          <Link href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+          <Link href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
             Start Free Trial →
           </Link>
         </div>
@@ -450,7 +450,7 @@ export default function PlantHirePage() {
       <div className="bg-[#FFFEFB] py-10 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-lg font-medium text-gray-700">See how Day Dockets work in your business.</p>
-          <Link href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+          <Link href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
             Start Free Trial →
           </Link>
         </div>
@@ -563,7 +563,7 @@ export default function PlantHirePage() {
       <div className="bg-[#FFFEFB] py-10 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-lg font-medium text-gray-700">Stop re-entering hours into Xero every week.</p>
-          <Link href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+          <Link href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
             Start Free Trial →
           </Link>
         </div>
@@ -657,7 +657,7 @@ export default function PlantHirePage() {
       <div className="bg-[#FFFEFB] py-10 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-lg font-medium text-gray-700">Put your whole fleet on the right jobs — in minutes.</p>
-          <Link href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+          <Link href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
             Start Free Trial →
           </Link>
         </div>
@@ -759,7 +759,7 @@ export default function PlantHirePage() {
           <FadeUp>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-gradient-to-br from-white to-orange-50/40 px-8 py-6 shadow-sm">
               <p className="text-lg font-medium text-gray-700">Keep all your compliance documents in one place — ready to share instantly.</p>
-              <a href="/start-trial#signup-form" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
+              <a href="/start-trial" className="inline-flex items-center justify-center px-7 py-3 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold rounded-full hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap">
                 Start Free Trial →
               </a>
             </div>
@@ -786,7 +786,7 @@ export default function PlantHirePage() {
           <div className="flex justify-center mb-4">
             <Link
 
-              href="/start-trial#signup-form"
+              href="/start-trial"
 
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] text-white font-semibold text-lg rounded-full hover:shadow-2xl hover:scale-105 transition-all"
 
