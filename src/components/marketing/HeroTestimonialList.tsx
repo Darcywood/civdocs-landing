@@ -27,12 +27,12 @@ const TESTIMONIALS: Testimonial[] = [
     logoBg: '#ffffff',
   },
   {
-    quote: 'Perfect user friendly scheduling and day docket system.',
-    name: 'Matt',
-    company: 'Roughans Haulage',
-    logoSrc: '/homepage_logos/1.png',
-    logoAlt: 'Roughans Haulage',
-    logoBg: '#1d355e',
+    quote: 'I can actually see how many loads my trucks are doing, and invoicing off it is straightforward now.',
+    name: 'Nikola',
+    company: 'Jovex Group',
+    logoSrc: '/logos-testomonials/10.png',
+    logoAlt: 'Jovex Group',
+    logoBg: '#ffffff',
   },
   {
     quote: 'My bookkeeper loves it.',
@@ -41,6 +41,14 @@ const TESTIMONIALS: Testimonial[] = [
     logoSrc: '/homepage_logos/2.png',
     logoAlt: 'Elev8 Earthworks',
     logoBg: '#111827',
+  },
+  {
+    quote: "Out of everything we've tried, CivDocs is the best system out there.",
+    name: 'Cirsty',
+    company: "Bono's Excavations",
+    logoSrc: '/logos-testomonials/9.png',
+    logoAlt: "Bono's Excavations",
+    logoBg: '#ffffff',
   },
 ];
 
@@ -55,7 +63,7 @@ function Avatar({ testimonial }: { testimonial: Testimonial }) {
         alt={testimonial.logoAlt}
         width={64}
         height={64}
-        className={`h-full w-full ${testimonial.logoSrc.includes('4.png') ? 'object-contain p-1' : 'object-cover'}`}
+        className={`h-full w-full ${testimonial.logoSrc.includes('4.png') || testimonial.logoSrc.includes('9.png') || testimonial.logoSrc.includes('10.png') ? 'object-contain p-1' : 'object-cover'}`}
       />
     </div>
   );
@@ -93,7 +101,7 @@ function TestimonialItem({
 export default function HeroTestimonialList() {
   return (
     <div className="mt-10 w-full overflow-hidden rounded-[2rem] border border-gray-200/80 bg-white shadow-sm lg:mt-0 lg:mb-0">
-      <div className="flex flex-col lg:grid lg:grid-cols-4 lg:items-stretch">
+      <div className="flex flex-col lg:grid lg:grid-cols-5 lg:items-stretch">
         {TESTIMONIALS.map((testimonial, index) => (
           <TestimonialItem
             key={`${testimonial.name}-${testimonial.company}`}

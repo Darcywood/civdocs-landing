@@ -2,6 +2,7 @@ const LEAD_FIRED_KEY = 'capability_lead_fired';
 const RISK_ASSESSMENT_FIRED_KEY = 'risk_assessment_generated_fired';
 const CAPABILITY_LEAD_KEY = 'capability_lead_fired';
 const CAPABILITY_COMPLETE_REG_KEY = 'capability_complete_registration_fired';
+const CALLBACK_LEAD_FIRED_KEY = 'lead_form_submitted_fired';
 
 type MetaStandardEvent =
   | 'Lead'
@@ -185,6 +186,53 @@ export function trackRiskAssessmentGenerated(params: {
       if (fire()) sessionStorage.setItem(guardKey, '1');
     } catch {
       // fail silently
+    }
+  }, 150);
+}
+
+/**
+ * Custom event for /get-a-callback form — distinct from Calendly invitee_meeting_scheduled.
+ */
+export function trackLeadFormSubmitted(submissionId?: string): void {
+  if (typeof window === 'undefined') return;
+
+  const guardKey = submissionId
+    ? `${CALLBACK_LEAD_FIRED_KEY}_${submissionId}`
+    : CALLBACK_LEAD_FIRED_KEY;
+
+  try {
+    if (sessionStorage.getItem(guardKey)) return;
+  } catch {
+    /* ignore */
+  }
+
+  const fire = (): boolean => {
+    if (typeof window.fbq !== 'function') return false;
+    try {
+      window.fbq('trackCustom', 'lead_form_submitted', {
+        content_name: 'Get a Callback',
+        content_category: 'callback_lead',
+      });
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[Meta Pixel] lead_form_submitted');
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  if (fire()) {
+    try { sessionStorage.setItem(guardKey, '1'); } catch { /* ignore */ }
+    return;
+  }
+
+  setTimeout(() => {
+    try {
+      if (sessionStorage.getItem(guardKey)) return;
+      if (fire()) sessionStorage.setItem(guardKey, '1');
+    } catch {
+      /* fail silently */
     }
   }, 150);
 }

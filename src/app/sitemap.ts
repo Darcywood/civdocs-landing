@@ -13,6 +13,7 @@ const STATIC_PATHS: { path: string; priority?: number; freq?: MetadataRoute.Site
   { path: '/pricing', priority: 0.9 },
   { path: '/start-trial', priority: 0.9 },
   { path: '/book', priority: 0.85 },
+  { path: '/get-a-callback', priority: 0.8 },
   { path: '/about', priority: 0.8 },
   { path: '/crank-ai', priority: 0.85 },
   { path: '/crank-ai-cheat-sheet', priority: 0.75 },

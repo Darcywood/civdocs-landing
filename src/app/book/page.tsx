@@ -9,10 +9,11 @@ import BookVideoPlayer from './_components/BookVideoPlayer';
 const TOP_ROW_CARDS = [
   { name: 'Harry', company: 'HLM Earthworks', quote: "End of month invoicing takes 20 minutes, not half a day.", logoSrc: '/logos-testomonials/hlm.png' },
   { name: 'Jacko', company: 'Elev8 Earthworks', quote: "My bookkeeper loves it.", logoSrc: '/homepage_logos/2.png' },
+  { name: 'Cirsty', company: "Bono's Excavations", quote: "Out of everything we've tried, CivDocs is the best system out there.", logoSrc: '/logos-testomonials/9.png' },
 ];
 
 const BOTTOM_ROW_CARDS = [
-  { name: 'Matt', company: 'Roughans Haulage', quote: "Perfect user friendly scheduling and day docket system.", logoSrc: '/homepage_logos/1.png' },
+  { name: 'Nikola', company: 'Jovex Group', quote: "I can actually see how many loads my trucks are doing, and invoicing off it is straightforward now.", logoSrc: '/logos-testomonials/10.png' },
   { name: 'Reece', company: 'Glade Civil', quote: "Perfect for tracking UTS/GPS and float movements.", logoSrc: '/logos-testomonials/gladelogo.png' },
 ];
 

@@ -3,9 +3,9 @@
 // Set NEXT_PUBLIC_WISTIA_VIDEO_ID in .env.local — get the ID from your Wistia embed code
 const WISTIA_VIDEO_ID = process.env.NEXT_PUBLIC_WISTIA_VIDEO_ID;
 
-export default function BookVideoPlayer() {
+export default function BookVideoPlayer({ className }: { className?: string }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white shadow-lg shadow-gray-200/30 overflow-hidden">
+    <div className={className ?? 'overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg shadow-gray-200/30'}>
       <div className="relative aspect-video bg-gray-100">
         {WISTIA_VIDEO_ID ? (
           <iframe

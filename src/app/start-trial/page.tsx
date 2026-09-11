@@ -11,10 +11,11 @@ const ORANGE = '#F97316';
 const TOP_ROW_CARDS = [
   { name: 'Harry', company: 'HLM Earthworks', quote: "End of month invoicing takes 20 minutes, not half a day.", logoSrc: '/logos-testomonials/hlm.png' },
   { name: 'Jacko', company: 'Elev8 Earthworks', quote: "My bookkeeper loves it.", logoSrc: '/homepage_logos/2.png' },
+  { name: 'Cirsty', company: "Bono's Excavations", quote: "Out of everything we've tried, CivDocs is the best system out there.", logoSrc: '/logos-testomonials/9.png' },
 ];
 
 const BOTTOM_ROW_CARDS = [
-  { name: 'Matt', company: 'Roughans Haulage', quote: "Perfect user friendly scheduling and day docket system.", logoSrc: '/homepage_logos/1.png' },
+  { name: 'Nikola', company: 'Jovex Group', quote: "I can actually see how many loads my trucks are doing, and invoicing off it is straightforward now.", logoSrc: '/logos-testomonials/10.png' },
   { name: 'Reece', company: 'Glade Civil', quote: "Perfect for tracking UTS/GPS and float movements.", logoSrc: '/logos-testomonials/gladelogo.png' },
 ];
 const FAQ_ITEMS = [
@@ -187,16 +188,29 @@ function StartTrialWarmupContent() {
             </div>
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1d355e' }}>
-                  <Image src="/homepage_logos/1.png" alt="Roughans Haulage" width={48} height={48} className="object-contain w-full h-full" />
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-lg flex items-center justify-center bg-white">
+                  <Image src="/logos-testomonials/10.png" alt="Jovex Group" width={48} height={48} className="object-contain w-full h-full" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Matt</p>
-                  <p className="text-sm text-gray-500">Roughans Haulage</p>
-                  <p className="text-xs text-gray-400 mt-0.5">Scheduling &amp; day dockets</p>
+                  <p className="font-semibold text-gray-900">Nikola</p>
+                  <p className="text-sm text-gray-500">Jovex Group</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Truck loads &amp; invoicing</p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">&quot;Perfect user friendly scheduling and day docket system.&quot;</p>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;I can actually see how many loads my trucks are doing, and invoicing off it is straightforward now.&quot;</p>
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="relative w-12 h-12 shrink-0 overflow-hidden rounded-lg flex items-center justify-center bg-white">
+                  <Image src="/logos-testomonials/9.png" alt="Bono's Excavations" width={48} height={48} className="object-contain w-full h-full" />
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">Cirsty</p>
+                  <p className="text-sm text-gray-500">Bono&apos;s Excavations</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Tried other systems</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed">&quot;Out of everything we&apos;ve tried, CivDocs is the best system out there.&quot;</p>
             </div>
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3 mb-4">

@@ -136,3 +136,55 @@ export async function sendAdminSignupNotification({
     html,
   });
 }
+
+export async function sendCallbackLeadNotification({
+  firstName,
+  lastName,
+  mobile,
+  companyName,
+  timeSink,
+}: {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  companyName: string;
+  timeSink?: string;
+}) {
+  const resend = getResend();
+  const to = process.env.NOTIFY_EMAIL || 'darcy@civdocs.com.au';
+  const from = process.env.FROM_EMAIL;
+  if (!from) throw new Error('FROM_EMAIL is not set');
+
+  const safeFirst = escapeHtml(firstName);
+  const safeLast = escapeHtml(lastName);
+  const safeMobile = escapeHtml(mobile);
+  const safeCompany = escapeHtml(companyName);
+  const sinkBlock = timeSink
+    ? `<p style="margin: 5px 0;"><strong>What's eating the most time:</strong></p>
+       <p style="white-space: pre-wrap; background: #fff; padding: 12px; border-radius: 6px; margin: 8px 0 0 0;">${escapeHtml(timeSink)}</p>`
+    : '<p style="margin: 5px 0; color: #666;">No time-sink note left.</p>';
+
+  const html = `
+    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #FF8C32;">📞 New callback request</h2>
+      <p>Someone asked for a call back on the Get a Callback page. Call them now.</p>
+      <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p style="margin: 5px 0;"><strong>Name:</strong> ${safeFirst} ${safeLast}</p>
+        <p style="margin: 5px 0;"><strong>Mobile:</strong> <a href="tel:${safeMobile}">${safeMobile}</a></p>
+        <p style="margin: 5px 0;"><strong>Company:</strong> ${safeCompany}</p>
+        ${sinkBlock}
+        <p style="margin: 12px 0 0 0; color: #666; font-size: 12px;">Submitted: ${new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}</p>
+      </div>
+      <p style="color: #666; font-size: 12px;">Automated notification from /get-a-callback. Do not reply to the lead from this email — call the mobile.</p>
+    </div>
+  `;
+
+  const subjectName = `${firstName} ${lastName}`.replace(/[\r\n]+/g, ' ').trim().slice(0, 60);
+
+  return resend.emails.send({
+    from,
+    to,
+    subject: `📞 Call back: ${subjectName} — ${companyName.replace(/[\r\n]+/g, ' ').trim().slice(0, 60)} — ${mobile}`,
+    html,
+  });
+}
