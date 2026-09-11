@@ -59,7 +59,6 @@ const TESTIMONIALS: TestimonialCard[] = [
     logoAlt: 'Fogarty Earthmoving',
     logoBg: '#ffffff',
     logoContain: true,
-    wide: true,
   },
   {
     headline: 'Dead Simple',
@@ -130,7 +129,7 @@ function CardAttribution({
 function WideTestimonialCard({ card, spanWide = false }: { card: TestimonialCard; spanWide?: boolean }) {
   return (
     <article
-      className={`flex h-full flex-col rounded-[1.75rem] border border-gray-200 bg-[#f8f9fa] p-6 shadow-sm sm:p-8 lg:p-9 ${spanWide ? 'lg:col-span-2' : ''}`}
+      className={`flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-gray-200 bg-[#f8f9fa] p-6 shadow-sm sm:p-8 lg:p-9 ${spanWide ? 'lg:col-span-2' : ''}`}
     >
       <div className="grid grid-cols-[1fr_auto] items-start gap-5 sm:gap-8 lg:gap-12 xl:gap-16">
         <div className="min-w-0">
