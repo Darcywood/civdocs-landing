@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Marquee } from '@/components/ui/marquee';
+import { DraggableMarquee } from '@/components/ui/DraggableMarquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import CallbackFAQ from './CallbackFAQ';
 
@@ -203,16 +203,26 @@ export default function CallbackTestimonials() {
       </p>
 
       <div className="mt-8 space-y-5 overflow-hidden">
-        <Marquee className="[--duration:70s] [--gap:1.5rem]" pauseOnHover>
+        <DraggableMarquee duration={70} gap={1.25}>
           {TOP_ROW.map((card) => (
-            <TestimonialCard key={`${card.name}-${card.company}-${card.quote.slice(0, 24)}`} {...card} size="lg" />
+            <TestimonialCard
+              key={`${card.name}-${card.company}-${card.quote.slice(0, 24)}`}
+              {...card}
+              size="lg"
+              className="mx-0 h-[260px] w-[min(300px,82vw)] min-w-[min(300px,82vw)] sm:h-[280px] sm:w-[340px] sm:min-w-[340px]"
+            />
           ))}
-        </Marquee>
-        <Marquee className="[--duration:70s] [--gap:1.5rem]" reverse pauseOnHover>
+        </DraggableMarquee>
+        <DraggableMarquee duration={70} gap={1.25} reverse>
           {BOTTOM_ROW.map((card) => (
-            <TestimonialCard key={`${card.name}-${card.company}-${card.quote.slice(0, 24)}`} {...card} size="lg" />
+            <TestimonialCard
+              key={`${card.name}-${card.company}-${card.quote.slice(0, 24)}`}
+              {...card}
+              size="lg"
+              className="mx-0 h-[260px] w-[min(300px,82vw)] min-w-[min(300px,82vw)] sm:h-[280px] sm:w-[340px] sm:min-w-[340px]"
+            />
           ))}
-        </Marquee>
+        </DraggableMarquee>
       </div>
 
       <CallbackFAQ />

@@ -12,6 +12,7 @@ interface DraggableMarqueeProps {
   repeat?: number;
   /** Gap between items in rem */
   gap?: number;
+  reverse?: boolean;
 }
 
 export function DraggableMarquee({
@@ -20,6 +21,7 @@ export function DraggableMarquee({
   duration = 25,
   repeat = 4,
   gap = 1.5,
+  reverse = false,
 }: DraggableMarqueeProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -71,6 +73,7 @@ export function DraggableMarquee({
 
     const tick = (timestamp: number) => {
       if (!el || isDragging) {
+        lastFrame.current = timestamp;
         rafId = requestAnimationFrame(tick);
         return;
       }
@@ -80,10 +83,12 @@ export function DraggableMarquee({
 
       const oneSetWidth = el.scrollWidth / repeat;
       const speed = oneSetWidth / duration;
-      const newScroll = el.scrollLeft + speed * delta;
+      const newScroll = el.scrollLeft + (reverse ? -speed : speed) * delta;
 
-      if (newScroll >= oneSetWidth) {
+      if (!reverse && newScroll >= oneSetWidth) {
         el.scrollLeft = newScroll - oneSetWidth;
+      } else if (reverse && newScroll <= 0) {
+        el.scrollLeft = newScroll + oneSetWidth;
       } else {
         el.scrollLeft = newScroll;
       }
@@ -93,7 +98,16 @@ export function DraggableMarquee({
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [duration, repeat, isDragging]);
+  }, [duration, repeat, isDragging, reverse]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !reverse) return;
+    const frame = requestAnimationFrame(() => {
+      el.scrollLeft = el.scrollWidth / repeat;
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [reverse, repeat]);
 
   return (
     <div
