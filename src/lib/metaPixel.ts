@@ -191,13 +191,14 @@ export function trackRiskAssessmentGenerated(params: {
 }
 
 /**
- * Custom event for /get-a-callback form — distinct from Calendly invitee_meeting_scheduled.
+ * Callback form: standard Lead + custom lead_form_submitted.
+ * Pass the server event_id so CAPI can dedupe against this pixel fire.
  */
-export function trackLeadFormSubmitted(submissionId?: string): void {
+export function trackLeadFormSubmitted(eventId?: string): void {
   if (typeof window === 'undefined') return;
 
-  const guardKey = submissionId
-    ? `${CALLBACK_LEAD_FIRED_KEY}_${submissionId}`
+  const guardKey = eventId
+    ? `${CALLBACK_LEAD_FIRED_KEY}_${eventId}`
     : CALLBACK_LEAD_FIRED_KEY;
 
   try {
@@ -209,12 +210,15 @@ export function trackLeadFormSubmitted(submissionId?: string): void {
   const fire = (): boolean => {
     if (typeof window.fbq !== 'function') return false;
     try {
-      window.fbq('trackCustom', 'lead_form_submitted', {
+      const params = {
         content_name: 'Get a Callback',
         content_category: 'callback_lead',
-      });
+      };
+      const options = eventId ? { eventID: eventId } : undefined;
+      window.fbq('track', 'Lead', params, options);
+      window.fbq('trackCustom', 'lead_form_submitted', params, options);
       if (process.env.NODE_ENV === 'development') {
-        console.log('[Meta Pixel] lead_form_submitted');
+        console.log('[Meta Pixel] Lead + lead_form_submitted', eventId ?? '');
       }
       return true;
     } catch {

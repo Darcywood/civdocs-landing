@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 import { sendCallbackLeadNotification } from '@/lib/email';
 import { sendAdminSms } from '@/lib/sms';
 import { sanitizeAttributionBody } from '@/lib/marketingAttribution';
+import { metaCookiesFromRequest, sendMetaConversionEvent } from '@/lib/metaCapi';
 
 export const runtime = 'nodejs';
 
@@ -92,6 +93,10 @@ export async function POST(req: Request) {
     const ipHash = ip ? createHash('sha256').update(ip).digest('hex').slice(0, 32) : null;
     const contactName = `${firstName} ${lastName}`.trim();
     const leadId = randomUUID();
+    const eventId = leadId;
+    const { fbp, fbc } = metaCookiesFromRequest(req);
+    const userAgent = req.headers.get('user-agent')?.slice(0, 400) ?? null;
+    const eventSourceUrl = crmSourceUrl(attribution);
 
     let saved = false;
     try {
@@ -107,7 +112,7 @@ export async function POST(req: Request) {
           source: 'get-a-callback',
           status: 'new',
           attribution: Object.keys(attribution).length ? attribution : null,
-          user_agent: req.headers.get('user-agent')?.slice(0, 400) ?? null,
+          user_agent: userAgent,
           ip_hash: ipHash,
         }),
         supabase.from('admin_crm_prospects').insert({
@@ -121,7 +126,7 @@ export async function POST(req: Request) {
           added_via: 'manual',
           organization_id: null,
           do_not_call: false,
-          source_url: crmSourceUrl(attribution),
+          source_url: eventSourceUrl,
           notes: buildCrmNotes(timeSink, attribution),
           csv_data: buildCrmCsvData(timeSink, attribution, leadId),
         }),
@@ -135,13 +140,35 @@ export async function POST(req: Request) {
     }
 
     const notify = () => notifyAdmins({ firstName, lastName, mobile, companyName, timeSink });
+    const sendCapi = () =>
+      sendMetaConversionEvent({
+        eventName: 'Lead',
+        eventId,
+        eventSourceUrl,
+        user: {
+          phone: mobile,
+          firstName,
+          lastName,
+          clientIp: ip,
+          userAgent,
+          fbp,
+          fbc,
+          fbclid: attribution.fbclid,
+        },
+        customData: {
+          content_name: 'Get a Callback',
+          content_category: 'callback_lead',
+        },
+      });
 
     if (saved) {
-      after(notify);
-      return NextResponse.json({ ok: true, id: leadId });
+      after(async () => {
+        await Promise.allSettled([notify(), sendCapi()]);
+      });
+      return NextResponse.json({ ok: true, id: leadId, eventId });
     }
 
-    const emailOk = await notify();
+    const [emailOk] = await Promise.all([notify(), sendCapi().catch(() => false)]);
     if (!emailOk) {
       return NextResponse.json(
         { error: 'Could not send your request. Please try again.' },
@@ -149,7 +176,7 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true, id: null });
+    return NextResponse.json({ ok: true, id: null, eventId });
   } catch (error) {
     console.error('[get-a-callback] Error:', error);
     return NextResponse.json(

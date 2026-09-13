@@ -54,7 +54,7 @@ export default function CallbackForm() {
         return;
       }
 
-      trackLeadFormSubmitted(data.id);
+      trackLeadFormSubmitted(data.eventId || data.id);
       setSubmitted(true);
     } catch {
       setError('Something went wrong. Please try again.');
