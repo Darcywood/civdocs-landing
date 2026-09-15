@@ -24,11 +24,21 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "CivDocs",
     url: "https://www.civdocs.com.au",
+    images: [
+      {
+        url: "/og/homepage.png",
+        width: 1200,
+        height: 627,
+        alt: "CivDocs homepage on desktop and phone",
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CivDocs - Construction Management Software for Civil Contractors",
     description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.",
+    images: ["/og/homepage.png"],
   },
 };
 

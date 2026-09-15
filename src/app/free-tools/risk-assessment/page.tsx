@@ -17,12 +17,22 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     type: 'website',
     siteName: 'CivDocs',
+    images: [
+      {
+        url: '/og/risk-assessment.png',
+        width: 1200,
+        height: 627,
+        alt: 'CivDocs free machine risk assessment generator',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Machine Risk Assessment Generator — CivDocs',
     description:
       'Free machine risk assessment generator for Australian civil contractors. Create a compliant plant risk assessment in minutes.',
+    images: ['/og/risk-assessment.png'],
   },
 };
 
