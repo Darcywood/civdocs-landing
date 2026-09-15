@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'CivDocs',
     images: [
       {
-        url: '/og/risk-assessment-v3.png',
+        url: '/og/risk-assessment-v4.png',
         width: 1200,
         height: 627,
         alt: 'CivDocs free machine risk assessment generator',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: 'Free Machine Risk Assessment Generator — CivDocs',
     description:
       'Free machine risk assessment generator for Australian civil contractors. Create a compliant plant risk assessment in minutes.',
-    images: ['/og/risk-assessment-v3.png'],
+    images: ['/og/risk-assessment-v4.png'],
   },
 };
 
