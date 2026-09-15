@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     title: 'Free Tools for Civil Contractors | CivDocs',
     description:
       'Free machine risk assessment generator, CSV to KML converter, and more — built for Australian civil contractors.',
-    url: 'https://www.civdocs.com.au/free-tools',
     type: 'website',
     siteName: 'CivDocs',
   },

@@ -23,7 +23,6 @@ export const metadata: Metadata = {
     description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.",
     type: "website",
     siteName: "CivDocs",
-    url: "https://www.civdocs.com.au",
     images: [
       {
         url: "/og/homepage.png",
