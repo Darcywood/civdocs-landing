@@ -12,14 +12,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.civdocs.com.au'),
-  title: "CivDocs - Construction Management Software for Civil Contractors",
+  title: "CivDocs - Construction Management Software for Civil",
   description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system. Built for civil contractors.",
   icons: {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: "CivDocs - Construction Management Software for Civil Contractors",
+    title: "CivDocs - Construction Management Software for Civil",
     description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.",
     type: "website",
     siteName: "CivDocs",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CivDocs - Construction Management Software for Civil Contractors",
+    title: "CivDocs - Construction Management Software for Civil",
     description: "Pre-starts, timesheets, plant logbooks, and real-time cost tracking — all in one system.",
     images: ["/og/homepage.png"],
   },
