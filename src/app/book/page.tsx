@@ -1,5 +1,4 @@
-import { Suspense } from 'react';
-import CalendlyPopupButton from '@/components/marketing/CalendlyPopupButton';
+import BookCallButton from '@/components/marketing/BookCallButton';
 import { Marquee } from '@/components/ui/marquee';
 import { TestimonialCard } from '@/app/capability-statement/_components/TestimonialCard';
 import BookFAQ from './_components/BookFAQ';
@@ -48,23 +47,12 @@ export default function BookPage() {
               Just a quick chat about how you&apos;re currently doing admin and whether CivDocs could save you time.
             </p>
             <p className="mt-5 text-[1.5125rem] sm:text-[1.815rem] lg:text-[1.75rem] text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              Zoom or phone — whatever&apos;s easiest.
+              30 minutes. The Zoom link is emailed when the meeting starts. Please use a laptop or computer.
             </p>
             <div className="mt-12 sm:mt-14 flex justify-center">
-              <Suspense fallback={
-                <a
-                  href="https://calendly.com/darcy-civdocs/30min?primary_color=FF8C32"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse"
-                >
-                  Book a Call
-                </a>
-              }>
-                <CalendlyPopupButton className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse">
-                  Book a Call
-                </CalendlyPopupButton>
-              </Suspense>
+              <BookCallButton className="inline-flex items-center justify-center px-14 py-5 sm:px-16 sm:py-6 bg-[#FF8C32] hover:bg-[#E67E22] text-white font-bold text-xl rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl animate-button-pulse">
+                Book a Call
+              </BookCallButton>
             </div>
           </section>
 
