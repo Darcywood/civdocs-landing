@@ -130,6 +130,6 @@ Yes. CivDocs is a mobile-first app designed for site use. All data entry — tim
 
 Try CivDocs free for 14 days. Set up your projects, add your cost codes, and start tracking live job costs from your first day.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 Built for civil contractors and earthworks businesses across Australia.

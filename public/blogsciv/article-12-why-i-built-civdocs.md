@@ -40,7 +40,7 @@ I'm still based in Victoria, still talking to contractors regularly, and still b
 
 If you're running a civil or plant hire business and the admin side is still a mess — give it a try. 14 days free, no credit card.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 ---
 

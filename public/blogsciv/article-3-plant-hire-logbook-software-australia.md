@@ -116,6 +116,6 @@ Yes. CivDocs supports multiple machines, multiple operators, and multiple jobs s
 
 Try CivDocs free for 14 days. Set up your machines, add your operators, and start running digital logbooks from site today.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 Built for plant hire operators and civil contractors across Australia.

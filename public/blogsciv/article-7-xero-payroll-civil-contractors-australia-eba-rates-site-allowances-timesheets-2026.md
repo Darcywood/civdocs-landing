@@ -143,4 +143,4 @@ Under most CFMEU EBAs, a meal allowance is payable when an employee works beyond
 
 CivDocs connects site timesheets to Xero Payroll for civil contractors running CFMEU, PPETU, and ETU covered crews. Try it free for 14 days — no credit card required.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)

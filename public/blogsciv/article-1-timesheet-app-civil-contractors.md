@@ -105,6 +105,6 @@ CivDocs starts at $300/month with a free 14-day trial and no credit card require
 
 CivDocs offers a 14-day free trial with no credit card required. Set up your projects, add your crew, and start running live timesheets from site today.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 Built for civil contractors and earthworks businesses across Australia.

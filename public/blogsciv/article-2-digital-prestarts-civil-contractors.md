@@ -112,6 +112,6 @@ This varies by app. Check whether any app you're evaluating supports offline com
 
 CivDocs includes digital pre-starts as part of every plan. Try it free for 14 days — no credit card required.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 Built for civil contractors and earthworks businesses across Australia.

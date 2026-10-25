@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { generateTempPassword, sendTrialWelcomeEmail, sendAdminSignupNotification } from "@/lib/email";
+import { isAustralianPhone } from "@/lib/australianPhone";
 import {
   SIGNUP_ATTRIBUTION_COOKIE_NAME,
   META_PIXEL_CLICK_COOKIE,
@@ -12,6 +13,8 @@ import {
   parseAttributionCookie,
   extractHostFromUrl,
 } from "@/lib/marketingAttribution";
+import { TRIAL_PREVIEW_COOKIE, TRIAL_VARIANT_COOKIE, isTrialVariant } from "@/lib/trialExperiment";
+import { recordTrialExperimentEvent, recordWebsiteSignupEvent } from "@/lib/recordTrialExperiment";
 
 // Force Node.js runtime for Resend SDK
 export const runtime = "nodejs";
@@ -47,6 +50,12 @@ interface StartTrialRequest {
   org_acknowledgement_accepted: boolean;
   /** Client localStorage snapshot: gclid, fbclid, utm_*, first landing path, etc. */
   signup_attribution?: unknown;
+  /** Set by the form. /signup sends "website". The ad pages send "experiment". */
+  signup_surface?: unknown;
+  /** Variant B quiz does not show the organisation acknowledgement. */
+  signup_flow?: unknown;
+  /** Honeypot. Real people never fill this. */
+  company_website?: string;
 }
 
 // Document versions (matching web app)
@@ -119,7 +128,18 @@ export async function POST(req: Request) {
       terms_and_privacy_accepted,
       org_acknowledgement_accepted,
       signup_attribution: signupAttributionRaw,
+      signup_surface: signupSurfaceRaw,
+      signup_flow: signupFlowRaw,
+      company_website: companyWebsiteRaw,
     } = body;
+
+    if (typeof companyWebsiteRaw === "string" && companyWebsiteRaw.trim()) {
+      console.log("[Trial Signup] Honeypot filled, ignoring signup");
+      return NextResponse.json(
+        { success: true, ignored: true },
+        { status: 200, headers: getCorsHeaders() }
+      );
+    }
 
     const cookieStore = await cookies();
     const headerStore = await headers();
@@ -157,6 +177,20 @@ export async function POST(req: Request) {
     }
 
     const attributionSnapshot = sanitizeAttributionBody(merged);
+    let refererPath = "";
+    try {
+      refererPath = apiReferer ? new URL(apiReferer).pathname.replace(/\/$/, "") || "/" : "";
+    } catch {
+      refererPath = "";
+    }
+    const websiteSignup =
+      refererPath === "/signup" || (!refererPath && signupSurfaceRaw === "website");
+    if (!websiteSignup) {
+      const trialVariant = cookieStore.get(TRIAL_VARIANT_COOKIE)?.value;
+      if (isTrialVariant(trialVariant) && cookieStore.get(TRIAL_PREVIEW_COOKIE)?.value !== "1") {
+        attributionSnapshot.trial_variant = trialVariant;
+      }
+    }
     const signup_acquisition_source = classifySignupAcquisitionSource(attributionSnapshot);
 
     console.log(`[Trial Signup] ===== ATTRIBUTION DEBUG =====`);
@@ -176,6 +210,19 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Company type received: "${company_type}" (type: ${typeof company_type})`);
     console.log(`[Trial Signup] Valid company types:`, VALID_COMPANY_TYPES);
 
+    if (!isAustralianPhone(phone)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Enter an Australian phone number, like 0400 123 456.",
+        },
+        {
+          status: 400,
+          headers: getCorsHeaders(),
+        }
+      );
+    }
+
     // Validate required fields
     if (!full_name || !email || !company || !company_type || !password) {
       return NextResponse.json(
@@ -190,8 +237,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validate legal acceptances
-    if (!terms_and_privacy_accepted || !org_acknowledgement_accepted) {
+    // Variant B's quiz does not ask for the organisation acknowledgement.
+    const quizSignup = signupFlowRaw === "quiz";
+    if (!terms_and_privacy_accepted || (!quizSignup && !org_acknowledgement_accepted)) {
       return NextResponse.json(
         {
           success: false,
@@ -484,6 +532,15 @@ export async function POST(req: Request) {
     console.log(`[Trial Signup] Step 7: Sending admin notification`);
     
     try {
+      const formLabel =
+        signupFlowRaw === "quiz"
+          ? "Variant B"
+          : websiteSignup
+            ? "Normal form"
+            : attributionSnapshot.trial_variant === "b"
+              ? "Variant B"
+              : "Variant A";
+
       await sendAdminSignupNotification({
         email,
         fullName: full_name,
@@ -491,7 +548,9 @@ export async function POST(req: Request) {
         companyType: company_type,
         phone: phone || undefined,
         signupAcquisitionSource: signup_acquisition_source,
-        signupAttribution: attributionSnapshot,
+        formLabel,
+        machines: attributionSnapshot.quiz_machines,
+        employees: attributionSnapshot.quiz_employees,
       });
       console.log(`[Trial Signup] ✓ Admin notification sent`);
     } catch (emailError) {
@@ -534,6 +593,11 @@ export async function POST(req: Request) {
     // ============================================================
     // SUCCESS
     // ============================================================
+    if (orgId) {
+      if (websiteSignup) await recordWebsiteSignupEvent("trial_signup", orgId);
+      else await recordTrialExperimentEvent("trial_signup", orgId);
+    }
+
     console.log(`[Trial Signup] ✅ Trial signup completed successfully for: ${email}`);
     console.log(`[Trial Signup] User ID: ${userId}`);
     console.log(`[Trial Signup] Organization ID: ${orgId}`);

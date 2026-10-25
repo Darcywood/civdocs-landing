@@ -164,6 +164,6 @@ CivDocs integrates directly with Xero, syncing approved hours, job costs, and in
 
 CivDocs is the only software built specifically for Australian civil contractors and plant hire operators. Try it free for 14 days — no credit card required.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 Set up your projects, machines, and crew — and start running your civil business off real data today.

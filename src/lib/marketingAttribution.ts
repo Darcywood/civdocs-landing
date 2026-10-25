@@ -40,6 +40,8 @@ const BODY_ALLOWED_KEYS = new Set<string>([
   "_fbp",
   "_gcl_aw",
   "ts",
+  "quiz_machines",
+  "quiz_employees",
 ]);
 
 export type SignupAcquisitionSource = "google_ads" | "meta_ads" | "organic" | "other";

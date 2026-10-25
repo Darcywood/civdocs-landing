@@ -199,6 +199,6 @@ Yes. CivDocs provides a free capability statement generator for Australian civil
 
 CivDocs is purpose-built for Australian civil contractors and plant hire operators — pre-starts, timesheets, logbooks, real-time cost tracking, and Xero integration in one system.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 14 days free. No credit card required.

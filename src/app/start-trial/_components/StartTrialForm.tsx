@@ -5,9 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import OptimizedImage from '@/components/OptimizedImage';
 import FancySpinner from '@/components/fancyspinner/FancySpinner';
+import { isAustralianPhone } from '@/lib/australianPhone';
 import { getStoredAttributionForSignup } from '@/lib/marketingAttribution';
+import { trackTrialExperiment, trackWebsiteSignup } from '@/lib/trialExperimentClient';
 
-export default function StartTrialForm() {
+export default function StartTrialForm({ surface = 'experiment' }: { surface?: 'experiment' | 'website' }) {
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -21,6 +23,7 @@ export default function StartTrialForm() {
   const [termsAndPrivacyAccepted, setTermsAndPrivacyAccepted] = useState(false);
   const [orgSignupAccepted, setOrgSignupAccepted] = useState(false);
   const [legalError, setLegalError] = useState('');
+  const [companyWebsite, setCompanyWebsite] = useState('');
   const [isOrgAckExpanded, setIsOrgAckExpanded] = useState(false);
 
   useEffect(() => {
@@ -56,6 +59,10 @@ export default function StartTrialForm() {
       setLegalError('You must accept all terms and agreements to continue');
       return;
     }
+    if (!isAustralianPhone(formData.phone)) {
+      alert('⚠️ Enter an Australian phone number, like 0400 123 456.');
+      return;
+    }
 
     setLegalError('');
     setLoading(true);
@@ -70,10 +77,17 @@ export default function StartTrialForm() {
           terms_and_privacy_accepted: termsAndPrivacyAccepted,
           org_acknowledgement_accepted: orgSignupAccepted,
           signup_attribution: getStoredAttributionForSignup(),
+          signup_surface: surface,
+          company_website: companyWebsite,
         }),
       });
 
       const data = await response.json();
+
+      if (data.ignored) {
+        window.location.href = `/trial-success?email=${encodeURIComponent(formData.email)}`;
+        return;
+      }
 
       if (data.ok || data.success) {
         /* Google Ads: successful signup from "Create Organisation" (form submit), before redirect */
@@ -137,7 +151,27 @@ export default function StartTrialForm() {
           <p className="text-base sm:text-lg text-gray-500 mt-3">No credit card required</p>
         </div>
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
-          <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
+          <form
+            onSubmit={handleSubmit}
+            onFocusCapture={() =>
+              surface === 'website' ? trackWebsiteSignup('form_start') : trackTrialExperiment('form_start')
+            }
+            className="space-y-4"
+            suppressHydrationWarning
+          >
+            <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+              <label>
+                Website
+                <input
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={companyWebsite}
+                  onChange={(e) => setCompanyWebsite(e.target.value)}
+                />
+              </label>
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
               <input
@@ -211,13 +245,15 @@ export default function StartTrialForm() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Australian phone *</label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#F97316] focus:border-transparent outline-none transition-all text-gray-900"
                 placeholder="e.g. 0400 123 456"
+                autoComplete="tel"
+                required
                 disabled={loading}
                 suppressHydrationWarning
               />

@@ -1,0 +1,10 @@
+---
+description: Do not open or drive the browser unless the user asks
+alwaysApply: true
+---
+
+# Stay out of the browser
+
+Do not open, navigate, lock, screenshot, or otherwise drive the browser unless the user explicitly asks you to check something in the browser.
+
+Verify interface changes by reading the code you wrote. Do not load localhost or use browser tools on your own.

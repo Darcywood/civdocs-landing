@@ -89,4 +89,4 @@ Yes. For plant hire operators, CivDocs automates the full invoicing workflow —
 
 CivDocs integrates directly with Xero to automate invoicing and job cost tracking for civil contractors and plant hire operators. Try it free for 14 days — no credit card required.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)

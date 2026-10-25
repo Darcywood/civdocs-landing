@@ -120,6 +120,6 @@ CivDocs comes with standard civil cost codes — for example, 3100-L for rock in
 
 CivDocs gives civil contractors real-time visibility over labour, plant, and material costs — by scope, by job, by cost code — so you know exactly where you stand while work is still running.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 14 days free. No credit card required. Set up your first project in minutes.

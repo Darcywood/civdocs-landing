@@ -72,7 +72,7 @@ function SubHeading({ children }: { children: React.ReactNode }) {
 function TrialCta({ label = 'Start Free Trial' }: { label?: string }) {
   return (
     <Link
-      href="/start-trial"
+      href="/signup"
       className="inline-flex items-center justify-center px-6 py-3 bg-[#FF8C32] text-white font-semibold rounded-xl hover:bg-[#e67d2a] transition-colors text-sm sm:text-base"
     >
       {label}

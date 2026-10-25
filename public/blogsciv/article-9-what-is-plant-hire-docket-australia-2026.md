@@ -158,6 +158,6 @@ Yes. Approved logbook entries in CivDocs flow directly into plant hire billing. 
 
 CivDocs gives plant hire operators a digital logbook that captures every hour, every attachment, and every overtime entry — with automatic daily emails to the supervisor, engineer, and your office.
 
-[Start Your Free Trial →](https://www.civdocs.com.au/start-trial)
+[Start Your Free Trial →](https://www.civdocs.com.au/signup)
 
 14 days free. No credit card required. Set up your first plant hire job in minutes.

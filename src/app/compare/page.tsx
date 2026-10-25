@@ -97,7 +97,7 @@ export default function ComparePage() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
-                href="/start-trial"
+                href="/signup"
                 className="inline-flex items-center justify-center px-6 py-3 bg-[#FF8C32] text-white font-semibold rounded-xl hover:bg-[#e67d2a] transition-colors text-sm sm:text-base"
               >
                 Start Free Trial
@@ -235,7 +235,7 @@ export default function ComparePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/start-trial"
+                href="/signup"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#FF8C32] text-white font-bold rounded-xl hover:bg-[#e67d2a] transition-colors text-base"
               >
                 Start Free Trial
