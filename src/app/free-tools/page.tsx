@@ -4,9 +4,36 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Link from 'next/link';
 
+const toolListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'CivDocs free tools',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Free Machine Risk Assessment Generator',
+      url: 'https://www.civdocs.com.au/free-tools/risk-assessment',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Free Capability Statement Generator',
+      url: 'https://www.civdocs.com.au/capability-statement',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'CSV to KML Converter',
+      url: 'https://www.civdocs.com.au/free-tools/csv-to-kml',
+    },
+  ],
+};
+
 export default function FreeToolsPage() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(toolListSchema) }} />
       <Header />
       <div className="pt-20">
       {/* Hero Section */}
@@ -35,10 +62,25 @@ export default function FreeToolsPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight group-hover:text-[#FF8C32] transition-colors">
-                Machine Risk Assessment Generator
+                Free Machine Risk Assessment Generator
               </h3>
               <p className="text-gray-600 leading-relaxed">
                 Generate a compliant plant risk management report in 5 minutes. Covers graders, excavators, rollers, and posi tracks. Free PDF, no account required.
+              </p>
+            </Link>
+
+            {/* Capability Statement Generator */}
+            <Link href="/capability-statement" className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-0.5">
+              <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FF8C32] to-[#F5B041] rounded-xl mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3 tracking-tight group-hover:text-[#FF8C32] transition-colors">
+                Capability Statement Generator
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                Answer a few questions and get a tender-ready capability statement PDF for councils, builders, and head contractors.
               </p>
             </Link>
 

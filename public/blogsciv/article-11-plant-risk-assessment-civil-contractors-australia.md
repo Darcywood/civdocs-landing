@@ -174,7 +174,7 @@ No. Each risk assessment should be specific to the individual machine, covering 
 When you generate a plant risk assessment using the CivDocs free tool, CivDocs hosts the report and provides a unique QR code linked to that specific machine's assessment. Print the QR code and attach it to the machine. Anyone on site can scan it from their phone to access the full report instantly — no login required, no paperwork needed.
 
 **How much does a plant risk assessment cost in Australia?**
-WHS consultants typically charge $250 to $400 per machine. CivDocs generates and hosts a compliant plant risk assessment for free, including a QR code for on-machine access. The free tool is available at civdocs.com.au/free-tools/risk-assessment.
+WHS consultants typically charge $250 to $400 per machine. CivDocs generates and hosts a compliant plant risk assessment for free, including a QR code for on-machine access. Use the [free machine risk assessment generator](https://www.civdocs.com.au/free-tools/risk-assessment).
 
 **What machines does the CivDocs plant risk assessment generator cover?**
 The CivDocs generator covers common civil construction plant including excavators, graders, bulldozers, rollers, posi-tracks, skid steers, and articulated dump trucks.
@@ -185,6 +185,6 @@ The CivDocs generator covers common civil construction plant including excavator
 
 CivDocs generates a compliant 17–18 page plant risk assessment in five minutes — built to AS3450, ISO 31000, and AS/NZS 4024 — and hosts it with a QR code you can stick on the machine.
 
-[Build Your Risk Assessment →](https://www.civdocs.com.au/free-tools/risk-assessment/build)
+[Free machine risk assessment generator →](https://www.civdocs.com.au/free-tools/risk-assessment)
 
 No login. No consultant fees. Takes less than five minutes.

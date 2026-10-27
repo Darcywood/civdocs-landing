@@ -36,10 +36,64 @@ export const metadata: Metadata = {
   },
 };
 
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Free Machine Risk Assessment Generator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: PAGE_URL,
+  description:
+    'Free machine risk assessment generator for Australian civil contractors. Create a plant risk assessment PDF for excavators, graders, rollers, and posi tracks.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'AUD',
+  },
+  provider: {
+    '@type': 'Organization',
+    name: 'CivDocs',
+    url: 'https://www.civdocs.com.au',
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'CivDocs',
+      item: 'https://www.civdocs.com.au',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Free tools',
+      item: 'https://www.civdocs.com.au/free-tools',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Free Machine Risk Assessment Generator',
+      item: PAGE_URL,
+    },
+  ],
+};
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Is the CivDocs machine risk assessment generator free?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The CivDocs machine risk assessment generator is free. Answer a few questions about the machine and download a plant risk assessment PDF. There is no account and no charge for the report.',
+      },
+    },
     {
       '@type': 'Question',
       name: 'What is a machine risk assessment?',
@@ -112,6 +166,14 @@ const howToSchema = {
 export default function RiskAssessmentPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

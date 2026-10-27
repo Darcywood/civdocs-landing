@@ -1,21 +1,21 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'CivDocs Capability Statement — Civil Contractor Software',
+  title: 'Free Capability Statement Generator | CivDocs',
   description:
-    'Generate a professional capability statement for your civil contracting or plant hire business using CivDocs. Impress clients and head contractors.',
+    'Free capability statement generator for Australian civil contractors and plant hire. Create a tender-ready PDF in minutes.',
   alternates: { canonical: 'https://www.civdocs.com.au/capability-statement' },
   openGraph: {
-    title: 'CivDocs Capability Statement — Civil Contractor Software',
-    description: 'Generate a professional capability statement for your civil contracting business.',
+    title: 'Free Capability Statement Generator | CivDocs',
+    description: 'Free capability statement generator for Australian civil contractors and plant hire. Tender-ready PDF in minutes.',
     url: 'https://www.civdocs.com.au/capability-statement',
     type: 'website',
     siteName: 'CivDocs',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CivDocs Capability Statement',
-    description: 'Generate a professional capability statement for your civil contracting business.',
+    title: 'Free Capability Statement Generator | CivDocs',
+    description: 'Free capability statement generator for Australian civil contractors and plant hire.',
   },
 };
 

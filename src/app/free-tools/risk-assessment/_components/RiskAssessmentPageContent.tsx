@@ -298,6 +298,15 @@ export default function RiskAssessmentPageContent() {
           <div className="mx-auto w-full max-w-[1200px] space-y-14">
             <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
               <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
+                Is the CivDocs machine risk assessment generator free?
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Yes. The machine risk assessment generator is free. Answer a few questions about the machine and download a plant risk assessment PDF. There is no account and no charge for the report. It covers the plant you actually run — excavators, graders, rollers, and posi tracks — and the PDF is ready to hand to a principal contractor or safety auditor.
+              </p>
+            </div>
+
+            <div className="max-w-2xl lg:mx-auto lg:max-w-3xl">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-4">
                 What is a machine risk assessment?
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
