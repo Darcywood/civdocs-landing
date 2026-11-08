@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { generateTempPassword, sendTrialWelcomeEmail, sendAdminSignupNotification } from "@/lib/email";
@@ -558,6 +558,20 @@ export async function POST(req: Request) {
       // Don't fail the trial creation if admin notification fails
     }
 
+    if (orgId) {
+      queueTrialIntel({
+        organizationId: orgId,
+        name: full_name,
+        company,
+        email,
+        phone: phone || null,
+        companyType: company_type,
+        machines: attributionSnapshot.quiz_machines || null,
+        employees: attributionSnapshot.quiz_employees || null,
+        source: signup_acquisition_source,
+      });
+    }
+
     // ============================================================
     // STEP 8: GENERATE MAGIC LINK FOR AUTO-LOGIN
     // ============================================================
@@ -725,6 +739,43 @@ async function rollbackOnError(
 // ============================================================
 // HELPER: CORS HEADERS
 // ============================================================
+function queueTrialIntel(input: {
+  organizationId: string;
+  name: string;
+  company: string;
+  email: string;
+  phone: string | null;
+  companyType: string;
+  machines: string | null;
+  employees: string | null;
+  source: string;
+}) {
+  const secret = process.env.TRIAL_INTEL_SECRET?.trim();
+  const appUrl = (process.env.NEXT_PUBLIC_WEB_APP_URL || "https://app.civdocs.com.au").replace(/\/$/, "");
+  if (!secret) {
+    console.warn("[Trial Signup] Trial intel skipped: TRIAL_INTEL_SECRET is not set");
+    return;
+  }
+  after(async () => {
+    try {
+      const res = await fetch(`${appUrl}/api/internal/trial-intel`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${secret}`,
+        },
+        body: JSON.stringify(input),
+        signal: AbortSignal.timeout(70_000),
+      });
+      if (!res.ok) {
+        console.error("[Trial intel] lookup failed:", res.status, await res.text());
+      }
+    } catch (err) {
+      console.error("[Trial intel] background run failed:", err);
+    }
+  });
+}
+
 function getCorsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
