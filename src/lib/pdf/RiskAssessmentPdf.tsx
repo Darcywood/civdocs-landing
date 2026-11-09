@@ -6,6 +6,7 @@ import type {
   ExcavatorSpecs,
   PosiTrackSpecs,
   RollerSpecs,
+  TruckSpecs,
   Section2Answers,
   TreatmentEntry,
 } from '@/lib/risk-assessment/types';
@@ -13,6 +14,7 @@ import { GRADER_QUESTIONS } from '@/lib/risk-assessment/graderQuestions';
 import { EXCAVATOR_QUESTIONS } from '@/lib/risk-assessment/excavatorQuestions';
 import { POSI_TRACK_QUESTIONS } from '@/lib/risk-assessment/posiTrackQuestions';
 import { ROLLER_QUESTIONS } from '@/lib/risk-assessment/rollerQuestions';
+import { TRUCK_QUESTIONS } from '@/lib/risk-assessment/truckQuestions';
 
 // ─── Colour tokens ────────────────────────────────────────────────────────────
 
@@ -1120,7 +1122,7 @@ const RISK_LEVELS = [
 
 export interface RiskAssessmentPdfProps {
   basics: MachineBasics;
-  specs: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs;
+  specs: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | TruckSpecs;
   answers: Section2Answers;
   assessorNotes?: string;
   /** Base64 data URLs of uploaded machine images */
@@ -1155,13 +1157,16 @@ export default function RiskAssessmentPdf({
   const isExcavator = basics.machineType === 'Excavator';
   const isPosiTrack = basics.machineType === 'Posi Track';
   const isRoller = basics.machineType === 'Roller';
+  const isTruck = basics.machineType === 'Truck';
   const activeQuestions = isExcavator
     ? EXCAVATOR_QUESTIONS
     : isPosiTrack
       ? POSI_TRACK_QUESTIONS
       : isRoller
         ? ROLLER_QUESTIONS
-        : GRADER_QUESTIONS;
+        : isTruck
+          ? TRUCK_QUESTIONS
+          : GRADER_QUESTIONS;
 
   // Build treatment lists
   const inPlaceTreatments: TreatmentEntry[] = [];
@@ -1185,10 +1190,11 @@ export default function RiskAssessmentPdf({
   }, {} as Record<string, TreatmentEntry[]>);
 
   // Build extras list based on machine type
-  const graderSpecs = !isExcavator && !isPosiTrack && !isRoller ? (specs as GraderSpecs) : null;
+  const graderSpecs = !isExcavator && !isPosiTrack && !isRoller && !isTruck ? (specs as GraderSpecs) : null;
   const excavatorSpecs = isExcavator ? (specs as ExcavatorSpecs) : null;
   const posiTrackSpecs = isPosiTrack ? (specs as PosiTrackSpecs) : null;
   const rollerSpecs = isRoller ? (specs as RollerSpecs) : null;
+  const truckSpecs = isTruck ? (specs as TruckSpecs) : null;
 
   const extrasChecked = isExcavator
     ? [
@@ -1217,6 +1223,22 @@ export default function RiskAssessmentPdf({
             rollerSpecs?.extras_rops_cabin && 'ROPS – Cabin',
             rollerSpecs?.extras_rear_camera && 'Rear / 360° Camera',
             rollerSpecs?.extras_wheel_chocks && 'Wheel Chocks',
+          ].filter(Boolean) as string[]
+        : isTruck
+        ? [
+            truckSpecs?.extras_air_conditioning && 'Air conditioning',
+            truckSpecs?.extras_reversing_camera && 'Reversing camera',
+            truckSpecs?.extras_reversing_alarm && 'Reversing alarm',
+            truckSpecs?.extras_beacon && 'Amber beacon',
+            truckSpecs?.extras_uhf && 'UHF radio',
+            truckSpecs?.extras_wheel_chocks && 'Wheel chocks',
+            truckSpecs?.extras_tarp && 'Load tarp',
+            truckSpecs?.extras_scales && 'On-board scales',
+            truckSpecs?.extras_fire_extinguisher && 'Fire extinguisher',
+            truckSpecs?.extras_spill_kit && 'Spill kit',
+            truckSpecs?.extras_body_prop && 'Body prop / safety bar',
+            truckSpecs?.extras_rops_cabin && 'ROPS cabin',
+            truckSpecs?.extras_fops && 'FOPS',
           ].filter(Boolean) as string[]
         : [
         graderSpecs?.extras_air_conditioning && 'Air Conditioning',
@@ -1627,6 +1649,38 @@ export default function RiskAssessmentPdf({
                   ['ROPS Serial No.',     rollerSpecs.rops_serial],
                   ['FOPS Compliance No.', rollerSpecs.fops_compliance],
                   ['FOPS Serial No.',     rollerSpecs.fops_serial],
+                ]} />
+              </>)}
+
+              {isTruck && truckSpecs && (<>
+                <SpecGroup title="TRUCK" rows={[
+                  ['Setup', truckSpecs.truck_configuration],
+                  ['Axle configuration', truckSpecs.axle_configuration],
+                  ['Year', truckSpecs.plant_year],
+                ]} />
+                <SpecGroup title="MASS" rows={[
+                  ['GVM (kg)', truckSpecs.gvm_kg],
+                  ['GCM (kg)', truckSpecs.gcm_kg],
+                  ['Tare (kg)', truckSpecs.tare_kg],
+                  ['Payload (kg)', truckSpecs.payload_kg],
+                ]} />
+                <SpecGroup title="BODY" rows={[
+                  ['Body or tank capacity (m³)', truckSpecs.body_capacity_m3],
+                  ['Hoist type', truckSpecs.hoist_type],
+                  ['Raised body height (mm)', truckSpecs.raised_body_height_mm],
+                  ['Travel height (mm)', truckSpecs.travel_height_mm],
+                ]} />
+                <SpecGroup title="DIMENSIONS" rows={[
+                  ['Overall length (mm)', truckSpecs.overall_length_mm],
+                  ['Overall width (mm)', truckSpecs.overall_width_mm],
+                ]} />
+                <SpecGroup title="ENGINE" rows={[
+                  ['Engine make and model', truckSpecs.engine_make_model],
+                  ['Engine power', truckSpecs.engine_power],
+                  ['Hours or odometer', truckSpecs.engine_hours],
+                  ['Transmission', truckSpecs.transmission],
+                  ['Fuel tank capacity (L)', truckSpecs.fuel_capacity_l],
+                  ['Noise level dB(A)', truckSpecs.noise_mfr_dba],
                 ]} />
               </>)}
 

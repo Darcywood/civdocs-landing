@@ -11,6 +11,7 @@ import { GRADER_QUESTIONS } from '@/lib/risk-assessment/graderQuestions';
 import { EXCAVATOR_QUESTIONS } from '@/lib/risk-assessment/excavatorQuestions';
 import { POSI_TRACK_QUESTIONS } from '@/lib/risk-assessment/posiTrackQuestions';
 import { ROLLER_QUESTIONS } from '@/lib/risk-assessment/rollerQuestions';
+import { TRUCK_QUESTIONS } from '@/lib/risk-assessment/truckQuestions';
 import { uploadRiskAssessmentPdf, createSignedDownloadUrl } from '@/lib/risk-assessment/storage';
 import { sendRiskAssessmentEmail, sendRiskAssessmentNotification, sendRiskAssessmentFollowUpEmail, sendRiskAssessmentSecondNurtureEmail } from '@/lib/risk-assessment/email';
 import RiskAssessmentPdf from '@/lib/pdf/RiskAssessmentPdf';
@@ -117,13 +118,16 @@ export async function POST(req: Request) {
     const isExcavator = basics.machineType === 'Excavator';
     const isPosiTrack = basics.machineType === 'Posi Track';
     const isRoller = basics.machineType === 'Roller';
+    const isTruck = basics.machineType === 'Truck';
     const activeQuestions = isExcavator
       ? EXCAVATOR_QUESTIONS
       : isPosiTrack
         ? POSI_TRACK_QUESTIONS
         : isRoller
           ? ROLLER_QUESTIONS
-          : GRADER_QUESTIONS;
+          : isTruck
+            ? TRUCK_QUESTIONS
+            : GRADER_QUESTIONS;
     let treatmentsInPlace = 0;
     let treatmentsRequired = 0;
     activeQuestions.forEach((q) => {

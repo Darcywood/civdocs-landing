@@ -7,12 +7,14 @@ import type {
   ExcavatorSpecs,
   PosiTrackSpecs,
   RollerSpecs,
+  TruckSpecs,
   Section2Answers,
   RiskAssessmentLead,
 } from '@/lib/risk-assessment/types';
 import { EXCAVATOR_QUESTIONS, EXCAVATOR_SURVEY_GROUPS } from '@/lib/risk-assessment/excavatorQuestions';
 import { POSI_TRACK_QUESTIONS, POSI_TRACK_SURVEY_GROUPS } from '@/lib/risk-assessment/posiTrackQuestions';
 import { ROLLER_QUESTIONS, ROLLER_SURVEY_GROUPS } from '@/lib/risk-assessment/rollerQuestions';
+import { TRUCK_QUESTIONS, TRUCK_SURVEY_GROUPS } from '@/lib/risk-assessment/truckQuestions';
 import RiskAssessmentGenerationModal from './RiskAssessmentGenerationModal';
 import RiskAssessmentPdfViewerModal from './RiskAssessmentPdfViewerModal';
 import Step1Basics from './Step1Basics';
@@ -20,6 +22,7 @@ import Step2Specs from './Step2Specs';
 import Step2ExcavatorSpecs from './Step2ExcavatorSpecs';
 import Step2PosiTrackSpecs from './Step2PosiTrackSpecs';
 import Step2RollerSpecs from './Step2RollerSpecs';
+import Step2TruckSpecs from './Step2TruckSpecs';
 import Step3Questions from './Step3Questions';
 import Step4Lead from './Step4Lead';
 import { trackRiskAssessmentGenerated } from '@/lib/metaPixel';
@@ -29,7 +32,7 @@ const STORAGE_KEY = 'risk-assessment-draft';
 interface Draft {
   step: number;
   basics?: MachineBasics;
-  specs?: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs;
+  specs?: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | TruckSpecs;
   answers?: Section2Answers;
   lead?: Partial<RiskAssessmentLead>;
 }
@@ -48,7 +51,7 @@ const STEPS = [
 export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWizardProps = {}) {
   const [step, setStep] = useState(1);
   const [basics, setBasics] = useState<MachineBasics | null>(null);
-  const [specs, setSpecs] = useState<GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | null>(null);
+  const [specs, setSpecs] = useState<GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | TruckSpecs | null>(null);
   const [answers, setAnswers] = useState<Section2Answers>({});
   const [lead, setLead] = useState<Partial<RiskAssessmentLead>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -191,6 +194,7 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
       {step === 2 && basics?.machineType === 'Posi Track' && (
         <Step2PosiTrackSpecs
           initial={(specs as PosiTrackSpecs) ?? {}}
+          lookupQueryDefault={[basics.make, basics.model].filter(Boolean).join(' ')}
           onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
           onBack={() => { setStep(1); window.scrollTo(0, 0); }}
           onSpecsChange={(data) => setSpecs(data)}
@@ -204,7 +208,15 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
           onSpecsChange={(data) => setSpecs(data)}
         />
       )}
-      {step === 2 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && (
+      {step === 2 && basics?.machineType === 'Truck' && (
+        <Step2TruckSpecs
+          initial={(specs as TruckSpecs) ?? {}}
+          onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(1); window.scrollTo(0, 0); }}
+          onSpecsChange={(data) => setSpecs(data)}
+        />
+      )}
+      {step === 2 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && basics?.machineType !== 'Truck' && (
         <Step2Specs
           initial={(specs as GraderSpecs) ?? {}}
           onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
@@ -239,7 +251,16 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
           onBack={() => { setStep(2); window.scrollTo(0, 0); }}
         />
       )}
-      {step === 3 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && (
+      {step === 3 && basics?.machineType === 'Truck' && (
+        <Step3Questions
+          initial={answers}
+          questions={TRUCK_QUESTIONS}
+          surveyGroups={[...TRUCK_SURVEY_GROUPS]}
+          onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}
+          onBack={() => { setStep(2); window.scrollTo(0, 0); }}
+        />
+      )}
+      {step === 3 && basics?.machineType !== 'Excavator' && basics?.machineType !== 'Posi Track' && basics?.machineType !== 'Roller' && basics?.machineType !== 'Truck' && (
         <Step3Questions
           initial={answers}
           onSubmit={(data) => { setAnswers(data); setStep(4); window.scrollTo(0, 0); }}

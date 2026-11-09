@@ -13,7 +13,7 @@ const CONTRACTOR_LOGOS = [
 const BULLETS = [
   'Covers 70+ compliance checks',
   'Built to AS3450, ISO31000, AS/NZS4024',
-  'Works for Graders, Excavators, Posi Tracks & Rollers',
+  'Works for graders, excavators, posi tracks, rollers and trucks',
   'Generates a full 17–18 page structured PDF report',
 ];
 

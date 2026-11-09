@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { MachineBasics, OperatingContext, SiteType, SiteCondition } from '@/lib/risk-assessment/types';
 import { SITE_TYPES, SITE_CONDITIONS } from '@/lib/risk-assessment/types';
 
-const MACHINE_TYPES = ['Grader', 'Excavator', 'Posi Track', 'Roller'];
+const MACHINE_TYPES = ['Grader', 'Excavator', 'Posi Track', 'Roller', 'Truck'];
 const AU_STATES = ['VIC', 'NSW', 'QLD', 'WA', 'SA', 'TAS', 'NT', 'ACT'];
 
 function defaultOperatingContext(initial?: Partial<OperatingContext>): OperatingContext {
@@ -105,7 +105,7 @@ export default function Step1Basics({ onSubmit, initial }: Props) {
             <input className={input(errors.make)} value={form.make} onChange={(e) => set('make', e.target.value)} placeholder="e.g. Caterpillar" />
           </Field>
           <Field label="Model *" error={errors.model}>
-            <input className={input(errors.model)} value={form.model} onChange={(e) => set('model', e.target.value)} placeholder={form.machineType === 'Excavator' ? 'e.g. 320' : form.machineType === 'Posi Track' ? 'e.g. MT555' : form.machineType === 'Roller' ? 'e.g. DD-90' : 'e.g. 150'} />
+            <input className={input(errors.model)} value={form.model} onChange={(e) => set('model', e.target.value)} placeholder={form.machineType === 'Excavator' ? 'e.g. 320' : form.machineType === 'Posi Track' ? 'e.g. SVL75-3' : form.machineType === 'Roller' ? 'e.g. DD-90' : form.machineType === 'Truck' ? 'e.g. T410' : 'e.g. 150'} />
           </Field>
           <Field label="Machine Type *" error={errors.machineType}>
             <select className={input(errors.machineType)} value={form.machineType} onChange={(e) => set('machineType', e.target.value)}>

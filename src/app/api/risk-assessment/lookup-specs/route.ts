@@ -130,9 +130,14 @@ export async function POST(req: Request) {
     const openaiKey = process.env.OPENAI_API_KEY;
     const firecrawlKey = process.env.FIRECRAWL_API_KEY;
 
-    const query = machineDescription.trim();
     const isExcavator = machineType === 'Excavator';
     const isPosiTrack = machineType === 'Posi Track';
+    const rawQuery = machineDescription.trim();
+    // SVL compact track loaders are Kubota. "svl 75-3" and "svl75-3" should search the Kubota SVL75-3 spec sheet.
+    const query =
+      isPosiTrack && /\bsvl[\s-]*\d/i.test(rawQuery)
+        ? `Kubota ${rawQuery.replace(/^(kubota|takeuchi)\s+/i, '')}`
+        : rawQuery;
 
     // Extract year from query if present (e.g. "cat 320 2022" → "2022")
     const yearInQuery = extractYearFromQuery(query);
@@ -196,10 +201,11 @@ export async function POST(req: Request) {
             ]
           : isPosiTrack
             ? [
-                `"${query}" compact track loader specifications ROC breakout force`,
-                `"${query}" posi track loader specifications lift height dump reach`,
-                `"${query}" compact track loader engine hydraulic specifications`,
-                `"${query}" compact track loader spec sheet data sheet`,
+                `"${query}" compact track loader specifications ROC operating weight`,
+                `"${query}" posi track specifications lift height dump reach breakout`,
+                `"${query}" compact track loader engine hydraulic fuel specifications`,
+                `"${query}" spec sheet data sheet filetype:pdf`,
+                `"${query.replace(/\s+/g, '')}" Kubota specifications`,
               ]
             : [
                 `"${query}" specifications weight dimensions fuel capacity`,
@@ -288,7 +294,7 @@ EXTRACTION RULES:
 4. ${yearNote}
 5. engine_make_model MUST match the machine's manufacturer — never cross manufacturers.
 6. Return null only if genuinely not found — do not guess values not in the content.
-${isExcavator ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10). e.g. 35 MPa = 350 bar.' : isPosiTrack ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10).' : '7. blade_tilt format MUST be "X deg / Y deg" only.\n8. For body_type: if the machine is a motor grader and no explicit mention of rigid, return "Articulated".'}
+${isExcavator ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10). e.g. 35 MPa = 350 bar.' : isPosiTrack ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10).\n8. Kubota SVL models are Kubota compact track loaders, not Takeuchi. SVL75-3 is not SVL75-2 and not SVL97-2. Use only the exact model. The engine is a Kubota engine.\n9. Return every value as a string, including numbers.' : '7. blade_tilt format MUST be "X deg / Y deg" only.\n8. For body_type: if the machine is a motor grader and no explicit mention of rigid, return "Articulated".'}
 
 Return JSON matching exactly:
 ${activeSpecFields}`
@@ -296,7 +302,7 @@ ${activeSpecFields}`
 
 RULES:
 - MANUFACTURER FIDELITY: Komatsu machines use Komatsu engines, Cat machines use Cat engines, Bobcat use Kubota/Doosan engines. NEVER mix manufacturers.
-${isExcavator ? '- hydraulic_pressure_bar: convert MPa to bar (×10).' : isPosiTrack ? '- hydraulic_pressure_bar: convert MPa to bar (×10).' : '- body_type for motor graders is almost always "Articulated".\n- blade_tilt MUST be "X deg / Y deg" format.'}
+${isExcavator ? '- hydraulic_pressure_bar: convert MPa to bar (×10).' : isPosiTrack ? '- hydraulic_pressure_bar: convert MPa to bar (×10).\n- Kubota SVL75-3 is a Kubota compact track loader. Do not use Takeuchi specs. Do not substitute SVL75-2 or SVL97-2. The engine is a Kubota engine.\n- Return every value as a string.' : '- body_type for motor graders is almost always "Articulated".\n- blade_tilt MUST be "X deg / Y deg" format.'}
 - ${yearNote}
 - Return actual JSON null for uncertain fields.
 
@@ -346,8 +352,9 @@ Return JSON.`;
     for (const [k, v] of Object.entries(parsed)) {
       if (k.startsWith('_')) continue;
       if (v === null || v === undefined) continue;
-      if (typeof v !== 'string') continue;
-      const trimmed = v.trim();
+      const asString = typeof v === 'number' && Number.isFinite(v) ? String(v) : v;
+      if (typeof asString !== 'string') continue;
+      const trimmed = asString.trim();
       if (!trimmed || NULL_STRINGS.has(trimmed.toLowerCase())) continue;
       filled[k] = trimmed;
     }

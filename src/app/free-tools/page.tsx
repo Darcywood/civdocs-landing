@@ -65,7 +65,7 @@ export default function FreeToolsPage() {
                 Free Machine Risk Assessment Generator
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Generate a compliant plant risk management report in 5 minutes. Covers graders, excavators, rollers, and posi tracks. Free PDF, no account required.
+                Generate a compliant plant risk management report in 5 minutes. Covers graders, excavators, rollers, posi tracks and trucks. Free PDF, no account required.
               </p>
             </Link>
 

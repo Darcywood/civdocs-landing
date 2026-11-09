@@ -44,7 +44,7 @@ const appSchema = {
   operatingSystem: 'Web',
   url: PAGE_URL,
   description:
-    'Free machine risk assessment generator for Australian civil contractors. Create a plant risk assessment PDF for excavators, graders, rollers, and posi tracks.',
+    'Free machine risk assessment generator for Australian civil contractors. Create a plant risk assessment PDF for excavators, graders, rollers, posi tracks and trucks.',
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -99,7 +99,7 @@ const faqSchema = {
       name: 'What is a machine risk assessment?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'A machine risk assessment is a structured document that identifies hazards associated with operating a specific piece of plant, evaluates the level of risk, and sets out control measures to reduce that risk to an acceptable level. For civil contractors, this typically covers items like excavators, graders, rollers, and posi tracks. Principal contractors and safety auditors commonly request a plant risk assessment before a machine mobilises to site. CivDocs generates a full machine risk assessment template in minutes — hazard identification, risk matrix, control measures, and standards references included.',
+        text: 'A machine risk assessment is a structured document that identifies hazards associated with operating a specific piece of plant, evaluates the level of risk, and sets out control measures to reduce that risk to an acceptable level. For civil contractors, this typically covers items like excavators, graders, rollers, posi tracks and trucks. Principal contractors and safety auditors commonly request a plant risk assessment before a machine mobilises to site. CivDocs generates a full machine risk assessment template in minutes — hazard identification, risk matrix, control measures, and standards references included.',
       },
     },
     {

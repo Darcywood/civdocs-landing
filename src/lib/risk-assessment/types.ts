@@ -294,6 +294,53 @@ export interface PosiTrackSpecs {
   extras_wheel_chocks?: boolean;
 }
 
+// ---- Truck Specs (Step 2 — on-road trucks and articulated dump trucks) ----
+export const TRUCK_CONFIGURATIONS = [
+  'Rigid tipper',
+  'Truck and dog',
+  'Semi tipper',
+  'Water cart',
+  'Articulated dump truck',
+  'Service truck',
+] as const;
+
+export type TruckConfiguration = (typeof TRUCK_CONFIGURATIONS)[number];
+
+export interface TruckSpecs {
+  truck_configuration?: string;
+  axle_configuration?: string;
+  gvm_kg?: string;
+  gcm_kg?: string;
+  tare_kg?: string;
+  payload_kg?: string;
+  body_capacity_m3?: string;
+  hoist_type?: string;
+  raised_body_height_mm?: string;
+  travel_height_mm?: string;
+  overall_length_mm?: string;
+  overall_width_mm?: string;
+  noise_mfr_dba?: string;
+  engine_make_model?: string;
+  engine_power?: string;
+  engine_hours?: string;
+  transmission?: string;
+  fuel_capacity_l?: string;
+  plant_year?: string;
+  extras_air_conditioning?: boolean;
+  extras_reversing_camera?: boolean;
+  extras_reversing_alarm?: boolean;
+  extras_beacon?: boolean;
+  extras_uhf?: boolean;
+  extras_wheel_chocks?: boolean;
+  extras_tarp?: boolean;
+  extras_scales?: boolean;
+  extras_fire_extinguisher?: boolean;
+  extras_spill_kit?: boolean;
+  extras_rops_cabin?: boolean;
+  extras_fops?: boolean;
+  extras_body_prop?: boolean;
+}
+
 // ---- Roller Specs (Step 2 — Roller / Compaction Roller) ----
 export interface RollerSpecs {
   noise_mfr_dba?: string;
@@ -347,7 +394,7 @@ export interface RiskAssessmentLead {
 export interface RiskAssessmentPayload {
   submissionId?: string;
   basics: MachineBasics;
-  specs: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs;
+  specs: GraderSpecs | ExcavatorSpecs | PosiTrackSpecs | RollerSpecs | TruckSpecs;
   answers: Section2Answers;
   lead: RiskAssessmentLead;
   _gotcha?: string;

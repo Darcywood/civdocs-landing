@@ -5,6 +5,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { POSI_TRACK_SPEC_CATALOG } from './posi-track-specs-catalog';
 
 export interface PosiTrackSpecsRecord {
   id: string;
@@ -52,7 +53,21 @@ export function parseMakeModelFromQuery(query: string): { make: string; model: s
     bobcat: 'Bobcat',
     kubota: 'Kubota',
     deere: 'John Deere',
+    takeuchi: 'Takeuchi',
+    asv: 'ASV',
+    case: 'Case',
+    jcb: 'JCB',
+    yanmar: 'Yanmar',
+    mustang: 'Mustang',
+    gehl: 'Gehl',
+    wacker: 'Wacker Neuson',
   };
+
+  // SVL compact track loaders are Kubota (SVL75-2, SVL75-3, SVL97-2). Not Takeuchi.
+  if (/\bsvl[\s-]*\d/i.test(q)) {
+    const model = q.replace(/^(kubota|takeuchi)\s+/i, '').trim();
+    return { make: 'Kubota', model };
+  }
 
   const parts = q.split(' ');
   const first = parts[0]?.toLowerCase() ?? '';
@@ -90,7 +105,28 @@ export async function savePosiTrackSpecs(params: {
   return !error;
 }
 
+function compactModel(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/** Published spec sheets shipped with the app. Checked before the Supabase cache. */
+function lookupCatalogSpecs(query: string): PosiTrackSpecsRecord | null {
+  const q = compactModel(query);
+  if (q.length < 6) return null;
+  return (
+    POSI_TRACK_SPEC_CATALOG.find((record) =>
+      record.search_keys.some((key) => {
+        const compactKey = compactModel(key);
+        return compactKey.length >= 6 && q.includes(compactKey);
+      })
+    ) ?? null
+  );
+}
+
 export async function lookupPosiTrackSpecs(query: string): Promise<PosiTrackSpecsRecord | null> {
+  const catalogMatch = lookupCatalogSpecs(query);
+  if (catalogMatch) return catalogMatch;
+
   const supabase = getSupabase();
   if (!supabase) return null;
 

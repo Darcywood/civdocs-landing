@@ -60,6 +60,7 @@ const MODELS_TO_SEED = [
   // ── Kubota compact track loaders ──
   'Kubota SVL65-2',
   'Kubota SVL75-2',
+  'Kubota SVL75-3',
   'Kubota SVL90-2',
   'Kubota SVL95-2',
 

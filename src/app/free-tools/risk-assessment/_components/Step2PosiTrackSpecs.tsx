@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { PosiTrackSpecs } from '@/lib/risk-assessment/types';
 
 interface Props {
@@ -8,6 +8,8 @@ interface Props {
   onBack: () => void;
   initial?: Partial<PosiTrackSpecs>;
   onSpecsChange?: (specs: PosiTrackSpecs) => void;
+  /** Make and model from step 1, so Auto-fill can start from "Kubota SVL75-3". */
+  lookupQueryDefault?: string;
 }
 
 type SpecField = { key: keyof PosiTrackSpecs; label: string; placeholder?: string };
@@ -98,9 +100,17 @@ const EXTRAS: { key: keyof PosiTrackSpecs; label: string }[] = [
   { key: 'extras_wheel_chocks', label: 'Wheel Chocks' },
 ];
 
-export default function Step2PosiTrackSpecs({ onSubmit, onBack, initial, onSpecsChange }: Props) {
+type LookupState = 'idle' | 'loading' | 'done' | 'error';
+
+export default function Step2PosiTrackSpecs({ onSubmit, onBack, initial, onSpecsChange, lookupQueryDefault }: Props) {
   const [specs, setSpecs] = useState<PosiTrackSpecs>(initial as PosiTrackSpecs ?? {});
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  const [lookupQuery, setLookupQuery] = useState(lookupQueryDefault ?? '');
+  const [lookupState, setLookupState] = useState<LookupState>('idle');
+  const [filledCount, setFilledCount] = useState(0);
+  const [lookupError, setLookupError] = useState('');
+  const [lookupSource, setLookupSource] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function setField(key: keyof PosiTrackSpecs, value: string | boolean) {
     setSpecs((s) => ({ ...s, [key]: value }));
@@ -119,11 +129,115 @@ export default function Step2PosiTrackSpecs({ onSubmit, onBack, initial, onSpecs
     onSubmit(specs);
   }
 
+  function handleClearSpecs() {
+    setSpecs({});
+    setLookupState('idle');
+    setLookupError('');
+    setFilledCount(0);
+    setLookupSource('');
+    setOpenSections({});
+  }
+
+  async function handleLookup() {
+    if (!lookupQuery.trim()) {
+      inputRef.current?.focus();
+      return;
+    }
+    setLookupState('loading');
+    setLookupError('');
+    try {
+      const res = await fetch('/api/risk-assessment/lookup-specs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ machineDescription: lookupQuery, machineType: 'Posi Track' }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error ?? 'Lookup failed');
+      setSpecs(data.specs as PosiTrackSpecs);
+      setFilledCount(data.filledCount ?? 0);
+      setLookupSource(data.source ?? '');
+      setLookupState('done');
+      const allOpen: Record<string, boolean> = {};
+      SPEC_SECTIONS.forEach((s) => { allOpen[s.title] = true; });
+      allOpen['Extras Fitted'] = false;
+      setOpenSections(allOpen);
+    } catch (err) {
+      setLookupError(err instanceof Error ? err.message : 'Something went wrong');
+      setLookupState('error');
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-gray-900 mb-1">Section 1 — Standard Specs</h2>
-        <p className="text-sm text-gray-500">Enter the machine specifications. All fields are optional.</p>
+        <p className="text-sm text-gray-500">Enter the machine specifications, or auto-fill them. All fields are optional.</p>
+      </div>
+
+      <div className="rounded-xl border border-[#FF8C32]/30 bg-gradient-to-br from-[#FFF5ED] to-white p-4 space-y-3">
+        <div className="flex items-start gap-3">
+          <div className="mt-0.5 flex-shrink-0 w-8 h-8 rounded-full bg-[#FF8C32]/10 flex items-center justify-center text-[#FF8C32]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+              <path d="M10 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 1ZM5.05 3.05a.75.75 0 0 1 1.06 0l1.062 1.06A.75.75 0 1 1 6.11 5.173L5.05 4.11a.75.75 0 0 1 0-1.06ZM14.95 3.05a.75.75 0 0 1 0 1.06l-1.06 1.062a.75.75 0 0 1-1.062-1.061l1.061-1.06a.75.75 0 0 1 1.06 0ZM3 8.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 3 8.25ZM14.75 7.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1 0-1.5h1.5ZM5.05 13.45a.75.75 0 0 1 0-1.06l1.06-1.062a.75.75 0 0 1 1.061 1.062l-1.06 1.06a.75.75 0 0 1-1.061 0ZM13.89 12.388a.75.75 0 0 1 1.061 1.061l-1.06 1.06a.75.75 0 1 1-1.062-1.06l1.061-1.061ZM10 14a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 14ZM6.25 10a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0Z" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-800">Auto-fill specs with our Crank.ai</p>
+            <p className="text-xs text-gray-500 mt-0.5">Crank.ai will search for this posi track and fill in what it finds. An SVL75-3 is looked up as a Kubota. Review everything before proceeding.</p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <input
+            ref={inputRef}
+            type="text"
+            value={lookupQuery}
+            onChange={(e) => { setLookupQuery(e.target.value); setLookupState('idle'); }}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleLookup(); } }}
+            placeholder="e.g. Kubota SVL75-3"
+            className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] transition"
+            disabled={lookupState === 'loading'}
+          />
+          <button
+            type="button"
+            onClick={handleLookup}
+            disabled={lookupState === 'loading'}
+            className="rounded-lg bg-[#FF8C32] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#e07a20] transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2 whitespace-nowrap"
+          >
+            {lookupState === 'loading' ? (
+              <>
+                <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+                Looking up…
+              </>
+            ) : (
+              'Auto-fill'
+            )}
+          </button>
+        </div>
+        {lookupState === 'done' && (
+          <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2.5 space-y-1">
+            <div className="flex items-start justify-between gap-2">
+              <p className="text-xs font-medium text-green-800">
+                ✓ Found {filledCount} spec{filledCount !== 1 ? 's' : ''} — review carefully and correct anything that looks wrong.
+              </p>
+              <button type="button" onClick={handleClearSpecs} className="flex-shrink-0 text-xs text-gray-500 underline hover:text-gray-700 transition">
+                Clear & start over
+              </button>
+            </div>
+            {lookupSource && (
+              <p className="text-xs text-green-700">
+                <span className="font-medium">Source:</span> {lookupSource}
+              </p>
+            )}
+          </div>
+        )}
+        {lookupState === 'error' && (
+          <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+            {lookupError || 'Could not look up specs. Please fill in manually.'}
+          </p>
+        )}
       </div>
 
       {SPEC_SECTIONS.map((section) => (

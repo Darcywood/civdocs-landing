@@ -301,7 +301,7 @@ export default function RiskAssessmentPageContent() {
                 Is the CivDocs machine risk assessment generator free?
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Yes. The machine risk assessment generator is free. Answer a few questions about the machine and download a plant risk assessment PDF. There is no account and no charge for the report. It covers the plant you actually run — excavators, graders, rollers, and posi tracks — and the PDF is ready to hand to a principal contractor or safety auditor.
+                Yes. The machine risk assessment generator is free. Answer a few questions about the machine and download a plant risk assessment PDF. There is no account and no charge for the report. It covers the plant you actually run — excavators, graders, rollers, posi tracks and trucks — and the PDF is ready to hand to a principal contractor or safety auditor.
               </p>
             </div>
 
@@ -319,7 +319,7 @@ export default function RiskAssessmentPageContent() {
                 Do I need a risk assessment for every machine on site?
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                In practice, yes — each machine should have its own plant risk assessment. Hazards, operating conditions, and control measures differ between machine types and even between individual units in your fleet. A principal contractor or safety auditor will typically want to see a separate assessment per machine, not a generic document copied from a previous job. If you are running excavators, graders, rollers, and posi tracks across multiple sites, that can mean a significant compliance workload. CivDocs lets you generate a machine-specific, audit-ready plant risk assessment for each unit free of charge, so nothing gets missed when you mobilise.
+                In practice, yes — each machine should have its own plant risk assessment. Hazards, operating conditions, and control measures differ between machine types and even between individual units in your fleet. A principal contractor or safety auditor will typically want to see a separate assessment per machine, not a generic document copied from a previous job. If you are running excavators, graders, rollers, posi tracks and trucks across multiple sites, that can mean a significant compliance workload. CivDocs lets you generate a machine-specific, audit-ready plant risk assessment for each unit free of charge, so nothing gets missed when you mobilise.
               </p>
             </div>
 
