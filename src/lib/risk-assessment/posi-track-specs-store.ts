@@ -111,13 +111,20 @@ function compactModel(value: string): string {
 
 /** Published spec sheets shipped with the app. Checked before the Supabase cache. */
 function lookupCatalogSpecs(query: string): PosiTrackSpecsRecord | null {
-  const q = compactModel(query);
-  if (q.length < 6) return null;
+  const q = query.toLowerCase();
+  // "Kubota SVL-75", "SVL75" and "SVL 75" are the SVL75-3. SVL75-2 is a different machine.
+  if (/svl\s*-?\s*75\s*-?\s*2\b/.test(q)) return null;
+  if (/svl\s*-?\s*75(\s*-?\s*3)?\b/.test(q)) {
+    return POSI_TRACK_SPEC_CATALOG[0] ?? null;
+  }
+
+  const compactQuery = compactModel(query);
+  if (compactQuery.length < 6) return null;
   return (
     POSI_TRACK_SPEC_CATALOG.find((record) =>
       record.search_keys.some((key) => {
         const compactKey = compactModel(key);
-        return compactKey.length >= 6 && q.includes(compactKey);
+        return compactKey.length >= 6 && compactQuery.includes(compactKey);
       })
     ) ?? null
   );

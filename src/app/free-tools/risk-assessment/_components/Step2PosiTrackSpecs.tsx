@@ -153,6 +153,9 @@ export default function Step2PosiTrackSpecs({ onSubmit, onBack, initial, onSpecs
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error ?? 'Lookup failed');
+      if (!data.filledCount) {
+        throw new Error('No spec sheet found. Try Kubota SVL75-3 or Kubota SVL-75.');
+      }
       setSpecs(data.specs as PosiTrackSpecs);
       setFilledCount(data.filledCount ?? 0);
       setLookupSource(data.source ?? '');

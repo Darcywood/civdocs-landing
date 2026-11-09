@@ -16,7 +16,7 @@ export const POSI_TRACK_SPEC_CATALOG: PosiTrackSpecsRecord[] = [
     make: 'Kubota',
     model: 'SVL75-3',
     name: 'Kubota SVL75-3',
-    search_keys: ['svl75-3', 'svl 75-3', 'svl753', 'kubota svl75-3', 'kubota svl 75-3'],
+    search_keys: ['svl75-3', 'svl 75-3', 'svl-75', 'svl75', 'svl753', 'kubota svl75-3', 'kubota svl-75', 'kubota svl 75-3'],
     source: SVL75_3_SOURCE,
     specs: {
       plant_class: 'COMPACT TRACK LOADER',
