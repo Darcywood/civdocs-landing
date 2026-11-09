@@ -40,6 +40,13 @@ export default function Step3Questions({ onSubmit, onBack, initial, questions: q
     setAnswers((a) => ({ ...a, [id]: value }));
   }
 
+  function markAllYes() {
+    const allYes: Section2Answers = {};
+    activeQuestions.forEach((question) => { allYes[question.id] = 'yes'; });
+    setAnswers(allYes);
+    setShowUnanswered(false);
+  }
+
   function toggleGroup(group: string) {
     setOpenGroups((g) => ({ ...g, [group]: !g[group] }));
   }
@@ -142,12 +149,21 @@ export default function Step3Questions({ onSubmit, onBack, initial, questions: q
                         <p className="text-xs text-gray-400 mb-2 italic">{q.naCondition}</p>
                       )}
                       <div className="flex gap-2 mt-2">
-                        {ANSWER_OPTIONS.filter((o) => o.value !== 'na' || q.allowNA).map((opt) => (
+                        {ANSWER_OPTIONS.filter((o) => o.value !== 'na' || q.allowNA).map((opt) => {
+                          const marksAll = opt.value === 'yes' && q.shortLabel.startsWith("Manufacturer's operation handbook");
+                          return (
                           <button
                             key={opt.value}
                             type="button"
-                            onClick={() => setAnswer(q.id, opt.value)}
-                            className={`px-4 py-1.5 rounded-full border text-xs font-semibold transition ${
+                            title={marksAll ? 'Triple-click to mark every question Yes' : undefined}
+                            onClick={(e) => {
+                              if (marksAll && e.detail === 3) {
+                                markAllYes();
+                                return;
+                              }
+                              setAnswer(q.id, opt.value);
+                            }}
+                            className={`px-4 py-1.5 rounded-full border text-xs font-semibold transition select-none ${
                               current === opt.value
                                 ? ACTIVE_CLASSES[opt.value as NonNullable<QuestionAnswer>]
                                 : opt.color
@@ -155,7 +171,8 @@ export default function Step3Questions({ onSubmit, onBack, initial, questions: q
                           >
                             {opt.label}
                           </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   );
