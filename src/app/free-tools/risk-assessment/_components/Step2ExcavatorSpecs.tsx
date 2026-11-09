@@ -8,6 +8,7 @@ interface Props {
   onBack: () => void;
   initial?: Partial<ExcavatorSpecs>;
   onSpecsChange?: (specs: ExcavatorSpecs) => void;
+  lookupQueryDefault?: string;
 }
 
 type SpecField = { key: keyof ExcavatorSpecs; label: string; placeholder?: string };
@@ -110,11 +111,11 @@ const EXTRAS: { key: keyof ExcavatorSpecs; label: string }[] = [
 
 type LookupState = 'idle' | 'loading' | 'done' | 'error';
 
-export default function Step2ExcavatorSpecs({ onSubmit, onBack, initial, onSpecsChange }: Props) {
+export default function Step2ExcavatorSpecs({ onSubmit, onBack, initial, onSpecsChange, lookupQueryDefault }: Props) {
   const [specs, setSpecs] = useState<ExcavatorSpecs>(initial as ExcavatorSpecs ?? {});
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
-  const [lookupQuery, setLookupQuery] = useState('');
+  const [lookupQuery, setLookupQuery] = useState(lookupQueryDefault ?? '');
   const [lookupState, setLookupState] = useState<LookupState>('idle');
   const [filledCount, setFilledCount] = useState(0);
   const [lookupError, setLookupError] = useState('');
@@ -202,7 +203,7 @@ export default function Step2ExcavatorSpecs({ onSubmit, onBack, initial, onSpecs
             value={lookupQuery}
             onChange={(e) => { setLookupQuery(e.target.value); setLookupState('idle'); }}
             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleLookup(); } }}
-            placeholder="e.g. Caterpillar 320 Excavator 2022"
+            placeholder="e.g. Hitachi 5.5t or ZX55U-6"
             className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] transition"
             disabled={lookupState === 'loading'}
           />

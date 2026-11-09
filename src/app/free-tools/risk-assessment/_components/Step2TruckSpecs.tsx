@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { TruckSpecs } from '@/lib/risk-assessment/types';
 import { TRUCK_CONFIGURATIONS } from '@/lib/risk-assessment/types';
 
@@ -9,6 +9,7 @@ interface Props {
   onBack: () => void;
   initial?: Partial<TruckSpecs>;
   onSpecsChange?: (specs: TruckSpecs) => void;
+  lookupQueryDefault?: string;
 }
 
 type SpecField = { key: keyof TruckSpecs; label: string; placeholder?: string };
@@ -75,9 +76,17 @@ const EXTRAS: { key: keyof TruckSpecs; label: string }[] = [
   { key: 'extras_fops', label: 'FOPS' },
 ];
 
-export default function Step2TruckSpecs({ onSubmit, onBack, initial, onSpecsChange }: Props) {
+type LookupState = 'idle' | 'loading' | 'done' | 'error';
+
+export default function Step2TruckSpecs({ onSubmit, onBack, initial, onSpecsChange, lookupQueryDefault }: Props) {
   const [specs, setSpecs] = useState<TruckSpecs>(initial as TruckSpecs ?? {});
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({ Mass: true, Body: true });
+  const [lookupQuery, setLookupQuery] = useState(lookupQueryDefault ?? '');
+  const [lookupState, setLookupState] = useState<LookupState>('idle');
+  const [filledCount, setFilledCount] = useState(0);
+  const [lookupError, setLookupError] = useState('');
+  const [lookupSource, setLookupSource] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function setField(key: keyof TruckSpecs, value: string | boolean) {
     setSpecs((s) => ({ ...s, [key]: value }));
@@ -96,6 +105,32 @@ export default function Step2TruckSpecs({ onSubmit, onBack, initial, onSpecsChan
     onSubmit(specs);
   }
 
+  async function handleLookup() {
+    if (!lookupQuery.trim()) {
+      inputRef.current?.focus();
+      return;
+    }
+    setLookupState('loading');
+    setLookupError('');
+    try {
+      const res = await fetch('/api/risk-assessment/lookup-specs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ machineDescription: lookupQuery, machineType: 'Truck' }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error ?? 'Lookup failed');
+      setSpecs((current) => ({ ...current, ...(data.specs as TruckSpecs) }));
+      setFilledCount(data.filledCount ?? 0);
+      setLookupSource(data.source ?? '');
+      setLookupState('done');
+      setOpenSections({ Mass: true, Body: true, Dimensions: true, Engine: true, Plant: true });
+    } catch (err) {
+      setLookupError(err instanceof Error ? err.message : 'Something went wrong');
+      setLookupState('error');
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
@@ -103,6 +138,43 @@ export default function Step2TruckSpecs({ onSubmit, onBack, initial, onSpecsChan
         <p className="text-sm text-gray-500">
           Pick the setup first. Tipper questions can be marked N/A on a water cart or service truck, and trailer questions can be marked N/A if nothing is towed. All measurements are optional.
         </p>
+      </div>
+
+      <div className="rounded-xl border border-[#FF8C32]/30 bg-gradient-to-br from-[#FFF5ED] to-white p-4 space-y-3">
+        <div>
+          <p className="text-sm font-semibold text-gray-800">Auto-fill specs with our Crank.ai</p>
+          <p className="text-xs text-gray-500 mt-0.5">A Mack search uses the Granite chassis sheet. Body size and raised height still have to be entered for the actual body. Review everything before proceeding.</p>
+        </div>
+        <div className="flex gap-2">
+          <input
+            ref={inputRef}
+            type="text"
+            value={lookupQuery}
+            onChange={(e) => { setLookupQuery(e.target.value); setLookupState('idle'); }}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleLookup(); } }}
+            placeholder="e.g. Mack Granite"
+            className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] transition"
+            disabled={lookupState === 'loading'}
+          />
+          <button
+            type="button"
+            onClick={handleLookup}
+            disabled={lookupState === 'loading'}
+            className="rounded-lg bg-[#FF8C32] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#e07a20] transition disabled:opacity-60 whitespace-nowrap"
+          >
+            {lookupState === 'loading' ? 'Looking up…' : 'Auto-fill'}
+          </button>
+        </div>
+        {lookupState === 'done' && (
+          <p className="text-xs font-medium text-green-800 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            Found {filledCount} spec{filledCount !== 1 ? 's' : ''}. {lookupSource ? `Source: ${lookupSource}.` : ''} Check the plated weights on the truck.
+          </p>
+        )}
+        {lookupState === 'error' && (
+          <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+            {lookupError || 'Could not look up specs. Please fill in manually.'}
+          </p>
+        )}
       </div>
 
       <div className="border border-gray-200 rounded-xl p-5">

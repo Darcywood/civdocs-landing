@@ -90,6 +90,7 @@ const MODELS_TO_SEED = [
   'Hitachi ZX26U',
   'Hitachi ZX35U',
   'Hitachi ZX55U',
+  'Hitachi ZX55U-6',
   'Hitachi ZX85US',
   'Hitachi ZX135US',
   'Hitachi ZX180',

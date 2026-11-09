@@ -17,6 +17,7 @@ import {
   savePosiTrackSpecs,
   parseMakeModelFromQuery as parsePosiTrackMakeModel,
 } from '@/lib/risk-assessment/posi-track-specs-store';
+import { lookupTruckCatalog } from '@/lib/risk-assessment/truck-specs-catalog';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -120,6 +121,21 @@ const POSI_TRACK_SPEC_FIELDS = `{
   "plant_year": "string | null — ONLY set if year was in the search query."
 }`;
 
+const TRUCK_SPEC_FIELDS = `{
+  "_source": "string | null — page titles or URLs used",
+  "truck_configuration": "string | null — rigid tipper, truck and dog, semi tipper, water cart, articulated dump truck, or service truck",
+  "axle_configuration": "string | null — e.g. '6x4' or '8x4'",
+  "gvm_kg": "string | null — gross vehicle mass in kg. Use the published figure for this exact model.",
+  "gcm_kg": "string | null — gross combination mass in kg, only if published",
+  "tare_kg": "string | null — tare in kg, only if published",
+  "payload_kg": "string | null — payload in kg, only if published",
+  "engine_make_model": "string | null — engine brand and model",
+  "engine_power": "string | null — power e.g. '373 kW (500 hp)'",
+  "transmission": "string | null — transmission",
+  "fuel_capacity_l": "string | null — fuel capacity in litres, only if published",
+  "plant_year": "string | null — ONLY set if year was in the search query."
+}`;
+
 export async function POST(req: Request) {
   try {
     const { machineDescription, machineType } = await req.json();
@@ -132,6 +148,7 @@ export async function POST(req: Request) {
 
     const isExcavator = machineType === 'Excavator';
     const isPosiTrack = machineType === 'Posi Track';
+    const isTruck = machineType === 'Truck';
     const rawQuery = machineDescription.trim();
     // SVL compact track loaders are Kubota. "svl 75-3" and "svl75-3" should search the Kubota SVL75-3 spec sheet.
     const query =
@@ -156,6 +173,19 @@ export async function POST(req: Request) {
           webSearchUsed: false,
         });
       }
+    } else if (isTruck) {
+      const sheet = lookupTruckCatalog(query);
+      if (sheet && Object.keys(sheet.specs).length > 0) {
+        const specs = { ...sheet.specs };
+        if (yearInQuery) specs.plant_year = yearInQuery;
+        return NextResponse.json({
+          ok: true,
+          specs,
+          filledCount: Object.keys(specs).length,
+          source: sheet.source ?? 'CivDocs truck spec sheet',
+          webSearchUsed: false,
+        });
+      }
     } else if (isPosiTrack) {
       const dbMatch = await lookupPosiTrackSpecs(query);
       if (dbMatch && Object.keys(dbMatch.specs).length > 0) {
@@ -169,7 +199,7 @@ export async function POST(req: Request) {
           webSearchUsed: false,
         });
       }
-    } else {
+    } else if (!isTruck) {
       const dbMatch = await lookupGraderSpecs(query);
       if (dbMatch && Object.keys(dbMatch.specs).length > 0) {
         const specs = { ...dbMatch.specs };
@@ -206,6 +236,12 @@ export async function POST(req: Request) {
                 `"${query}" compact track loader engine hydraulic fuel specifications`,
                 `"${query}" spec sheet data sheet filetype:pdf`,
                 `"${query.replace(/\s+/g, '')}" Kubota specifications`,
+              ]
+            : isTruck
+            ? [
+                `"${query}" specifications GVM GCM engine`,
+                `"${query}" axle configuration transmission fuel capacity`,
+                `"${query}" spec sheet data sheet filetype:pdf`,
               ]
             : [
                 `"${query}" specifications weight dimensions fuel capacity`,
@@ -280,9 +316,11 @@ export async function POST(req: Request) {
       ? EXCAVATOR_SPEC_FIELDS
       : isPosiTrack
         ? POSI_TRACK_SPEC_FIELDS
-        : SPEC_FIELDS;
+        : isTruck
+          ? TRUCK_SPEC_FIELDS
+          : SPEC_FIELDS;
 
-    const machineLabel = isExcavator ? 'excavator' : isPosiTrack ? 'compact track loader / posi track' : 'motor grader';
+    const machineLabel = isExcavator ? 'excavator' : isPosiTrack ? 'compact track loader / posi track' : isTruck ? 'truck' : 'motor grader';
 
     const systemPrompt = webContext
       ? `You are a technical specifications expert for heavy earthmoving equipment. Extract ALL available specifications for the described ${machineLabel} from the web content below.
@@ -294,7 +332,7 @@ EXTRACTION RULES:
 4. ${yearNote}
 5. engine_make_model MUST match the machine's manufacturer — never cross manufacturers.
 6. Return null only if genuinely not found — do not guess values not in the content.
-${isExcavator ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10). e.g. 35 MPa = 350 bar.' : isPosiTrack ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10).\n8. Kubota SVL models are Kubota compact track loaders, not Takeuchi. SVL75-3 is not SVL75-2 and not SVL97-2. Use only the exact model. The engine is a Kubota engine.\n9. Return every value as a string, including numbers.' : '7. blade_tilt format MUST be "X deg / Y deg" only.\n8. For body_type: if the machine is a motor grader and no explicit mention of rigid, return "Articulated".'}
+${isTruck ? '7. Do not invent tipper body capacity, hoist type or raised-body height. Those depend on the body builder. Return every value as a string.' : isExcavator ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10). e.g. 35 MPa = 350 bar.' : isPosiTrack ? '7. For hydraulic_pressure_bar: convert MPa to bar (×10).\n8. Kubota SVL models are Kubota compact track loaders, not Takeuchi. SVL75-3 is not SVL75-2 and not SVL97-2. Use only the exact model. The engine is a Kubota engine.\n9. Return every value as a string, including numbers.' : '7. blade_tilt format MUST be "X deg / Y deg" only.\n8. For body_type: if the machine is a motor grader and no explicit mention of rigid, return "Articulated".'}
 
 Return JSON matching exactly:
 ${activeSpecFields}`
@@ -302,7 +340,7 @@ ${activeSpecFields}`
 
 RULES:
 - MANUFACTURER FIDELITY: Komatsu machines use Komatsu engines, Cat machines use Cat engines, Bobcat use Kubota/Doosan engines. NEVER mix manufacturers.
-${isExcavator ? '- hydraulic_pressure_bar: convert MPa to bar (×10).' : isPosiTrack ? '- hydraulic_pressure_bar: convert MPa to bar (×10).\n- Kubota SVL75-3 is a Kubota compact track loader. Do not use Takeuchi specs. Do not substitute SVL75-2 or SVL97-2. The engine is a Kubota engine.\n- Return every value as a string.' : '- body_type for motor graders is almost always "Articulated".\n- blade_tilt MUST be "X deg / Y deg" format.'}
+${isTruck ? '- Do not invent tipper body capacity, hoist type or raised-body height.\n- Return every value as a string.' : isExcavator ? '- hydraulic_pressure_bar: convert MPa to bar (×10).' : isPosiTrack ? '- hydraulic_pressure_bar: convert MPa to bar (×10).\n- Kubota SVL75-3 is a Kubota compact track loader. Do not use Takeuchi specs. Do not substitute SVL75-2 or SVL97-2. The engine is a Kubota engine.\n- Return every value as a string.' : '- body_type for motor graders is almost always "Articulated".\n- blade_tilt MUST be "X deg / Y deg" format.'}
 - ${yearNote}
 - Return actual JSON null for uncertain fields.
 
@@ -396,7 +434,7 @@ Return JSON.`;
           source: sourceText || undefined,
         }).catch(() => {});
       }
-    } else {
+    } else if (!isTruck) {
       const parsedMakeModel = parseMakeModelFromQuery(query);
       if (parsedMakeModel && Object.keys(filled).length > 0) {
         const q = query.replace(/\b(19|20)\d{2}\b/g, '').trim().toLowerCase();

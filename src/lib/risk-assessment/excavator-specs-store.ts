@@ -5,6 +5,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import { lookupExcavatorCatalog } from './excavator-specs-catalog';
 
 export interface ExcavatorSpecsRecord {
   id: string;
@@ -93,6 +94,9 @@ export async function saveExcavatorSpecs(params: {
 }
 
 export async function lookupExcavatorSpecs(query: string): Promise<ExcavatorSpecsRecord | null> {
+  const catalogMatch = lookupExcavatorCatalog(query);
+  if (catalogMatch) return catalogMatch;
+
   const supabase = getSupabase();
   if (!supabase) return null;
 

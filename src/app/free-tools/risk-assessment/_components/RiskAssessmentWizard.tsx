@@ -186,6 +186,7 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
       {step === 2 && basics?.machineType === 'Excavator' && (
         <Step2ExcavatorSpecs
           initial={(specs as ExcavatorSpecs) ?? {}}
+          lookupQueryDefault={[basics.make, basics.model].filter(Boolean).join(' ')}
           onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
           onBack={() => { setStep(1); window.scrollTo(0, 0); }}
           onSpecsChange={(data) => setSpecs(data)}
@@ -211,6 +212,7 @@ export default function RiskAssessmentWizard({ onStepChange }: RiskAssessmentWiz
       {step === 2 && basics?.machineType === 'Truck' && (
         <Step2TruckSpecs
           initial={(specs as TruckSpecs) ?? {}}
+          lookupQueryDefault={[basics.make, basics.model].filter(Boolean).join(' ')}
           onSubmit={(data) => { setSpecs(data); setStep(3); window.scrollTo(0, 0); }}
           onBack={() => { setStep(1); window.scrollTo(0, 0); }}
           onSpecsChange={(data) => setSpecs(data)}
