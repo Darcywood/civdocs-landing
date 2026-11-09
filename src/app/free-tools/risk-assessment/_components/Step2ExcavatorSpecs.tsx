@@ -203,7 +203,7 @@ export default function Step2ExcavatorSpecs({ onSubmit, onBack, initial, onSpecs
             value={lookupQuery}
             onChange={(e) => { setLookupQuery(e.target.value); setLookupState('idle'); }}
             onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleLookup(); } }}
-            placeholder="e.g. Hitachi 5.5t or ZX55U-6"
+            placeholder="e.g. Hitachi ZU55-5A or ZX55U-6"
             className="flex-1 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8C32] transition"
             disabled={lookupState === 'loading'}
           />
