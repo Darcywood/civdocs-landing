@@ -38,6 +38,8 @@ CivDocs is used by civil contractors, earthworks businesses, and plant hire oper
 
 I'm still based in Victoria, still talking to contractors regularly, and still building based on how civil work actually runs — not how someone in an office assumed it does.
 
+Outside CivDocs I also run CivLeads and I'm building Rollout, a peer-to-peer plant hire marketplace. [More about me and what I've built →](https://www.civdocs.com.au/darcy-wood)
+
 If you're running a civil or plant hire business and the admin side is still a mess — give it a try. 14 days free, no credit card.
 
 [Start Your Free Trial →](https://www.civdocs.com.au/signup)

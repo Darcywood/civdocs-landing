@@ -1,4 +1,5 @@
 import type { ComparisonData } from '@/data/comparisons/types';
+import { CIVDOCS_SAME_AS, FOUNDER_ID } from '@/lib/founder';
 
 interface JsonLdProps {
   data: ComparisonData;
@@ -15,12 +16,8 @@ export function buildComparisonJsonLd({ data, pageUrl }: JsonLdProps): string {
       logo: 'https://www.civdocs.com.au/icon.svg',
       description:
         'Australian all-in-one SaaS platform for civil contractors and plant hire companies — timesheets, pre-starts, plant hire logbooks, invoicing, job costing, scheduling, and Xero/MYOB integrations.',
-      sameAs: [
-        'https://www.facebook.com/civdocs',
-        'https://www.linkedin.com/company/civdocs',
-        'https://apps.apple.com/au/app/civ-docs/id6756803850',
-        'https://play.google.com/store/apps/details?id=com.civdocs.app',
-      ],
+      sameAs: CIVDOCS_SAME_AS,
+      founder: { '@id': FOUNDER_ID },
       knowsAbout: [
         'civil construction management software',
         'plant hire logbooks',

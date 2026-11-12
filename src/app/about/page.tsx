@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { FOUNDER_HEADSHOT, FOUNDER_ID, FOUNDER_LINKS, founderGraph } from '@/lib/founder';
 
 const SITE = 'https://www.civdocs.com.au';
 
 export const metadata: Metadata = {
   title: 'About | CivDocs — Civil Construction Management Software',
   description:
-    'Darcy Wood founded CivDocs after years in civil construction and earthmoving in Victoria — software built for Australian contractors, not generic builders.',
+    'Darcy Wood, a former grader operator from the Yarra Valley, founded CivDocs: software built for Australian civil contractors, not generic builders.',
   alternates: { canonical: `${SITE}/about` },
   openGraph: {
     title: 'About | CivDocs — Civil Construction Management Software',
@@ -31,40 +33,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Person',
-      '@id': `${SITE}/about#darcy-wood`,
-      name: 'Darcy Wood',
-      jobTitle: 'Founder',
-      description:
-        'Founder of CivDocs, civil construction management software built for Australian contractors, with hands-on experience in civil construction and earthmoving in Victoria.',
-      url: `${SITE}/about`,
-      sameAs: [
-        'https://www.linkedin.com/in/-darcywood',
-        'https://www.civdocs.com.au',
-      ],
-      email: 'darcy@civdocs.com.au',
-      address: {
-        '@type': 'PostalAddress',
-        addressRegion: 'Victoria',
-        addressCountry: 'AU',
-      },
-      worksFor: {
-        '@type': 'Organization',
-        '@id': `${SITE}/#organization`,
-        name: 'CivDocs',
-        url: SITE,
-      },
-      knowsAbout: [
-        'Civil construction',
-        'Earthmoving',
-        'Plant hire',
-        'Construction management software',
-        'Timesheet management',
-        'Pre-start checklists',
-        'Job cost tracking',
-      ],
-    },
+    ...founderGraph(),
     {
       '@type': 'AboutPage',
       '@id': `${SITE}/about`,
@@ -72,7 +41,7 @@ const jsonLd = {
       name: 'About CivDocs',
       description:
         'Learn about CivDocs — purpose-built civil construction management software built in Victoria from hands-on site experience.',
-      mainEntity: { '@id': `${SITE}/about#darcy-wood` },
+      mainEntity: { '@id': FOUNDER_ID },
       isPartOf: { '@type': 'WebSite', url: SITE },
     },
   ],
@@ -118,31 +87,41 @@ export default function AboutPage() {
         </section>
 
         {/* About the Founder */}
-        <section className="py-20 sm:py-28 bg-white" itemScope itemType="https://schema.org/Person">
-          <meta itemProp="name" content="Darcy Wood" />
-          <meta itemProp="jobTitle" content="Founder, CivDocs" />
-          <meta itemProp="url" content={`${SITE}/about`} />
+        <section className="py-20 sm:py-28 bg-white">
           <div className="max-w-3xl mx-auto px-6 lg:px-8">
             <div className="mb-2">
               <span className="text-sm font-semibold text-[#F97316] uppercase tracking-widest">Founder</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-8">
-              Darcy Wood
-            </h2>
-            <div className="space-y-5 text-[17px] text-gray-700 leading-relaxed" itemProp="description">
+            <div className="flex items-center gap-5 mb-8">
+              <div className="relative h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-full shadow-md">
+                <Image src={FOUNDER_HEADSHOT} alt="Darcy Wood" fill sizes="96px" className="object-cover" />
+              </div>
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+                  <Link href="/darcy-wood" className="hover:text-[#F97316] transition-colors">Darcy Wood</Link>
+                </h2>
+                <p className="mt-1 text-gray-600">Founder of CivDocs, CivLeads and Rollout</p>
+              </div>
+            </div>
+            <div className="space-y-5 text-[17px] text-gray-700 leading-relaxed">
               <p>
-                After working in civil construction and earthmoving in Victoria, he founded CivDocs. Having seen first-hand how contractors were managing compliance, site documentation, and plant operations across spreadsheets, paper forms, and disconnected tools, he set out to build something better.
+                Darcy grew up in the Yarra Valley and went straight from Eltham High School onto civil sites, working from labourer to final-trim grader operator at Diamond Valley Excavations, Wamarra and Symal Group. Having seen first-hand how contractors were managing compliance, site documentation and plant across spreadsheets, paper forms and disconnected tools, he founded CivDocs in 2025 to build something better.
               </p>
               <p>
-                Based in Victoria, he combines hands-on industry knowledge with software development to build tools that work the way contractors think — not the other way around.
+                He also runs CivLeads, a marketing and lead generation business, and is building Rollout, a peer-to-peer plant hire marketplace.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/darcy-wood"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#F97316] hover:underline"
+              >
+                More about Darcy Wood →
+              </Link>
               <a
-                href="https://www.linkedin.com/in/-darcywood"
+                href={FOUNDER_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                itemProp="sameAs"
                 className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#F97316] transition-colors"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -151,8 +130,20 @@ export default function AboutPage() {
                 LinkedIn
               </a>
               <a
+                href={FOUNDER_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#F97316] transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24" aria-hidden>
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                Instagram
+              </a>
+              <a
                 href="mailto:darcy@civdocs.com.au"
-                itemProp="email"
                 className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#F97316] transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>

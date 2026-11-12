@@ -10,6 +10,7 @@ import HeroTestimonialList from '@/components/marketing/HeroTestimonialList';
 import HeroProofSection from '@/components/marketing/HeroProofSection';
 import HeroStackedTestimonials from '@/components/marketing/HeroStackedTestimonials';
 import HeroViewModeCards from '@/components/marketing/HeroViewModeCards';
+import { CIVDOCS_SAME_AS, FOUNDER_ID, FOUNDER_PAGE_URL } from '@/lib/founder';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
@@ -42,7 +43,14 @@ export default function Home() {
       "width": 1000,
       "height": 400,
     },
-    "sameAs": [],
+    "sameAs": CIVDOCS_SAME_AS,
+    "foundingDate": "2025",
+    "founder": {
+      "@type": "Person",
+      "@id": FOUNDER_ID,
+      "name": "Darcy Wood",
+      "url": FOUNDER_PAGE_URL,
+    },
   };
 
   const brandSchema = {

@@ -170,6 +170,12 @@ export default function Footer() {
               <a href="/about" className="text-gray-400 hover:text-[#FF8C32] transition-colors">
                 About
               </a>
+              <span className="mx-2 text-gray-300" aria-hidden>
+                ·
+              </span>
+              <a href="/darcy-wood" className="text-gray-400 hover:text-[#FF8C32] transition-colors">
+                Founder
+              </a>
             </p>
           </div>
         </div>

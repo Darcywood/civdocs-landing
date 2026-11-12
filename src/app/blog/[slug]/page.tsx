@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BlogMarkdown } from '@/components/blog/BlogMarkdown';
 import { getAllSlugs, getPostBySlug, stripMarkdownTitle } from '@/lib/blog';
+import { FOUNDER_HEADSHOT, FOUNDER_ID, FOUNDER_LINKS, FOUNDER_PAGE_URL } from '@/lib/founder';
 
 const SITE = 'https://www.civdocs.com.au';
 
@@ -56,7 +57,17 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.description,
     url,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    author: { '@type': 'Organization', name: 'CivDocs' },
+    author:
+      slug === 'why-i-built-civdocs'
+        ? {
+            '@type': 'Person',
+            '@id': FOUNDER_ID,
+            name: 'Darcy Wood',
+            url: FOUNDER_PAGE_URL,
+            image: `${SITE}${FOUNDER_HEADSHOT}`,
+            sameAs: [FOUNDER_LINKS.linkedin, FOUNDER_LINKS.instagram],
+          }
+        : { '@type': 'Organization', name: 'CivDocs' },
     publisher: {
       '@type': 'Organization',
       name: 'CivDocs',
